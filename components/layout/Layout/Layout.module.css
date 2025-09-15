@@ -1,0 +1,27 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure content doesn't hide behind sticky header */
+.main {
+  scroll-behavior: smooth;
+}
+
+/* Add padding if you need space from sticky header */
+.main.withHeaderPadding {
+  padding-top: 70px;
+}
+
+@media (max-width: 768px) {
+  .main.withHeaderPadding {
+    padding-top: 60px;
+  }
+}

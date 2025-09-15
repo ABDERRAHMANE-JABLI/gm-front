@@ -1,0 +1,283 @@
+/* Gault&Millau Footer Styles */
+.footer {
+  background: #2c1810;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.mainFooter {
+  padding: 3rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footerColumns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.footerColumn h4 {
+  color: #d4af37;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.footerColumn ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerColumn li {
+  margin-bottom: 0.75rem;
+}
+
+.footerColumn a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footerColumn a:hover {
+  color: #d4af37;
+}
+
+.contactInfo address {
+  font-style: normal;
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.contactInfo p {
+  margin-bottom: 0.5rem;
+}
+
+.newsletterSection p {
+  margin-bottom: 0.75rem;
+}
+
+/* Social Media and Partners Section */
+.socialSection {
+  background: #1a0f08;
+  padding: 2rem 0;
+  border-top: 1px solid #5d4037;
+}
+
+.socialContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.socialLinks a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #666;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.socialLinks a:hover {
+  color: #d4af37;
+  border-color: #d4af37;
+}
+
+.partnersSection {
+  flex: 1;
+  max-width: 600px;
+}
+
+.partnersSection h5 {
+  color: #d4af37;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.partnersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.partnersGrid a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: color 0.3s ease;
+}
+
+.partnersGrid a:hover {
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* Countries Section */
+.countriesSection {
+  background: #0f0805;
+  padding: 2rem 0;
+  border-top: 1px solid #5d4037;
+}
+
+.countriesSection h4 {
+  color: #d4af37;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.countriesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.countriesGrid a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ccc;
+  text-decoration: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.countriesGrid a:hover {
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.1);
+}
+
+.countriesGrid a.currentCountry {
+  color: #d4af37;
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid #d4af37;
+}
+
+.flag {
+  font-size: 1.2rem;
+}
+
+/* Copyright Section */
+.copyright {
+  background: #000;
+  padding: 1.5rem 0;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+
+.copyright p {
+  color: #999;
+  font-size: 0.85rem;
+  margin: 0;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .socialContent {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .partnersGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .mainFooter {
+    padding: 2rem 0;
+  }
+  
+  .footerColumns {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .socialLinks {
+    justify-content: center;
+  }
+  
+  .partnersGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+  
+  .countriesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .countriesGrid a {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerColumns {
+    grid-template-columns: 1fr;
+  }
+  
+  .socialSection {
+    padding: 1.5rem 0;
+  }
+  
+  .countriesSection {
+    padding: 1.5rem 0;
+  }
+  
+  .copyright {
+    padding: 1rem 0;
+  }
+  
+  .socialLinks {
+    gap: 1rem;
+  }
+  
+  .socialLinks a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .partnersGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .countriesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

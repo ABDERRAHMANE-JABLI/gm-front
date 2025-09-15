@@ -1,0 +1,67 @@
+{
+  "common": {
+    "home": "Home",
+    "search": "Search",
+    "restaurants": "Restaurants",
+    "wines": "Wines", 
+    "champagnes": "Champagnes",
+    "spirits": "Spirits",
+    "hotels": "Hotels",
+    "artisans": "Artisans",
+    "recipes": "Recipes",
+    "people": "People",
+    "news": "News",
+    "contact": "Contact",
+    "about": "About",
+    "discover": "Discover",
+    "read_more": "Read more",
+    "see_more": "See more",
+    "search_placeholder": "Search for a restaurant, chef, artisan, recipe, winery, hotel, city…"
+  },
+  "navigation": {
+    "la_place": "The Place",
+    "actualites": "News",
+    "our_selection": "Our selection",
+    "utensils": "Utensils",
+    "newsletters": "Newsletters",
+    "itineraires": "Gourmet Itineraries"
+  },
+  "homepage": {
+    "new_restaurants": "New restaurants",
+    "gastronomy_people": "Gastronomy people",
+    "future_chefs": "Future chefs", 
+    "chef_recipes": "Chef recipes",
+    "featured_news": "News",
+    "wine_selection": "Our Wine Selection",
+    "champagne_selection": "Our Champagne Selection",
+    "spirit_selection": "Our Spirit Selection"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "The reference gastronomic guide"
+    },
+    "newRestaurants": {
+      "title": "New restaurants"
+    }
+  },
+  "categories": {
+    "kitchen": "The kitchen",
+    "wine": "Wine",
+    "hall": "The dining room",
+    "pastry": "Pastry"
+  },
+  "rating": {
+    "table_chef": "Chef's Table",
+    "table_remarquable": "Remarkable Table", 
+    "table_gourmande": "Gourmet Table"
+  },
+  "footer": {
+    "address": "37-39 rue Boissière\n75016 Paris\nFrance",
+    "phone": "Call: 01 41 40 99 80",
+    "contact_us": "Contact us",
+    "newsletter_signup": "Subscribe to our newsletter",
+    "all_newsletters": "All newsletters",
+    "copyright": "GaultMillau © 2025\nAll rights reserved",
+    "partners": "Partners"
+  }
+}

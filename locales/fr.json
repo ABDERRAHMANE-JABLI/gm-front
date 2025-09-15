@@ -1,0 +1,67 @@
+{
+  "common": {
+    "home": "Accueil",
+    "search": "Rechercher",
+    "restaurants": "Restaurants",
+    "wines": "Vins", 
+    "champagnes": "Champagnes",
+    "spirits": "Spiritueux",
+    "hotels": "Hôtels",
+    "artisans": "Artisans",
+    "recipes": "Recettes",
+    "people": "People",
+    "news": "Actualités",
+    "contact": "Contact",
+    "about": "À propos",
+    "discover": "Découvrir",
+    "read_more": "Lire plus",
+    "see_more": "Voir plus",
+    "search_placeholder": "Rechercher un restaurant, un chef, un artisan, une recette, un domaine, un hôtel, une ville…"
+  },
+  "navigation": {
+    "la_place": "La Place",
+    "actualites": "Actualités",
+    "our_selection": "Notre sélection",
+    "utensils": "Ustensiles",
+    "newsletters": "Newsletters",
+    "itineraires": "Itinéraires Gourmands"
+  },
+  "homepage": {
+    "new_restaurants": "Les nouveaux restaurants",
+    "gastronomy_people": "Les people de la gastronomie",
+    "future_chefs": "Les cuisiniers de demain", 
+    "chef_recipes": "Les recettes des chefs",
+    "featured_news": "Actualités",
+    "wine_selection": "Notre sélection Vins",
+    "champagne_selection": "Notre sélection Champagnes",
+    "spirit_selection": "Notre sélection Spiritueux"
+  },
+  "home": {
+    "hero": {
+      "subtitle": "Le guide gastronomique de référence"
+    },
+    "newRestaurants": {
+      "title": "Les nouveaux restaurants"
+    }
+  },
+  "categories": {
+    "kitchen": "La cuisine",
+    "wine": "Le vin",
+    "hall": "La salle",
+    "pastry": "La pâtisserie"
+  },
+  "rating": {
+    "table_chef": "Table de Chef",
+    "table_remarquable": "Table Remarquable", 
+    "table_gourmande": "Table Gourmande"
+  },
+  "footer": {
+    "address": "37-39 rue Boissière\n75016 Paris\nFrance",
+    "phone": "Appeler : 01 41 40 99 80",
+    "contact_us": "Contactez-nous",
+    "newsletter_signup": "Inscrivez-vous à notre newsletter",
+    "all_newsletters": "Toutes les newsletters",
+    "copyright": "GaultMillau © 2025\nTous droits réservés",
+    "partners": "Partenaires"
+  }
+}
