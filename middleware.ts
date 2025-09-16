@@ -1,39 +1,77 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Language conversion matrix: simple language code to full locale
+const LANGUAGE_LOCALE_MAP: Record<string, string> = {
+  "fr": "fr-FR",
+  "en": "en-US"
+};
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const url = request.nextUrl.clone();
   
   // Get hostname and extract country from subdomain
   const hostname = request.headers.get('host') || '';
-  let country = 'fr'; // default country
+  let country = 'FR'; // default country
   
-  // Extract country from subdomain (e.g., fr.gaultmillau.com -> fr)
-  const subdomain = hostname.split('.')[0];
-  if (subdomain && subdomain.length === 2) {
-    country = subdomain;
-  }
+  // Extract country from subdomain for different domain patterns
+  // Supports: fr.gm.wip (FR), us.gm.wip (US), de.gm.wip (DE), etc.
+  const hostParts = hostname.split('.');
+  const subdomain = hostParts[0];
   
-  // Handle root path - redirect to language-specific path
-  if (pathname === '/') {
-    url.pathname = `/${country}`;
-    return NextResponse.redirect(url);
+  // Check if it's a supported domain pattern
+  const isGmWipDomain = hostname.includes('.gm.wip');
+  const isGaultMillauDomain = hostname.includes('.gaultmillau.com');
+  const isLocalhost = hostname.includes('localhost') || hostname.includes('127.0.0.1');
+  
+  if (isGmWipDomain || isGaultMillauDomain || isLocalhost) {
+    if (subdomain && subdomain.length === 2) {
+      country = subdomain.toUpperCase(); // e.g., 'fr' -> 'FR', 'us' -> 'US'
+    }
+  } else {
+    // For other domains, still extract country from subdomain if valid
+    if (subdomain && subdomain.length === 2) {
+      country = subdomain.toUpperCase();
+    }
   }
   
   // Check if path already starts with language code
   const pathSegments = pathname.split('/').filter(Boolean);
   const firstSegment = pathSegments[0];
+  const normalizedFirstSegment = firstSegment?.toLowerCase();
   
-  // If no language in path, add country as language
-  if (!['fr', 'en'].includes(firstSegment)) {
-    url.pathname = `/${country}${pathname}`;
+  // Handle root path - redirect to default language based on country
+  if (pathname === '/') {
+    // Default language mapping based on country
+    const defaultLanguage = country === 'FR' ? 'fr' : 'en';
+    url.pathname = `/${defaultLanguage}`;
+    return NextResponse.redirect(url);
+  }
+  
+  // If no language in path, add default language based on country
+  if (!['fr', 'en'].includes(normalizedFirstSegment)) {
+    const defaultLanguage = country === 'FR' ? 'fr' : 'en';
+    url.pathname = `/${defaultLanguage}${pathname}`;
+    return NextResponse.redirect(url);
+  }
+  
+  // If language segment is not normalized (e.g., /FR/ instead of /fr/), redirect to lowercase
+  if (firstSegment && normalizedFirstSegment !== firstSegment && ['fr', 'en'].includes(normalizedFirstSegment)) {
+    const restOfPath = pathSegments.slice(1).join('/');
+    url.pathname = `/${normalizedFirstSegment}${restOfPath ? '/' + restOfPath : ''}`;
     return NextResponse.redirect(url);
   }
   
   // Add country and language headers for server components
   const response = NextResponse.next();
-  response.headers.set('x-country', country);
-  response.headers.set('x-language', firstSegment);
+  const currentLanguage = normalizedFirstSegment || 'en';
+  const fullLocale = LANGUAGE_LOCALE_MAP[currentLanguage] || 'en-US';
+  
+  response.headers.set('x-country', country.toUpperCase()); // Ensure country is always uppercase
+  response.headers.set('x-language', currentLanguage); // Ensure language is always lowercase (fr, en)
+  response.headers.set('x-locale', fullLocale); // Full locale identifier (fr-FR, en-US)
+  response.headers.set('x-hostname', hostname);
+  response.headers.set('x-domain-type', isGmWipDomain ? 'gm-wip' : isGaultMillauDomain ? 'gaultmillau' : 'other');
   
   return response;
 }

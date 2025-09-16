@@ -11,7 +11,13 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'fr.gaultmillau.com',
+        hostname: '*.gaultmillau.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '*.gm.wip',
         port: '',
         pathname: '/**',
       },
