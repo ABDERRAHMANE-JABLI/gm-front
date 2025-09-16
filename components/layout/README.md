@@ -21,15 +21,7 @@ import { Menu, MenuItem } from '@/components/ui';
 
 const menuItems: MenuItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  {
-    label: 'Services',
-    href: '/services',
-    children: [
-      { label: 'Web Development', href: '/services/web' },
-      { label: 'Mobile Apps', href: '/services/mobile' },
-    ]
-  }
+  { label: 'About', href: '/about' }
 ];
 
 <Menu items={menuItems} orientation="horizontal" activePath="/about" />

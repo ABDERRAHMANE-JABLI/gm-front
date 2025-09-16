@@ -1,0 +1,60 @@
+/* News and Blog Typography Variables */
+
+:root {
+  /* News Typography */
+  --news-1-title-font-family: "Source Serif 4", Helvetica;
+  --news-1-title-font-size: 27px;
+  --news-1-title-font-style: normal;
+  --news-1-title-font-weight: 900;
+  --news-1-title-letter-spacing: 0px;
+  --news-1-title-line-height: 30px;
+  
+  --news-card-text-font-family: "Montserrat", Helvetica;
+  --news-card-text-font-size: 14px;
+  --news-card-text-font-style: normal;
+  --news-card-text-font-weight: 500;
+  --news-card-text-letter-spacing: 0px;
+  --news-card-text-line-height: 18px;
+  
+  --news-categories-yellow-font-family: "Montserrat", Helvetica;
+  --news-categories-yellow-font-size: 12px;
+  --news-categories-yellow-font-style: normal;
+  --news-categories-yellow-font-weight: 600;
+  --news-categories-yellow-letter-spacing: 0px;
+  --news-categories-yellow-line-height: 23px;
+  
+  --news-header-button-text-font-family: "Montserrat", Helvetica;
+  --news-header-button-text-font-size: 12px;
+  --news-header-button-text-font-style: normal;
+  --news-header-button-text-font-weight: 700;
+  --news-header-button-text-letter-spacing: 0.23999999463558197px;
+  --news-header-button-text-line-height: 15px;
+  
+  --news-header-title-font-family: "Montserrat", Helvetica;
+  --news-header-title-font-size: 12px;
+  --news-header-title-font-style: normal;
+  --news-header-title-font-weight: 600;
+  --news-header-title-letter-spacing: 0px;
+  --news-header-title-line-height: 15px;
+  
+  --news-heading-theme-font-family: "Montserrat", Helvetica;
+  --news-heading-theme-font-size: 12px;
+  --news-heading-theme-font-style: normal;
+  --news-heading-theme-font-weight: 500;
+  --news-heading-theme-letter-spacing: 0px;
+  --news-heading-theme-line-height: 23px;
+  
+  --news-heding-title-font-family: "Source Serif 4", Helvetica;
+  --news-heding-title-font-size: 27px;
+  --news-heding-title-font-style: normal;
+  --news-heding-title-font-weight: 900;
+  --news-heding-title-letter-spacing: 0px;
+  --news-heding-title-line-height: 30px;
+  
+  --news-most-read-title-font-family: "Source Serif 4", Helvetica;
+  --news-most-read-title-font-size: 27px;
+  --news-most-read-title-font-style: normal;
+  --news-most-read-title-font-weight: 900;
+  --news-most-read-title-letter-spacing: 0px;
+  --news-most-read-title-line-height: 30px;
+}

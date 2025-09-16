@@ -1,0 +1,87 @@
+/* Typography System - Main Index File */
+
+/* Import all typography variable files */
+@import './bottle.css';
+@import './buttons.css';
+@import './cards.css';
+@import './filters.css';
+@import './footer.css';
+@import './navigation.css';
+@import './news.css';
+@import './pages.css';
+@import './products.css';
+@import './ratings.css';
+@import './specialty.css';
+
+/* Typography utility classes based on design system variables */
+.text-bottle-kind {
+  font-family: var(--bottle-card-kind-font-family);
+  font-size: var(--bottle-card-kind-font-size);
+  font-style: var(--bottle-card-kind-font-style);
+  font-weight: var(--bottle-card-kind-font-weight);
+  letter-spacing: var(--bottle-card-kind-letter-spacing);
+  line-height: var(--bottle-card-kind-line-height);
+}
+
+.text-card-title {
+  font-family: var(--card-title-font-family);
+  font-size: var(--card-title-font-size);
+  font-style: var(--card-title-font-style);
+  font-weight: var(--card-title-font-weight);
+  letter-spacing: var(--card-title-letter-spacing);
+  line-height: var(--card-title-line-height);
+}
+
+.text-page-title {
+  font-family: var(--page-detail-title-font-family);
+  font-size: var(--page-detail-title-font-size);
+  font-style: var(--page-detail-title-font-style);
+  font-weight: var(--page-detail-title-font-weight);
+  letter-spacing: var(--page-detail-title-letter-spacing);
+  line-height: var(--page-detail-title-line-height);
+}
+
+.text-news-title {
+  font-family: var(--news-1-title-font-family);
+  font-size: var(--news-1-title-font-size);
+  font-style: var(--news-1-title-font-style);
+  font-weight: var(--news-1-title-font-weight);
+  letter-spacing: var(--news-1-title-letter-spacing);
+  line-height: var(--news-1-title-line-height);
+}
+
+.text-button {
+  font-family: var(--button-text-font-family);
+  font-size: var(--button-text-font-size);
+  font-style: var(--button-text-font-style);
+  font-weight: var(--button-text-font-weight);
+  letter-spacing: var(--button-text-letter-spacing);
+  line-height: var(--button-text-line-height);
+}
+
+.text-filter-title {
+  font-family: var(--filter-title-font-family);
+  font-size: var(--filter-title-font-size);
+  font-style: var(--filter-title-font-style);
+  font-weight: var(--filter-title-font-weight);
+  letter-spacing: var(--filter-title-letter-spacing);
+  line-height: var(--filter-title-line-height);
+}
+
+.text-footer-link {
+  font-family: var(--footer-links-font-family);
+  font-size: var(--footer-links-font-size);
+  font-style: var(--footer-links-font-style);
+  font-weight: var(--footer-links-font-weight);
+  letter-spacing: var(--footer-links-letter-spacing);
+  line-height: var(--footer-links-line-height);
+}
+
+.text-search-box {
+  font-family: var(--search-box-font-family);
+  font-size: var(--search-box-font-size);
+  font-style: var(--search-box-font-style);
+  font-weight: var(--search-box-font-weight);
+  letter-spacing: var(--search-box-letter-spacing);
+  line-height: var(--search-box-line-height);
+}

@@ -1,0 +1,39 @@
+/* Rating and Notation Typography Variables */
+
+:root {
+  /* Rating and Notation Typography */
+  --notation-legend-font-family: "Montserrat", Helvetica;
+  --notation-legend-font-size: 12px;
+  --notation-legend-font-style: normal;
+  --notation-legend-font-weight: 500;
+  --notation-legend-letter-spacing: 0px;
+  --notation-legend-line-height: 14px;
+  
+  --note-20-font-family: "Montserrat", Helvetica;
+  --note-20-font-size: 14px;
+  --note-20-font-style: normal;
+  --note-20-font-weight: 500;
+  --note-20-letter-spacing: 0px;
+  --note-20-line-height: 13px;
+  
+  --note-bold-font-family: "Montserrat", Helvetica;
+  --note-bold-font-size: 14px;
+  --note-bold-font-style: normal;
+  --note-bold-font-weight: 700;
+  --note-bold-letter-spacing: 0px;
+  --note-bold-line-height: 13px;
+  
+  --hotel-note-text-font-family: "Montserrat", Helvetica;
+  --hotel-note-text-font-size: 12px;
+  --hotel-note-text-font-style: normal;
+  --hotel-note-text-font-weight: 500;
+  --hotel-note-text-letter-spacing: 0px;
+  --hotel-note-text-line-height: 14px;
+  
+  --toque-24-text-font-family: "Montserrat", Helvetica;
+  --toque-24-text-font-size: 10px;
+  --toque-24-text-font-style: normal;
+  --toque-24-text-font-weight: 600;
+  --toque-24-text-letter-spacing: 0px;
+  --toque-24-text-line-height: 23px;
+}

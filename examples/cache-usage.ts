@@ -101,19 +101,19 @@ export async function monitorCachePerformance() {
 export async function robustCacheExample() {
   try {
     // Try to get from cache first
-    const cached = await cache.get(CacheKeys.content('restaurant', 'michelin-star'));
+    const cached = await cache.get(CacheKeys.content('restaurant', '5-toques'));
     
     if (cached) {
       return cached;
     }
 
     // Fallback to API if cache miss
-    const response = await fetch('/api/restaurants/michelin-star');
+    const response = await fetch('/api/restaurants/5-toques');
     const data = await response.json();
 
     // Cache the result for future requests
     await cache.set(
-      CacheKeys.content('restaurant', 'michelin-star'),
+      CacheKeys.content('restaurant', '5-toques'),
       data,
       {
         ttl: 1800,
@@ -126,7 +126,7 @@ export async function robustCacheExample() {
     console.error('Cache operation failed, using direct API call:', error);
     
     // Final fallback - direct API call without caching
-    const response = await fetch('/api/restaurants/michelin-star');
+    const response = await fetch('/api/restaurants/5-toques');
     return response.json();
   }
 }

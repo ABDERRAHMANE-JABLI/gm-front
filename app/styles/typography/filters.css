@@ -1,0 +1,68 @@
+/* Filter and Form Typography Variables */
+
+:root {
+  /* Filter Typography */
+  --filter-count-font-family: "Montserrat", Helvetica;
+  --filter-count-font-size: 12px;
+  --filter-count-font-style: normal;
+  --filter-count-font-weight: 400;
+  --filter-count-letter-spacing: 0px;
+  --filter-count-line-height: 13px;
+  
+  --filter-count-value-font-family: "Montserrat", Helvetica;
+  --filter-count-value-font-size: 12px;
+  --filter-count-value-font-style: normal;
+  --filter-count-value-font-weight: 300;
+  --filter-count-value-letter-spacing: 0px;
+  --filter-count-value-line-height: 13px;
+  
+  --filter-label-active-font-family: "Montserrat", Helvetica;
+  --filter-label-active-font-size: 12px;
+  --filter-label-active-font-style: normal;
+  --filter-label-active-font-weight: 700;
+  --filter-label-active-letter-spacing: 0px;
+  --filter-label-active-line-height: 13px;
+  
+  --filter-search-mode-text-font-family: "Montserrat", Helvetica;
+  --filter-search-mode-text-font-size: 11px;
+  --filter-search-mode-text-font-style: normal;
+  --filter-search-mode-text-font-weight: 700;
+  --filter-search-mode-text-letter-spacing: 0px;
+  --filter-search-mode-text-line-height: 13px;
+  
+  --filter-sort-button-title-font-family: "Montserrat", Helvetica;
+  --filter-sort-button-title-font-size: 10px;
+  --filter-sort-button-title-font-style: normal;
+  --filter-sort-button-title-font-weight: 300;
+  --filter-sort-button-title-letter-spacing: 0px;
+  --filter-sort-button-title-line-height: 12px;
+  
+  --filter-title-font-family: "Montserrat", Helvetica;
+  --filter-title-font-size: 14px;
+  --filter-title-font-style: normal;
+  --filter-title-font-weight: 700;
+  --filter-title-letter-spacing: 0px;
+  --filter-title-line-height: 13px;
+  
+  --filters-clear-font-family: "Montserrat", Helvetica;
+  --filters-clear-font-size: 10px;
+  --filters-clear-font-style: normal;
+  --filters-clear-font-weight: 500;
+  --filters-clear-letter-spacing: 0px;
+  --filters-clear-line-height: 13px;
+  
+  /* Search Typography */
+  --search-barre-text-font-family: "Montserrat", Helvetica;
+  --search-barre-text-font-size: 14px;
+  --search-barre-text-font-style: normal;
+  --search-barre-text-font-weight: 600;
+  --search-barre-text-letter-spacing: 0px;
+  --search-barre-text-line-height: 17px;
+  
+  --search-box-font-family: "Montserrat", Helvetica;
+  --search-box-font-size: 14px;
+  --search-box-font-style: normal;
+  --search-box-font-weight: 400;
+  --search-box-letter-spacing: 0px;
+  --search-box-line-height: 13px;
+}

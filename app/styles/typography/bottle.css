@@ -1,0 +1,32 @@
+/* Typography Variables - Font Families, Sizes, Weights, and Spacing */
+
+:root {
+  /* Bottle Card Typography */
+  --bottle-card-kind-font-family: "Montserrat", Helvetica;
+  --bottle-card-kind-font-size: 16px;
+  --bottle-card-kind-font-style: normal;
+  --bottle-card-kind-font-weight: 500;
+  --bottle-card-kind-letter-spacing: 0px;
+  --bottle-card-kind-line-height: 19px;
+  
+  --bottle-card-productor-font-family: "Montserrat", Helvetica;
+  --bottle-card-productor-font-size: 15px;
+  --bottle-card-productor-font-style: normal;
+  --bottle-card-productor-font-weight: 600;
+  --bottle-card-productor-letter-spacing: 0px;
+  --bottle-card-productor-line-height: 18px;
+  
+  --bottle-note-font-family: "Montserrat", Helvetica;
+  --bottle-note-font-size: 16px;
+  --bottle-note-font-style: normal;
+  --bottle-note-font-weight: 700;
+  --bottle-note-letter-spacing: 0px;
+  --bottle-note-line-height: 19px;
+  
+  --bottle-note-sur-100-font-family: "Montserrat", Helvetica;
+  --bottle-note-sur-100-font-size: 16px;
+  --bottle-note-sur-100-font-style: normal;
+  --bottle-note-sur-100-font-weight: 300;
+  --bottle-note-sur-100-letter-spacing: 0px;
+  --bottle-note-sur-100-line-height: 19px;
+}

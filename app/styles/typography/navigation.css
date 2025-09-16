@@ -1,0 +1,18 @@
+/* Menu and Navigation Typography Variables */
+
+:root {
+  /* Menu Typography */
+  --menu-barre-selected-section-font-family: "Montserrat", Helvetica;
+  --menu-barre-selected-section-font-size: 11px;
+  --menu-barre-selected-section-font-style: normal;
+  --menu-barre-selected-section-font-weight: 400;
+  --menu-barre-selected-section-letter-spacing: 0px;
+  --menu-barre-selected-section-line-height: 20px;
+  
+  --vertical-text-menu-barre-font-family: "Montserrat", Helvetica;
+  --vertical-text-menu-barre-font-size: 8px;
+  --vertical-text-menu-barre-font-style: normal;
+  --vertical-text-menu-barre-font-weight: 600;
+  --vertical-text-menu-barre-letter-spacing: 0px;
+  --vertical-text-menu-barre-line-height: 13px;
+}

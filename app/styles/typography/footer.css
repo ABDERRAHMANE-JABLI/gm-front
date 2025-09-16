@@ -1,0 +1,18 @@
+/* Footer Typography Variables */
+
+:root {
+  /* Footer Typography */
+  --footer-links-font-family: "Montserrat", Helvetica;
+  --footer-links-font-size: 13px;
+  --footer-links-font-style: normal;
+  --footer-links-font-weight: 400;
+  --footer-links-letter-spacing: 0px;
+  --footer-links-line-height: 18px;
+  
+  --footer-tiltes-font-family: "Montserrat", Helvetica;
+  --footer-tiltes-font-size: 13px;
+  --footer-tiltes-font-style: normal;
+  --footer-tiltes-font-weight: 600;
+  --footer-tiltes-letter-spacing: 2.5999999046325684px;
+  --footer-tiltes-line-height: 18px;
+}

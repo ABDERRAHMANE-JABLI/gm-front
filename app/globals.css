@@ -1,3 +1,6 @@
+/* Import Typography System */
+@import './styles/typography/index.css';
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

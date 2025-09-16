@@ -1,0 +1,53 @@
+/* Page and Layout Typography Variables */
+
+:root {
+  /* Page Detail Typography */
+  --page-detail-avis-GM-title-font-family: "Montserrat", Helvetica;
+  --page-detail-avis-GM-title-font-size: 14px;
+  --page-detail-avis-GM-title-font-style: normal;
+  --page-detail-avis-GM-title-font-weight: 700;
+  --page-detail-avis-GM-title-letter-spacing: 0px;
+  --page-detail-avis-GM-title-line-height: 17px;
+  
+  --page-detail-main-title-font-family: "Montserrat", Helvetica;
+  --page-detail-main-title-font-size: 20px;
+  --page-detail-main-title-font-style: normal;
+  --page-detail-main-title-font-weight: 500;
+  --page-detail-main-title-letter-spacing: 0.014999999664723873px;
+  --page-detail-main-title-line-height: 24px;
+  
+  --page-detail-sub-title-font-family: "Source Serif 4", Helvetica;
+  --page-detail-sub-title-font-size: 40px;
+  --page-detail-sub-title-font-style: normal;
+  --page-detail-sub-title-font-weight: 900;
+  --page-detail-sub-title-letter-spacing: 0px;
+  --page-detail-sub-title-line-height: 40px;
+  
+  --page-detail-title-font-family: "Source Serif 4", Helvetica;
+  --page-detail-title-font-size: 40px;
+  --page-detail-title-font-style: normal;
+  --page-detail-title-font-weight: 900;
+  --page-detail-title-letter-spacing: 0px;
+  --page-detail-title-line-height: 63px;
+  
+  --page-detail-vertical-label-16-font-family: "Montserrat", Helvetica;
+  --page-detail-vertical-label-16-font-size: 16px;
+  --page-detail-vertical-label-16-font-style: normal;
+  --page-detail-vertical-label-16-font-weight: 400;
+  --page-detail-vertical-label-16-letter-spacing: 0px;
+  --page-detail-vertical-label-16-line-height: 20px;
+  
+  --page-detail-vertical-value-16-font-family: "Montserrat", Helvetica;
+  --page-detail-vertical-value-16-font-size: 16px;
+  --page-detail-vertical-value-16-font-style: normal;
+  --page-detail-vertical-value-16-font-weight: 700;
+  --page-detail-vertical-value-16-letter-spacing: 0px;
+  --page-detail-vertical-value-16-line-height: 20px;
+  
+  --page-number-text-font-family: "Montserrat", Helvetica;
+  --page-number-text-font-size: 13px;
+  --page-number-text-font-style: normal;
+  --page-number-text-font-weight: 700;
+  --page-number-text-letter-spacing: 0.013000000268220901px;
+  --page-number-text-line-height: 20px;
+}
