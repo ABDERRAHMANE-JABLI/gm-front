@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import SpiritDetailPage from '@/page-components/SpiritDetailPage'
+import SpiritDetailPage from '@/page-components/Spirits/Detail'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/Layout/Layout";
-import BlogsPage from "@/page-components/BlogsPage";
+import BlogsPage from "@/page-components/Blogs/List";
 import { Language } from "@/lib/i18n/types";
 import type { Metadata } from "next";
 

@@ -1,15 +1,24 @@
 import React from 'react';
-import styles from './HomePage.module.css';
+import styles from './styles.module.css';
 import Image from 'next/image';
 
 type Language = 'fr' | 'en';
 
 interface HomePageProps {
   lang: Language;
+  country?: string;
+  locale?: string;
+  hostname?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function HomePage({ lang }: HomePageProps) {
+export default function HomePage({ 
+  lang, 
+  country = 'FR', 
+  locale = 'en-US', 
+  hostname = '' 
+}: HomePageProps) {
+  // You can now use country, locale, and hostname in your component
+  console.log('Page data:', { lang, country, locale, hostname });
 
   return (
     <div className={styles.homepage}>

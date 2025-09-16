@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import ArtisansPage from '../../../page-components/ArtisansPage';
+import ArtisansPage from '../../../page-components/Artisans/List';
 
 // Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';

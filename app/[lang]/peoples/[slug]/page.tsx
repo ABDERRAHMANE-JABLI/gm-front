@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import PersonDetailPage from '@/page-components/PersonDetailPage'
+import PersonDetailPage from '@/page-components/People/Detail'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

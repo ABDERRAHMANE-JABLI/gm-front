@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import ItinerariesPage from '@/page-components/ItinerariesPage'
+import ItinerariesPage from '@/page-components/Itineraries/List'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

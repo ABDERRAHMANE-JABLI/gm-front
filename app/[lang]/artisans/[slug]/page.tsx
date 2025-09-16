@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import ArtisanDetailPage from '@/page-components/ArtisanDetailPage'
+import ArtisanDetailPage from '@/page-components/Artisans/Detail'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

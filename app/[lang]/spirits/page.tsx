@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import SpiritsPage from '@/page-components/SpiritsPage';
+import SpiritsPage from '@/page-components/Spirits/List';
 
 // Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';

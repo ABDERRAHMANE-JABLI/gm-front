@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import RecipeDetailPage from '@/page-components/RecipeDetailPage'
+import RecipeDetailPage from '@/page-components/Recipes/Detail'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

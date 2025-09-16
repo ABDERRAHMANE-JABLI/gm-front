@@ -1,6 +1,7 @@
 import Layout from "@/components/layout/Layout/Layout";
 import HomePage from "@/page-components/HomePage/HomePage";
 import { Language, getTranslation } from "@/lib/i18n";
+import { getCountryAndLanguage } from "@/lib/headers";
 import type { Metadata } from "next";
 
 // Force dynamic rendering (SSR)
@@ -36,9 +37,17 @@ export default async function Home({
   const { lang } = await params;
   const language = lang as Language;
   
+  // Get country and language from middleware headers
+  const { country, locale, hostname } = await getCountryAndLanguage();
+  
   return (
     <Layout language={language}>
-      <HomePage lang={language} />
+      <HomePage 
+        lang={language}
+        country={country}
+        locale={locale}
+        hostname={hostname}
+      />
     </Layout>
   );
 }

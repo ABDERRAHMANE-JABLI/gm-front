@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import styles from './CooksOfTomorrowPage.module.css'
+import styles from './styles.module.css'
 
 interface Language {
   fr: string

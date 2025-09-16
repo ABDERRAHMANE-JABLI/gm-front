@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './UtensilsPage.module.css';
+import styles from './styles.module.css';
 
 interface UtensilsPageProps {
   lang: 'fr' | 'en';

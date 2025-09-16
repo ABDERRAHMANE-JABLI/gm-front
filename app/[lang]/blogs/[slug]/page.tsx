@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import BlogDetailPage from '@/page-components/BlogDetailPage'
+import BlogDetailPage from '@/page-components/Blogs/Detail'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

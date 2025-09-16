@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import WinesPage from '@/page-components/WinesPage';
+import WinesPage from '@/page-components/Wines/List';
 
 // Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';

@@ -71,7 +71,6 @@ export function middleware(request: NextRequest) {
   response.headers.set('x-language', currentLanguage); // Ensure language is always lowercase (fr, en)
   response.headers.set('x-locale', fullLocale); // Full locale identifier (fr-FR, en-US)
   response.headers.set('x-hostname', hostname);
-  response.headers.set('x-domain-type', isGmWipDomain ? 'gm-wip' : isGaultMillauDomain ? 'gaultmillau' : 'other');
   
   return response;
 }

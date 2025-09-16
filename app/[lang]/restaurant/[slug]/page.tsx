@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import RestaurantDetailPage from '@/page-components/RestaurantDetailPage'
+import RestaurantDetailPage from '@/page-components/Restaurants/Detail'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

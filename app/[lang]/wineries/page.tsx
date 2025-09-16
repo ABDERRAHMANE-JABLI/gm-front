@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import WineriesPage from '@/page-components/WineriesPage';
+import WineriesPage from '@/page-components/Wineries/List';
 
 // Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';

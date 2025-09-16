@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import PeoplesPage from '@/page-components/PeoplesPage';
+import PeoplesPage from '@/page-components/People/List';
 
 // Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';

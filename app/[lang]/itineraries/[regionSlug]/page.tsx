@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import RegionItinerariesPage from '@/page-components/RegionItinerariesPage'
+import RegionItinerariesPage from '@/page-components/Itineraries/Region'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

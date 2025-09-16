@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import HotelsPage from '@/page-components/HotelsPage';
+import HotelsPage from '@/page-components/Hotels/List';
 
 // Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';

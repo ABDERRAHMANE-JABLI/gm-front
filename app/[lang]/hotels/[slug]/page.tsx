@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import HotelDetailPage from '@/page-components/HotelDetailPage'
+import HotelDetailPage from '@/page-components/Hotels/Detail'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering

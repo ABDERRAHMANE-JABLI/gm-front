@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import RecipesPage from '@/page-components/RecipesPage';
+import RecipesPage from '@/page-components/Recipes/List';
 
 // Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';
