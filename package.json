@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "local": "next dev -p 3000 -H 127.0.0.1",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -19,12 +20,12 @@
     "ioredis": "^5.7.0",
     "leaflet": "^1.9.4",
     "masonry-layout": "^4.2.2",
-    "next": "15.5.3",
+    "next": "^15.5.3",
     "owl.carousel": "^2.3.4",
     "prop-types": "^15.8.1",
-    "react": "19.1.0",
+    "react": "^19.1.0",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "19.1.0",
+    "react-dom": "^19.1.0",
     "react-gtm-module": "^2.0.11",
     "react-i18next": "^15.7.3",
     "react-instantsearch": "^7.16.3",
