@@ -35,11 +35,11 @@ pnpm dev
 ```
 
 ### Localhost Development
-Pour lancer le serveur Next.js sur 127.0.0.1:3000 (accessible depuis Windows et WSL) :
+Pour lancer le serveur Next.js sur fr.gm.wip:3000 (accessible depuis Windows et WSL) :
 ```bash
 npm run local
 ```
-Ce script démarre Next.js sur l'adresse 127.0.0.1 et le port 3000, idéal pour le développement local multi-plateforme.
+Ce script démarre Next.js sur l'adresse fr.gm.wip et le port 3000, idéal pour le développement local multi-plateforme.
 ```
 
 ### Production with PM2

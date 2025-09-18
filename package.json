@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "local": "next dev -p 3000 -H 127.0.0.1",
+    "local": "next dev -p 3000 -H fr.gm.wip",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
