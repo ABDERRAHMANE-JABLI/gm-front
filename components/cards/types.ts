@@ -195,10 +195,10 @@ export interface RestaurantProps {
     /** 
      * Distance par rapport à la position actuelle
      * @description Affiche la distance en km si fournie, fonctionne avec 'Autour de moi'
-     * @example "2.5" ou 2.5
+     * @example "2.5 km"
      * @optional
      */
-    distance?: string | number;
+    distance?: string;
 }
 
 /**
@@ -276,6 +276,14 @@ export interface ArtisanProps {
      * @optional
      */
     services?: string[];
+
+    /** 
+     * Distance par rapport à la position actuelle
+     * @description Affiche la distance en km si fournie, fonctionne avec 'Autour de moi'
+     * @example "5.0 km"
+     * @optional
+     */
+    distance?: string;
 }
 
 /**
@@ -382,6 +390,14 @@ export interface HotelProps {
      * @optional
      */
     supportfavorite?: boolean;
+
+    /** 
+     * Distance par rapport à la position actuelle
+     * @description Affiche la distance en km si fournie, fonctionne avec 'Autour de moi'
+     * @example "1.2 km"
+     * @optional
+     */
+    distance?: string;
 }
 
 /**
@@ -471,5 +487,13 @@ export interface WineryProps {
      * @optional
      */
     services?: string[];
+
+    /**
+     * Distance par rapport à la position actuelle
+     * @description Affiche la distance en km si fournie, fonctionne avec 'Autour de moi'
+     * @example "3.4 km"
+     * @optional
+     */
+    distance?: string;
 }
 
