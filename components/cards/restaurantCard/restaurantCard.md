@@ -15,7 +15,7 @@
 | cuisines            | array   | Oui         | Types de cuisine voir ci-dessous |
 | budget              | string  | Oui         | Texte prix |
 | supportfavorite     | bool    | Non         | permet l'affichage de l'icône coeur |
-| distance            | string/float | Oui    | affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi' activé |
+| distance            | string  | Oui         | affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi' activé |
 
 ### openingPeriods structure
 ```json

@@ -13,6 +13,7 @@
 | address                 | string      | Oui       | Adresse du domaine |
 | productions             | array       | Oui       | types de production |
 | services                | array       | Oui       | Service |
+| distance                | string      | Oui       | affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi' activé |
 
 ### openingPeriods structure
 ```json
