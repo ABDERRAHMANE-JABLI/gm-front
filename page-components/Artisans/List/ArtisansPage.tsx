@@ -1,32 +1,82 @@
+/**
+ * @fileoverview Page de recherche et liste des artisans
+ * @description Composant principal pour afficher la page de recherche des artisans avec filtres et résultats
+ * @author Gault&Millau Development Team
+ * @version 1.0.0
+ */
+
 import React from 'react';
 import styles from './styles.module.css';
 
+/**
+ * Props pour le composant ArtisansPage
+ * @interface ArtisansPageProps
+ */
 interface ArtisansPageProps {
+  /** 
+   * Langue de l'interface utilisateur
+   * @description Détermine la langue d'affichage de tous les textes de la page
+   * @example 'fr' | 'en'
+   */
   lang: 'fr' | 'en';
 }
 
+/**
+ * Composant principal de la page de recherche des artisans
+ * @description Affiche une page avec filtres de recherche et liste des artisans correspondants
+ * @param {ArtisansPageProps} props - Les propriétés du composant
+ * @returns {JSX.Element} La page complète de recherche d'artisans
+ * @example
+ * ```tsx
+ * <ArtisansPage lang="fr" />
+ * ```
+ */
 const ArtisansPage: React.FC<ArtisansPageProps> = ({ lang }) => {
+  /**
+   * Textes multilingues pour l'interface utilisateur
+   * @description Contient tous les textes affichés selon la langue sélectionnée
+   */
   const texts = {
+    /** Textes en français */
     fr: {
+      /** Titre principal de la page */
       title: 'Recherche d&apos;artisans',
+      /** Sous-titre descriptif */
       subtitle: 'Découvrez les maîtres artisans des métiers de bouche qui perpétuent l&apos;excellence française',
+      /** Placeholder pour le champ de recherche principal */
       searchPlaceholder: 'Rechercher un artisan, une spécialité, une ville...',
+      /** Texte du bouton de recherche */
       searchButton: 'Rechercher',
+      /** Label pour le filtre métier */
       craftLabel: 'Métier',
+      /** Placeholder pour le filtre métier */
       craftPlaceholder: 'Tous les métiers',
+      /** Label pour le filtre localisation */
       locationLabel: 'Localisation',
+      /** Placeholder pour le filtre localisation */
       locationPlaceholder: 'Toutes les villes',
+      /** Label pour le filtre spécialité */
       specialtyLabel: 'Spécialité',
+      /** Placeholder pour le filtre spécialité */
       specialtyPlaceholder: 'Toutes les spécialités',
+      /** Label pour le filtre certification */
       certificationLabel: 'Certification',
+      /** Placeholder pour le filtre certification */
       certificationPlaceholder: 'Toutes les certifications',
+      /** Label pour le filtre prix */
       priceLabel: 'Gamme de prix',
+      /** Placeholder pour le filtre prix */
       pricePlaceholder: 'Tous les prix',
+      /** Label pour le filtre services */
       serviceLabel: 'Services',
+      /** Placeholder pour le filtre services */
       servicePlaceholder: 'Tous les services',
+      /** Titre affiché quand aucun résultat */
       emptyTitle: 'Aucun artisan trouvé',
+      /** Message affiché quand aucun résultat */
       emptyText: 'Essayez de modifier vos critères de recherche pour découvrir de talentueux artisans près de chez vous.'
     },
+    /** Textes en anglais */
     en: {
       title: 'Artisan search',
       subtitle: 'Discover master artisans of food crafts who perpetuate French excellence',

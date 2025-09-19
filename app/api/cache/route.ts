@@ -3,6 +3,21 @@ import { cache } from '@/lib/cache';
 import { authenticateRequest } from '@/lib/auth';
 import { isRedisHealthy } from '@/lib/redis';
 
+/**
+ * Cache management API - GET endpoint
+ * @description Handles GET requests for cache statistics and health checks
+ * @param request - Next.js request object containing query parameters
+ * @returns JSON response with cache data or error information
+ * @example
+ * ```typescript
+ * // Get cache statistics
+ * GET /api/cache?action=stats
+ * 
+ * // Check cache health
+ * GET /api/cache?action=health
+ * ```
+ * @requires Authentication via API token in headers or query parameters
+ */
 export async function GET(request: NextRequest) {
   // Authenticate the request
   const authResult = authenticateRequest(request);
@@ -49,6 +64,27 @@ export async function GET(request: NextRequest) {
   }
 }
 
+/**
+ * Cache management API - POST endpoint
+ * @description Handles POST requests for cache clearing and invalidation operations
+ * @param request - Next.js request object containing JSON body with action parameters
+ * @returns JSON response with operation result or error information
+ * @example
+ * ```typescript
+ * // Clear specific cache entry
+ * POST /api/cache
+ * Body: { action: "clear", key: "page:/restaurants", namespace: "cache" }
+ * 
+ * // Clear all cache in namespace
+ * POST /api/cache
+ * Body: { action: "clear-all", namespace: "api" }
+ * 
+ * // Clear cache by tags
+ * POST /api/cache
+ * Body: { action: "clear-tags", tags: ["restaurants", "menus"] }
+ * ```
+ * @requires Authentication via API token in headers or query parameters
+ */
 export async function POST(request: NextRequest) {
   // Authenticate the request
   const authResult = authenticateRequest(request);

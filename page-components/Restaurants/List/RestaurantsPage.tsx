@@ -1,11 +1,40 @@
 import React from 'react';
 import styles from './styles.module.css';
 
+/**
+ * Properties for the restaurants listing page
+ * @description Props for the restaurant search and listing page component
+ * @example
+ * ```tsx
+ * <RestaurantsPage lang="fr" />
+ * <RestaurantsPage lang="en" />
+ * ```
+ */
 interface RestaurantsPageProps {
+  /** @description Language for content localization */
   lang: 'fr' | 'en';
 }
 
+/**
+ * Restaurant search and listing page component
+ * @description Displays a search interface and listing of restaurants with filtering capabilities
+ * @param props - Component props
+ * @param props.lang - Language for content localization
+ * @returns Restaurant search page with filters and results
+ * @example
+ * ```tsx
+ * // French version
+ * <RestaurantsPage lang="fr" />
+ * 
+ * // English version  
+ * <RestaurantsPage lang="en" />
+ * ```
+ */
 const RestaurantsPage: React.FC<RestaurantsPageProps> = ({ lang }) => {
+  /**
+   * Localized text content for the restaurant page
+   * @description Contains all text strings for both French and English versions
+   */
   const texts = {
     fr: {
       title: 'Recherche de restaurants',
@@ -41,6 +70,7 @@ const RestaurantsPage: React.FC<RestaurantsPageProps> = ({ lang }) => {
     }
   };
 
+  /** @description Current language text configuration */
   const t = texts[lang];
 
   return (

@@ -2,15 +2,59 @@ import React from 'react';
 import styles from './styles.module.css';
 import Image from 'next/image';
 
+/**
+ * Language type definition
+ * @description Supported languages for the application
+ */
 type Language = 'fr' | 'en';
 
+/**
+ * Properties for the home page component
+ * @description Props for the main homepage component with internationalization support
+ * @example
+ * ```tsx
+ * <HomePage 
+ *   lang="fr" 
+ *   country="FR" 
+ *   locale="fr-FR" 
+ *   hostname="gaultmillau.fr" 
+ * />
+ * ```
+ */
 interface HomePageProps {
+  /** @description Current language for content localization */
   lang: Language;
+  /** @description Country code for region-specific content (optional, defaults to 'FR') */
   country?: string;
+  /** @description Locale for formatting and display (optional, defaults to 'en-US') */
   locale?: string;
+  /** @description Current hostname for URL generation (optional, defaults to empty string) */
   hostname?: string;
 }
 
+/**
+ * Main homepage component for Gault&Millau website
+ * @description Displays the homepage with hero section, featured restaurants, and content sections
+ * @param props - Component props
+ * @param props.lang - Language for content localization
+ * @param props.country - Country code for region-specific content
+ * @param props.locale - Locale for formatting and display
+ * @param props.hostname - Current hostname for URL generation
+ * @returns Complete homepage with all sections
+ * @example
+ * ```tsx
+ * // Basic usage
+ * <HomePage lang="fr" />
+ * 
+ * // With full configuration
+ * <HomePage 
+ *   lang="en"
+ *   country="US"
+ *   locale="en-US"
+ *   hostname="gaultmillau.com"
+ * />
+ * ```
+ */
 export default function HomePage({ 
   lang, 
   country = 'FR', 
