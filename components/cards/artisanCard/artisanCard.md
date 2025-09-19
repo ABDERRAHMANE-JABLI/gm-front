@@ -7,12 +7,12 @@
 | title                        | string      | Non       | Nom du domaine |
 | slug                         | string      | Non       | Slug du domaine |
 | isGmSelected                 | bool        | Non       | false = 'Sponsorisé' |
-| primaryActivity              | string      | Non       | Activité principale (boucher, fromager, ...) |
-| otherActivities              | array       | Oui       | Activités secondaires (la principale ne faisant pas partie de ce tableau) voir ci-dessous
-| thumbId                      | string      | Oui       | Id image miniature (666x444 fit=cover)|
+| activities                   | array       | Oui       | index 0 = Activité principale, puis toutes les activités secondaires |
+| thumbId                      | string      | Oui       | Id image miniature (666x444 fit=cover) |
 | openingPeriods               | array       | Oui       | horaires d'ouvertures voir ci-dessous |
 | address                      | string      | Oui       | Adresse Artisan |
 | services                     | array       | Oui       | Services de l'artisan voir ci-dessous |
+| distance                     | string      | Oui       | affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi' activé |
 
 ### openingPeriods structure
 ```json
@@ -47,9 +47,9 @@
 }
 ```
 
-### otherActivities structure
+### activities structure
 ```json
-{ "otherActivities": ["Charcutier", "..."]}
+{ "activities": ["Charcutier", "Boucher", "Traiteur", "..."]}
 ```
 
 ### services structure

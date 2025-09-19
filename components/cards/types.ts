@@ -42,7 +42,7 @@ export interface RestaurantProps{
     cuisines?: string[]; // Types de cuisine voir ci-dessous
     budget?: string; // Texte prix
     supportfavorite?: boolean; // permet l'affichage de l'icône coeur
-    distance?: string | number; // affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi'
+    distance?: string; // affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi'
     
 }
 
@@ -50,12 +50,12 @@ export interface ArtisanProps{
     title: string;
     slug: string;
     isGmSelected : boolean; // false = 'Sponsorisé'
-    primaryActivity : string; // Activité principale (boucher, fromager, ...)
-    otherActivities? : string[]; // Activités secondaires (la principale ne faisant pas partie de ce tableau) voir ci-dessous
+    activities? : string[]; // Activités secondaires (la principale ne faisant pas partie de ce tableau) voir ci-dessous
     thumbId?: string; // Id image miniature (666x444 fit=cover)
     openingPeriods?: OpeningPeriods; // horaires d'ouvertures voir ci-dessous
     address?: string;
     services? : string[]; // Services de l'artisan voir ci-dessous
+    distance?: string; // affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi'
 }
 
 export interface HotelProps{
@@ -71,6 +71,7 @@ export interface HotelProps{
     services? : string[]; // Services de l'hôtel voir ci-dessous
     budget?: string; // Texte prix
     supportfavorite?: boolean; // permet l'affichage de l'icône coeur
+    distance?: string; // affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi'
 }
 
 export enum ProductKind {
@@ -88,5 +89,6 @@ export interface WineryProps {
     address?: string;
     productions? : string[]; // types de production
     services? : string[]; // Services
+    distance?: string; // affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi'
 }
 
