@@ -119,7 +119,9 @@ function CaptionButton({ lang, data }: { lang: string; data: NewsCardButtonProps
         <strong className={styles.captionLine1}>{data.text_line1}</strong>
         {data.text_line2 && <span className={styles.captionLine2}>{data.text_line2}</span>}
       </span>
-      <span className={styles.chevron} aria-hidden>›</span>
+      <span className={styles.chevron} aria-hidden>
+        <svg width="12px" height="12px" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill="currentColor" fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8L4.646 2.354a.5.5 0 0 1 0-.708"></path></svg>
+      </span>
     </Link>
   );
 }
