@@ -216,3 +216,7 @@
     gap: 0.5rem;
   }
 }
+
+.rowWidth{
+  width: 1000px !important;
+}

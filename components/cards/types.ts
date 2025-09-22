@@ -497,3 +497,22 @@ export interface WineryProps {
     distance?: string;
 }
 
+// types for blog Card : 
+/*
+export interface BlogCardHeader {
+  title: string;            // ex: "ACTUALITÉS"
+  subtitle?: string;        // ex: "Actus & Rendez-vous"
+  moreHref?: string;        // lien "VOIR PLUS"
+}
+
+export interface BlogCardProps {
+  id: string;
+  title: string;
+  resume: string;
+  href: string;
+  theme?: string;           // badge jaune
+  thumbSrc: { id: string };
+  header?: BlogCardHeader;  // présent sur Home, absent sur page Blogs
+}
+*/
+

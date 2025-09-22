@@ -1,5 +1,8 @@
 import React from 'react';
+import NewsCard from '@/components/cards/NewsCard/NewsCard';
+import SingleNewsCard from '@/components/cards/NewsCard/SingleNewsCard'
 import styles from './styles.module.css';
+import { NewsCardData, NewsCardHeaderData, SingleNewsCardData } from "@/mocks/NewsData";
 
 type Language = 'fr' | 'en';
 
@@ -9,11 +12,12 @@ interface BlogsPageProps {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function BlogsPage({ lang }: BlogsPageProps) {
+
   return (
-    <div className={styles.blogSearchPage}>
+    <div className={styles.NewsearchPage}>
       {/* Search Page Container */}
       <div className={styles.container}>
-        
+
         {/* Page Header */}
         <header className={styles.pageHeader}>
           <h1 className={styles.pageTitle}>Actualités</h1>
@@ -26,8 +30,8 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
         <section className={styles.searchSection}>
           <div className={styles.searchContainer}>
             <div className={styles.searchBox}>
-              <input 
-                type="search" 
+              <input
+                type="search"
                 placeholder="Rechercher des articles..."
                 className={styles.searchInput}
               />
@@ -51,7 +55,7 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
                 <option value="city-guide">City Guide & Balades</option>
               </select>
             </div>
-            
+
             <div className={styles.filterGroup}>
               <label className={styles.filterLabel}>Date</label>
               <select className={styles.filterSelect}>
@@ -65,22 +69,41 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
           </div>
         </section>
 
-        {/* Results Section */}
         <section className={styles.resultsSection}>
+
           <div className={styles.resultsHeader}>
-            <h2 className={styles.resultsTitle}>Résultats de recherche</h2>
-            <div className={styles.resultsCount}>
-              Aucun résultat pour le moment
-            </div>
+            <h2 className={styles.resultsTitle}>Les cartes de la page Actualité</h2>
           </div>
-          
-          {/* Empty State */}
-          <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>🔍</div>
-            <h3 className={styles.emptyTitle}>Aucun article trouvé</h3>
-            <p className={styles.emptyText}>
-              Utilisez les filtres ci-dessus pour rechercher des articles ou actualités.
-            </p>
+
+
+          <div className="row g-4 mb-5">
+            {NewsCardData.map((card) => (
+              <div key={card.id} className="col-12 col-md-6 col-lg-4 mx-auto">
+                <NewsCard lang={lang} cards={card} />
+              </div>
+            ))}
+          </div>
+
+
+
+          <div className={styles.resultsHeader}>
+            <h2 className={styles.resultsTitle}>Les cartes de la page La PLACE</h2>
+          </div>
+
+          <div className='row g-4 mb-5'>
+            {NewsCardHeaderData.map((card) => (
+              <div key={card.id} className="col-12 col-md-6 col-lg-4 mx-auto">
+                <NewsCard lang={lang} cards={card} withHeader={true} headerSubtitle={card.theme?.[0]} headerMoreHref={"/" + lang + "/blogs"} />
+              </div>
+            ))}
+          </div>
+
+
+
+          <div className='row g-4 mb-5'>
+            <div className="mx-auto">
+              <SingleNewsCard lang={lang} card={SingleNewsCardData} withHeader={true} headerSubtitle={SingleNewsCardData.theme?.[0]} headerMoreHref={"/" + lang + "/blogs"} />
+            </div>
           </div>
         </section>
 
