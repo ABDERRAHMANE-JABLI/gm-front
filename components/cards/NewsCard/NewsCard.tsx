@@ -11,23 +11,30 @@ type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language;               // "fr" | "en"…
-  cards: NewsCardProps;
+  card: NewsCardProps;
   withHeader?: boolean;       // pour la page PLACE
   headerSubtitle?: string;    // ex: "Actus & Rendez-vous"
   headerMoreHref?: string;    // lien "VOIR PLUS"
 };
 
-export default function NewsCard({ lang, cards, withHeader, headerSubtitle, headerMoreHref }: Props) {
+export default function NewsCard({ lang, card, withHeader}: Props) {
 
-  const firstTheme = cards.theme?.[0];
-  const buttons = cards.buttons ?? [];
+  const firstTheme = card.theme?.[0];
+  const buttons = card.buttons ?? [];
   const showCTA = buttons.length === 0;
-  const cardHref = hrefCard(lang, cards.slug);
+  const cardHref = hrefCard(lang, card.slug);
+  const headerMoreHref = "/" + lang + "/blogs";
+  const headerSubtitle = card.theme?.[0];
 
-  const { t } =  useClientTranslation(lang);
+  const { t } = useClientTranslation(lang);
 
   return (
     <article className={styles.card}>
+      <Link href={cardHref} aria-label={`${card.title} — ${t('common.read_more')}`}>
+        <span className={styles.stretchedLink} aria-hidden="true" />
+      </Link>
+
+
       {withHeader && (
         <div className={styles.cardHeader}>
           <div className={styles.headerLeft}>
@@ -41,7 +48,7 @@ export default function NewsCard({ lang, cards, withHeader, headerSubtitle, head
                     <rect width="28.602" height="27.028" fill="#ffffffff" />
                   </clipPath>
                 </defs>
-                <g transform="translate(-114.5 -28)"> 
+                <g transform="translate(-114.5 -28)">
                   <rect width="64" height="64" rx="18" transform="translate(114.5 28)" fill="#fda703" />
                   <g transform="translate(130.5 45.052) scale(1.3)">
                     <g transform="translate(1.229 1.229)">
@@ -75,19 +82,15 @@ export default function NewsCard({ lang, cards, withHeader, headerSubtitle, head
 
       {/* Media (image) + badge */}
       <div className={styles.thumbWrapper}>
-        <Link href={cardHref} className={styles.imageLink} aria-label={cards.title}>
-          <SmartImage id={cards.thumbId} alt={cards.title} width={666} height={444} fit="cover" lazyload />
-        </Link>
-
+        <SmartImage id={card.thumbId} alt={card.title} width={666} height={444} fit="cover" lazyload />
         {firstTheme && <span className={styles.badge}>{firstTheme}</span>}
       </div>
 
       {/* Contenu */}
       <div className={styles.body}>
-        <h3 className={styles.title}>{cards.title}</h3>
-        <p className={styles.synopsis}>{cards.resume}</p>
+        <h3 className={styles.title}>{card.title}</h3>
+        <p className={styles.synopsis}>{card.resume}</p>
 
-        {/* Footer boutons / CTA */}
         <div className={styles.footer}>
           {buttons.length > 0 ? (
             <div className={styles.captionButtons}>

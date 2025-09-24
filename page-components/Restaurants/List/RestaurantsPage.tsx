@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
+import RestaurantCard from '@/components/cards/restaurantCard/RestaurantCard';
+import { RestaurantData } from '@/mocks/RestaurantData';
 
 /**
  * Properties for the restaurants listing page
@@ -157,12 +159,10 @@ const RestaurantsPage: React.FC<RestaurantsPageProps> = ({ lang }) => {
             <h2 className={styles.resultsTitle}>Résultats</h2>
             <span className={styles.resultsCount}>0 restaurant trouvé</span>
           </div>
-
-          {/* Empty State */}
-          <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>🍽️</div>
-            <h3 className={styles.emptyTitle}>{t.emptyTitle}</h3>
-            <p className={styles.emptyText}>{t.emptyText}</p>
+          <div className="infinite-hits-container mt-5">
+            {RestaurantData.map((data) => (
+                <RestaurantCard lang={lang}  restaurant={data}/>
+            ))}
           </div>
         </section>
       </div>

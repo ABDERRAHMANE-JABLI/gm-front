@@ -101,6 +101,7 @@ export interface OpeningPeriods {
  *   noteDescription: "Table de prestige"
  * }
  */
+
 export interface RestaurantProps {
     /** 
      * Nom du restaurant

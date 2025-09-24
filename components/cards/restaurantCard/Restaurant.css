@@ -1,0 +1,160 @@
+.cardkind-restaurant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 330px;
+  height: 480px;
+  background-color: var(--GMI-carddefaultbackground);
+  border: 1px solid var(--GMI-cardbordercolor);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardkind-restaurant:hover {
+  border-color: var(--GMI-outlinedyellow);
+  box-shadow: 8px 8px 10px #0000001f;
+}
+
+.cardkind-restaurant > .thumbnail-wrapper {
+  width: 100%;
+  position: relative;
+  padding-top: 66.66%;
+  background-color: var(--GMI-carddefaultbackground);
+}
+
+.cardkind-restaurant > .thumbnail-wrapper .thumbnail-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.OpeningDaysInfo > .openingHours {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0px 3px;
+  position: absolute;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  min-width: 62px;
+  text-align: left;
+  text-transform: capitalize;
+  font: normal normal bold 10px/13px Montserrat;
+  letter-spacing: 0px;
+  color: #fefefe;
+  border-radius: 12px;
+  line-height: 0px;
+  padding: 6px;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.OpeningDaysInfo > .openingHours > svg {
+  display: block;
+  height: 100%;
+}
+
+.OpeningDaysInfo > .openingHours.isOpen {
+  color: #fefefe;
+  background-color: #00ad64;
+  opacity: 0;
+}
+
+.OpeningDaysInfo > .openingHours.isOpen.show {
+  opacity: 1;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding: 16px;
+}
+
+.title {
+  font-family: var(--card-title-font-family);
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  color: var(--GMI-black);
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.address {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 500;
+  color: #707070;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cuisine {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--GMI-black);
+  text-transform: capitalize;
+}
+
+.Budget {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0px 15px;
+  overflow: hidden;
+  padding-left: 24px;
+  padding-right: 16px;
+  height: 40px;
+  border: 2px solid var(--yellowGM);
+  border-radius: 12px;
+  font: normal normal bolder 14px/14px Montserrat;
+  background-color: white;
+  white-space: nowrap;
+}
+
+.ChiefHats {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+  border-radius: 8px;
+  background-color: var(--yellowGM);
+  padding: 5px 6px;
+  width: 80px;
+  line-height: 0px;
+}
+
+.ChiefHats.toqueOr {
+  background-color: unset;
+  border: 2px solid var(--academicGM);
+}
+
+.ChiefHats.sponsored {
+  background-color: var(--sponsoredGM);
+}
+
+.ChiefHats > svg {
+  display: block;
+  fill: black;
+  stroke: black;
+  stroke-width: 1.5px;
+  height: 16px;
+}
+
+@media (max-width: 767.98px) {
+  .cardkind-restaurant {
+    width: 100% !important;
+  }
+}

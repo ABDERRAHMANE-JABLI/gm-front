@@ -76,11 +76,11 @@ export const NewsCardData: NewsCardProps[] = [
   },
   {
     id: "c2",
-    title: "le tout premier Championnat du tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
-    resume: "Un plat d’héritage, trois MOF et un jury d’exception : le 18 novembre… Olivier Nasti organise le tout premier Championnat du organise le tout premier Championnat du organiseOlivier Nasti organise le tout premier Championnat du organise le tout premier Championnat du organise",
-    slug: "olivier-nasti-championnat",
+    title: "Le Salon du BON avec Thierry Marx : l’événement food à saisir à prix réduit",
+    resume: "Jusqu’au 30 septembre 2025, le Salon du BON propose des billets à -20%. Une bonne occasion de se faire plaisir à prix réduit.",
+    slug: "le-salon-du-bon-avec-thierry-marx-l-evenement-food-a-saisir-a-prix-reduit",
     theme: ["Actus & Rendez-vous"],
-    thumbId: "7761474d-084a-423e-957a-106bf81a2954",
+    thumbId: "cecc7f56-8d8d-4a21-ad76-8cbc12a270d7",
     buttons: [
       {
         buttonKind: NewsCardButtonKind.RESTAURANT,

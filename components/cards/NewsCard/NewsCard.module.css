@@ -154,6 +154,7 @@
   color: var(--GMI-black); 
   background: transparent;
   text-transform: uppercase;
+  text-overflow: ellipsis;
 }
 .ctaText { 
     position: relative; 
@@ -165,6 +166,7 @@
     justify-content: center;
     letter-spacing: var(--button-label-letter-spacing);
     line-height: var(--button-label-line-height);
+    text-overflow: ellipsis;
 }
 .cta::before {
   content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);
@@ -186,10 +188,12 @@
   transition: background-color 0.25s ease;
   gap: 12px;
   width: 100%;
+  min-width: 0;
   height: 40px;
   margin-bottom: 3px;
   overflow: hidden;
   z-index: 0;
+  text-overflow: ellipsis;
 }
 
 /* effet de hover jaune */
@@ -228,6 +232,7 @@
     line-height: 16px;
     text-transform: capitalize;
     width: 60px;
+    
 }
 
 .captionText {
@@ -235,13 +240,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
   font-family: var(--button-label-font-family);
   font-size: var(--button-label-font-size); 
   font-style: var(--button-label-font-style); 
   text-transform: uppercase;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .captionLine1 {
@@ -253,10 +258,16 @@
 }
 
 .captionLine1, .captionLine2{
+  display: block;
+  width: 100%;
+  overflow: hidden;        
+  white-space: nowrap;      
+  text-overflow: ellipsis;  
   line-height: 1.2;
   font-size: 13px;
   padding-top: 2px;
   padding-bottom: 2px;
+  width: 100%;
   color: var(--GMI-black);
   font-family: var(--button-label-font-family);
   font-size: var(--button-label-font-size); 
@@ -268,4 +279,10 @@
   color: #000000;
   font-weight: 500;
 }
-
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+}
+.moreBtn, .cta, .captionBtn { position: relative; z-index: 10; }

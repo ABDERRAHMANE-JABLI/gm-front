@@ -18,12 +18,17 @@ type Props = {
     headerMoreHref?: string;
 };
 
-export default function SingleNewsCard({ lang, card, withHeader, headerSubtitle, headerMoreHref }: Props) {
+export default function SingleNewsCard({ lang, card, withHeader }: Props) {
     const cardHref = hrefCard(lang, card.slug);
-    const { t } =  useClientTranslation(lang);
+    const headerMoreHref = "/" + lang + "/blogs";
+    const headerSubtitle = card.theme?.[0];
+    const { t } = useClientTranslation(lang);
 
     return (
         <article className={styles.uneCard}>
+            <Link href={cardHref} aria-label={`${card.title} — ${t('common.read_more')}`}>
+                <span className={styles.stretchedLink} aria-hidden="true" />
+            </Link>
             {withHeader && (
                 <div className={styles.cardHeader}>
                     <div className={styles.headerLeft}>
@@ -63,11 +68,9 @@ export default function SingleNewsCard({ lang, card, withHeader, headerSubtitle,
                             )}
                         </div>
                     </div>
-                    {headerMoreHref && (
-                        <Link href={headerMoreHref} className={styles.moreBtn}>
-                            {t('common.see_more')}
-                        </Link>
-                    )}
+                    <Link href={headerMoreHref} className={styles.moreBtn}>
+                        {t('common.see_more')}
+                    </Link>
                 </div>
             )}
 
