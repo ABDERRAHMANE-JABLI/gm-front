@@ -1,6 +1,6 @@
 import React from 'react';
-import NewsCard from '@/components/cards/NewsCard/NewsCard';
-import SingleNewsCard from '@/components/cards/NewsCard/SingleNewsCard'
+import NewsCard from '@/components/cards/NewsCard';
+import SingleNewsCard from '@/components/cards/newsUneCard'
 import styles from './styles.module.css';
 import { NewsCardData, NewsCardHeaderData, SingleNewsCardData } from "@/mocks/NewsData";
 

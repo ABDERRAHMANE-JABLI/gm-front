@@ -1,112 +1,94 @@
-// components/RestaurantCard.tsx
-import React from "react";
+"use client";
+
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
-import { RestaurantProps } from "@/types/Restaurant";
 import styles from "./RestaurantCard.module.css";
-import { M_PLUS_1 } from "next/font/google";
+import { useClientTranslation } from '@/lib/i18n/client';
+import { RestaurantProps } from "@/types/Restaurant";
+import Toques from "../common/Toques";
+import { isOpenNow } from "@/utils/openingHour";
 
-const ToqueIcon = () => (
-  <svg
-    width="15"
-    height="21"
-    viewBox="0 0 15 21"
-    fill="currentColor"
-    className={styles.toque}
-    aria-hidden="true"
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M13.6084 7.22049C13.462 9.23333 12.7358 11.3654 12.5022 12.6683C12.3613 13.446 12.2334 14.9196 12.209 16.242..."
-      fill="#D7A949"
-    ></path>
-    <path
-      d="M12.5022 12.6683L12.6498 12.695L12.6499 12.6947L12.5022 12.6683ZM12.209 16.242L12.2507 16.386L12.3569 16.3553..."
-      fill="#D7A949"
-    ></path>
-  </svg>
-);
+type Language = 'fr' | 'en';
 
-const RestaurantCard: React.FC<RestaurantProps> = ({
-  title,
-  slug,
-  nbToques,
-  thumbId,
-  openingPeriods,
-  budget,
-  address,
-  cuisines,
-}) => {
-  const isOpen = true; // Placeholder until dynamic logic is added
-
-  const getToques = () => {
-    if (nbToques === -1)
-      return <span className={`${styles.ChiefHats} ${styles.sponsored}`}>Sponsorisé</span>;
-    if (nbToques === 6)
-      return (
-        <span className={`${styles.ChiefHats} ${styles.toqueOr}`}>
-          <ToqueIcon />
-        </span>
-      );
-    if (nbToques >= 1 && nbToques <= 5) {
-      return (
-        <span className={styles.ChiefHats}>
-          {[...Array(nbToques)].map((_, i) => (
-            <ToqueIcon key={i} />
-          ))}
-        </span>
-      );
-    }
-    return null;
-  };
-
-  return (
-    <Link href={`/restaurants/${slug}`} className={`card ${styles.cardkindRestaurant}`}>
-      <div className={styles.thumbnailWrapper}>
-        {thumbId && (
-          <SmartImage
-            id={thumbId}
-            alt={title}
-            width={666}
-            height={444}
-          />
-        )}
-
-        <div className={`${styles.openingHours} ${styles.isOpen} ${isOpen ? styles.show : ""}`}>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="white">
-            <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="2" fill="none" />
-            <path d="M12 6v6l4 2" stroke="white" strokeWidth="2" fill="none" />
-          </svg>
-          <span>Ouvert</span>
-        </div>
-      </div>
-
-      <div className={styles.details}>
-        <h3 className={styles.title}>{title}</h3>
-        {getToques()}
-
-        {Array.isArray(cuisines) && cuisines.length > 0 && (
-          <p className={styles.synopsis}>
-            {cuisines.slice(0, 3).join(" | ")}
-            {cuisines.length > 3 ? "..." : ""}
-          </p>
-        )}
-
-        {budget && (
-          <div className={styles.Budget}>
-            <div className={styles.currency}>{budget}</div>
-            <div className={styles.text}>
-              <div className={styles.rowPrice}>Prix</div>
-              <div className={styles.rowLabel}>Gamme de prix</div>
-            </div>
-          </div>
-        )}
-
-        {address && <p className={styles.address}>{address}</p>}
-      </div>
-    </Link>
-  );
+type Props = {
+    lang: Language;
+    restaurant: RestaurantProps;
 };
 
-export default RestaurantCard;
+export default function RestaurantCard({ lang, restaurant }: Props) {
+
+    const { t } = useClientTranslation(lang);
+    const imageId = restaurant?.thumbId ?? "";
+    const isOpen = isOpenNow(restaurant.openingPeriods);
+    const isSponsored = restaurant.nbToques === -1 ? true : false;
+
+    return (
+        <article className={styles.card}>
+            <Link href={`/${lang}/restaurant/${restaurant?.slug}`} aria-label={restaurant.title}>
+                <span className={styles.stretchedLink} aria-hidden="true" />
+            </Link>
+            <div className={styles.thumbWrapper}>
+                <SmartImage id={imageId} alt={restaurant.title} width={666} height={444} fit="cover" lazyload />
+
+                {isOpen && (
+                    <span className={`${styles.statusBadge} ${styles.statusOpen}`} role="status">
+                        <svg width="10px" height="10px" viewBox="0 0 1600 1280" fill="currentColor" className="svgCheck" aria-hidden="true"><path fill="currentColor" d="M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68"></path>
+                        </svg>
+                        <span>Ouvert</span>
+                    </span>
+                )}
+
+                {restaurant.distance && (
+                    <span className={styles.distanceBadge}>
+                        <span>{restaurant.distance}</span>
+                    </span>
+                )}
+
+                <span className={styles.favorite}>
+                    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.071 13.142L13.414 18.8a2 2 0 0 1-2.828 0l-5.657-5.657A5 5 0 1 1 12 6.072a5 5 0 0 1 7.071 7.07"></path></svg>
+                </span>
+            </div>
+
+            {/* Contenu */}
+            <div className={styles.body}>
+                
+                <div className={styles.cardPaddingContainer}>
+                    <Toques nbToques={restaurant.nbToques} note={restaurant.note} description={restaurant.noteDescription}/>
+                </div>
+
+                <div className={styles.cardPaddingContainer}>
+                    <h3 className={styles.title}>{restaurant.title}</h3>
+                </div>
+                
+                {/* Details */}
+                <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
+                    {restaurant.address && (
+                        <div className={styles.cardDetailHor}>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Lieu</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.address}>{restaurant.address}</span>
+                        </div>
+                    )}
+                    {restaurant.chief && (
+                        <div className={styles.cardDetailHor}>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Chef</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.chief}>{restaurant.chief}</span>
+                        </div>
+                    )}
+                    {!!restaurant.cuisines?.length && (
+                        <div className={styles.cardDetailHor}>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Cuisine</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.outlined} ${isSponsored ? styles.bgSponsored : ''}`}>{restaurant.cuisines.join(" | ")}</span>
+                        </div>
+                    )}
+                    {restaurant.budget && (
+                        <div className={styles.cardDetailHor}>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>budget</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{restaurant.budget}</span>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </article>
+    );
+}
+

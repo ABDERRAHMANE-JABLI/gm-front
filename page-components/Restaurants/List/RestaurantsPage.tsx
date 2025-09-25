@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
-import RestaurantCard from '@/components/cards/restaurantCard/RestaurantCard';
+import RestaurantCard from '@/components/cards/restaurantCard';
 import { RestaurantData } from '@/mocks/RestaurantData';
 
 /**
@@ -160,8 +160,8 @@ const RestaurantsPage: React.FC<RestaurantsPageProps> = ({ lang }) => {
             <span className={styles.resultsCount}>0 restaurant trouvé</span>
           </div>
           <div className="infinite-hits-container mt-5">
-            {RestaurantData.map((data) => (
-                <RestaurantCard lang={lang}  restaurant={data}/>
+            {RestaurantData.map((data, i) => (
+                <RestaurantCard lang={lang}  restaurant={data} key={i}/>
             ))}
           </div>
         </section>

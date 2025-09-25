@@ -137,7 +137,7 @@ export const RestaurantData: RestaurantProps[] = [{
       { begin: "16:00", end: "22:00" }
     ],
     thursday: [
-      { begin: "12:00", end: "14:00" },
+      { begin: "09:00", end: "14:00" },
       { begin: "19:00", end: "22:00" }
     ],
     friday: [
