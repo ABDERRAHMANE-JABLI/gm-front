@@ -281,6 +281,10 @@
     line-height: var(--page-detail-vertical-label-16-line-height)
 }
 
+.textUpper{
+  text-transform: uppercase;
+}
+
 .stretchedLink {
   position: absolute;
   inset: 0;

@@ -117,6 +117,7 @@
 
 /* Bodyj */
 .body { display: flex; flex-direction: column; flex: 1; padding: 20px 20px 20px; }
+
 .title {
   margin: 0 0 10px; color: var(--GMI-black);
   font-family: var(--card-title-font-family) !important;
@@ -125,8 +126,9 @@
   line-height: var(--card-title-line-height);
   display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
   -webkit-line-clamp: 3; line-clamp: 3;
-  
+  text-transform: capitalize;
 }
+
 .synopsis {
   color: var(--GMI-black);
   font-family: var(--news-card-text-font-family);

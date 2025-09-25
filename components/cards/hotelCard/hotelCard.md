@@ -55,3 +55,13 @@
 ```json
 { "services": ["Wi-fi", "Terrasse", "Spa", "..."]}
 ```
+
+```tsx
+
+ <div className="infinite-hits-container mt-5">
+              {hotelData.map((data, i) => (
+                <HotelCard lang={lang}  Hotel={data} key={i}/>
+              ))}
+  </div> 
+```
+

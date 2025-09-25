@@ -1,0 +1,76 @@
+
+.hotelRating {
+    align-items: center;
+    align-self: stretch;
+    display: flex;
+    gap: 10px;
+    position: relative;
+    width: 100%
+}
+
+.hotelRating,.hotelRating>.stars {
+    flex: 0 0 auto
+}
+
+.hotelRating>.description {
+    all: unset;
+    color: var(--GMI-black);
+    display: -webkit-box;
+    font-family: var(--hotel-note-text-font-family);
+    font-size: var(--hotel-note-text-font-size);
+    font-weight: var(--hotel-note-text-font-weight);
+    letter-spacing: var(--hotel-note-text-letter-spacing);
+    line-height: var(--hotel-note-text-line-height);
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    width: fit-content;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-style: var(--hotel-note-text-font-style)
+}
+
+.hr-spacer {
+    align-self: stretch;
+    flex: 1;
+    flex-grow: 1;
+    position: relative;
+    width: 100%
+}
+
+
+.stars {
+    background-color: var(--GMI-outlinedyellow);
+    border-radius: var(--GMI-overlayradius);
+    font-family: var(--news-categories-yellow-font-family);
+    font-size: var(--news-categories-yellow-font-size);
+    font-style: var(--news-categories-yellow-font-style);
+    font-weight: var(--news-categories-yellow-font-weight);
+    gap: 3px;
+    height: 30px;
+    letter-spacing: var(--news-categories-yellow-letter-spacing);
+    line-height: var(--news-categories-yellow-line-height);
+    overflow: hidden;
+    text-align: center;
+    width: 100px
+}
+
+.stars,.stars .stars-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative
+}
+
+.stars.sponsored {
+    background-color: var(--GMI-sponsored-bgColor) !important;
+}
+
+
+.stars .star {
+    all: unset;
+    height: 11px;
+    position: relative;
+    width: 12px
+}
+

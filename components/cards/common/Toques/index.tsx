@@ -5,7 +5,18 @@ type ToquesProps = {
   nbToques: number;
   note?: string | number;
   description?: string;
+  withDescription? : boolean;
 };
+
+// l'attribut withDescription : 
+
+/* 
+Le composant Toques va etre utilisé par les cartes restaurant et hotels, dans la carte hotel si on a un restaurant avec 6 toques
+ on doit afficher seulement les 5 toques Gold, sans la description (Membre de l'académie gaultMillau)
+ --->  Utilisation dans La carte Restaurant : <Toques nbToques={restaurant.nbToques} note={restaurant.note} description={restaurant.noteDescription}/>
+ --->  Utilisation dans la c arte Hotel : <Toques nbToques={Hotel.restaurantNbToques} withDescription={false} />
+*/
+
 
 const NormalToque = () => (
   <svg width="14" height="20" viewBox="0 0 14 20" fill="currentColor" className="toque" aria-hidden="true">
@@ -19,7 +30,8 @@ const GoldToque = () => (
   </svg>
 );
 
-export default function Toques({ nbToques, note, description }: ToquesProps) {
+
+export default function Toques({ nbToques, note, description, withDescription=true}: ToquesProps) {
   if (nbToques === 0)
     return (
         <div className="notation">
@@ -46,7 +58,7 @@ export default function Toques({ nbToques, note, description }: ToquesProps) {
             <div className="toque-wrapper" key={i}><GoldToque /></div>
             ))}
             </div>
-          <span className="descriptionGold">Membre de l&apos;Académie<br />Gault&amp;Millau</span>
+          {withDescription && (<span className="descriptionGold">Membre de l&apos;Académie<br />Gault&amp;Millau</span>)}
       </div>
     );
 
