@@ -18,50 +18,131 @@
 | supportfavorite         | bool        | Non       | permet l'affichage de l'icône coeur |
 | distance                | string      | Oui       | affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi' activé |
 
-### openingPeriods structure
-```json
+
+## /components/cards/restaurantCard/index.tsx
+
+### Structure du composant :  
+
+Le composant RestaurantCard prend deux Props : `lang`: 'fr' | 'en' et `Hotel`: HotelProps.
+
+
+## Le contenu de l'objet Hotel : 
+
+```tsx
+import { HotelProps } from "@/types/Hotels";
+
+
+export const hotelData: HotelProps[] = [{
+  title: "Hôtel Georges blanc",
+  slug: "hotel-Georges-blanc",
+  isGmSelected: true,
+  nbStars: 5,
+  nbStarsDescription: "Hôtel d'exception'",
+  restaurantNbtoques: 6,
+  thumbId: "6c7906d9-3ab7-434d-90e1-4d1f7f3bd98b",
+  openingPeriods: {
+    monday:    [{ begin: "00:00", end: "23:59" }],
+    tuesday:   [{ begin: "00:00", end: "23:59" }],
+    wednesday: [{ begin: "00:00", end: "23:59" }],
+    thursday:  [{ begin: "00:00", end: "23:59" }],
+    friday:    [{ begin: "00:00", end: "23:59" }],
+    saturday:  [{ begin: "00:00", end: "23:59" }],
+    sunday:    [{ begin: "00:00", end: "23:59" }]
+  },
+  address: "01540 Vonnas",
+  services: ["Accès handicapés", "Animaux acceptés", "Restauration sur place"],
+  budget: "180€",
+  supportfavorite: true,
+},
 {
-  "sunday": [
-    ["09:30:00", "11:30:00"],
-    ["15:00:00", "18:00:00"]
-  ],
-  "monday": [
-    ["08:30:00", "11:45:00"],
-    ["14:00:00", "17:15:00"],
-    ["19:30:00", "21:00:00"]
-  ],
-  "tuesday": [
-    ["09:00:00", "12:00:00"],
-    ["13:30:00", "16:00:00"]
-  ],
-  "wednesday": [],
-  "thursday": [
-    ["08:00:00", "11:00:00"],
-    ["15:00:00", "18:30:00"],
-    ["20:00:00", "22:00:00"]
-  ],
-  "friday": [
-    ["09:15:00", "12:15:00"],
-    ["14:45:00", "17:30:00"]
-  ],
-  "saturday": [
-    ["10:00:00", "13:00:00"],
-    ["19:00:00", "23:00:00"]
-  ]
+  ... etc
 }
 ```
 
-### services structure
-```json
-{ "services": ["Wi-fi", "Terrasse", "Spa", "..."]}
-```
+#### Exemple d'utilisation :
 
 ```tsx
-
- <div className="infinite-hits-container mt-5">
-              {hotelData.map((data, i) => (
-                <HotelCard lang={lang}  Hotel={data} key={i}/>
-              ))}
-  </div> 
+<div className="infinite-hits-container mt-5">
+    {hotelData.map((data, i) => (
+        <HotelCard lang={lang}  Hotel={data} key={i}/>
+      ))}
+</div> 
 ```
+
+## l'objet HotelData :
+
+```tsx
+import { HotelProps } from "@/types/Hotels";
+
+export const hotelData: HotelProps[] = [{
+  title: "Hôtel Georges blanc",
+  slug: "hotel-Georges-blanc",
+  isGmSelected: true,
+  nbStars: 5,
+  nbStarsDescription: "Hôtel d'exception'",
+  restaurantNbtoques: 6,
+  thumbId: "6c7906d9-3ab7-434d-90e1-4d1f7f3bd98b",
+  openingPeriods: {
+    monday:    [{ begin: "00:00", end: "23:59" }],
+    tuesday:   [{ begin: "00:00", end: "23:59" }],
+    wednesday: [{ begin: "00:00", end: "23:59" }],
+    thursday:  [{ begin: "00:00", end: "23:59" }],
+    friday:    [{ begin: "00:00", end: "23:59" }],
+    saturday:  [{ begin: "00:00", end: "23:59" }],
+    sunday:    [{ begin: "00:00", end: "23:59" }]
+  },
+  address: "01540 Vonnas",
+  services: ["Accès handicapés", "Animaux acceptés", "Restauration sur place"],
+  budget: "180€",
+  supportfavorite: true,
+},
+{
+  ... etc
+}
+
+```
+### Les toques sont rendues via /common/toques/index.tsx selon restaurantNbtoques :
+
+`6 :  toques gold`
+
+`0 :  Sélectionné`
+
+`1..5 :  toques simples`
+
+`-1 : Sponsorisé`
+
+
+## Le composant Toques et son Props withDescription : 
+
+ --->  et pour utiliser le composant dans la carte Hotel il faut affecté la valeur false au props WithDescription : 
+
+ ```tsx
+ <Toques nbToques={Hotel.restaurantNbToques} withDescription={false} />
+ ```
+
+## Le composant Stars : 
+
+ --->  le composant Stars peut etre utilisé dans plusieurs composant, il prend comme parametre : 
+
+`1 -- 5 : stars`
+
+`0 :  Sélectionné`
+
+`-1 : Sponsorisé`
+
+
+ ```tsx
+ <Stars nbStars={4} description={"Hotel de Prestige"}/>
+ ```
+
+
+## Localisation des fichiers
+
+* Composant : `@/components/cards/HotelCard`
+* CSS module : `@/components/cards/HotelCard/HotelCard.module.css`
+* Types : `@/types/Hotel.ts`
+* composant Toques : `@/components/common/Toques`
+* composant Stars : `@/components/common/Stars`
+* Fonctions utilitaires : `@/utils/openingHour.ts`
+
 

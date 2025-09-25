@@ -79,7 +79,7 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
           <div className="infinite-hits-container mb-5">
             {NewsCardData.map((card) => (
               <div key={card.id}>
-                <NewsCard lang={lang} card={card} />
+                <NewsCard lang={lang} news={card} />
               </div>
             ))}
           </div>
@@ -93,7 +93,7 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
           <div className='infinite-hits-container'>
             {NewsCardHeaderData.map((card) => (
               <div key={card.id}>
-                <NewsCard lang={lang} card={card} withHeader={true} />
+                <NewsCard lang={lang} news={card} withHeader={true} />
               </div>
             ))}
           </div>
@@ -102,7 +102,7 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
             <h2 className={styles.resultsTitle}>Les cartes de la page La PLACE</h2>
           </div>
           <div className="infinite-hits-container">
-            <SingleNewsCard lang={lang} card={SingleNewsCardData} withHeader={true} />
+            <SingleNewsCard lang={lang} news={SingleNewsCardData} withHeader={true} />
           </div>
         </section>
 

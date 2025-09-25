@@ -11,26 +11,26 @@ type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language;               // "fr" | "en"…
-  card: NewsCardProps;
+  news: NewsCardProps;
   withHeader?: boolean;       // pour la page PLACE
   headerSubtitle?: string;    // ex: "Actus & Rendez-vous"
   headerMoreHref?: string;    // lien "VOIR PLUS"
 };
 
-export default function NewsCard({ lang, card, withHeader}: Props) {
+export default function NewsCard({ lang, news, withHeader}: Props) {
 
-  const firstTheme = card.theme?.[0];
-  const buttons = card.buttons ?? [];
+  const firstTheme = news.theme?.[0];
+  const buttons = news.buttons ?? [];
   const showCTA = buttons.length === 0;
-  const cardHref = hrefCard(lang, card.slug);
+  const cardHref = hrefCard(lang, news.slug);
   const headerMoreHref = "/" + lang + "/blogs";
-  const headerSubtitle = card.theme?.[0];
+  const headerSubtitle = news.theme?.[0];
 
   const { t } = useClientTranslation(lang);
 
   return (
     <article className={styles.card}>
-      <Link href={cardHref} aria-label={`${card.title} — ${t('common.read_more')}`}>
+      <Link href={cardHref} aria-label={`${news.title} — ${t('common.read_more')}`}>
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
 
@@ -82,14 +82,14 @@ export default function NewsCard({ lang, card, withHeader}: Props) {
 
       {/* Media (image) + badge */}
       <div className={styles.thumbWrapper}>
-        <SmartImage id={card.thumbId} alt={card.title} width={666} height={444} fit="cover" lazyload />
+        <SmartImage id={news.thumbId} alt={news.title} width={666} height={444} fit="cover" lazyload />
         {firstTheme && <span className={styles.badge}>{firstTheme}</span>}
       </div>
 
       {/* Contenu */}
       <div className={styles.body}>
-        <h3 className={styles.title}>{card.title}</h3>
-        <p className={styles.synopsis}>{card.resume}</p>
+        <h3 className={styles.title}>{news.title}</h3>
+        <p className={styles.synopsis}>{news.resume}</p>
 
         <div className={styles.footer}>
           {buttons.length > 0 ? (

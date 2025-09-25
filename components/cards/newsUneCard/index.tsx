@@ -12,21 +12,21 @@ type Language = 'fr' | 'en';
 
 type Props = {
     lang: Language;
-    card: NewsCardProps;
+    news: NewsCardProps;
     withHeader?: boolean;
     headerSubtitle?: string;
     headerMoreHref?: string;
 };
 
-export default function SingleNewsCard({ lang, card, withHeader }: Props) {
-    const cardHref = hrefCard(lang, card.slug);
+export default function SingleNewsCard({ lang, news, withHeader }: Props) {
+    const cardHref = hrefCard(lang, news.slug);
     const headerMoreHref = "/" + lang + "/blogs";
-    const headerSubtitle = card.theme?.[0];
+    const headerSubtitle = news.theme?.[0];
     const { t } = useClientTranslation(lang);
 
     return (
         <article className={styles.uneCard}>
-            <Link href={cardHref} aria-label={`${card.title} — ${t('common.read_more')}`}>
+            <Link href={cardHref} aria-label={`${news.title} — ${t('common.read_more')}`}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
             {withHeader && (
@@ -76,8 +76,8 @@ export default function SingleNewsCard({ lang, card, withHeader }: Props) {
 
             <div className={styles.details}>
                 <div className={styles.contentColumn}>
-                    <h3 className={styles.title}>{card.title}</h3>
-                    <p className={styles.synopsis}>{card.resume}</p>
+                    <h3 className={styles.title}>{news.title}</h3>
+                    <p className={styles.synopsis}>{news.resume}</p>
                     <div className={styles.buttonsContainer}>
                         <Link href={cardHref} className={styles.cta}>
                             <span className={styles.ctaText}>{t('common.read_more')}</span>
@@ -88,8 +88,8 @@ export default function SingleNewsCard({ lang, card, withHeader }: Props) {
                 <div className={styles.thumbnailWrapper}>
                     <div className={styles.thumbnailFrame}>
                         <SmartImage
-                            id={card.thumbId}
-                            alt={card.title}
+                            id={news.thumbId}
+                            alt={news.title}
                             width={700}
                             height={506}
                             fit="cover"
