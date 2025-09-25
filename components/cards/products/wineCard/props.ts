@@ -74,6 +74,7 @@ export default interface WineCardProps {
      * Vin en vedette
      * @description Indique si le vin est mis en avant
      * @example true, false
+     * @default false
      */
     featured: boolean;
 

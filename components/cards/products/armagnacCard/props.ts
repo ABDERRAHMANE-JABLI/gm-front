@@ -33,6 +33,7 @@ export default interface ArmagnacCardProps {
      * Armagnac en vedette
      * @description Indique si l'armagnac est mis en avant
      * @example true, false
+     * @default false
      */
     featured: boolean;
 

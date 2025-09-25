@@ -33,6 +33,7 @@ export default interface ChampagneCardProps {
      * Champagne en vedette
      * @description Indique si le champagne est mis en avant
      * @example true, false
+     * @default false
      * demander un screen car je ne crois pas avoir d'exemple online
     */
     featured: boolean;

@@ -33,6 +33,7 @@ export default interface RumCardProps {
      * Rhum en vedette
      * @description Indique si le rhum est mis en avant
      * @example true, false
+     * @default false
      */
     featured: boolean;
 
