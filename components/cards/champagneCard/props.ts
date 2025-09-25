@@ -24,7 +24,7 @@ export default interface ChampagneCardProps {
     /** 
      * Identifiant de l'image miniature
      * @description ID de l'image utilisant une transformation de type resize au format 240x500 avec fit=contain et background transparent
-     * @example "img_67890"
+     * @example "cdd12ef0-945c-4da5-aece-e112cf218a0a"
      * @optional
      */
     thumbId?: string;
@@ -77,4 +77,12 @@ export default interface ChampagneCardProps {
      * @optional
      */
     priceRange?: string;
+
+    /** 
+     * Indique si la bouteille peut être mis en favori
+     * @description Permet l'affichage de l'icône cœur
+     * @default false
+     * @optional
+     */
+    supportfavorite?: boolean;
 }
