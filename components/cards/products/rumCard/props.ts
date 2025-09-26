@@ -1,4 +1,6 @@
 export default interface RumCardProps {
+    slug: string;
+    
     /**
      * Marque du rhum
      * @description Nom de la distillerie / marque

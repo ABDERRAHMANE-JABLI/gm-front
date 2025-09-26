@@ -1,4 +1,7 @@
 export default interface ChampagneCardProps {
+    slug: string;
+    domainSlug: string;
+    
     /**
      * Marque du champagne
      * @description Nom de la maison de champagne / domaine

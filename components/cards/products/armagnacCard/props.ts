@@ -1,4 +1,6 @@
 export default interface ArmagnacCardProps {
+    slug: string;
+    
     /**
      * Marque de l'armagnac
      * @description Nom de la maison d'armagnac / domaine

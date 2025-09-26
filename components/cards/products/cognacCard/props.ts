@@ -1,4 +1,5 @@
 export default interface CognacCardProps {
+    slug: string;
     /**
      * Marque du cognac
      * @description Nom de la maison de cognac

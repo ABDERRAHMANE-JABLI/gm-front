@@ -1,4 +1,6 @@
 export default interface WhiskyCardProps {
+    slug: string;
+    
     /**
      * Marque du whisky
      * @description Nom de la distillerie / marque

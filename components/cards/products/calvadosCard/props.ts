@@ -1,4 +1,6 @@
 export default interface CalvadosCardProps {
+    slug: string;
+    
     /**
      * Marque du calvados
      * @description Nom de la distillerie / maison de calvados

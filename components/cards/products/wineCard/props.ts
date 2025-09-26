@@ -40,6 +40,9 @@ export const COLOR_HEX_MAP: Record<ColorCode, string> = {
 };
 
 export default interface WineCardProps {
+    slug: string;
+    domainSlug: string;
+
     /**
      * Marque du vin
      * @description Nom du domaine viticole / maison
