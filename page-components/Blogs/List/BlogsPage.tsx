@@ -90,7 +90,7 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
             <h2 className={styles.resultsTitle}>Les cartes de la page La PLACE</h2>
           </div>
 
-          <div className='infinite-hits-container mt-5'>
+          <div className='infinite-hits-container'>
             {NewsCardHeaderData.map((card) => (
               <div key={card.id}>
                 <NewsCard lang={lang} card={card} withHeader={true} />
@@ -98,9 +98,12 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
             ))}
           </div>
 
-            <div className="infinite-hits-container mt-5">
-              <SingleNewsCard lang={lang} card={SingleNewsCardData} withHeader={true} />
-            </div>
+          <div className={styles.resultsHeader}>
+            <h2 className={styles.resultsTitle}>Les cartes de la page La PLACE</h2>
+          </div>
+          <div className="infinite-hits-container">
+            <SingleNewsCard lang={lang} card={SingleNewsCardData} withHeader={true} />
+          </div>
         </section>
 
       </div>

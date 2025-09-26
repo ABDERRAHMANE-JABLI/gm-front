@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
+import HotelCard from '@/components/cards/hotelCard';
+import { hotelData } from '@/mocks/HotelsData';
 
 interface HotelsPageProps {
   lang: 'fr' | 'en';
@@ -168,12 +170,11 @@ const HotelsPage: React.FC<HotelsPageProps> = ({ lang }) => {
             <span className={styles.resultsCount}>0 hôtel trouvé</span>
           </div>
 
-          {/* Empty State */}
-          <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>🏨</div>
-            <h3 className={styles.emptyTitle}>{t.emptyTitle}</h3>
-            <p className={styles.emptyText}>{t.emptyText}</p>
-          </div>
+          <div className="infinite-hits-container mt-5">
+              {hotelData.map((data, i) => (
+                <HotelCard lang={lang}  Hotel={data} key={i}/>
+              ))}
+          </div>          
         </section>
       </div>
     </div>

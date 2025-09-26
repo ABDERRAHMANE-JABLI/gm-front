@@ -1,4 +1,4 @@
-import { OpeningPeriods, Hour, AnyMinute, TimeFormat } from "@/types/Restaurant";
+import { OpeningPeriods, Hour, AnyMinute, TimeFormat } from "@/types/Time";
 
 // utils/isOpenNow.ts
 type DayKey =

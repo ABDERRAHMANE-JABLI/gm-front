@@ -1,0 +1,88 @@
+import { HotelProps } from "@/types/Hotels";
+
+export const hotelData: HotelProps[] = [{
+  title: "Hôtel Georges blanc",
+  slug: "hotel-Georges-blanc",
+  isGmSelected: true,
+  nbStars: 5,
+  nbStarsDescription: "Hôtel d'exception'",
+  restaurantNbtoques: 6,
+  thumbId: "6c7906d9-3ab7-434d-90e1-4d1f7f3bd98b",
+  openingPeriods: {
+    monday:    [{ begin: "00:00", end: "23:59" }],
+    tuesday:   [{ begin: "00:00", end: "23:59" }],
+    wednesday: [{ begin: "00:00", end: "23:59" }],
+    thursday:  [{ begin: "00:00", end: "23:59" }],
+    friday:    [{ begin: "00:00", end: "23:59" }],
+    saturday:  [{ begin: "00:00", end: "23:59" }],
+    sunday:    [{ begin: "00:00", end: "23:59" }]
+  },
+  address: "01540 Vonnas",
+  services: ["Accès handicapés", "Animaux acceptés", "Restauration sur place"],
+  budget: "180€",
+  supportfavorite: true,
+},
+{
+  title: "Maison decoret",
+  slug: "maison-decoret",
+  isGmSelected: true,
+  nbStars: 4,
+  nbStarsDescription: "Hôtel de Prestige",
+  restaurantNbtoques: 4,
+  thumbId: "080b414b-44ca-4fda-9233-e2fc6780e5b1",
+  openingPeriods: {
+    monday:    [{ begin: "00:00", end: "23:59" }],
+    tuesday:   [{ begin: "00:00", end: "23:59" }],
+    wednesday: [{ begin: "00:00", end: "23:59" }],
+    thursday:  [{ begin: "00:00", end: "23:59" }],
+    friday:    [{ begin: "00:00", end: "23:59" }],
+    saturday:  [{ begin: "00:00", end: "23:59" }],
+    sunday:    [{ begin: "00:00", end: "23:59" }]
+  },
+  address: "03200 VICHy",
+  services: ["Accès handicapés", "Animaux acceptés", "Restauration sur place"],
+  budget: "205€",
+},
+{
+  title: "Hôtel Parisianer",
+  slug: "hotel-parisianer-75012",
+  isGmSelected: true,
+  nbStars: 4,
+  nbStarsDescription: "Hôtel de Prestige",
+  restaurantNbtoques: 3,
+  thumbId: "7d46b9c8-93c6-4035-963e-fdbba06bccd3",
+  openingPeriods: {
+    monday:    [{ begin: "00:00", end: "23:59" }],
+    tuesday:   [{ begin: "00:00", end: "23:59" }],
+    wednesday: [{ begin: "00:00", end: "23:59" }],
+    thursday:  [{ begin: "00:00", end: "23:59" }],
+    friday:    [{ begin: "00:00", end: "23:59" }],
+    saturday:  [{ begin: "00:00", end: "23:59" }],
+    sunday:    [{ begin: "00:00", end: "23:59" }]
+  },
+  address: "75012 Paris",
+  services: ["Accès handicapés", "Animaux acceptés", "Restauration sur place"],
+  budget: "250€",
+  supportfavorite: true,
+  distance: "1.2 km"
+},
+{
+  title: "le mans du colombier / hôtel 3*",
+  slug: "le-mas-du-colombier--hotel-3*",
+  isGmSelected: true,
+  nbStars: -1,
+  nbStarsDescription: "Sponsorisé",
+  thumbId: "bb33e028-9862-41ae-9946-c4df7742ba04",
+  openingPeriods: {
+    monday:    [{ begin: "00:00", end: "23:59" }],
+    tuesday:   [{ begin: "00:00", end: "23:59" }],
+    wednesday: [{ begin: "00:00", end: "23:59" }],
+    thursday:  [{ begin: "00:00", end: "23:59" }],
+    friday:    [{ begin: "00:00", end: "23:59" }],
+    saturday:  [{ begin: "00:00", end: "23:59" }],
+    sunday:    [{ begin: "00:00", end: "23:59" }]
+  },
+  address: "84160 Cadenet",
+  services: ["Accès handicapés", "Animaux acceptés", "Restauration sur place"],
+},
+];
