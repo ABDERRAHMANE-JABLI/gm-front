@@ -216,3 +216,15 @@
     gap: 0.5rem;
   }
 }
+
+.rowWidth{
+  width: 1000px !important;
+}
+
+.infinite-hits-container {
+  background-color: var(--GMI-pagecolor);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 50px;
+  justify-content: center;
+}
