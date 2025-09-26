@@ -170,10 +170,11 @@
     --footer-tiltes-font-weight: 600;
     --footer-tiltes-letter-spacing: 2.5999999046325684px;
     --footer-tiltes-line-height: 18px;
+    --GMI-sponsored-bgColor: #e6f7ff;
     --GMI-artisancontentcolor: rgba(213, 105, 19, 1);
     --GMI-black: rgba(0, 0, 0, 1);
     --GMI-borderradius: 8px;
-    --GMI-bordersize: 1px;
+    --GMI-bordersize: 1px;  
     --GMI-bottlecolororange: rgba(245, 131, 49, 1);
     --GMI-bottlewinecolorpink: rgba(255, 172, 172, 1);
     --GMI-bottlewinecolorred: rgba(176, 51, 79, 1);

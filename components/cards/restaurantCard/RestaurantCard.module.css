@@ -1,0 +1,289 @@
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--GMI-carddefaultbackground);
+  border: 1px solid var(--GMI-cardbordercolor);
+  overflow: hidden;
+  width: 300px;
+  height: 480px;
+  flex: 0 0 auto;
+}
+
+
+
+.card:hover{
+  border-color: var(--GMI-outlinedyellow);
+  box-shadow: 8px 8px 10px #0000001f;
+}
+
+/* Header pour la palge PLAE*/
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px;
+  height: 40px;
+  border-bottom: 1px solid var(--GMI-cardbordercolor);
+  background: #fff;
+}
+
+
+
+/* Media */
+.thumbWrapper { position: relative; width: 100%; padding-top: 66.66%; background: #f8f8f8; overflow: visible; }
+.imageLink { position: absolute; inset: 0; display: block; }
+.thumbWrapper :global(img.topImageCard) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.cardPaddingContainer {
+    padding: 20px 20px 0;
+    position: relative;
+    width: 100%
+}
+
+/* favorite */
+.favorite {
+  position: absolute; 
+  right: 10px; 
+  bottom: -15px; 
+  height: 30px; 
+  width: 30px;
+  display: inline-flex; 
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border-radius: 50%; 
+  background-color : var(--GMI-outlinedyellow); 
+  z-index: 3;
+  transition: background-color .2s ease, transform .2s ease;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.favorite:hover{
+  transform: scale(1.1)
+}
+
+.favorite svg{
+    width: 24px;
+    height: 24px;
+    color: red;
+    vertical-align:middle;
+    text-align: center;
+}
+
+.statusBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;                 
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 6px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  color: #fefefe;                
+  white-space: nowrap;
+}
+
+.statusBadge svg {
+  display: block;
+}
+
+/* variantes de couleur */
+.statusOpen  { background-color: #00ad64; } /* vert */
+
+.distanceBadge{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;                  
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 6px;
+  line-height: 1;
+  color: #000000;                 
+  white-space: nowrap;
+  background-color: var(--GMI-outlinedyellow);
+  border-radius: 12px;
+}
+
+.distanceBadge span{
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  color: #000000;                 /* le SVG utilise currentColor */
+  white-space: nowrap;
+}
+
+/* Bodyj */
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;  
+  min-height: 0;    
+}
+
+.title {
+  margin: 0 0 10px; color: var(--GMI-black);
+  font-family: var(--card-title-font-family) !important;
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  line-height: var(--card-title-line-height);
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 3; line-clamp: 3;
+  
+}
+.synopsis {
+  color: var(--GMI-black);
+  font-family: var(--news-card-text-font-family);
+  font-size: var(--news-card-text-font-size);
+  font-weight: var(--news-card-text-font-weight);
+  line-height: var(--news-card-text-line-height);
+  margin-bottom: 16px;
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 3; line-clamp: 3;
+}
+
+
+.cardPaddingContainer.details {
+    gap: 3px;
+    justify-content: flex-end !important;
+    width: 100%;
+    margin-top: auto;       
+    padding-bottom: 20px;    
+}
+
+.cardPaddingContainer.details,
+.cardkind-selection {
+    align-items: center;
+    position: relative;
+}
+
+.body .details{
+  display: flex;
+  flex-direction: column;
+}
+
+.cardDetailHor {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
+    padding: 2px 0;
+}
+
+.cardDetailHor>:first-child {
+    flex-basis: 32%;
+    flex-shrink: 0
+}
+
+.cardDetailHor.horizontal>:first-child {
+    flex-basis: 95px;
+    flex-shrink: 0
+}
+
+.cardDetailHor>:nth-child(2) {
+    min-width: 0
+}
+
+.ellipsis {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis!important;
+    white-space: nowrap
+}
+
+
+.figmaCaptionValue {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-value-font-family);
+    font-size: 14px;
+    font-style: var(--card-detail-value-font-style);
+    font-weight: 700;
+    letter-spacing: var(--card-detail-value-letter-spacing);
+    line-height: var(--card-detail-value-line-height);
+    padding: 0 var(--GMI-carddetailhorizontalpaddingh);
+    text-transform: capitalize;
+}
+
+.figmaCaptionValue.vertical {
+    padding: 0
+}
+
+.figmaCaptionValue.vertical.sm {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-vertical-value-12-font-family);
+    font-size: var(--card-detail-vertical-value-12-font-size);
+    font-style: var(--card-detail-vertical-value-12-font-style);
+    font-weight: var(--card-detail-vertical-value-12-font-weight);
+    letter-spacing: var(--card-detail-vertical-value-12-letter-spacing);
+    line-height: var(--card-detail-vertical-value-12-line-height)
+}
+
+.figmaCaptionValue.vertical.xl {
+    color: var(--GMI-black);
+    font-family: var(--page-detail-vertical-value-16-font-family);
+    font-size: var(--page-detail-vertical-value-16-font-size);
+    font-style: var(--page-detail-vertical-value-16-font-style);
+    font-weight: var(--page-detail-vertical-value-16-font-weight);
+    letter-spacing: var(--page-detail-vertical-value-16-letter-spacing);
+    line-height: var(--page-detail-vertical-value-16-line-height)
+}
+
+.figmaCaptionValue.outlined {
+    background-color: var(--GMI-outlinedyellow);
+    border-radius: 8px;
+    padding: 2px var(--GMI-carddetailhorizontalpaddingh)
+}
+
+.sponsored .figmaCaptionValue.outlined {
+    background-color: var(--GMI-sponsored-bgColor)
+}
+
+.bgSponsored{
+  background-color: var(--GMI-sponsored-bgColor) !important;
+}
+
+.figmaCaption {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-label-font-family);
+    font-size: var(--card-detail-label-font-size);
+    font-style: var(--card-detail-label-font-style);
+    letter-spacing: var(--card-detail-label-letter-spacing);
+    line-height: var(--card-detail-label-line-height);
+    text-transform: capitalize;
+}
+
+.figmaCaption.sm {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-vertical-12-font-family);
+    font-size: var(--card-detail-vertical-12-font-size);
+    font-style: var(--card-detail-vertical-12-font-style);
+    font-weight: var(--card-detail-vertical-12-font-weight);
+    letter-spacing: var(--card-detail-vertical-12-letter-spacing);
+    line-height: var(--card-detail-vertical-12-line-height)
+}
+
+.figmaCaption.xl {
+    color: var(--GMI-black);
+    font-family: var(--page-detail-vertical-label-16-font-family);
+    font-size: var(--page-detail-vertical-label-16-font-size);
+    font-style: var(--page-detail-vertical-label-16-font-style);
+    font-weight: var(--page-detail-vertical-label-16-font-weight);
+    letter-spacing: var(--page-detail-vertical-label-16-letter-spacing);
+    line-height: var(--page-detail-vertical-label-16-line-height)
+}
+
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+}

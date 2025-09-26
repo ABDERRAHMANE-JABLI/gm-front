@@ -1,6 +1,6 @@
 import React from 'react';
-import NewsCard from '@/components/cards/NewsCard/NewsCard';
-import SingleNewsCard from '@/components/cards/NewsCard/SingleNewsCard'
+import NewsCard from '@/components/cards/NewsCard';
+import SingleNewsCard from '@/components/cards/newsUneCard'
 import styles from './styles.module.css';
 import { NewsCardData, NewsCardHeaderData, SingleNewsCardData } from "@/mocks/NewsData";
 
@@ -79,7 +79,7 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
           <div className="infinite-hits-container mb-5">
             {NewsCardData.map((card) => (
               <div key={card.id}>
-                <NewsCard lang={lang} cards={card} />
+                <NewsCard lang={lang} card={card} />
               </div>
             ))}
           </div>
@@ -93,13 +93,13 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
           <div className='infinite-hits-container mt-5'>
             {NewsCardHeaderData.map((card) => (
               <div key={card.id}>
-                <NewsCard lang={lang} cards={card} withHeader={true} headerSubtitle={card.theme?.[0]} headerMoreHref={"/" + lang + "/blogs"} />
+                <NewsCard lang={lang} card={card} withHeader={true} />
               </div>
             ))}
           </div>
 
             <div className="infinite-hits-container mt-5">
-              <SingleNewsCard lang={lang} card={SingleNewsCardData} withHeader={true} headerSubtitle={SingleNewsCardData.theme?.[0]} headerMoreHref={"/" + lang + "/blogs"} />
+              <SingleNewsCard lang={lang} card={SingleNewsCardData} withHeader={true} />
             </div>
         </section>
 

@@ -314,6 +314,14 @@
 .footer { margin-top: auto; }
 
 
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+}
+.moreBtn, .cta, .captionBtn { position: relative; z-index: 10; }
+
 @media (max-width: 767.98px) {
   .uneCard {
     height: auto !important;

@@ -1,4 +1,4 @@
-# Analyse de la carte RestaurantCard
+# RestaurantCard
 
 ## Champs nécessaires pour RestaurantCard
 | Champ               | Type    | Optionnel   | Description |
@@ -17,40 +17,63 @@
 | supportfavorite     | bool    | Non         | permet l'affichage de l'icône coeur |
 | distance            | string  | Oui         | affiche la distance en km si la donnée est fournie, fonctionne avec 'Autour de moi' activé |
 
-### openingPeriods structure
-```json
+
+## /components/restaurantCard/index.tsx
+
+### Le composant prend 2 props :  <RestaurantCard lang={lang}  restaurant={data}/>
+
+lang: 'fr' | 'en' et restaurant: RestaurantProps.
+
+```
 {
-  "sunday": [
-    ["09:30:00", "11:30:00"],
-    ["15:00:00", "18:00:00"]
-  ],
-  "monday": [
-    ["08:30:00", "11:45:00"],
-    ["14:00:00", "17:15:00"],
-    ["19:30:00", "21:00:00"]
-  ],
-  "tuesday": [
-    ["09:00:00", "12:00:00"],
-    ["13:30:00", "16:00:00"]
-  ],
-  "wednesday": [],
-  "thursday": [
-    ["08:00:00", "11:00:00"],
-    ["15:00:00", "18:30:00"],
-    ["20:00:00", "22:00:00"]
-  ],
-  "friday": [
-    ["09:15:00", "12:15:00"],
-    ["14:45:00", "17:30:00"]
-  ],
-  "saturday": [
-    ["10:00:00", "13:00:00"],
-    ["19:00:00", "23:00:00"]
-  ]
+  title: "La piscine",
+  slug: "le-gourmet-parisien",
+  nbToques: -1,
+  noteDescription:"table de prestige",
+  thumbId: "e9c5ea4c-ebe4-46c8-998f-49b37349cf96", 
+  openingPeriods: {
+    monday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "18:00", end: "22:00" }
+    ],
+    tuesday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "18:00", end: "22:00" }
+    ],
+    wednesday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "16:00", end: "22:00" }
+    ],
+    thursday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "19:00", end: "22:00" }
+    ],
+    friday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "19:00", end: "00:00" }
+    ],
+    saturday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "19:00", end: "00:00" }
+    ],
+    sunday: [] // Fermé
+  },
+  address: "75018 Paris",
+  cuisines: ["Dessert", "Français"],
+  distance:"10 km"
 }
 ```
 
-### cuisines structure
-```json
-{ "cuisines": ["Français", "Gastronomique", "Méditerranéen", "..."]}
-```
+### Les toques sont rendues via /common/toques/index.tsx selon nbToques :
+
+6 :  toques gold
+
+0 :  Sélectionné
+
+1..5 :  toques simples
+
+-1 : Sponsorisé
+
+### Le badge Ouverts s'appuie sur le parametre openingPeriods de l'objet restaurant 
+
+### Pour définir les heures d'ouverture : /utils/openningHours (la fonction : isOpenNow)
