@@ -3,12 +3,12 @@ import { NewsCardProps, NewsCardButtonKind } from "@/types/News";
 
 export const SingleNewsCardData: NewsCardProps = {
   id: "example-0",
-  title: "Les bonnes adresses de Christophe Bacquié",
+  title: "Charlotte et Arnaud Gronfier, l’art du cidre bio au cœur du Bocage Gâtinais",
   resume:
     "Christophe Bacquié a découvert de nombreux producteurs de qualité en s’installant dans le Luberon. Pour nous, il ouvre son carnet d’adresses et nous dévoile quelques pépites.",
-  slug: "bonnes-adresses-christophe-bacquie",
-  thumbId: "7d0fabc7-7763-4a05-8dd1-319d4cde005f",
-  theme: ["Actus & Rendez-vous"],
+  slug: "charlotte-et-arnaud-gronfier-l-art-du-cidre-bio-au-c-ur-du-bocage-gatinais",
+  thumbId: "fd05b902-9b4e-433e-8053-3d8a05fa33ae",
+  theme: ["Table & Chef", "Actus & Rendez-vous"],
   buttons: [],
 };
 

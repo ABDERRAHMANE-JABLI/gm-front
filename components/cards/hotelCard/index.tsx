@@ -24,7 +24,7 @@ export default function HotelCard({ lang, Hotel }: Props) {
 
     return (
         <article className={styles.card}>
-            <Link href={`/${lang}/hotels/${Hotel?.slug}`} aria-label={Hotel.title}>
+            <Link href={`/${lang}/hotels/${Hotel?.slug}`} aria-label={Hotel.title} title={Hotel.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
             <div className={styles.thumbWrapper}>

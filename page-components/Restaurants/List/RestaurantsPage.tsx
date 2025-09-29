@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './styles.module.css';
 import RestaurantCard from '@/components/cards/restaurantCard';
-import { RestaurantData } from '@/mocks/RestaurantData';
+import { HorizontalRestauData, RestaurantData } from '@/mocks/RestaurantData';
+import HorizontalRestauCard from '@/components/cards/restaurantCard/HorizontalCard';
 
 /**
  * Properties for the restaurants listing page
@@ -163,6 +164,13 @@ const RestaurantsPage: React.FC<RestaurantsPageProps> = ({ lang }) => {
             {RestaurantData.map((data, i) => (
                 <RestaurantCard lang={lang}  restaurant={data} key={i}/>
             ))}
+          </div>
+
+          <div className={styles.resultsHeader}>
+            <h2 className={styles.resultsTitle}>Les cartes de la page La Place</h2>
+          </div>
+          <div className="infinite-hits-container mt-5">
+            <HorizontalRestauCard lang={lang} restaurant={HorizontalRestauData}/>
           </div>
         </section>
       </div>

@@ -1,0 +1,372 @@
+.figma-placeCardButton {
+    align-items: center;
+    background-color: var(--GMI-carddefaultbackground);
+    background: linear-gradient(to left,#fff 50%,var(--GMI-outlinedyellow) 50%);
+    background-position: 100% 100%;
+    background-size: 200% 100%;
+    box-sizing: border-box;
+    color: var(--GMI-black);
+    column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    font-family: var(--button-label-font-family);
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: var(--button-label-font-weight);
+    height: 26px;
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    overflow: hidden;
+    padding: 12px 10px;
+    position: relative;
+    transition: all .25s ease-out;
+    width: auto;
+    z-index: 5
+}
+
+.figma-placeCardButton,.figma-placeCardButton:hover {
+    border: 1px solid;
+    border-color: var(--GMI-buttonbordercolor);
+    border-radius: var(--GMI-buttonborderradius)
+}
+
+.figma-placeCardButton:hover {
+    background-position: 0 100%
+}
+
+.cardPaddingContainer {
+    padding: 20px 20px 0;
+    position: relative;
+    width: 100%
+}
+
+@media (min-width: 576px) {
+    .resumeContainer{
+        display: none;
+    }
+    .uneDeux-card {
+        background-color:var(--GMI-carddefaultbackground);
+        border: 1px solid var(--GMI-cardbordercolor);
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+        max-width: 650px;
+        overflow: hidden;
+        padding-bottom: 20px;
+        position: relative;
+        transition: border-color .3s ease,box-shadow .3s ease;
+        width: 100%
+    }
+
+    .uneDeux-card:hover {
+        border-color: var(--yellowGM);
+        box-shadow: 0 6px 18px #0000002e
+    }
+
+    .uneDeux-card.sponsored {
+        --yellowGM: var(--GMI-sponsored-bgColor) --GMI-outlinedyellow
+    }
+
+    .uneDeux-card>.thumbnail-wrapper {
+        background-color: var(--GMI-carddefaultbackground);
+        height: 400px;
+        position: relative;
+        width: 100%
+    }
+
+    .uneDeux-card>.thumbnail-wrapper .thumbnail-frame {
+        height: 100%;
+        width: 100%
+    }
+
+    .uneDeux-card>.thumbnail-wrapper>.themeTagWrapper {
+        align-items: center;
+        background-color: var(--GMI-outlinedyellow);
+        border-radius: 8px;
+        bottom: -15px;
+        display: inline-flex;
+        font-family: var(--news-categories-yellow-font-family);
+        font-size: var(--news-categories-yellow-font-size);
+        font-style: var(--news-categories-yellow-font-style);
+        font-weight: var(--news-categories-yellow-font-weight);
+        gap: 10px;
+        height: 30px;
+        justify-content: center;
+        left: 50%;
+        letter-spacing: var(--news-categories-yellow-letter-spacing);
+        line-height: var(--news-categories-yellow-line-height);
+        max-width: 100%;
+        overflow: hidden;
+        padding: 0 12px;
+        position: absolute;
+        transform: translateX(-50%);
+        white-space: nowrap
+    }
+
+    .uneDeux-card .titleContainer {
+        flex-grow: 1
+    }
+
+    .uneDeux-card .buttonsContainer,.uneDeux-card .titleContainer {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        width: 100%
+    }
+
+    .uneDeux-card .buttonsContainer {
+        flex-direction: row;
+        gap: 20px;
+        position: relative
+    }
+}
+
+
+.place-card-header {
+    align-items: center;
+    background-color: #fff;
+    border-bottom: 1px solid var(--GMI-cardbordercolor);
+    display: flex;
+    gap: 10px;
+    height: 40px;
+    min-height: 40px;
+    overflow: hidden;
+    padding: 7px;
+    width: 100%
+}
+
+.place-card-header.xl {
+    height: 50px;
+    min-height: 50px
+}
+
+.place-card-header>svg {
+    flex: 0 0 auto;
+    height: 26px;
+    width: 26px
+}
+
+.place-card-header.xl>svg {
+    height: 34px;
+    width: 34px
+}
+
+.place-card-header .place-card-header-title {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: hidden
+}
+
+.place-card-header .place-card-header-title>.title {
+    color: var(--GMI-black);
+    font-family: var(--news-header-title-font-family);
+    font-size: var(--news-header-title-font-size);
+    font-style: var(--news-header-title-font-style);
+    font-weight: var(--news-header-title-font-weight);
+    letter-spacing: var(--news-header-title-letter-spacing);
+    line-height: var(--news-header-title-line-height)
+}
+
+.place-card-header.xl .place-card-header-title>.title {
+    color: var(--GMI-black);
+    font-family: var(--product-place-header-font-family);
+    font-size: var(--product-place-header-font-size);
+    font-style: var(--product-place-header-font-style);
+    font-weight: var(--product-place-header-font-weight);
+    letter-spacing: var(--product-place-header-letter-spacing);
+    line-height: var(--product-place-header-line-height)
+}
+
+.place-card-header .place-card-header-title>.subTitle {
+    color: var(--GMI-black);
+    font-family: var(--news-header-title-font-family);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 12px
+}
+
+.place-card-header.xl .place-card-header-title>.subTitle {
+    color: var(--GMI-black);
+    font-family: var(--product-header-description-font-family);
+    font-size: var(--product-header-description-font-size);
+    font-style: var(--product-header-description-font-style);
+    font-weight: var(--product-header-description-font-weight);
+    letter-spacing: var(--product-header-description-letter-spacing);
+    line-height: var(--product-header-description-line-height)
+}
+
+@media (min-width: 576px) {
+    .place-card {
+        height:var(--GMI-theplacecardheight);
+        transition: border-color .3s ease,box-shadow .3s ease;
+        width: var(--GMI-defaultcardwidth)
+    }
+
+    .place-card.place-selection-card {
+        height: auto;
+        width: 380px
+    }
+
+    .place-card.place-partner-card {
+        height: auto
+    }
+
+    .place-card:hover {
+        border-color: var(--yellowGM);
+        box-shadow: 0 6px 18px #0000002e
+    }
+
+    .place-card.sponsored {
+        --yellowGM: var(--GMI-sponsored-bgColor)
+    }
+}
+
+.center {
+    text-align: center
+}
+
+.clamp-2{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2!important;
+    line-clamp: 2!important
+}
+
+
+.card-title {
+    color: var(--GMI-black);
+    display: -webkit-box;
+    font-family: var(--card-title-font-family);
+    font-size: var(--card-title-font-size);
+    font-weight: var(--card-title-font-weight);
+    letter-spacing: var(--card-title-letter-spacing);
+    line-height: var(--card-title-line-height);
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-style: var(--card-title-font-style)
+}
+
+
+.figma-cardButton {
+    --left-color-anim: #fff;
+    --figma-button-border-radius: var(--GMI-buttonborderradius);
+    align-items: center;
+    background-color: var(--GMI-carddefaultbackground);
+    background: linear-gradient(to left,var(--left-color-anim) 50%,var(--yellowGM) 50%);
+    background-position: 100% 100%;
+    background-size: 200% 100%;
+    border: 1px solid;
+    border-color: var(--GMI-buttonbordercolor);
+    border-radius: var(--figma-button-border-radius);
+    box-sizing: border-box;
+    color: var(--GMI-black);
+    column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    font-family: var(--button-label-font-family);
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: var(--button-label-font-weight);
+    height: 40px;
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    overflow: hidden;
+    padding: 12px 10px;
+    position: relative;
+    transition: all .25s ease-out;
+    width: 260px;
+    z-index: 5
+}
+
+.figma-cardButton:hover {
+  background-position: 0 100%;
+}
+
+
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+}
+.figma-placeCardButton, .figma-cardButton { position: relative; z-index: 10; }
+
+
+@media (max-width: 575px) {
+  .uneDeux-card {
+    height: auto !important;
+    width: 300px;
+    height: 480px;
+    border: 1px solid var(--GMI-cardbordercolor);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 20px;
+    position: relative;
+  }
+
+    .thumbnail-wrapper{position: relative;}
+    .thumbnail-wrapper picture,
+    .thumbnail-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .themeTagWrapper {
+        align-items: center;
+        background-color: var(--GMI-outlinedyellow);
+        border-radius: 8px;
+        bottom: -15px;
+        display: inline-flex;
+        font-family: var(--news-categories-yellow-font-family);
+        font-size: var(--news-categories-yellow-font-size);
+        font-style: var(--news-categories-yellow-font-style);
+        font-weight: var(--news-categories-yellow-font-weight);
+        gap: 10px;
+        height: 30px;
+        justify-content: center;
+        left: 50%;
+        letter-spacing: var(--news-categories-yellow-letter-spacing);
+        line-height: var(--news-categories-yellow-line-height);
+        max-width: 100%;
+        overflow: hidden;
+        padding: 0 12px;
+        position: absolute;
+        transform: translateX(-50%);
+        white-space: nowrap
+    }
+
+    .card-title{
+        text-align: start;
+         -webkit-line-clamp: 3 !important;
+    }
+
+    .resumeContainer span{
+        position: relative;
+         -webkit-line-clamp: 3 !important;
+         overflow: hidden !important;
+         text-overflow: ellipsis !important;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        -webkit-line-clamp: 3!important;
+        line-clamp: 3!important;
+        color: var(--GMI-black);
+        font-family: var(--news-card-text-font-family);
+        font-size: var(--news-card-text-font-size);
+        font-weight: var(--news-card-text-font-weight);
+        line-height: var(--news-card-text-line-height);
+    }
+}

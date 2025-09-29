@@ -29,7 +29,7 @@
 }
 .headerSubtitle {
   font-family: var(--news-header-title-font-family);
-  font-size: var(--news-header-title-font-size);
+  font-size: 10px;
   font-weight: 300;
   line-height: var(--news-header-title-line-height);
   color: var(--GMI-black);
@@ -51,7 +51,7 @@
 
 .uneCard:hover {
   border-color: var(--yellowGM);
-  box-shadow: 8px 8px 10px #0000001f;
+  box-shadow: 0 6px 18px #0000002e
 }
 
 .uneCard.sponsored {
@@ -122,13 +122,14 @@
 .buttonsContainer {
   margin-top: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
   width: 100%;
 }
 
 .cta {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -355,6 +356,14 @@
 
   .buttonsContainer {
     margin-top: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
   }
-
+  .cta{
+    display: flex;
+    width: 260px;
+  }
 }
+
+/* rendre le button cta en bas */

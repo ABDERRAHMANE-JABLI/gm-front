@@ -3,6 +3,7 @@ import NewsCard from '@/components/cards/NewsCard';
 import SingleNewsCard from '@/components/cards/newsUneCard'
 import styles from './styles.module.css';
 import { NewsCardData, NewsCardHeaderData, SingleNewsCardData } from "@/mocks/NewsData";
+import NewsSecondCard from '@/components/cards/newsSecondCard';
 
 type Language = 'fr' | 'en';
 
@@ -102,7 +103,14 @@ export default function BlogsPage({ lang }: BlogsPageProps) {
             <h2 className={styles.resultsTitle}>Les cartes de la page La PLACE</h2>
           </div>
           <div className="infinite-hits-container">
-            <SingleNewsCard lang={lang} news={SingleNewsCardData} withHeader={true} />
+            <SingleNewsCard lang={lang} news={SingleNewsCardData}/>
+          </div>
+
+          <div className={styles.resultsHeader}>
+            <h2 className={styles.resultsTitle}>News Une-Card</h2>
+          </div>
+          <div className="row-comp">
+            <NewsSecondCard lang={lang} news={SingleNewsCardData}/>
           </div>
         </section>
 

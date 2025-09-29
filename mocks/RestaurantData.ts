@@ -1,5 +1,46 @@
 import { RestaurantProps } from "@/types/Restaurant";
 
+export const HorizontalRestauData: RestaurantProps={
+  title: "Airelles Château de Versailles Le Grand Contrôle",
+  slug: "flocon-de-sel",
+  nbToques: 6,
+  noteDescription:"table d'exception",
+  thumbId: "5425c316-bfe3-48e4-ac1b-c3c2f7542fb8", 
+  openingPeriods: {
+    monday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "18:00", end: "22:00" }
+    ],
+    tuesday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "18:00", end: "22:00" }
+    ],
+    wednesday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "16:00", end: "22:00" }
+    ],
+    thursday: [
+      { begin: "09:00", end: "14:00" },
+      { begin: "19:00", end: "22:00" }
+    ],
+    friday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "19:00", end: "00:00" }
+    ],
+    saturday: [
+      { begin: "12:00", end: "14:00" },
+      { begin: "19:00", end: "00:00" }
+    ],
+    sunday: [] // Fermé
+  },
+  address: "75018 Paris",
+  cuisines: ["Cuisine d'auteur", "Français"],
+  budget : "310€ - 370€",
+  chief: "Alaine Ducasse",
+  note:"19,5"
+};
+
+
 export const RestaurantData: RestaurantProps[] = [{
   title: "Le Gourmet Parisien",
   slug: "le-gourmet-parisien",
@@ -37,7 +78,7 @@ export const RestaurantData: RestaurantProps[] = [{
   budget: "80€ - 100€",
   chief : "Alexandre Dumas",
   address: "10 Rue de Rivoli, 75001 Paris",
-  cuisines: ["Français", "Moderne", "Fusion"],
+  cuisines: ["Français", "Moderne"],
 },
 {
   title: "Le Gourmet Parisien",
