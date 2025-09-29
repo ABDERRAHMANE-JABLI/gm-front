@@ -1,0 +1,443 @@
+
+.cardkind-horizontal-empty {
+    background-color: var(--GMI-carddefaultbackground);
+    border: 1px solid var(--GMI-cardbordercolor);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: auto;
+    max-width: 1000px;
+    overflow: hidden;
+    position: relative;
+    transition: border-color .3s ease,box-shadow .3s ease;
+    width: 100%
+}
+
+.cardkind-horizontal-empty:hover {
+    border-color: var(--yellowGM);
+    box-shadow: 0 6px 18px #0000002e
+}
+
+.cardkind-horizontal-empty.sponsored {
+    --yellowGM: var(--GMI-sponsored-bgColor)
+}
+
+.cardkind-horizontal-empty>.thumbnail-wrapper {
+    aspect-ratio: 3/2;
+    flex: 0 0 auto;
+    max-width: 400px;
+    min-width: 400px;
+    object-fit: cover;
+    overflow: hidden
+}
+
+.cardkind-horizontal-empty>.thumbnail-wrapper .thumbnail-frame {
+    width: 100%
+}
+
+.cardkind-horizontal-empty>.rightContent {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow: hidden;
+    padding: 20px;
+    width: 100%;
+}
+
+.cardkind-horizontal-artisan>.rightContent>.MarkRibbonActivity {
+    max-width: fit-content
+}
+
+.cardkind-horizontal-artisan>.rightContent>.horizontal-container {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    overflow: hidden;
+    width: 100%
+}
+
+.cardkind-horizontal-artisan>.rightContent>.horizontal-container>.details {
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    max-width: 390px;
+    overflow: hidden;
+    width: 100%
+}
+
+.cardkind-horizontal-artisan>.rightContent>.horizontal-container>.button-container {
+    flex: 1 1 auto
+}
+
+.cardkind-horizontal-blog>.rightContent>.horizontal-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: auto;
+}
+
+.cardkind-horizontal-blog>.rightContent>.horizontal-container>.synopsis {
+    color: var(--GMI-black);
+    flex: 1 1 auto;
+    font-family: var(--recipe-synopsis-font-family);
+    font-size: var(--recipe-synopsis-font-size);
+    font-style: var(--recipe-synopsis-font-style);
+    font-weight: var(--recipe-synopsis-font-weight);
+    letter-spacing: var(--recipe-synopsis-letter-spacing);
+    line-height: var(--recipe-synopsis-line-height);
+    max-width: 390px;
+    overflow: hidden;
+    width: 100%
+}
+
+.cardkind-horizontal-blog>.rightContent>.horizontal-container>.button-container {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+    margin-top: auto;
+}
+
+
+.card-title {
+    color: var(--GMI-black);
+    display: -webkit-box;
+    font-family: var(--card-title-font-family);
+    font-size: var(--card-title-font-size);
+    font-weight: var(--card-title-font-weight);
+    letter-spacing: var(--card-title-letter-spacing);
+    line-height: var(--card-title-line-height);
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical;
+    font-style: var(--card-title-font-style)
+}
+
+.card-title.horizontal {
+    font-family: var(--card-horizontal-title-font-family);
+    font-size: var(--card-horizontal-title-font-size);
+    font-style: var(--card-horizontal-title-font-style);
+    font-weight: var(--card-horizontal-title-font-weight);
+    letter-spacing: var(--card-horizontal-title-letter-spacing);
+    line-height: var(--card-horizontal-title-line-height)
+}
+
+.mt-auto {
+    margin-top: auto!important
+}
+
+
+.figma-cardButton {
+    --left-color-anim: #fff;
+    --figma-button-border-radius: var(--GMI-buttonborderradius);
+    align-items: center;
+    background-color: var(--GMI-carddefaultbackground);
+    background: linear-gradient(to left,var(--left-color-anim) 50%,var(--yellowGM) 50%);
+    background-position: 100% 100%;
+    background-size: 200% 100%;
+    border: 1px solid;
+    border-color: var(--GMI-buttonbordercolor);
+    border-radius: var(--figma-button-border-radius);
+    box-sizing: border-box;
+    color: var(--GMI-black);
+    column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    font-family: var(--button-label-font-family);
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: var(--button-label-font-weight);
+    height: 40px;
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    overflow: hidden;
+    padding: 12px 10px;
+    position: relative;
+    transition: all .25s ease-out;
+    width: 260px;
+    z-index: 5
+}
+
+.figma-cardButton.transparent-button {
+    --left-color-anim: transparent
+}
+
+.figma-cardButton.horizontal {
+    --figma-button-border-radius: 15px;
+    align-items: center;
+    background-color: var(--GMI-carddefaultbackground);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--card-horizontal-button-font-font-family);
+    font-size: var(--card-horizontal-button-font-font-size);
+    font-style: var(--card-horizontal-button-font-font-style);
+    font-weight: var(--card-horizontal-button-font-font-weight);
+    height: 60px;
+    justify-content: center;
+    letter-spacing: var(--card-horizontal-button-font-letter-spacing);
+    line-height: var(--card-horizontal-button-font-line-height);
+    overflow: hidden;
+    padding: 12px 10px;
+    position: relative;
+    width: 160px
+}
+
+.figma-cardButton.horizontal,.figma-cardButton:hover {
+    border: 1px solid;
+    border-color: var(--GMI-buttonbordercolor)
+}
+
+.figma-cardButton:hover {
+    background-position: 0 100%;
+    border-radius: var(--figma-button-border-radius)
+}
+
+.figma-cardButton.captionCardButton .caption {
+    color: var(--GMI-black);
+    flex: 0 0 auto;
+    font-family: Montserrat,Helvetica;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 15.8px;
+    text-transform: capitalize;
+    width: 60px
+}
+
+.figma-cardButton.captionCardButton .chevron {
+    flex: 0 0 auto
+}
+
+.figma-cardButton.captionCardButton .button-text-wrapper {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: hidden;
+    width: 100%
+}
+
+
+.cardPaddingContainer {
+    position: relative;
+    width: 100%;
+}
+
+
+.cardPaddingContainer.details {
+    gap: 3px;
+    justify-content: flex-end !important;
+    width: 100%;     
+}
+
+.cardPaddingContainer.details,
+.cardkind-selection {
+    align-items: center;
+    position: relative;
+}
+
+.body .details{
+  display: flex;
+  flex-direction: column;
+}
+
+.cardDetailHor {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
+    padding: 2px 0;
+}
+
+.cardDetailHor>:first-child {
+    flex-basis: 32%;
+    flex-shrink: 0
+}
+
+.cardDetailHor.horizontal>:first-child {
+    flex-basis: 95px;
+    flex-shrink: 0
+}
+
+.cardDetailHor>:nth-child(2) {
+    min-width: 0
+}
+
+.ellipsis {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis!important;
+    white-space: nowrap
+}
+
+
+.figmaCaptionValue {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-value-font-family);
+    font-size: 14px;
+    font-style: var(--card-detail-value-font-style);
+    font-weight: 700;
+    letter-spacing: var(--card-detail-value-letter-spacing);
+    line-height: var(--card-detail-value-line-height);
+    padding: 0 var(--GMI-carddetailhorizontalpaddingh);
+    text-transform: capitalize;
+    max-width: 200px;
+}
+
+.figmaCaptionValue.vertical {
+    padding: 0
+}
+
+
+.figmaCaptionValue.outlined {
+    background-color: var(--GMI-outlinedyellow);
+    border-radius: 8px;
+    padding: 2px var(--GMI-carddetailhorizontalpaddingh)
+}
+
+.sponsored .figmaCaptionValue.outlined {
+    background-color: var(--GMI-sponsored-bgColor)
+}
+
+.bgSponsored{
+  background-color: var(--GMI-sponsored-bgColor) !important;
+}
+
+.figmaCaption {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-label-font-family);
+    font-size: var(--card-detail-label-font-size);
+    font-style: var(--card-detail-label-font-style);
+    letter-spacing: var(--card-detail-label-letter-spacing);
+    line-height: var(--card-detail-label-line-height);
+    text-transform: capitalize;
+}
+
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+}
+
+
+@media (max-width: 1000px) {
+  .cardkind-horizontal-empty {
+    display: flex;
+    max-width: 800px;
+  }
+
+  .cardkind-horizontal-blog > .rightContent  {
+    margin-left: 10px
+  }
+
+  .button-container {
+    display: none !important;
+  }
+
+  .card-title.horizontal {
+    font-size: 30px;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+  .button-container {
+    display: none !important;
+  }
+
+  .cardkind-horizontal-empty {
+    flex-direction: column; 
+    width: 300px;
+    height: 480px;
+  }
+
+  .cardkind-horizontal-blog > .rightContent > .horizontal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .cardPaddingContainer.details {
+    align-items: flex-start !important;
+    text-align: left;
+    width: 100%;
+  }
+
+  .cardDetailHor {
+    justify-content: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .card-title.horizontal {
+    margin: 0 0 10px; color: var(--GMI-black);
+  font-family: var(--card-title-font-family) !important;
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  line-height: var(--card-title-line-height);
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 3; line-clamp: 3;
+  text-transform: capitalize;
+  padding-top: 10px;
+    }
+
+  .cardkind-horizontal-empty > .thumbnail-wrapper {
+    width: 300px;
+    height: 200px;
+    max-width: 100%;
+    min-width: auto;
+  }
+
+  .cardkind-horizontal-empty > .thumbnail-wrapper picture,
+  .cardkind-horizontal-empty > .thumbnail-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cardkind-horizontal-empty > .rightContent {
+    flex: 1 1 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .figma-cardButton {
+    display: none;
+  }
+
+  .cardkind-horizontal-blog > .rightContent  {
+        margin-left: 0px
+    }
+
+  .cardPaddingContainer {
+    padding: 20px 20px 0;
+    position: relative;
+    width: 100%
+    }
+
+    .cardPaddingContainer.details{
+        align-items: self-start;
+    }
+}
+

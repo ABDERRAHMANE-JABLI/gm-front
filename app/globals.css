@@ -54,3 +54,32 @@ a {
   gap: 20px 50px;
   justify-content: center;
 }
+
+.text-uppercase{
+  text-transform: uppercase;
+}
+
+.row-comp {
+    margin: 0 auto;
+    max-width: var(--row-1000-max-width)
+}
+
+.row-comp,.row-fluid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    justify-content: center;
+    margin-bottom: var(--row-comp-mb-y)
+}
+
+.row-fluid {
+    margin-left: calc(var(--main-container-padding)*-1);
+    margin-right: calc(var(--main-container-padding)*-1);
+    max-width: calc(var(--mainContainer-max-width) + var(--main-container-padding)*2);
+    padding: 0 var(--main-container-padding)
+}
+
+.row-fluid.no-padding {
+    padding: unset
+}

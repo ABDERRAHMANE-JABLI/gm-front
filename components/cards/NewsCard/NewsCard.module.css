@@ -23,8 +23,8 @@
 
 
 .card:hover{
-  border-color: var(--GMI-outlinedyellow);
-  box-shadow: 8px 8px 10px #0000001f;
+  border-color: var(--yellowGM);
+  box-shadow: 0 6px 18px #0000002e
 }
 
 /* Header pour la palge PLAE*/
@@ -51,7 +51,7 @@
 }
 .headerSubtitle {
   font-family: var(--news-header-title-font-family);
-  font-size: var(--news-header-title-font-size);
+  font-size: 10px;
   font-weight: 300;
   line-height: var(--news-header-title-line-height);
   color: var(--GMI-black);

@@ -5,7 +5,7 @@ export const hotelData: HotelProps[] = [{
   slug: "hotel-Georges-blanc",
   isGmSelected: true,
   nbStars: 5,
-  nbStarsDescription: "Hôtel d'exception'",
+  nbStarsDescription: "Hôtel d'exception",
   restaurantNbtoques: 6,
   thumbId: "6c7906d9-3ab7-434d-90e1-4d1f7f3bd98b",
   openingPeriods: {

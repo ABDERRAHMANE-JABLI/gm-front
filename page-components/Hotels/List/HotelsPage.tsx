@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import HotelCard from '@/components/cards/hotelCard';
 import { hotelData } from '@/mocks/HotelsData';
+import HorizontalHotelCard from '@/components/cards/hotelCard/HorizontalCard';
 
 interface HotelsPageProps {
   lang: 'fr' | 'en';
@@ -174,7 +175,14 @@ const HotelsPage: React.FC<HotelsPageProps> = ({ lang }) => {
               {hotelData.map((data, i) => (
                 <HotelCard lang={lang}  Hotel={data} key={i}/>
               ))}
-          </div>          
+          </div>     
+
+          <div className={styles.resultsHeader}>
+            <h2 className={styles.resultsTitle}>Les cartes de la page La Place</h2>
+          </div>
+          <div className="infinite-hits-container mt-5">
+              <HorizontalHotelCard lang={lang}  Hotel={hotelData[0]}/>
+          </div>     
         </section>
       </div>
     </div>
