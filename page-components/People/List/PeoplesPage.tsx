@@ -1,5 +1,8 @@
 import React from 'react';
 import styles from './styles.module.css';
+import { PeopleData } from '@/mocks/Peoples';
+import HotelCard from '@/components/cards/hotelCard';
+import PeopleCard from '@/components/cards/peopleCard';
 
 interface PeoplesPageProps {
   lang: 'fr' | 'en';
@@ -173,14 +176,12 @@ const PeoplesPage: React.FC<PeoplesPageProps> = ({ lang }) => {
         <section className={styles.resultsSection}>
           <div className={styles.resultsHeader}>
             <h2 className={styles.resultsTitle}>Résultats</h2>
-            <span className={styles.resultsCount}>0 personnalité trouvée</span>
           </div>
 
-          {/* Empty State */}
-          <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>👤</div>
-            <h3 className={styles.emptyTitle}>{t.emptyTitle}</h3>
-            <p className={styles.emptyText}>{t.emptyText}</p>
+          <div className="infinite-hits-container mb-5">
+              {PeopleData.map((card, i) => (
+                  <PeopleCard lang={lang} People={card} key={i} />
+              ))}
           </div>
         </section>
       </div>
