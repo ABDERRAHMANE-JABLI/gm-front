@@ -37,7 +37,7 @@ export default interface ArmagnacCardProps {
      * @example true, false
      * @default false
      */
-    featured: boolean;
+    featured: boolean; 
 
     /** 
      * Âge ou millésime de l'armagnac

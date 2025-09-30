@@ -5,7 +5,6 @@ import { SmartImage } from "@/components/SmartImage";
 import styles from "./hotelsCard.module.css";
 import { useClientTranslation } from '@/lib/i18n/client';
 import { HotelProps } from "@/types/Hotels";
-import { isOpenNow } from "@/utils/openingHour";
 import Stars from "../common/Stars";
 import Toques from "../common/Toques";
 

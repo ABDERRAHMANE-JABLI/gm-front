@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
-import { PeopleData } from '@/mocks/Peoples';
+import { PeopleData } from '@/FakeData/Peoples';
 import HotelCard from '@/components/cards/hotelCard';
 import PeopleCard from '@/components/cards/peopleCard';
 

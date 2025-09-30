@@ -2,7 +2,7 @@ import React from 'react';
 import NewsCard from '@/components/cards/NewsCard';
 import SingleNewsCard from '@/components/cards/newsUneCard'
 import styles from './styles.module.css';
-import { NewsCardData, NewsCardHeaderData, SingleNewsCardData } from "@/mocks/NewsData";
+import { NewsCardData, NewsCardHeaderData, SingleNewsCardData } from "@/FakeData/NewsData";
 import NewsSecondCard from '@/components/cards/newsSecondCard';
 
 type Language = 'fr' | 'en';
