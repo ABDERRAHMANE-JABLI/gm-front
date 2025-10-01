@@ -1,18 +1,18 @@
 import React from 'react';
 import styles from './styles.module.css';
 import RumCardComponent from '@/components/cards/products/rumCard';
-import { RumData } from '@/FakeData/products/RumData';
-import { CognacData } from '@/FakeData/products/CognacData';
+import { RumData } from '@/mocks/products/RumData';
+import { CognacData } from '@/mocks/products/CognacData';
 import CognacCardComponent from '@/components/cards/products/cognacCard';
-import { WhiskyData } from '@/FakeData/products/whisky';
+import { WhiskyData } from '@/mocks/products/whisky';
 import WhiskyCardComponent from '@/components/cards/products/whiskyCard';
-import { CalvadosData } from '@/FakeData/products/CalvadosData';
+import { CalvadosData } from '@/mocks/products/CalvadosData';
 import CalvadosCardComponent from '@/components/cards/products/calvadosCard';
-import { ArmagnacData } from '@/FakeData/products/ArmagnacData';
+import { ArmagnacData } from '@/mocks/products/ArmagnacData';
 import ArmagnacCardComponent from '@/components/cards/products/armagnacCard';
 import ChampagneCardComponent from '@/components/cards/products/champagneCard';
-import { ChampagneData } from '@/FakeData/products/ChampagneData';
-import { WineData } from '@/FakeData/products/WineData';
+import { ChampagneData } from '@/mocks/products/ChampagneData';
+import { WineData } from '@/mocks/products/WineData';
 import WineCardComponent from '@/components/cards/products/wineCard';
 
 interface SpiritsPageProps {
