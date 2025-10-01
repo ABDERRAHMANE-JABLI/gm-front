@@ -1,0 +1,363 @@
+
+.lazyContent {
+    height: auto;
+    min-height: 400px;
+    opacity: 0;
+    transition: opacity .5s ease-in-out;
+    width: 100%
+}
+
+.lazyContent.loaded {
+    min-height: unset;
+    opacity: 1
+}
+
+
+.cardkindEmpty {
+    background-color: var(--GMI-carddefaultbackground);
+    border: unset;
+    border: 1px solid var(--GMI-cardbordercolor);
+    height: auto;
+    padding-bottom: 20px;
+    width: 100%
+}
+
+.cardkindEmpty:hover {
+    border-color: var(--GMI-cardbordercolor);
+    box-shadow: unset;
+    cursor: pointer;
+}
+
+@media (min-width: 576px) {
+    .cardkindEmpty {
+        height:var(--GMI-defaultcardheight);
+        transition: border-color .3s ease,box-shadow .3s ease;
+        width: var(--GMI-defaultcardwidth)
+    }
+
+    .cardkindEmpty:hover {
+        border-color: var(--yellowGM);
+        box-shadow: 0 6px 18px #0000002e
+    }
+
+    .cardkindEmpty.sponsored {
+        --yellowGM: var(--GMI-sponsored-bgColor)
+    }
+}
+
+@media (min-width: 576px) {
+    .lazyContent {
+        height:480px;
+        min-height: unset;
+        width: 300px
+    }
+
+    .lazyContent.horizontal {
+        height: auto;
+        min-height: unset;
+        width: auto
+    }
+}
+
+
+.cardkindProduct {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative
+}
+
+.cardkindProduct .titleContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 5px;
+    overflow: hidden;
+    width: 100%
+}
+
+.cardkindProduct .titleContainer>.subTitle {
+    color: var(--GMI-black);
+    display: inline-block;
+    font-family: var(--bottle-card-productor-font-family);
+    font-size: var(--bottle-card-productor-font-size);
+    font-style: var(--bottle-card-productor-font-style);
+    font-weight: var(--bottle-card-productor-font-weight);
+    letter-spacing: var(--bottle-card-productor-letter-spacing);
+    line-height: var(--bottle-card-productor-line-height);
+    text-transform: uppercase
+}
+
+.cardkindProduct .imageAndDetails {
+    align-items: flex-start;
+    display: flex;
+    flex: 1 1 auto;
+    gap: 20px;
+    overflow: hidden;
+    background: #fff !important;
+}
+
+
+
+.cardkindProduct .imageAndDetails > .imageWrapper {
+  align-self: stretch;
+    max-width: 120px;
+    min-width: 120px;
+    overflow: hidden;
+  background: #fff !important;
+}
+
+.cardkindProduct .imageAndDetails > .imageWrapper picture,
+.cardkindProduct .imageAndDetails > .imageWrapper img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+  background-color: white !important;
+}
+
+.imageWrapper img {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.cardkindProduct .imageAndDetails .featured-container {
+    left: 0;
+    position: absolute;
+    top: 50px;
+    z-index: 1
+}
+
+.cardkindProduct .imageAndDetails .featured-container div.featured {
+    align-items: baseline;
+    background-color: var(--yellowGM);
+    border-radius: 10px 0 0 10px;
+    display: flex;
+    font: normal normal 700 10px/13px Montserrat;
+    gap: 6px;
+    justify-content: unset;
+    letter-spacing: 0;
+    min-height: 94px;
+    padding: 9px 6px;
+    text-align: start;
+    text-transform: uppercase;
+    transform: rotate(-180deg);
+    white-space: nowrap;
+    width: 29px;
+    writing-mode: vertical-rl
+}
+
+.cardkindProduct .imageAndDetails .featured-container div.featured svg {
+    transform: rotate(90deg)
+}
+
+.cardkindProduct .imageAndDetails>.details {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 120px;
+    min-width: 120px;
+    overflow: hidden
+}
+
+.cardkindProduct .imageAndDetails>.details .varieties {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 5px;
+    width: 100%
+}
+
+.cardkindProduct .imageAndDetails>.details .varieties>:nth-child(2) {
+    flex-shrink: 0
+}
+
+.cardkindProduct .imageAndDetails>.details .colors {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 5px;
+    line-height: 0px;
+    width: 100%
+}
+
+.figmaColor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px
+}
+
+.cardkindProduct .imageAndDetails>.details .colors>:nth-child(2) {
+    flex-shrink: 0
+}
+
+@media (min-width: 576px) {
+    .cardkindProduct .titleContainer {
+        height:130px
+    }
+}
+
+
+.cardTitle {
+    color: var(--GMI-black);
+    display: -webkit-box;
+    font-family: var(--card-title-font-family);
+    font-size: var(--card-title-font-size);
+    font-weight: var(--card-title-font-weight);
+    letter-spacing: var(--card-title-letter-spacing);
+    line-height: var(--card-title-line-height);
+    text-transform: capitalize;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-style: var(--card-title-font-style);
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.cardPaddingContainer {
+    padding: 20px 20px 0;
+    position: relative;
+    width: 100%
+}
+
+
+.MarkRibbonProduct {
+    align-items: baseline;
+    background-color: var(--GMI-outlinedyellow);
+    border-radius: var(--GMI-borderradius);
+    color: var(--GMI-black);
+    column-gap: 5px;
+    display: flex; 
+    justify-content: flex-start;
+    font-family: var(--bottle-note-sur-100-font-family);
+    font-size: var(--bottle-note-sur-100-font-size);
+    font-style: var(--bottle-note-sur-100-font-style);
+    font-weight: var(--bottle-note-sur-100-font-weight);
+    height: 40px;
+    letter-spacing: var(--bottle-note-sur-100-letter-spacing);
+    line-height: var(--bottle-note-sur-100-line-height);
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.MarkRibbonProduct>.mrMark {
+    color: var(--GMI-black);
+    font-family: var(--bottle-note-font-family);
+    font-size: var(--bottle-note-font-size);
+    font-style: var(--bottle-note-font-style);
+    font-weight: var(--bottle-note-font-weight);
+    letter-spacing: var(--bottle-note-letter-spacing);
+    line-height: var(--bottle-note-line-height);
+    white-space: nowrap
+}
+
+.MarkRibbonProduct>.mrDescription {
+    color: var(--GMI-black);
+    font-family: var(--bottle-card-kind-font-family);
+    font-size: var(--bottle-card-kind-font-size);
+    font-style: var(--bottle-card-kind-font-style);
+    font-weight: var(--bottle-card-kind-font-weight);
+    letter-spacing: var(--bottle-card-kind-letter-spacing);
+    line-height: var(--bottle-card-kind-line-height);
+    text-transform: capitalize;
+    margin-left: auto; 
+    text-align: right;
+}
+
+
+.cardDetailVer {
+    align-items: baseline;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    overflow: hidden;
+    width: 100%
+}
+
+.cardDetailVer>:nth-child(2) {
+    min-width: 0
+}
+
+
+.figmaCaption {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-label-font-family);
+    font-size: var(--card-detail-label-font-size);
+    font-style: var(--card-detail-label-font-style);
+    font-weight: var(--card-detail-label-font-weight);
+    letter-spacing: var(--card-detail-label-letter-spacing);
+    text-transform: capitalize;
+    line-height: var(--card-detail-label-line-height)
+}
+
+.figmaCaption.sm {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-vertical-12-font-family);
+    font-size: var(--card-detail-vertical-12-font-size);
+    font-style: var(--card-detail-vertical-12-font-style);
+    font-weight: var(--card-detail-vertical-12-font-weight);
+    letter-spacing: var(--card-detail-vertical-12-letter-spacing);
+    line-height: var(--card-detail-vertical-12-line-height)
+}
+
+.ellipsis {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis!important;
+    white-space: nowrap
+}
+
+
+.clamp-2,.clamp-3{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden
+}
+
+.clamp-2 {
+    -webkit-line-clamp: 2!important;
+    line-clamp: 2!important
+}
+
+.clamp-3 {
+    -webkit-line-clamp: 3!important;
+    line-clamp: 3!important
+}
+
+.figmaCaptionValue{
+    text-transform: capitalize;
+}
+
+.figmaCaptionValue.vertical {
+    padding: 0
+}
+
+.figmaCaptionValue.vertical.sm {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-vertical-value-12-font-family);
+    font-size: var(--card-detail-vertical-value-12-font-size);
+    font-style: var(--card-detail-vertical-value-12-font-style);
+    font-weight: var(--card-detail-vertical-value-12-font-weight);
+    letter-spacing: var(--card-detail-vertical-value-12-letter-spacing);
+    line-height: var(--card-detail-vertical-value-12-line-height)
+}
+
+.mtAuto {
+    margin-top: auto!important
+}
+
+
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: block;
+}

@@ -3,7 +3,7 @@
     "home": "Accueil",
     "search": "Rechercher",
     "restaurants": "Restaurants",
-    "wines": "Vins", 
+    "wines": "Vins",
     "champagnes": "Champagnes",
     "spirits": "Spiritueux",
     "hotels": "Hôtels",
@@ -29,7 +29,7 @@
   "homepage": {
     "new_restaurants": "Les nouveaux restaurants",
     "gastronomy_people": "Les people de la gastronomie",
-    "future_chefs": "Les cuisiniers de demain", 
+    "future_chefs": "Les cuisiniers de demain",
     "chef_recipes": "Les recettes des chefs",
     "featured_news": "Actualités",
     "wine_selection": "Notre sélection Vins",
@@ -52,7 +52,7 @@
   },
   "rating": {
     "table_chef": "Table de Chef",
-    "table_remarquable": "Table Remarquable", 
+    "table_remarquable": "Table Remarquable",
     "table_gourmande": "Table Gourmande"
   },
   "footer": {
@@ -63,5 +63,29 @@
     "all_newsletters": "Toutes les newsletters",
     "copyright": "GaultMillau © 2025\nTous droits réservés",
     "partners": "Partenaires"
+  },
+  "products": {
+    "wine": "Vin",
+    "champagne": "Champagne",
+    "rum": "Rhum",
+    "cognac": "Cognac",
+    "armagnac": "Armagnac",
+    "calvados": "Calvados",
+    "whisky": "Whisky"
+  },
+  "libelle": {
+    "vintage": "Millésime",
+    "year": "Année",
+    "age": "Âge",
+    "appellation": "Appellation",
+    "color": "Couleur",
+    "varieties": "Cépages",
+    "priceRange": "Budget",
+    "rawMaterial": "Matière première",
+    "country": "Pays",
+    "region": "Région",
+    "alcoholVolume": "Teneur en Alcool",
+    "classification": "Classification",
+    "type": "Type"
   }
 }

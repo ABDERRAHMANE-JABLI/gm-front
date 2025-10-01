@@ -1,5 +1,19 @@
 import React from 'react';
 import styles from './styles.module.css';
+import RumCardComponent from '@/components/cards/products/rumCard';
+import { RumData } from '@/FakeData/products/RumData';
+import { CognacData } from '@/FakeData/products/CognacData';
+import CognacCardComponent from '@/components/cards/products/cognacCard';
+import { WhiskyData } from '@/FakeData/products/whisky';
+import WhiskyCardComponent from '@/components/cards/products/whiskyCard';
+import { CalvadosData } from '@/FakeData/products/CalvadosData';
+import CalvadosCardComponent from '@/components/cards/products/calvadosCard';
+import { ArmagnacData } from '@/FakeData/products/ArmagnacData';
+import ArmagnacCardComponent from '@/components/cards/products/armagnacCard';
+import ChampagneCardComponent from '@/components/cards/products/champagneCard';
+import { ChampagneData } from '@/FakeData/products/ChampagneData';
+import { WineData } from '@/FakeData/products/WineData';
+import WineCardComponent from '@/components/cards/products/wineCard';
 
 interface SpiritsPageProps {
   lang: 'fr' | 'en';
@@ -169,15 +183,38 @@ const SpiritsPage: React.FC<SpiritsPageProps> = ({ lang }) => {
         <section className={styles.resultsSection}>
           <div className={styles.resultsHeader}>
             <h2 className={styles.resultsTitle}>Résultats</h2>
-            <span className={styles.resultsCount}>0 spiritueux trouvé</span>
           </div>
 
-          {/* Empty State */}
-          <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>🥃</div>
-            <h3 className={styles.emptyTitle}>{t.emptyTitle}</h3>
-            <p className={styles.emptyText}>{t.emptyText}</p>
-          </div>
+        <div className="infinite-hits-container">
+            {RumData.map((data, i) => (
+                <RumCardComponent lang={lang} RumProduct={data} key={i} />
+            ))}
+
+            {CognacData.map((data, i) => (
+                <CognacCardComponent lang={lang} CognacProduct={data} key={i} />
+            ))}
+
+            {WhiskyData.map((data, i) => (
+                <WhiskyCardComponent lang={lang} WhiskyProduct={data} key={i} />
+            ))}
+
+            {CalvadosData.map((data, i) => (
+                <CalvadosCardComponent lang={lang} CalvadosProduct={data} key={i} />
+            ))}
+
+            {ArmagnacData.map((data, i) => (
+                <ArmagnacCardComponent lang={lang} ArmagnacProduct={data} key={i} />
+            ))}
+
+            {ChampagneData.map((data, i) => (
+                <ChampagneCardComponent lang={lang} ChampagneProduct={data} key={i} />
+            ))}
+
+            {WineData.map((data, i) => (
+                <WineCardComponent lang={lang} WineProduct={data} key={i} />
+            ))}
+
+        </div>
         </section>
       </div>
     </div>

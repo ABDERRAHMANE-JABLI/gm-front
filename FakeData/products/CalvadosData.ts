@@ -1,0 +1,43 @@
+import CalvadosCardProps from "@/types/product/calvados";
+
+export const CalvadosData: CalvadosCardProps[] = [
+  {
+    slug: "christian-drouin-calvados-tres-pomme",
+    brand: "Christian Drouin",
+    title: "CALVADOS TRÈS POMME",
+    note: "96",
+    thumbId: "692836fc-2f67-4616-a9dd-938f19b1c16d",
+    featured: false,
+    originCountry: "France",
+    appellation: "Calvados Pays d'Auge",
+    rawMaterial: "Pommes",
+    alcoholVolume: "53%",
+    priceRange: "40€ - 60€",
+  },
+  {
+    slug: "pere-magloire-vsop",
+    brand: "Père Magloire",
+    title: "VSOP",
+    note: "94",
+    thumbId: "bbd2dc11-c23e-4bcc-8def-8398619a6d85",
+    featured: false,
+    originCountry: "France",
+    region: "Normandie",
+    appellation: "Calvados Pays d'Auge",
+    alcoholVolume: "40%",
+    priceRange: "Moins de 40€",
+  },
+  {
+    slug: "lecompte-5-ans",
+    brand: "Lecompte",
+    title: "5 ANS",
+    note: "93",
+    thumbId: "da32ea94-6ff9-4d5c-80fb-db4265276f37",
+    featured: false,
+    originCountry: "France",
+    region: "Normandie",
+    appellation: "Calvados Pays d'Auge",
+    alcoholVolume: "40%",
+    priceRange: "40€ - 60€",
+  },
+];
