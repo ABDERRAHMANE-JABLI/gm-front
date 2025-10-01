@@ -9,31 +9,34 @@ import SingleNewsCard from "@/components/cards/newsUneCard";
 import { WineryCard } from "@/components/cards/wineryCard";
 import { RecipeCard } from "@/components/cards/recipeCard";
 import { ThePlaceCard } from "@/components/cards/thePlaceCard";
-import { ChampagneCard } from "@/components/cards/products/champagneCard";
-import { WineCard } from "@/components/cards/products/wineCard";
-import { WhiskyCard } from "@/components/cards/products/whiskyCard";
-import { CognacCard } from "@/components/cards/products/cognacCard";
-import { ArmagnacCard } from "@/components/cards/products/armagnacCard";
-import { CalvadosCard } from "@/components/cards/products/calvadosCard";
-import { RumCard } from "@/components/cards/products/rumCard";
+import ChampagneCard from "@/components/cards/products/champagneCard";
+import WineCard from "@/components/cards/products/wineCard";
+import WhiskyCard from "@/components/cards/products/whiskyCard";
+import CognacCard from "@/components/cards/products/cognacCard";
+import ArmagnacCard from "@/components/cards/products/armagnacCard";
+import CalvadosCard from "@/components/cards/products/calvadosCard";
+import RumCard from "@/components/cards/products/rumCard";
 
-import { RestaurantData } from "@/mocks/RestaurantData";
-import { hotelData } from "@/mocks/HotelsData";
-import { ArtisanData } from "@/mocks/ArtisanData";
-import { PeopleData } from "@/mocks/Peoples";
-import { NewsCardData, SingleNewsCardData } from "@/mocks/NewsData";
-import { WineriesData } from "@/mocks/WineriesData";
-import { RecipesData } from "@/mocks/RecipesData";
-import { PlacesData } from "@/mocks/PlacesData";
+// Import centralisé de toutes les données mockées via le fichier index
 import { 
-  ChampagnesData, 
-  WinesData, 
-  WhiskiesData, 
-  CognacsData, 
-  ArmagnacsData, 
-  CalvadosData, 
-  RumsData 
-} from "@/mocks/SpiritsData";
+  RestaurantData,
+  hotelData,
+  ArtisanData,
+  PeopleData,
+  NewsCardData,
+  SingleNewsCardCollection,
+  NewsSecondCardCollection,
+  WineriesData,
+  RecipesData,
+  PlacesData,
+  ChampagnesData,
+  WinesData,
+  WhiskiesData,
+  CognacsData,
+  ArmagnacsData,
+  CalvadosData,
+  RumsData
+} from "@/FakeData";
 
 import styles from "./styles.module.css";
 
@@ -74,7 +77,7 @@ export default function TestCardsPage({ params }: PageProps) {
           <span className={styles.badge}>{RestaurantData.length}</span>
         </h2>
         <div className={styles.cardsGrid}>
-          {RestaurantData.slice(0, 4).map((restaurant, index) => (
+          {RestaurantData.map((restaurant, index) => (
             <RestaurantCard key={`restaurant-${index}`} lang={lang} restaurant={restaurant} />
           ))}
         </div>
@@ -100,7 +103,7 @@ export default function TestCardsPage({ params }: PageProps) {
           <span className={styles.badge}>{ArtisanData.length}</span>
         </h2>
         <div className={styles.cardsGrid}>
-          {ArtisanData.slice(0, 4).map((artisan, index) => (
+          {ArtisanData.map((artisan, index) => (
             <ArtisanCard key={`artisan-${index}`} lang={lang} Artisan={artisan} />
           ))}
         </div>
@@ -126,7 +129,7 @@ export default function TestCardsPage({ params }: PageProps) {
           <span className={styles.badge}>{NewsCardData.length}</span>
         </h2>
         <div className={styles.cardsGrid}>
-          {NewsCardData.slice(0, 4).map((news, index) => (
+          {NewsCardData.map((news, index) => (
             <NewsCard key={`news-${index}`} lang={lang} news={news} />
           ))}
         </div>
@@ -136,9 +139,12 @@ export default function TestCardsPage({ params }: PageProps) {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
           📰 News Une Card (Large)
+          <span className={styles.badge}>{SingleNewsCardCollection.length}</span>
         </h2>
-        <div className={styles.newsCardsGrid}>
-          <SingleNewsCard lang={lang} news={SingleNewsCardData} />
+        <div className={styles.cardsGrid}>
+          {SingleNewsCardCollection.map((news, index) => (
+            <SingleNewsCard key={`news-une-${index}`} lang={lang} news={news} />
+          ))}
         </div>
       </section>
 
@@ -146,9 +152,10 @@ export default function TestCardsPage({ params }: PageProps) {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
           📰 News Second Card
+          <span className={styles.badge}>{NewsSecondCardCollection.length}</span>
         </h2>
         <div className={styles.cardsGrid}>
-          {NewsCardData.slice(0, 2).map((news, index) => (
+          {NewsSecondCardCollection.map((news, index) => (
             <NewsSecondCard key={`news-second-${index}`} lang={lang} news={news} />
           ))}
         </div>
@@ -205,12 +212,13 @@ export default function TestCardsPage({ params }: PageProps) {
           🥂 Champagne Cards
           <span className={styles.badge}>{ChampagnesData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ ChampagneCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
         <div className={styles.cardsGrid}>
           {ChampagnesData.map((champagne, index) => (
-            <ChampagneCard key={`champagne-${index}`} />
+            <ChampagneCard 
+              key={`champagne-${index}`} 
+              lang={lang} 
+              ChampagneProduct={champagne} 
+            />
           ))}
         </div>
       </section>
@@ -221,12 +229,13 @@ export default function TestCardsPage({ params }: PageProps) {
           🍷 Wine Cards
           <span className={styles.badge}>{WinesData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ WineCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
         <div className={styles.cardsGrid}>
           {WinesData.map((wine, index) => (
-            <WineCard key={`wine-${index}`} />
+            <WineCard 
+              key={`wine-${index}`} 
+              lang={lang} 
+              WineProduct={wine} 
+            />
           ))}
         </div>
       </section>
@@ -237,12 +246,13 @@ export default function TestCardsPage({ params }: PageProps) {
           🥃 Whisky Cards
           <span className={styles.badge}>{WhiskiesData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ WhiskyCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
         <div className={styles.cardsGrid}>
           {WhiskiesData.map((whisky, index) => (
-            <WhiskyCard key={`whisky-${index}`} />
+            <WhiskyCard 
+              key={`whisky-${index}`} 
+              lang={lang} 
+              WhiskyProduct={whisky} 
+            />
           ))}
         </div>
       </section>
@@ -253,12 +263,13 @@ export default function TestCardsPage({ params }: PageProps) {
           🍸 Cognac Cards
           <span className={styles.badge}>{CognacsData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ CognacCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
         <div className={styles.cardsGrid}>
           {CognacsData.map((cognac, index) => (
-            <CognacCard key={`cognac-${index}`} />
+            <CognacCard 
+              key={`cognac-${index}`} 
+              lang={lang} 
+              CognacProduct={cognac} 
+            />
           ))}
         </div>
       </section>
@@ -269,12 +280,13 @@ export default function TestCardsPage({ params }: PageProps) {
           🥃 Armagnac Cards
           <span className={styles.badge}>{ArmagnacsData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ ArmagnacCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
         <div className={styles.cardsGrid}>
           {ArmagnacsData.map((armagnac, index) => (
-            <ArmagnacCard key={`armagnac-${index}`} />
+            <ArmagnacCard 
+              key={`armagnac-${index}`} 
+              lang={lang} 
+              ArmagnacProduct={armagnac} 
+            />
           ))}
         </div>
       </section>
@@ -285,12 +297,13 @@ export default function TestCardsPage({ params }: PageProps) {
           🍎 Calvados Cards
           <span className={styles.badge}>{CalvadosData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ CalvadosCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
         <div className={styles.cardsGrid}>
           {CalvadosData.map((calvados, index) => (
-            <CalvadosCard key={`calvados-${index}`} />
+            <CalvadosCard 
+              key={`calvados-${index}`} 
+              lang={lang} 
+              CalvadosProduct={calvados} 
+            />
           ))}
         </div>
       </section>
@@ -301,12 +314,13 @@ export default function TestCardsPage({ params }: PageProps) {
           🍹 Rum Cards
           <span className={styles.badge}>{RumsData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ RumCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
         <div className={styles.cardsGrid}>
           {RumsData.map((rum, index) => (
-            <RumCard key={`rum-${index}`} />
+            <RumCard 
+              key={`rum-${index}`} 
+              lang={lang} 
+              RumProduct={rum} 
+            />
           ))}
         </div>
       </section>

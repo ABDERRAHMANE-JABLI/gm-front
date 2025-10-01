@@ -8,7 +8,13 @@ export { RestaurantData, HorizontalRestauData } from './RestaurantData';
 export { hotelData } from './HotelsData';
 export { ArtisanData } from './ArtisanData';
 export { PeopleData } from './Peoples';
-export { NewsCardData, SingleNewsCardData, NewsCardHeaderData } from './NewsData';
+export { 
+  NewsCardData, 
+  SingleNewsCardData, 
+  NewsCardHeaderData,
+  SingleNewsCardCollection,
+  NewsSecondCardCollection
+} from './NewsData';
 
 // Exports des nouvelles données mockées
 export { WineriesData } from './WineriesData';
@@ -25,7 +31,6 @@ export {
   CalvadosData,
   RumsData,
 } from './SpiritsData';
-export type { SpiritProps } from './SpiritsData';
 
 /**
  * Compteur du nombre total de mocks disponibles
@@ -35,17 +40,17 @@ export const MOCK_STATS = {
   hotels: 4,
   artisans: 9,
   people: 4,
-  news: 7,
-  wineries: 4,
+  news: 41,  // 8 SingleNewsCard + 12 NewsSecondCard + 6 NewsCardHeader + 15 NewsCard
+  wineries: 15,
   recipes: 4,
   places: 3,
-  champagnes: 2,
-  wines: 2,
-  whiskies: 2,
-  cognacs: 2,
-  armagnacs: 1,
-  calvados: 1,
-  rums: 2,
+  champagnes: 8,
+  wines: 11,
+  whiskies: 9,
+  cognacs: 7,
+  armagnacs: 6,
+  calvados: 6,
+  rums: 8,
   get total(): number {
     return Object.values(this).filter(v => typeof v === 'number').reduce((a, b) => a + b, 0);
   }
