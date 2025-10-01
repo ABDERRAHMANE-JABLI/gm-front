@@ -1,19 +1,21 @@
 import React from 'react';
 import styles from './styles.module.css';
 import RumCardComponent from '@/components/cards/products/rumCard';
-import { RumData } from '@/mocks/products/RumData';
-import { CognacData } from '@/mocks/products/CognacData';
 import CognacCardComponent from '@/components/cards/products/cognacCard';
-import { WhiskyData } from '@/mocks/products/whisky';
 import WhiskyCardComponent from '@/components/cards/products/whiskyCard';
-import { CalvadosData } from '@/mocks/products/CalvadosData';
 import CalvadosCardComponent from '@/components/cards/products/calvadosCard';
-import { ArmagnacData } from '@/mocks/products/ArmagnacData';
 import ArmagnacCardComponent from '@/components/cards/products/armagnacCard';
 import ChampagneCardComponent from '@/components/cards/products/champagneCard';
-import { ChampagneData } from '@/mocks/products/ChampagneData';
-import { WineData } from '@/mocks/products/WineData';
 import WineCardComponent from '@/components/cards/products/wineCard';
+import { 
+  RumsData,
+  CognacsData,
+  WhiskiesData,
+  CalvadosData,
+  ArmagnacsData,
+  ChampagnesData,
+  WinesData
+} from '@/FakeData';
 
 interface SpiritsPageProps {
   lang: 'fr' | 'en';
@@ -186,15 +188,15 @@ const SpiritsPage: React.FC<SpiritsPageProps> = ({ lang }) => {
           </div>
 
         <div className="infinite-hits-container">
-            {RumData.map((data, i) => (
+            {RumsData.map((data, i) => (
                 <RumCardComponent lang={lang} RumProduct={data} key={i} />
             ))}
 
-            {CognacData.map((data, i) => (
+            {CognacsData.map((data, i) => (
                 <CognacCardComponent lang={lang} CognacProduct={data} key={i} />
             ))}
 
-            {WhiskyData.map((data, i) => (
+            {WhiskiesData.map((data, i) => (
                 <WhiskyCardComponent lang={lang} WhiskyProduct={data} key={i} />
             ))}
 
@@ -202,15 +204,15 @@ const SpiritsPage: React.FC<SpiritsPageProps> = ({ lang }) => {
                 <CalvadosCardComponent lang={lang} CalvadosProduct={data} key={i} />
             ))}
 
-            {ArmagnacData.map((data, i) => (
+            {ArmagnacsData.map((data, i) => (
                 <ArmagnacCardComponent lang={lang} ArmagnacProduct={data} key={i} />
             ))}
 
-            {ChampagneData.map((data, i) => (
+            {ChampagnesData.map((data, i) => (
                 <ChampagneCardComponent lang={lang} ChampagneProduct={data} key={i} />
             ))}
 
-            {WineData.map((data, i) => (
+            {WinesData.map((data, i) => (
                 <WineCardComponent lang={lang} WineProduct={data} key={i} />
             ))}
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 import HotelCard from '@/components/cards/hotelCard';
-import { hotelData } from '@/mocks/HotelsData';
+import { hotelData } from '@/FakeData';
 import HorizontalHotelCard from '@/components/cards/hotelCard/HorizontalCard';
 
 interface HotelsPageProps {

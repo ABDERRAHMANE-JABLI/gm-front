@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
-import { PeopleData } from '@/mocks/Peoples';
-import HotelCard from '@/components/cards/hotelCard';
+import { PeopleData } from '@/FakeData';
 import PeopleCard from '@/components/cards/peopleCard';
 
 interface PeoplesPageProps {
