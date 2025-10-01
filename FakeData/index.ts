@@ -5,7 +5,7 @@
 
 // Exports des données existantes
 export { RestaurantData, HorizontalRestauData } from './RestaurantData';
-export { hotelData } from './HotelsData';
+export { hotelData, HorizontalHotelData } from './HotelsData';
 export { ArtisanData } from './ArtisanData';
 export { PeopleData } from './Peoples';
 export { 

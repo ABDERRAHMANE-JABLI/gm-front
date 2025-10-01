@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import RestaurantCard from "@/components/cards/restaurantCard";
+import HorizontalRestauCard from "@/components/cards/restaurantCard/HorizontalCard";
 import HotelCard from "@/components/cards/hotelCard";
+import HorizontalHotelCard from "@/components/cards/hotelCard/HorizontalCard";
 import ArtisanCard from "@/components/cards/artisanCard";
 import PeopleCard from "@/components/cards/peopleCard";
 import NewsCard from "@/components/cards/NewsCard";
@@ -20,7 +22,9 @@ import RumCard from "@/components/cards/products/rumCard";
 // Import centralisé de toutes les données mockées via le fichier index
 import { 
   RestaurantData,
+  HorizontalRestauData,
   hotelData,
+  HorizontalHotelData,
   ArtisanData,
   PeopleData,
   NewsCardData,
@@ -83,6 +87,17 @@ export default function TestCardsPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Horizontal Restaurant Card */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>
+          🍽️ Horizontal Restaurant Card
+          <span className={styles.badge}>1</span>
+        </h2>
+        <div className={styles.cardsGrid}>
+          <HorizontalRestauCard lang={lang} restaurant={HorizontalRestauData} />
+        </div>
+      </section>
+
       {/* Hotel Cards */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
@@ -93,6 +108,17 @@ export default function TestCardsPage({ params }: PageProps) {
           {hotelData.map((hotel, index) => (
             <HotelCard key={`hotel-${index}`} lang={lang} Hotel={hotel} />
           ))}
+        </div>
+      </section>
+
+      {/* Horizontal Hotel Card */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>
+          🏨 Horizontal Hotel Card
+          <span className={styles.badge}>1</span>
+        </h2>
+        <div className={styles.cardsGrid}>
+          <HorizontalHotelCard lang={lang} Hotel={HorizontalHotelData} />
         </div>
       </section>
 

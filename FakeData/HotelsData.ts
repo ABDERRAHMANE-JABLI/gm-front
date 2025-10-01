@@ -321,3 +321,29 @@ export const hotelData: HotelProps[] = [
     distance: "2.1 km"
   }
 ];
+
+/**
+ * Hôtel unique pour tester la carte horizontale
+ */
+export const HorizontalHotelData: HotelProps = {
+  title: "Château de Bellevue",
+  slug: "chateau-de-bellevue",
+  isGmSelected: true,
+  nbStars: 5,
+  nbStarsDescription: "5 étoiles",
+  thumbId: "bb33e028-9862-41ae-9946-c4df7742ba04",
+  restaurantNbtoques: 6,
+  openingPeriods: {
+    monday:    [{ begin: "00:00", end: "23:59" }],
+    tuesday:   [{ begin: "00:00", end: "23:59" }],
+    wednesday: [{ begin: "00:00", end: "23:59" }],
+    thursday:  [{ begin: "00:00", end: "23:59" }],
+    friday:    [{ begin: "00:00", end: "23:59" }],
+    saturday:  [{ begin: "00:00", end: "23:59" }],
+    sunday:    [{ begin: "00:00", end: "23:59" }]
+  },
+  address: "Route des Vignobles, 33460 Margaux",
+  services: ["Spa", "Piscine chauffée", "Restaurant gastronomique", "Wifi gratuit", "Parking privé", "Concierge"],
+  budget: "450€",
+  distance: "5.2 km"
+};
