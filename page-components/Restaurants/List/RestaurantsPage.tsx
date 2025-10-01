@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 import RestaurantCard from '@/components/cards/restaurantCard';
-import { HorizontalRestauData, RestaurantData } from '@/FakeData/RestaurantData';
+import { HorizontalRestauData, RestaurantData } from '@/mocks/RestaurantData';
 import HorizontalRestauCard from '@/components/cards/restaurantCard/HorizontalCard';
 
 /**
