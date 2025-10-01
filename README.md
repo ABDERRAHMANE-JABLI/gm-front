@@ -2,6 +2,15 @@
 
 This is a [Next.js](https://nextjs.org) project for the Gault&Millau gastronomic guide, featuring multi-country and multi-language support.
 
+## 🎨 Test Cards Page
+
+Une page de test complète a été créée pour visualiser tous les composants de cartes :
+- **URL locale** : `http://fr.gm.wip:3000/fr/test-cards`
+- **Documentation** : Voir [app/[lang]/test-cards/README.md](app/[lang]/test-cards/README.md)
+- **Mocks disponibles** : Plus de 40 données mockées dans `/mocks/`
+
+Cette page permet de tester visuellement tous les composants cards (restaurants, hôtels, artisans, people, news, wineries, recipes, spirits, etc.).
+
 ## 🌍 Hostname and Language Configuration
 
 ### Domain Structure
