@@ -26,7 +26,7 @@ export default function WineCardComponent({ lang, WineProduct }: Props) {
       typeProduct={t('products.wine')}
       thumbId={WineProduct.thumbId}
       hrefProduct={`/${lang}/wineries/${WineProduct.domainSlug}/${WineProduct.slug}`}>
-
+      
       <div className={styles.details}>
         {
           WineProduct.vintage && (
@@ -60,7 +60,7 @@ export default function WineCardComponent({ lang, WineProduct }: Props) {
             <div className={styles.colors}>
                 <span className={`${styles.figmaCaptionValue} ${styles.vertical} ${styles["clamp-2"]} ${styles.sm}`}>{WineProduct.colorCode}</span>
                 <div className={styles.figmaColor}>
-                    <svg width="15px" height="15px" viewBox="0 0 100 100" fill={getColorHex(WineProduct.colorCode)} stroke="#B5B5B5" stroke-width="5px" aria-hidden="true"><circle cx="50" cy="50" r="40"></circle></svg>
+                    <svg width="15px" height="15px" viewBox="0 0 100 100" fill={getColorHex(WineProduct.colorCode)} stroke="#B5B5B5" strokeWidth="5px" aria-hidden="true"><circle cx="50" cy="50" r="40"></circle></svg>
                 </div>
             </div>
           </div>

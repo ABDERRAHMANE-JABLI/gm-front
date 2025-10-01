@@ -7,7 +7,7 @@
 
 import React from 'react';
 import styles from './styles.module.css';
-import { ArtisanData } from '@/FakeData/ArtisanData';
+import { ArtisanData } from '@/mocks/ArtisanData';
 import ArtisanCard from '@/components/cards/artisanCard';
 
 /**
