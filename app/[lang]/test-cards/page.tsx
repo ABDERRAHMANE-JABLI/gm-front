@@ -8,7 +8,7 @@ import PeopleCard from "@/components/cards/peopleCard";
 import NewsCard from "@/components/cards/NewsCard";
 import NewsSecondCard from "@/components/cards/newsSecondCard";
 import SingleNewsCard from "@/components/cards/newsUneCard";
-import { WineryCard } from "@/components/cards/wineryCard";
+import  WineryCard  from "@/components/cards/wineryCard";
 import { RecipeCard } from "@/components/cards/recipeCard";
 import { ThePlaceCard } from "@/components/cards/thePlaceCard";
 import ChampagneCard from "@/components/cards/products/champagneCard";
@@ -195,7 +195,7 @@ export default function TestCardsPage({ params }: PageProps) {
         </h2>
         <div className={styles.cardsGrid}>
           {WineriesData.map((winery, index) => (
-            <WineryCard key={`winery-${index}`} {...winery} />
+            <WineryCard key={`winery-${index}`} Winery={winery} lang={lang} />
           ))}
         </div>
       </section>
@@ -224,6 +224,12 @@ export default function TestCardsPage({ params }: PageProps) {
         </h2>
         <div className={styles.infoBox}>
           <p>⚠️ ThePlaceCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
+        </div>
+        <div className={styles.infoBox}>
+          <p>⚠️ To Do : Adapter les composants (restau, hotels, people .....) pour qu’ils puissent accepter un header lorsqu’ils sont utilisés dans la page LA PLACE.</p>
+        </div>
+        <div className={styles.infoBox}>
+          <p>⚠️ Implementer la fonctionnalité de la Traduction (fr, en)</p>
         </div>
         <div className={styles.cardsGrid}>
           {PlacesData.map((place, index) => (
