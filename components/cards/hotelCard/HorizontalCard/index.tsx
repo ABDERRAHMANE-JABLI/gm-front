@@ -6,6 +6,7 @@ import styles from "./horizontalHotel.module.css";
 import { useClientTranslation } from "@/lib/i18n/client";
 import { HotelProps } from "@/types/Hotels";
 import Stars from "../../common/Stars";
+import Toques from "../../common/Toques";
 
 type Language = "fr" | "en";
 
@@ -50,13 +51,19 @@ export default function HorizontalHotelCard({ lang, Hotel }: Props) {
                     {!!Hotel.services?.length && (
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Truc en +</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>{Hotel.services.join(", ")}</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-1"]}`}>{Hotel.services.join(", ")}</span>
                         </div>
                     )}
                     {Hotel.budget && (
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>budget</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{Hotel.budget}</span>
+                        </div>
+                    )}
+                    {Hotel.restaurantNbtoques && (
+                        <div className={styles.cardDetailHor}>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Restaurant</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}><Toques nbToques={Hotel.restaurantNbtoques} withDescription={false} tailleSmall={true}/></span>
                         </div>
                     )}
           </div>

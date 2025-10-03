@@ -74,11 +74,32 @@ export default function SingleNewsCard({ lang, news }: Props) {
 
             <div className={styles.details}>
                 <div className={styles.contentColumn}>
-                    <h3 className={styles.title}>{news.title}</h3>
-                    <p className={styles.synopsis}>{news.resume}</p>
-                    <div className={styles.buttonsContainer}>
-                        <Link href={cardHref} className={styles.cta}>
-                            <span className={styles.ctaText}>{t('common.read_more')}</span>
+                    <div className={styles.hrSpacer} />
+
+                    <div className={styles.cardPaddingContainer}>
+                        <span className={`${styles.cardTitle} ${styles.clamp3}`}>
+                            {news.title}
+                        </span>
+                    </div>
+
+                    <div className={styles.cardPaddingContainer}>
+                        <span className={`${styles.clamp5} ${styles.synopsis}`}>
+                            {news.resume}
+                        </span>
+                    </div>
+
+                    <div className={styles.hrSpacer} />
+
+                    <div className={`${styles.cardPaddingContainer} ${styles.buttonsContainer}`}>
+                        <Link
+                            href={cardHref}
+                            className={styles.figmaCardButton}
+                            title={news.title}
+                            aria-label={news.title}
+                        >
+                            <span className={`${styles.textUppercase} ${styles.ellipsis}`}>
+                                {t('common.read_more')}
+                            </span>
                         </Link>
                     </div>
                 </div>
@@ -89,12 +110,13 @@ export default function SingleNewsCard({ lang, news }: Props) {
                             id={news.thumbId}
                             alt={news.title}
                             width={700}
-                            height={506}
+                            height={464}
                             fit="cover"
                             lazyload
                         />
                     </div>
                 </div>
+                {news.theme?.[0] && (<span className={styles.themeTag}>{news.theme?.[0]}</span>)}
             </div>
         </article>
     );

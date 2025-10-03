@@ -118,7 +118,7 @@ export default function TestCardsPage({ params }: PageProps) {
           <span className={styles.badge}>1</span>
         </h2>
         <div className={styles.cardsGrid}>
-          <HorizontalHotelCard lang={lang} Hotel={HorizontalHotelData} />
+          <HorizontalHotelCard lang={lang} Hotel={HorizontalHotelData}  />
         </div>
       </section>
 
@@ -164,7 +164,7 @@ export default function TestCardsPage({ params }: PageProps) {
       {/* News Une Card */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
-          📰 News Une Card (Large)
+          📰 News Une Card (Large (Taille 3/3) )
           <span className={styles.badge}>{SingleNewsCardCollection.length}</span>
         </h2>
         <div className={styles.cardsGrid}>
@@ -177,7 +177,7 @@ export default function TestCardsPage({ params }: PageProps) {
       {/* News Second Card */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
-          📰 News Second Card
+          📰 News Second Card (Taille 2/3)
           <span className={styles.badge}>{NewsSecondCardCollection.length}</span>
         </h2>
         <div className={styles.cardsGrid}>

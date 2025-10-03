@@ -29,7 +29,7 @@ export default function NewsCard({ lang, news, withHeader}: Props) {
   const { t } = useClientTranslation(lang);
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
       <Link href={cardHref} aria-label={`${news.title} — ${t('common.read_more')}`}>
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
@@ -83,13 +83,13 @@ export default function NewsCard({ lang, news, withHeader}: Props) {
       {/* Media (image) + badge */}
       <div className={styles.thumbWrapper}>
         <SmartImage id={news.thumbId} alt={news.title} width={666} height={444} fit="cover" lazyload />
-        {firstTheme && <span className={styles.badge}>{firstTheme}</span>}
+        {firstTheme && firstTheme.trim() !== "" && <span className={styles.badge}>{firstTheme}</span>}
       </div>
 
       {/* Contenu */}
       <div className={styles.body}>
         <h3 className={styles.title}>{news.title}</h3>
-        <p className={styles.synopsis}>{news.resume}</p>
+        <p className={`${styles.synopsis} ${buttons.length > 1 ? styles.resumTwoLines : styles.resumFourLines}`}>{news.resume}</p>
 
         <div className={styles.footer}>
           {buttons.length > 0 ? (

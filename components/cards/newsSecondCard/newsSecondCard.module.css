@@ -202,6 +202,7 @@
 
 @media (min-width: 576px) {
     .place-card {
+        background-color: white;
         height:var(--GMI-theplacecardheight);
         transition: border-color .3s ease,box-shadow .3s ease;
         width: var(--GMI-defaultcardwidth)
@@ -304,6 +305,7 @@
 
 @media (max-width: 575px) {
   .uneDeux-card {
+    background-color: var(--GMI-carddefaultbackground);
     height: auto !important;
     width: 300px;
     height: 480px;
@@ -314,6 +316,11 @@
     padding-bottom: 20px;
     position: relative;
   }
+
+  .uneDeux-card:hover {
+        border-color: var(--yellowGM);
+        box-shadow: 0 6px 18px #0000002e
+    }
 
     .thumbnail-wrapper{position: relative;}
     .thumbnail-wrapper picture,
@@ -370,3 +377,33 @@
         line-height: var(--news-card-text-line-height);
     }
 }
+
+
+/*ici new style
+***********
+****
+***
+****/
+
+@media (max-width: 479px) {
+     .uneDeux-card {
+        width: 100%;
+     }
+     .thumbnail-wrapper{position: relative;}
+    .thumbnail-wrapper picture,
+    .thumbnail-wrapper img {
+        width: 100%;
+        height: 200px !important;
+        object-fit: cover;
+        display: block;
+    }
+
+    .uneDeux-card .buttonsContainer {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        width: 100%
+    }
+
+}
+

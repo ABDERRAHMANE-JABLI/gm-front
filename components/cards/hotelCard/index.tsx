@@ -84,7 +84,7 @@ export default function HotelCard({ lang, Hotel }: Props) {
                     {Hotel.restaurantNbtoques != null && (
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Restaurant</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}><Toques nbToques={Hotel.restaurantNbtoques} withDescription={false}/></span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}><Toques nbToques={Hotel.restaurantNbtoques} withDescription={false} tailleSmall={true}/></span>
                         </div>
                     )}
                 </div>

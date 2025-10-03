@@ -60,7 +60,10 @@ export default function ArmagnacCardComponent({ lang, ArmagnacProduct }: Props) 
               Cépagnes :
             </span>
             <span className={`${styles.figmaCaptionValue} ${styles.vertical} ${styles["clamp-2"]} ${styles.sm}`}>
-              {Object.keys(ArmagnacProduct.varieties ).join(" ")}
+              {Object.entries(ArmagnacProduct.varieties || {})
+                  .map(([key, value]) => (value === 100 ? key : `${key} ${value}%`))
+                  .join(" | ")
+              }
             </span>
           </div>
         )}

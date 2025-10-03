@@ -72,7 +72,10 @@ export default function WineCardComponent({ lang, WineProduct }: Props) {
               {t("libelle.varieties")} :
             </span>
             <span className={`${styles.figmaCaptionValue} ${styles.vertical} ${styles["clamp-2"]} ${styles.sm}`}>
-              {Object.entries(WineProduct.varieties || {}).map(([key, value]) => `${key} ${value}%`).join(" ")}
+              {Object.entries(WineProduct.varieties || {})
+                  .map(([key, value]) => (value === 100 ? key : `${key} ${value}%`))
+                  .join(" | ")
+              }
             </span>
           </div>
         )}

@@ -1,21 +1,14 @@
 
 import './toques.css'
 
+
 type ToquesProps = {
   nbToques: number;
   note?: string | number;
   description?: string;
   withDescription? : boolean;
+  tailleSmall? : boolean; // tailleSmall : true ---> Petit toques pour le composant HotelCards
 };
-
-// l'attribut withDescription : 
-
-/* 
-Le composant Toques va etre utilisé par les cartes restaurant et hotels, dans la carte hotel si on a un restaurant avec 6 toques
- on doit afficher seulement les 5 toques Gold, sans la description (Membre de l'académie gaultMillau)
- --->  Utilisation dans La carte Restaurant : <Toques nbToques={restaurant.nbToques} note={restaurant.note} description={restaurant.noteDescription}/>
- --->  Utilisation dans la c arte Hotel : <Toques nbToques={Hotel.restaurantNbToques} withDescription={false} />
-*/
 
 
 const NormalToque = () => (
@@ -31,11 +24,43 @@ const GoldToque = () => (
 );
 
 
-export default function Toques({ nbToques, note, description, withDescription=true}: ToquesProps) {
+/**
+ *
+ * @description
+ * Le composant `Toques` est utilisé pour afficher la distinction Gault&Millau
+ * (nombre de toques, note et description associée). Il est réutilisable dans
+ * plusieurs cartes (RestaurantCard, HotelCard, etc.) et adapte son rendu
+ * selon les paramètres fournis.
+ *
+ * @example
+ * // Exemple d'utilisation dans une carte Restaurant
+ * <Toques
+ *   nbToques={restaurant.nbToques}
+ *   note={restaurant.note}
+ *   description={restaurant.noteDescription}
+ * />
+ *
+ * @example
+ * // Exemple d'utilisation dans une carte Hotel
+ * 
+ * <Toques nbToques={Hotel.restaurantNbtoques} withDescription={false} tailleSmall={true}/>
+ *
+ * 
+ * @property {number} nbToques - Nombre total de toques à afficher (ex. 6).
+ * @property {string | number} [note] - Note  associée (ex. "18,5/20").
+ * @property {string} [description] - Description liée au nombre de toques : "Membre de l'Académie Gault&Millau"
+ * @property {boolean} [withDescription=true] - Contrôle l'affichage de la description :
+ *   - `true` : affiche la description (comportement par défaut, utilisé pour les Restaurants).
+ *   - `false` : masque la description (utile pour les Hotels, ex. afficher seulement les toques Gold sans description).
+ * @property {boolean} [tailleSmall=false] - Contrôle la taille des icônes de toques :
+ *   - `true` : affiche des petites toques (spécifique aux cartes Hotels).
+ *   - `false` : affiche des toques standard (par défaut).
+ */
+export default function Toques({ nbToques, note, description, withDescription=true, tailleSmall=false}: ToquesProps) {
   if (nbToques === 0)
     return (
         <div className="notation">
-          <div className="toques">
+          <div className={`toques ${tailleSmall ? 'sm' : ''}`}>
             <div className="toque-wrapper">
               <span>Sélectionné</span>
             </div>
@@ -46,14 +71,14 @@ export default function Toques({ nbToques, note, description, withDescription=tr
   if (nbToques === -1)
     return (
       <div className="notation">
-        <div className="toques sponsored"><div className="toque-wrapper"><span>Sponsorisé</span></div></div>
+        <div className={`toques sponsored ${tailleSmall ? 'sm' : ''}`}><div className="toque-wrapper"><span>Sponsorisé</span></div></div>
       </div>
     );
 
   if (nbToques === 6)
     return (
       <div className="notation">
-        <div className="toques gold">
+        <div className={`toques gold ${tailleSmall ? 'sm' : ''}`}>
           {Array.from({ length: 5 }).map((_, i) => (
             <div className="toque-wrapper" key={i}><GoldToque /></div>
             ))}
@@ -65,7 +90,7 @@ export default function Toques({ nbToques, note, description, withDescription=tr
   if (nbToques > 0 && nbToques <= 5)
     return (
       <div className="notation">
-        <div className="toques">
+        <div className={`toques ${tailleSmall ? 'sm' : ''}`}>
           {Array.from({ length: nbToques }).map((_, i) => (
             <div className="toque-wrapper" key={i}><NormalToque /></div>
           ))}

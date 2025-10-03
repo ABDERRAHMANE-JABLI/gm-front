@@ -1,7 +1,7 @@
 import { RestaurantProps } from "@/types/Restaurant";
 
 export const HorizontalRestauData: RestaurantProps={
-  title: "Airelles Château de Versailles Le Grand Contrôle",
+  title: "Airelles Château de Versaille Airelles Château de Versaille de",
   slug: "flocon-de-sel",
   nbToques: 6,
   noteDescription:"table d'exception",

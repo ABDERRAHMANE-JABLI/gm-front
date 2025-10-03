@@ -45,13 +45,13 @@ export default function PeopleCard({ lang, People }: Props) {
                    {People.distinction && (
                         <div className={styles.cardDetail}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Distinction :</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>{People.distinction}</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>{People.distinction.slice(0, 2).join(", ")}</span>
                         </div>
                     )} 
                     {People.establishmentType && People.establishmentTitle && (
                         <div className={styles.cardDetail}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{People.establishmentType} :</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>{People.establishmentTitle}</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-1"]}`}>{People.establishmentTitle}</span>
                         </div>
                     )} 
                 </div>

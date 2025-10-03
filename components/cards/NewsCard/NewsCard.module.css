@@ -20,7 +20,9 @@
   flex: 0 0 auto;
 }
 
-
+.cardWithHeather{
+  height : 520px !important;
+}
 
 .card:hover{
   border-color: var(--yellowGM);
@@ -116,7 +118,12 @@
 }
 
 /* Bodyj */
-.body { display: flex; flex-direction: column; flex: 1; padding: 20px 20px 20px; }
+.body { display: flex; 
+  flex-direction: column; 
+  flex: 1; 
+  padding: 20px 20px 0px; 
+  padding-bottom: 20px;
+}
 
 .title {
   margin: 0 0 10px; color: var(--GMI-black);
@@ -135,10 +142,29 @@
   font-size: var(--news-card-text-font-size);
   font-weight: var(--news-card-text-font-weight);
   line-height: var(--news-card-text-line-height);
-  margin-bottom: 16px;
-  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
-  -webkit-line-clamp: 3; line-clamp: 3;
+  padding-top: 10px;
+  margin-bottom: 15px;
 }
+/*
+si dans notre composant News Card, on peut avoir 2 buttons ou plus comme btn chef et btn restaurant
+alors la, notre paragraphe resume doit s'etendre sur 2 lignes max pour ne pas avoir un debordement*/
+.resumTwoLines{
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2; line-clamp: 2;
+}
+/*
+sinon : */
+.resumFourLines{
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4; line-clamp: 4;
+}
+
 
 /* Footer */
 .footer { margin-top: auto; }
@@ -176,27 +202,33 @@
 }
 .cta:hover::before, .cta:focus-visible::before { transform: scaleX(1); }
 
+.captionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; 
+}
+
 .captionBtn {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 16px;
+  padding: 12px 10px;
   border: 1px solid var(--GMI-cardbordercolor);
   border-radius: var(--GMI-buttonborderradius);
   background-color: white;
   text-decoration: none;
   color: inherit;
   transition: background-color 0.25s ease;
-  gap: 12px;
+  column-gap: 10px;
   width: 100%;
   min-width: 0;
   height: 40px;
-  margin-bottom: 3px;
   overflow: hidden;
   z-index: 0;
   text-overflow: ellipsis;
 }
+
 
 /* effet de hover jaune */
 .captionBtn::before {
@@ -288,3 +320,31 @@
   display: block;
 }
 .moreBtn, .cta, .captionBtn { position: relative; z-index: 10; }
+
+
+/*ici new style
+***********
+****
+***
+****/
+
+@media (max-width: 479px) {
+     .card {
+        width: 100%;
+     }
+     .thumbWrapper{
+        width: 100%;
+        height: 200px !important;
+        padding-top: 0px;
+     }
+    .thumbWrapper picture,
+    .thumbWrapper img {
+        width: 100%;
+        height: 200px !important;
+        object-fit: cover;
+        display: block;
+    }
+    
+}
+
+  

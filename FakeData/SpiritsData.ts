@@ -24,7 +24,8 @@ export const ChampagnesData: ChampagneCardProps[] = [
     vintage: "2013",
     type: "Brut",
     classification: "Grand Cru",
-    varieties: { "Chardonnay": 50, "Pinot Noir": 50 }
+    varieties: { "Chardonnay": 50, "Pinot Noir": 50 },
+    priceRange:"20-30€"
   },
   {
     slug: "bollinger-special-cuvee",
@@ -35,7 +36,8 @@ export const ChampagnesData: ChampagneCardProps[] = [
     thumbId: "ed0fecaa-1265-4136-9f25-87dcc17e3cb1",
     featured: true,
     vintage: "NM",
-    type: "Extra Brut"
+    type: "Extra Brut",
+    priceRange:"20-30€"
   },
   {
     slug: "salon-2015",
@@ -48,7 +50,8 @@ export const ChampagnesData: ChampagneCardProps[] = [
     vintage: "2015",
     type: "Blanc de Blancs",
     classification: "Premier Cru",
-    varieties: { "Chardonnay": 100 }
+    varieties: { "Chardonnay": 100 },
+    priceRange:"20-30€"
   },
   {
     slug: "veuve-clicquot-rose",
@@ -59,7 +62,8 @@ export const ChampagnesData: ChampagneCardProps[] = [
     thumbId: "9cf5b309-8e91-4482-99a9-bbcffe5e99e2",
     featured: false,
     vintage: "NM",
-    type: "Rosé"
+    type: "Rosé",
+    priceRange:"20-30€"
   },
   {
     slug: "taittinger-brut-reserve",
@@ -71,7 +75,8 @@ export const ChampagnesData: ChampagneCardProps[] = [
     featured: false,
     vintage: "BSA",
     type: "Brut",
-    varieties: { "Chardonnay": 40, "Pinot Noir": 35, "Pinot Meunier": 25 }
+    varieties: { "Chardonnay": 40, "Pinot Noir": 35, "Pinot Meunier": 25 },
+    priceRange:"20-30€"
   },
   {
     slug: "jacques-selosse-2011",
@@ -83,7 +88,8 @@ export const ChampagnesData: ChampagneCardProps[] = [
     featured: true,
     vintage: "2011",
     type: "Brut Nature",
-    classification: "Grand Cru"
+    classification: "Grand Cru",
+    priceRange:"20-30€"
   },
   {
     slug: "ruinart-blanc-de-blancs",
@@ -93,7 +99,8 @@ export const ChampagnesData: ChampagneCardProps[] = [
     thumbId: "4d8afdb0-8766-49bf-aca7-a0a75efbce12",
     featured: false,
     vintage: "NM",
-    type: "Blanc de Blancs"
+    type: "Blanc de Blancs",
+    priceRange:"20-30€"
   },
   {
     slug: "champagne-tres-long-nom",
@@ -105,7 +112,8 @@ export const ChampagnesData: ChampagneCardProps[] = [
     featured: false,
     vintage: "2008",
     type: "Extra Brut",
-    classification: "Grand Cru"
+    classification: "Grand Cru",
+    priceRange:"20-30€"
   }
 ];
 
@@ -122,7 +130,8 @@ export const WinesData: WineCardProps[] = [
     vintage: "2018",
     colorCode: "Rouge" as ColorCode,
     appellation: ["Bourgogne", "Romanée-Conti AOC"],
-    varieties: { "Pinot Noir": 100 }
+    varieties: { "Pinot Noir": 100 },
+    priceRange:"20-30€"
   },
   {
     slug: "montrachet-leflaive-2019",
@@ -135,7 +144,8 @@ export const WinesData: WineCardProps[] = [
     vintage: "2019",
     colorCode: "Blanc" as ColorCode,
     appellation: ["Bourgogne", "Montrachet Grand Cru"],
-    varieties: { "Chardonnay": 100 }
+    varieties: { "Chardonnay": 100 },
+    priceRange:"20-30€"
   },
   {
     slug: "chateau-margaux-2015",
@@ -148,7 +158,8 @@ export const WinesData: WineCardProps[] = [
     vintage: "2015",
     colorCode: "Rouge" as ColorCode,
     appellation: ["Bordeaux", "Margaux AOC"],
-    varieties: { "Cabernet Sauvignon": 90, "Merlot": 7, "Petit Verdot": 2, "Cabernet Franc": 1 }
+    varieties: { "Sauvignon": 90, "Merlot": 7, "Petit Verdot": 2, "Cabernet Franc": 1 },
+    priceRange:"20-30€"
   },
   {
     slug: "hermitage-chave-2017",
@@ -160,7 +171,8 @@ export const WinesData: WineCardProps[] = [
     featured: true,
     vintage: "2017",
     colorCode: "Rouge" as ColorCode,
-    appellation: ["Rhône", "Hermitage AOC"]
+    appellation: ["Rhône", "Hermitage AOC"],
+    priceRange:"20-30€"
   },
   {
     slug: "vouvray-huet-2020",
@@ -173,7 +185,8 @@ export const WinesData: WineCardProps[] = [
     vintage: "2020",
     colorCode: "Blanc" as ColorCode,
     appellation: ["Loire", "Vouvray AOC"],
-    varieties: { "Chenin Blanc": 100 }
+    varieties: { "Chenin Blanc": 100 },
+    priceRange:"20-30€"
   },
   {
     slug: "provence-rose-2022",
@@ -262,7 +275,8 @@ export const WhiskiesData: WhiskyCardProps[] = [
     originCountry: "Écosse",
     region: "Islay",
     classification: "Single Malt",
-    alcoholVolume: "54.2%"
+    alcoholVolume: "54.2%",
+    priceRange:"20-30€"
   },
   {
     slug: "macallan-18",
@@ -274,7 +288,8 @@ export const WhiskiesData: WhiskyCardProps[] = [
     originCountry: "Écosse",
     region: "Speyside",
     classification: "Single Malt",
-    alcoholVolume: "43%"
+    alcoholVolume: "43%",
+    priceRange:"20-30€"
   },
   {
     slug: "buffalo-trace",
@@ -286,7 +301,8 @@ export const WhiskiesData: WhiskyCardProps[] = [
     originCountry: "États-Unis",
     region: "Kentucky",
     classification: "Bourbon",
-    alcoholVolume: "45%"
+    alcoholVolume: "45%",
+    priceRange:"20-30€"
   },
   {
     slug: "nikka-yoichi",
@@ -309,7 +325,8 @@ export const WhiskiesData: WhiskyCardProps[] = [
     featured: false,
     originCountry: "Irlande",
     classification: "Pure Pot Still",
-    alcoholVolume: "57.7%"
+    alcoholVolume: "57.7%",
+    priceRange:"20-30€"
   },
   {
     slug: "rittenhouse-rye",
@@ -372,7 +389,8 @@ export const CognacsData: CognacCardProps[] = [
     originCountry: "France",
     region: "Charente",
     appellation: "Grande Champagne",
-    alcoholVolume: "40%"
+    alcoholVolume: "40%",
+    priceRange:"20-30€"
   },
   {
     slug: "remy-martin-vsop",
@@ -384,7 +402,8 @@ export const CognacsData: CognacCardProps[] = [
     originCountry: "France",
     region: "Charente",
     appellation: "Petite Champagne",
-    alcoholVolume: "40%"
+    alcoholVolume: "40%",
+    priceRange:"20-30€"
   },
   {
     slug: "courvoisier-vs",
@@ -397,7 +416,8 @@ export const CognacsData: CognacCardProps[] = [
     region: "Charente",
     appellation: "Fins Bois",
     varieties: { "Ugni Blanc": 98, "Folle Blanche": 2 },
-    alcoholVolume: "40%"
+    alcoholVolume: "40%",
+    priceRange:"20-30€"
   },
   {
     slug: "delamain-hors-dage",
@@ -432,7 +452,8 @@ export const CognacsData: CognacCardProps[] = [
     featured: false,
     originCountry: "France",
     region: "Charente",
-    alcoholVolume: "40%"
+    alcoholVolume: "40%",
+    priceRange:"20-30€"
   },
   {
     slug: "cognac-tres-long-nom",
@@ -444,7 +465,8 @@ export const CognacsData: CognacCardProps[] = [
     originCountry: "France",
     region: "Charente",
     appellation: "Grande Champagne",
-    alcoholVolume: "42%"
+    alcoholVolume: "42%",
+    priceRange:"20-30€"
   }
 ];
 
@@ -461,7 +483,8 @@ export const ArmagnacsData: ArmagnacCardProps[] = [
     originCountry: "France",
     region: "Gascogne",
     appellation: "Bas-Armagnac",
-    alcoholVolume: "42%"
+    alcoholVolume: "42%",
+    priceRange:"20-30€"
   },
   {
     slug: "janneau-vsop",
@@ -486,7 +509,8 @@ export const ArmagnacsData: ArmagnacCardProps[] = [
     region: "Gascogne",
     appellation: "Bas-Armagnac",
     varieties: { "Ugni Blanc": 60, "Baco": 30, "Colombard": 10 },
-    alcoholVolume: "43%"
+    alcoholVolume: "43%",
+    priceRange:"20-30€"
   },
   {
     slug: "delord-hors-dage",
@@ -498,7 +522,8 @@ export const ArmagnacsData: ArmagnacCardProps[] = [
     originCountry: "France",
     region: "Gascogne",
     appellation: "Bas-Armagnac",
-    alcoholVolume: "40%"
+    alcoholVolume: "40%",
+    priceRange:"20-30€"
   },
   {
     slug: "baron-de-sigognac-1990",
@@ -524,7 +549,8 @@ export const ArmagnacsData: ArmagnacCardProps[] = [
     originCountry: "France",
     region: "Gascogne",
     appellation: "Bas-Armagnac",
-    alcoholVolume: "44%"
+    alcoholVolume: "44%",
+    priceRange:"20-30€"
   }
 ];
 
@@ -541,7 +567,8 @@ export const CalvadosData: CalvadosCardProps[] = [
     region: "Normandie",
     appellation: "Calvados Pays d'Auge",
     rawMaterial: "Pommes",
-    alcoholVolume: "40%"
+    alcoholVolume: "40%",
+    priceRange:"20-30€"
   },
   {
     slug: "dupont-xo",
@@ -579,7 +606,8 @@ export const CalvadosData: CalvadosCardProps[] = [
     region: "Normandie",
     appellation: "Calvados Pays d'Auge",
     rawMaterial: "100% Pommes normandes",
-    alcoholVolume: "43%"
+    alcoholVolume: "43%",
+    priceRange:"20-30€"
   },
   {
     slug: "lemorton-xo",
@@ -591,7 +619,8 @@ export const CalvadosData: CalvadosCardProps[] = [
     originCountry: "France",
     region: "Normandie",
     appellation: "Calvados Domfrontais",
-    alcoholVolume: "41%"
+    alcoholVolume: "41%",
+    priceRange:"20-30€"
   },
   {
     slug: "calvados-tres-long-nom",
@@ -604,7 +633,8 @@ export const CalvadosData: CalvadosCardProps[] = [
     region: "Normandie",
     appellation: "Calvados Pays d'Auge",
     rawMaterial: "Pommes",
-    alcoholVolume: "45%"
+    alcoholVolume: "45%",
+    priceRange:"20-30€"
   }
 ];
 
@@ -649,8 +679,10 @@ export const RumsData: RumCardProps[] = [
     rawMaterial: "Mélasse",
     vintage: {
       label: "Âge",
-      value: "6 ans minimum"
+      value: "6 ans minimum",
+      
     },
+    priceRange:"20-30€"
   },
   {
     slug: "diplomatico-reserva",
@@ -661,6 +693,7 @@ export const RumsData: RumCardProps[] = [
     featured: false,
     originCountry: "Venezuela",
     rawMaterial: "Mélasse",
+    priceRange:"20-30€"
   },
   {
     slug: "appleton-21",
@@ -689,6 +722,7 @@ export const RumsData: RumCardProps[] = [
       label: "Âge",
       value: "10 ans"
     },
+    priceRange:"20-30€"
   },
   {
     slug: "clement-1976",

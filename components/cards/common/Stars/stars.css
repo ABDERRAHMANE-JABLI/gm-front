@@ -21,6 +21,7 @@
     font-weight: var(--hotel-note-text-font-weight);
     letter-spacing: var(--hotel-note-text-letter-spacing);
     line-height: var(--hotel-note-text-line-height);
+    text-transform: capitalize;
     overflow: hidden;
     position: relative;
     text-overflow: ellipsis;

@@ -65,7 +65,9 @@ export default function ChampagneCardComponent({ lang, ChampagneProduct }: Props
               {t("libelle.varieties")} :
             </span>
             <span className={`${styles.figmaCaptionValue} ${styles.vertical} ${styles["clamp-2"]} ${styles.sm}`}>
-              {Object.entries(ChampagneProduct.varieties || {}).map(([key, value]) => `${key} ${value}%`).join(" ")}
+              {Object.entries(ChampagneProduct.varieties || {})
+                  .map(([key, value]) => (value === 100 ? key : `${key} ${value}%`))
+                  .join(" | ")}
             </span>
           </div>
         )}

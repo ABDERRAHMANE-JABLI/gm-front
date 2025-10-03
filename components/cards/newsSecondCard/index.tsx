@@ -21,7 +21,6 @@ type Props = {
 export default function NewsSecondCard({ lang, news}: Props) {
   const cardHref = hrefCard(lang, news.slug);
   const headerMoreHref = "/" + lang + "/blogs";
-  const headerSubtitle = news.theme?.[0];
   const { t } = useClientTranslation(lang);
 
   return (
@@ -87,9 +86,12 @@ export default function NewsSecondCard({ lang, news}: Props) {
           fit="cover"
           lazyload
         />
-        <div className={styles.themeTagWrapper}>
+        {
+          news.theme?.[0] && (
+          <div className={styles.themeTagWrapper}>
           <span className={styles.ellipsis}>{news.theme?.[0]}</span>
-        </div>
+        </div>)
+        }
       </div>
 
       <div className={`${styles.cardPaddingContainer} ${styles.titleContainer}`}>

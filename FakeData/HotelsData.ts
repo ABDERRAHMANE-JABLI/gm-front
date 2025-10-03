@@ -326,13 +326,13 @@ export const hotelData: HotelProps[] = [
  * Hôtel unique pour tester la carte horizontale
  */
 export const HorizontalHotelData: HotelProps = {
-  title: "Château de Bellevue",
+  title: "Château de Bellevue Château de Bellevue Château de Bellevue Château de Bellevue",
   slug: "chateau-de-bellevue",
   isGmSelected: true,
   nbStars: 5,
-  nbStarsDescription: "5 étoiles",
+  restaurantNbtoques : 5,
+  nbStarsDescription: "Hotel supérieurs",
   thumbId: "bb33e028-9862-41ae-9946-c4df7742ba04",
-  restaurantNbtoques: 6,
   openingPeriods: {
     monday:    [{ begin: "00:00", end: "23:59" }],
     tuesday:   [{ begin: "00:00", end: "23:59" }],

@@ -83,6 +83,7 @@
 .thumbnailFrame {
   width: 100%;
   height: 100%;
+  z-index: 100;
 }
 
 .themeTagWrapper {
@@ -101,76 +102,35 @@
   max-width: 100%;
 }
 
-.synopsis {
-  margin-top: 10px;
-  color: var(--GMI-black);
-  font-family: var(--news-card-text-font-family);
-  font-size: var(--news-card-text-font-size);
-  font-weight: var(--news-card-text-font-weight);
-  line-height: var(--news-card-text-line-height);
-}
-
-.title {
-  margin: 12px 0;
-  font-size: var(--card-title-font-size);
-  font-weight: var(--card-title-font-weight);
-  line-height: var(--card-title-line-height);
-  font-family: var(--card-title-font-family);
-  color: var(--GMI-black);
+.themeTag {
+    position: absolute;
+    align-items: center;
+    background-color: var(--GMI-outlinedyellow);
+    border-radius: 8px;
+    left: 50%; top: 225px; transform: translateX(-50%);
+    font-family: var(--news-categories-yellow-font-family);
+    font-size: var(--news-categories-yellow-font-size);
+    font-style: var(--news-categories-yellow-font-style);
+    font-weight: var(--news-categories-yellow-font-weight);
+    height:  30px;
+    max-width: 200px;
+    justify-content: center;
+    text-transform: capitalize;
+    line-height: var(--news-categories-yellow-line-height);
+    padding: 5px 12px;
+    white-space: nowrap; 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: none;
 }
 
 .buttonsContainer {
-  margin-top: 50px;
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   width: 100%;
 }
-
-.cta {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 40px;
-  border: 1px solid var(--GMI-buttonbordercolor);
-  border-radius: var(--GMI-buttonborderradius);
-  text-decoration: none;
-  color: var(--GMI-black);
-  background: transparent;
-  overflow: hidden;
-  text-transform: uppercase;
-}
-
-.ctaText {
-    position: relative; 
-    z-index: 1;
-    font-family: var(--button-label-font-family); 
-    font-size: var(--button-label-font-size);
-    font-style: var(--button-label-font-style);
-    font-weight: var(--button-label-font-weight);
-    justify-content: center;
-    letter-spacing: var(--button-label-letter-spacing);
-    line-height: var(--button-label-line-height);
-}
-
-.cta::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--GMI-outlinedyellow);
-  z-index: 0;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.45s ease;
-}
-
-.cta:hover::before,
-.cta:focus-visible::before {
-  transform: scaleX(1);
-}
-
 
 .uneCard:hover {
   border-color: var(--GMI-outlinedyellow);
@@ -323,35 +283,196 @@
 }
 .moreBtn, .cta, .captionBtn { position: relative; z-index: 10; }
 
-@media (max-width: 767.98px) {
-  .uneCard {
-    height: auto !important;
+
+
+.uneCard .details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 100%;
+    width: 100%
+}
+
+
+.uneCard .details>.contentColumn {
+    display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    width: 300px
+}
+
+.uneCard .details>.thumbnailWrapper {
+    background-color: var( --GMI-carddefaultbackground );
+    overflow: hidden;
+    position: relative;
+    width: 700px
+}
+
+.hrSpacer {
+    align-self: stretch;
+    flex: 1;
+    flex-grow: 1;
+    position: relative;
+    width: 100%
+}
+
+.cardPaddingContainer {
+    padding: 20px 20px 0;
+    position: relative;
+    width: 100%
+}
+
+.cardTitle {
+    color: var(--GMI-black);
+    display: -webkit-box;
+    font-family: var(--card-title-font-family);
+    font-size: var(--card-title-font-size);
+    font-weight: var(--card-title-font-weight);
+    letter-spacing: var(--card-title-letter-spacing);
+    line-height: var(--card-title-line-height);
+    text-transform: capitalize;
+    overflow: hidden;
+    position: relative;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-style: var(--card-title-font-style)
+}
+
+.clamp3 {
+    -webkit-line-clamp: 3!important;
+    line-clamp: 3!important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden
+}
+
+.clamp5 {
+    -webkit-line-clamp: 5!important;
+    line-clamp: 5!important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden
+}
+
+.clamp8 {
+    -webkit-line-clamp: 8!important;
+    line-clamp: 8!important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden
+}
+
+.uneCard .details>.contentColumn .synopsis {
+    color: var(--GMI-black);
+    font-family: var(--news-card-text-font-family);
+    font-size: var(--news-card-text-font-size);
+    font-style: var(--news-card-text-font-style);
+    font-weight: var(--news-card-text-font-weight);
+    letter-spacing: var(--news-card-text-letter-spacing);
+    line-height: var(--news-card-text-line-height);
+    max-width: 100%;
+    overflow: hidden
+}
+
+.uneCard .details>.contentColumn .buttonsContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%
+}
+
+
+.figmaCardButton {
+    --left-color-anim: var(--GMI-carddefaultbackground); /* valeur par défaut */
+    --figma-button-border-radius: var(--GMI-buttonborderradius);
+    align-items: center;
+    background-color: var(--GMI-carddefaultbackground);
+    background: linear-gradient(to left,var(--left-color-anim) 50%,var(--yellowGM) 50%);
+    background-position: 100% 100%;
+    background-size: 200% 100%;
+    border: 1px solid;
+    border-color: var(--GMI-buttonbordercolor);
+    border-radius: var(--figma-button-border-radius);
+    box-sizing: border-box;
+    color: var(--GMI-black);
+    column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    font-family: var(--button-label-font-family);
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: var(--button-label-font-weight);
+    height: 40px;
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    overflow: hidden;
+    padding: 12px 10px;
+    position: relative;
+    transition: all .25s ease-out;
+    width: 260px;
+    z-index: 15;
+    text-transform: uppercase;
+}
+
+.figmaCardButton.transparentButton {
+    --left-color-anim: transparent
+}
+
+.figmaCardButton:hover {
+    background-position: 0 100%;
+    border-radius: var(--figma-button-border-radius)
+}
+
+
+@media (max-width: 950px) {
+  .uneCard {
+    height: 500px;
+    transition: border-color .3s ease,box-shadow .3s ease;
+    width: var(--GMI-defaultcardwidth);
   }
 
   .uneCard .details {
     flex-direction: column-reverse !important; 
   }
+  
+  .themeTag{
+    display: block !important;
+  }
 
   .uneCard .thumbnailWrapper {
     width: 100% !important;
-    height: auto !important;
+    height: 200px !important;
+  }
+
+  .hrSpacer{
+    display: none !important;
   }
 
   .uneCard .thumbnailWrapper img {
     width: 100% !important;
-    height: auto !important;
+    height: 200px !important;
     object-fit: cover !important;
     display: block;
   }
 
-  .uneCard .contentColumn {
-    width: 100% !important;
-    padding: 16px !important;
-  }
 
   .synopsis{
-    margin-bottom: 1rem !important;
+    margin: 0px;
+    -webkit-line-clamp: 3!important;
+    line-clamp: 3!important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .contentColumn{
+    padding: 0px;
   }
 
   .buttonsContainer {
@@ -360,10 +481,28 @@
     justify-content: center;
     align-items: baseline;
   }
-  .cta{
+  .figmaCardButton{
     display: flex;
     width: 260px;
   }
 }
 
-/* rendre le button cta en bas */
+
+@media (max-width: 479px) {
+  .uneCard {
+    transition: border-color .3s ease,box-shadow .3s ease;
+    width: 100%;
+  }
+
+  .contentColumn{
+    width: 100% !important;
+  }
+
+  .uneCard .thumbnailWrapper img {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    display: block;
+  }
+
+}

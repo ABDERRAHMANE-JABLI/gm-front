@@ -60,7 +60,10 @@ export default function CognacCardComponent({ lang, CognacProduct }: Props) {
               {t("libelle.varieties")} :
             </span>
             <span className={`${styles.figmaCaptionValue} ${styles.vertical} ${styles["clamp-2"]} ${styles.sm}`}>
-              {Object.keys(CognacProduct.varieties ).join(" ")}
+              {Object.entries(CognacProduct.varieties || {})
+                  .map(([key, value]) => (value === 100 ? key : `${key} ${value}%`))
+                  .join(" | ")
+              }
             </span>
           </div>
         )}
