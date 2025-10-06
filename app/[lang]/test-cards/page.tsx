@@ -43,6 +43,7 @@ import {
 } from "@/FakeData";
 
 import styles from "./styles.module.css";
+import SvgDemo from "@/components/SvgDemo";
 
 export const metadata: Metadata = {
   title: "Test Cards - Gault&Millau",
@@ -73,6 +74,16 @@ export default async function TestCardsPage({ params }: PageProps) {
           Les données sont mockées pour faciliter les tests visuels et fonctionnels.
         </p>
       </div>
+
+      {/* SVG Import Demo */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>
+          🎨 SVG Import Demo
+        </h2>
+        <div className={styles.cardGrid}>
+          <SvgDemo size={32} color="#ff6b35" />
+        </div>
+      </section>
 
       {/* Restaurant Cards */}
       <section className={styles.section}>
