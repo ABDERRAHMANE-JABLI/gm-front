@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./winnery.module.css";
-import { useClientTranslation } from '@/lib/i18n/client';
+// import { useClientTranslation } from '@/lib/i18n/client';
 import { WineryProps } from "@/types/Winery";
 
 type Language = 'fr' | 'en';
@@ -15,7 +15,7 @@ type Props = {
 
 export default function WineryCard({ lang, Winery }: Props) {
 
-  const { t } = useClientTranslation(lang); // to do : traduction des libellés 
+  // const { t } = useClientTranslation(lang); // to do : traduction des libellés 
   const imageId = Winery?.thumbId ?? "07df5907-c383-48a9-910f-8b78ce49852d";
 
   return (

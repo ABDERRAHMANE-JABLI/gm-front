@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./artisanCard.module.css";
-import { useClientTranslation } from '@/lib/i18n/client';
+// import { useClientTranslation } from '@/lib/i18n/client';
 import { ArtisanProps } from "@/types/Artisans";
 
 type Language = 'fr' | 'en';
@@ -15,7 +15,7 @@ type Props = {
 
 export default function ArtisanCard({ lang, Artisan }: Props) {
 
-    const { t } = useClientTranslation(lang);
+    // const { t } = useClientTranslation(lang);
     const imageId = Artisan?.thumbId ?? "";
 
     return (

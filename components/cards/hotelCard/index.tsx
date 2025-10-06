@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./hotelsCard.module.css";
-import { useClientTranslation } from '@/lib/i18n/client';
+// import { useClientTranslation } from '@/lib/i18n/client';
 import { HotelProps } from "@/types/Hotels";
 import Stars from "../common/Stars";
 import Toques from "../common/Toques";
@@ -17,7 +17,7 @@ type Props = {
 
 export default function HotelCard({ lang, Hotel }: Props) {
 
-    const { t } = useClientTranslation(lang);
+    // const { t } = useClientTranslation(lang);
     const imageId = Hotel?.thumbId ?? "";
     // const isOpen = isOpenNow(Hotel.openingPeriods);
 

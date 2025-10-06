@@ -50,13 +50,13 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  params: {
+  params: Promise<{
     lang: 'fr' | 'en';
-  };
+  }>;
 }
 
-export default function TestCardsPage({ params }: PageProps) {
-  const { lang } = params;
+export default async function TestCardsPage({ params }: PageProps) {
+  const { lang } = await params;
 
   return (
     <div className={styles.testCardsPage}>

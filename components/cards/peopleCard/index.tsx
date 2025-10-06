@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./people.module.css";
-import { useClientTranslation } from '@/lib/i18n/client';
+// import { useClientTranslation } from '@/lib/i18n/client';
 import PeopleProps from "@/types/Peoples";
 import Toques from "../common/Toques";
 
@@ -16,7 +16,7 @@ type Props = {
 
 export default function PeopleCard({ lang, People }: Props) {
 
-    const { t } = useClientTranslation(lang);
+    // const { t } = useClientTranslation(lang);
     const imageId = People?.thumbId ?? "";
     const numberToques = People.nbToques ?? 7;
 

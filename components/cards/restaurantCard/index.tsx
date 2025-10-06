@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./RestaurantCard.module.css";
-import { useClientTranslation } from '@/lib/i18n/client';
+// import { useClientTranslation } from '@/lib/i18n/client';
 import { RestaurantProps } from "@/types/Restaurant";
 import Toques from "../common/Toques";
 import { isOpenNow } from "@/utils/openingHour";
@@ -17,7 +17,7 @@ type Props = {
 
 export default function RestaurantCard({ lang, restaurant }: Props) {
 
-    const { t } = useClientTranslation(lang);
+    // const { t } = useClientTranslation(lang);
     const imageId = restaurant?.thumbId ?? "";
     const isOpen = isOpenNow(restaurant.openingPeriods);
     const isSponsored = restaurant.nbToques === -1 ? true : false;

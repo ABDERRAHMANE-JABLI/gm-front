@@ -12,11 +12,16 @@ export type Language = 'fr' | 'en';
 export function useClientTranslation(lang: Language = 'fr') {
   const t = (key: string): string => {
     const keys = key.split('.');
-    let value: any = translations[lang];
+    let value: Record<string, unknown> | string = translations[lang];
 
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
-        value = value[k];
+        const nextValue = (value as Record<string, unknown>)[k];
+        if (typeof nextValue === 'string' || (typeof nextValue === 'object' && nextValue !== null)) {
+          value = nextValue as Record<string, unknown> | string;
+        } else {
+          return key;
+        }
       } else {
         return key; 
       }
