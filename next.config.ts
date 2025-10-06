@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  allowedDevOrigins:['*.gm.wip','localhost:3000'],
   images: {
     remotePatterns: [
       {
