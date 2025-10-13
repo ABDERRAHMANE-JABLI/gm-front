@@ -6,32 +6,51 @@ import styles from "./people.module.css";
 import { useClientTranslation } from '@/lib/i18n/client';
 import PeopleProps from "@/types/Peoples";
 import Toques from "../common/Toques";
+import PeopleIcon from "@/components/Icons/People";
 
 type Language = 'fr' | 'en';
 
 type Props = {
     lang: Language;
     People: PeopleProps;
+    withHeader?: boolean;
 };
 
-export default function PeopleCard({ lang, People }: Props) {
+export default function PeopleCard({ lang, People, withHeader }: Props) {
 
     const { t } = useClientTranslation(lang);
     const imageId = People?.thumbId ?? "";
     const numberToques = People.nbToques ?? 7;
 
     return (
-        <article className={styles.card}>
+        <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
             <Link href={`/${lang}/People/${People?.slug}`} aria-label={People.title} title={People.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
+
+            {/* Header pour la page LA PLACE */}
+            {withHeader && (
+                <div className={styles.cardHeader}>
+                    <div className={styles.headerLeft}>
+                        <span className={styles.iconWrapper}>
+                            <PeopleIcon width={28} height={28} />
+                        </span>
+                        <div className={styles.headerTexts}>
+                            <span className={styles.headerTitle}>People</span>
+                        </div>
+                    </div>
+                        <Link href={`/${lang}/Peoples`} className={styles.moreBtn}>
+                            {t('common.see_more')}
+                        </Link>
+                </div>
+            )}
+
             <div className={styles.thumbWrapper}>
                 <SmartImage id={imageId} alt={People.title} width={666} height={444} fit="cover" lazyload />
             </div>
 
             {/* Contenu */}
             <div className={styles.body}>
-                
                 <div className={styles.cardPaddingContainer}>
                     <Toques nbToques={numberToques} note={People.note} description={People.noteDescription} lang={lang}/>
                 </div>

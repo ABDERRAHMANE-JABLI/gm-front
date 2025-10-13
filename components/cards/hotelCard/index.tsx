@@ -7,25 +7,45 @@ import { useClientTranslation } from '@/lib/i18n/client';
 import { HotelProps } from "@/types/Hotels";
 import Stars from "../common/Stars";
 import Toques from "../common/Toques";
+import HotelIcon from "@/components/Icons/Hotel";
 
 type Language = 'fr' | 'en';
 
 type Props = {
     lang: Language;
     Hotel: HotelProps;
+    withHeader?: boolean;
 };
 
-export default function HotelCard({ lang, Hotel }: Props) {
+export default function HotelCard({ lang, Hotel, withHeader}: Props) {
 
     const { t } = useClientTranslation(lang);
     const imageId = Hotel?.thumbId ?? "";
     // const isOpen = isOpenNow(Hotel.openingPeriods);
 
     return (
-        <article className={styles.card}>
+        <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
             <Link href={`/${lang}/hotels/${Hotel?.slug}`} aria-label={Hotel.title} title={Hotel.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
+            
+            {/* Header pour la page LA PLACE */}
+            {withHeader && (
+                <div className={styles.cardHeader}>
+                    <div className={styles.headerLeft}>
+                        <span className={styles.iconWrapper}>
+                            <HotelIcon width={28} height={28} />
+                        </span>
+                        <div className={styles.headerTexts}>
+                            <span className={styles.headerTitle}>Hotels</span>
+                        </div>
+                    </div>
+                        <Link href={`/${lang}/hotels`} className={styles.moreBtn}>
+                            {t('common.see_more')}
+                        </Link>
+                </div>
+            )}
+
             <div className={styles.thumbWrapper}>
                 <SmartImage id={imageId} alt={Hotel.title} width={666} height={444} fit="cover" lazyload />
 
@@ -51,7 +71,6 @@ export default function HotelCard({ lang, Hotel }: Props) {
 
             {/* Contenu */}
             <div className={styles.body}>
-                
                 <div className={styles.cardPaddingContainer}>
                     <Stars nbStars={Hotel.nbStars} description={Hotel.nbStarsDescription} lang={lang}/>
                 </div>

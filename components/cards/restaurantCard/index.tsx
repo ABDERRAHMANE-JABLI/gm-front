@@ -7,15 +7,17 @@ import { RestaurantProps } from "@/types/Restaurant";
 import Toques from "../common/Toques";
 import { isOpenNow } from "@/utils/openingHour";
 import { useClientTranslation } from "@/lib/i18n/client";
+import RestaurantIcon from "@/components/Icons/Restaurant";
 
 type Language = 'fr' | 'en';
 
 type Props = {
     lang: Language;
     restaurant: RestaurantProps;
+    withHeader?: boolean;
 };
 
-export default function RestaurantCard({ lang, restaurant }: Props) {
+export default function RestaurantCard({ lang, restaurant, withHeader }: Props) {
 
     const { t } = useClientTranslation(lang);
 
@@ -24,10 +26,27 @@ export default function RestaurantCard({ lang, restaurant }: Props) {
     const isSponsored = restaurant.nbToques === -1 ? true : false;
 
     return (
-        <article className={styles.card}>
+        <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
             <Link href={`/${lang}/restaurant/${restaurant?.slug}`} aria-label={restaurant.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
+            
+            {/* Header pour la page LA PLACE */}
+            {withHeader && (
+                <div className={styles.cardHeader}>
+                    <div className={styles.headerLeft}>
+                        <span className={styles.iconWrapper}>
+                            <RestaurantIcon width={28} height={28} />
+                        </span>
+                        <div className={styles.headerTexts}>
+                            <span className={styles.headerTitle}>Restaurants</span>
+                        </div>
+                    </div>
+                        <Link href={`/${lang}/restaurants/`} className={styles.moreBtn}>
+                            {t('common.see_more')}
+                        </Link>
+                </div>
+            )}
             <div className={styles.thumbWrapper}>
                 <SmartImage id={imageId} alt={restaurant.title} width={666} height={444} fit="cover" lazyload />
 
