@@ -66,7 +66,7 @@ export default function NewsSecondCard({ lang, news}: Props) {
         </svg>
 
         <div className={styles["place-card-header-title"]}>
-          <span className={`${styles.title} ${styles.ellipsis}`}>ACTUALITÉS</span>
+          <span className={`${styles.title} ${styles.ellipsis}`}>{t('navigation.actualites')}</span>
           <span className={`${styles.subTitle} ${styles.ellipsis}`}>
             {news.theme?.[0]}
           </span>

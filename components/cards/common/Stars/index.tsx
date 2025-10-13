@@ -1,9 +1,13 @@
 
+import { useClientTranslation } from '@/lib/i18n/client';
 import './stars.css'
+
+type Language = "fr" | "en";
 
 type StarsProps = {
   nbStars: number;
   description: string;
+  lang? : Language;
 };
 
 const Star = () => (
@@ -12,13 +16,14 @@ const Star = () => (
 );
 
 
-export default function Stars({ nbStars, description }: StarsProps) {
+export default function Stars({ nbStars, description, lang}: StarsProps) {
+  const { t } = useClientTranslation(lang);
   if (nbStars === 0)
     return (
         <div className="hotelRating" >
           <div className="stars">
               <div className="stars-wrapper">
-                  <span>Sélectionné</span>
+                  <span>{t("common.selected")}</span>
               </div>
           </div>
           <span className="description">{description}</span>
@@ -30,10 +35,10 @@ export default function Stars({ nbStars, description }: StarsProps) {
         <div className="hotelRating" >
           <div className="stars sponsored">
               <div className="stars-wrapper">
-                  <span>Sponsorisé</span>
+                  <span>{t("common.sponsored")}</span>
               </div>
           </div>
-          <span className="description">Sponsorisé</span>
+          <span className="description">{description}</span>
         </div>
     );
 

@@ -30,7 +30,7 @@ export default function HorizontalRestauCard({ lang, restaurant }: Props) {
 
       <div className={styles.rightContent}>
         <div className={styles.divToques}>
-          <Toques nbToques={restaurant.nbToques} description={restaurant.noteDescription} note={restaurant.note}/>
+          <Toques nbToques={restaurant.nbToques} description={restaurant.noteDescription} note={restaurant.note} lang={lang}/>
         </div>
         
         <div>
@@ -38,30 +38,30 @@ export default function HorizontalRestauCard({ lang, restaurant }: Props) {
             {restaurant.title}
           </span>
         </div>
-
+    
         <div className={`${styles["horizontal-container"]}`}>
           <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
                     {restaurant.address && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Lieu</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.address")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.address}>{restaurant.address}</span>
                         </div>
                     )}
                     {restaurant.chief && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Chef</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.chef")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.chief}>{restaurant.chief}</span>
                         </div>
                     )}
                     {!!restaurant.cuisines?.length && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Cuisine</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.cooking")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.outlined}`}>{restaurant.cuisines.join(" | ")}</span>
                         </div>
                     )}
                     {restaurant.budget && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>budget</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.budget")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{restaurant.budget}</span>
                         </div>
                     )}

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./artisanCard.module.css";
-// import { useClientTranslation } from '@/lib/i18n/client';
+import { useClientTranslation } from '@/lib/i18n/client';
 import { ArtisanProps } from "@/types/Artisans";
 
 type Language = 'fr' | 'en';
@@ -15,7 +15,7 @@ type Props = {
 
 export default function ArtisanCard({ lang, Artisan }: Props) {
 
-    // const { t } = useClientTranslation(lang);
+    const { t } = useClientTranslation(lang);
     const imageId = Artisan?.thumbId ?? "";
 
     return (
@@ -32,7 +32,7 @@ export default function ArtisanCard({ lang, Artisan }: Props) {
                 
                 <div className={styles.cardPaddingContainer}>
                     <div className={`${styles.MarkRibbonActivity} ${!Artisan.isGmSelected ? styles.sponsored : ""} }`}>
-                      <span className={`${styles.leftText} ${styles.ellipsis}`}>{!Artisan.isGmSelected ? "Sponsorisé" : "Sélectionné"}</span>
+                      <span className={`${styles.leftText} ${styles.ellipsis}`}>{!Artisan.isGmSelected ? t("common.sponsored") : t("common.selected")}</span>
                       <span className={`${styles.rightText} ${styles.ellipsis}`}>{Artisan.primaryActivity}</span>
                     </div>
                 </div>
@@ -45,19 +45,19 @@ export default function ArtisanCard({ lang, Artisan }: Props) {
                 <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
                     {Artisan.address && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Lieu</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.address")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.textUpper}`} title={Artisan.address}>{Artisan.address}</span>
                         </div>
                     )}
                     {Artisan.otherActivities && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>activité</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.activity")}</span>
                             <span className={`${styles.figmaCaptionValue}`}>{Artisan.otherActivities?.[0]}</span>
                         </div>
                     )}
                     {!!Artisan.services?.length && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Truc en +</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.service")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles['clamp-2']}`}>{Artisan.services.join(", ")}</span>
                         </div>
                     )}

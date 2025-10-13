@@ -44,19 +44,19 @@ export default function HorizontalHotelCard({ lang, Hotel }: Props) {
           <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
                     {Hotel.address && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Lieu</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.address")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={Hotel.address}>{Hotel.address}</span>
                         </div>
                     )}
                     {!!Hotel.services?.length && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Truc en +</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.service")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles["clamp-1"]}`}>{Hotel.services.join(", ")}</span>
                         </div>
                     )}
                     {Hotel.budget && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>budget</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.budget")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{Hotel.budget}</span>
                         </div>
                     )}

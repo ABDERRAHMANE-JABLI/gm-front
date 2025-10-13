@@ -16,7 +16,17 @@
     "discover": "Découvrir",
     "read_more": "Lire plus",
     "see_more": "Voir plus",
-    "search_placeholder": "Rechercher un restaurant, un chef, un artisan, une recette, un domaine, un hôtel, une ville…"
+    "search_placeholder": "Rechercher un restaurant, un chef, un artisan, une recette, un domaine, un hôtel, une ville…",
+    "address" : "lieu",
+    "chef":"Chef",
+    "cooking":"Cuisine",
+    "budget":"Budget",
+    "selected":"Sélectionné",
+    "sponsored":"Sponsorisé",
+    "gold":"Membre de L'Académie Gault&Millau",
+    "service":"Truc en +",
+    "activity":"Activité",
+    "distinction":"Distinction"
   },
   "navigation": {
     "la_place": "La Place",

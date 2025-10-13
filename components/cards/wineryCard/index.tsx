@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./winnery.module.css";
-// import { useClientTranslation } from '@/lib/i18n/client';
+import { useClientTranslation } from '@/lib/i18n/client';
 import { WineryProps } from "@/types/Winery";
 
 type Language = 'fr' | 'en';
@@ -15,7 +15,7 @@ type Props = {
 
 export default function WineryCard({ lang, Winery }: Props) {
 
-  // const { t } = useClientTranslation(lang); // to do : traduction des libellés 
+  const { t } = useClientTranslation(lang);
   const imageId = Winery?.thumbId ?? "07df5907-c383-48a9-910f-8b78ce49852d";
 
   return (
@@ -61,7 +61,7 @@ export default function WineryCard({ lang, Winery }: Props) {
         <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
                     {Winery.address && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Lieu</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t('common.address')}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.textUpper}`} title={Winery.address}>{Winery.address}</span>
                         </div>
                     )}
@@ -73,7 +73,7 @@ export default function WineryCard({ lang, Winery }: Props) {
                     )}
                     {!!Winery.services && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Truc en +</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t('common.service')}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles['clamp-2']}`}>{Winery.services.join(", ")}</span>
                         </div>
               )}

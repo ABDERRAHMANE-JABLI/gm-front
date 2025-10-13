@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./RestaurantCard.module.css";
-// import { useClientTranslation } from '@/lib/i18n/client';
 import { RestaurantProps } from "@/types/Restaurant";
 import Toques from "../common/Toques";
 import { isOpenNow } from "@/utils/openingHour";
+import { useClientTranslation } from "@/lib/i18n/client";
 
 type Language = 'fr' | 'en';
 
@@ -17,7 +17,8 @@ type Props = {
 
 export default function RestaurantCard({ lang, restaurant }: Props) {
 
-    // const { t } = useClientTranslation(lang);
+    const { t } = useClientTranslation(lang);
+
     const imageId = restaurant?.thumbId ?? "";
     const isOpen = isOpenNow(restaurant.openingPeriods);
     const isSponsored = restaurant.nbToques === -1 ? true : false;
@@ -53,7 +54,7 @@ export default function RestaurantCard({ lang, restaurant }: Props) {
             <div className={styles.body}>
                 
                 <div className={styles.cardPaddingContainer}>
-                    <Toques nbToques={restaurant.nbToques} note={restaurant.note} description={restaurant.noteDescription}/>
+                    <Toques nbToques={restaurant.nbToques} note={restaurant.note} description={restaurant.noteDescription} lang={lang}/>
                 </div>
 
                 <div className={styles.cardPaddingContainer}>
@@ -64,25 +65,25 @@ export default function RestaurantCard({ lang, restaurant }: Props) {
                 <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
                     {restaurant.address && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Lieu</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.address")} </span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.address}>{restaurant.address}</span>
                         </div>
                     )}
                     {restaurant.chief && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Chef</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.chef")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.chief}>{restaurant.chief}</span>
                         </div>
                     )}
                     {!!restaurant.cuisines?.length && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Cuisine</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.cooking")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.outlined} ${isSponsored ? styles.bgSponsored : ''}`}>{restaurant.cuisines.join(" | ")}</span>
                         </div>
                     )}
                     {restaurant.budget && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>budget</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.budget")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{restaurant.budget}</span>
                         </div>
                     )}

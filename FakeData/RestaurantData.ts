@@ -80,7 +80,7 @@ export const RestaurantData: RestaurantProps[] = [
     noteDescription: "Sélectionné",
     thumbId: "4763a23b-2508-4a51-9cae-53b4da465f87",
     openingPeriods: {
-      monday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "22:00" }],
+      monday: [{ begin: "04:00", end: "22:00" }, { begin: "18:30", end: "22:00" }],
       tuesday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "22:00" }],
       wednesday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "22:00" }],
       thursday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "22:00" }],

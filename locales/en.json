@@ -16,7 +16,17 @@
     "discover": "Discover",
     "read_more": "Read more",
     "see_more": "See more",
-    "search_placeholder": "Search for a restaurant, chef, artisan, recipe, winery, hotel, city…"
+    "search_placeholder": "Search for a restaurant, chef, artisan, recipe, winery, hotel, city…",
+    "address" : "Address",
+    "chef":"Chef",
+    "cooking":"Cooking",
+    "budget":"Budget",
+    "selected":"Selected",
+    "sponsored":"Sponsored",
+    "gold":"Gault&Millau Academy's Member",
+    "service":"Services",
+    "activity":"Activity",
+    "distinction":"Awards"
   },
   "navigation": {
     "la_place": "The Place",

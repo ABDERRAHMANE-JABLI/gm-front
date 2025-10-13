@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./hotelsCard.module.css";
-// import { useClientTranslation } from '@/lib/i18n/client';
+import { useClientTranslation } from '@/lib/i18n/client';
 import { HotelProps } from "@/types/Hotels";
 import Stars from "../common/Stars";
 import Toques from "../common/Toques";
@@ -17,7 +17,7 @@ type Props = {
 
 export default function HotelCard({ lang, Hotel }: Props) {
 
-    // const { t } = useClientTranslation(lang);
+    const { t } = useClientTranslation(lang);
     const imageId = Hotel?.thumbId ?? "";
     // const isOpen = isOpenNow(Hotel.openingPeriods);
 
@@ -53,7 +53,7 @@ export default function HotelCard({ lang, Hotel }: Props) {
             <div className={styles.body}>
                 
                 <div className={styles.cardPaddingContainer}>
-                    <Stars nbStars={Hotel.nbStars} description={Hotel.nbStarsDescription}/>
+                    <Stars nbStars={Hotel.nbStars} description={Hotel.nbStarsDescription} lang={lang}/>
                 </div>
 
                 <div className={styles.cardPaddingContainer}>
@@ -64,20 +64,19 @@ export default function HotelCard({ lang, Hotel }: Props) {
                 <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
                     {Hotel.address && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Lieu</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.address")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.textUpper}`} title={Hotel.address}>{Hotel.address}</span>
                         </div>
                     )}
-                    
                     {!!Hotel.services?.length && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Truc en +</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.service")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{Hotel.services.join(", ")}</span>
                         </div>
                     )}
                     {Hotel.budget && (
                         <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>budget</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.budget")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{Hotel.budget}</span>
                         </div>
                     )}
