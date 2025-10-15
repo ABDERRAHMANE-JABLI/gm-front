@@ -9,6 +9,11 @@
     width: 100%
 }
 
+.card:hover{
+  border-color: var(--GMI-outlinedyellow);
+  box-shadow: 8px 8px 10px #0000001f;
+}
+
 .cardWithHeader{
     height: auto !important;
     min-height: 520px;
@@ -20,12 +25,6 @@
     width: 100%
 }
 
-.card:hover {
-    border-color: var(--GMI-cardbordercolor);
-    cursor: pointer;
-}
-
-
 
 @media (min-width: 479px) {
     .cardkindEmpty {
@@ -34,9 +33,9 @@
         width: var(--GMI-defaultcardwidth)
     }
 
-    .card:hover {
-        border-color: var(--yellowGM);
-        box-shadow: 0 6px 18px #0000002e
+    .card:hover{
+        border-color: var(--GMI-outlinedyellow);
+        box-shadow: 8px 8px 10px #0000001f;
     }
 
     .cardkindEmpty.sponsored {
@@ -91,7 +90,7 @@
     align-items: flex-start;
     display: flex;
     height: 320px !important;
-    gap: 50px;
+    gap: 40px;
     overflow: hidden;
 }
 
