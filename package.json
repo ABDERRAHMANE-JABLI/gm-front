@@ -13,6 +13,7 @@
     "@directus/sdk": "^20.0.3",
     "@meilisearch/instant-meilisearch": "^0.27.0",
     "@microsoft/clarity": "^1.0.0",
+    "@svgr/webpack": "^8.1.0",
     "@types/google-publisher-tag": "^1.20250811.1",
     "bootstrap": "^5.3.8",
     "dompurify": "^3.2.6",
@@ -36,7 +37,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
