@@ -6,7 +6,7 @@ import { NewsCardProps } from "@/types/News";
 import { hrefCard } from "@/lib/NewsCard";
 import styles from "./newsSecondCard.module.css";
 import { useClientTranslation } from '@/lib/i18n/client';
-import NewsIcon from "@/components/Icons/News";
+import NewsIcon from "@/public/icons/menu/blog.svg";
 
 
 type Language = 'fr' | 'en';
@@ -14,8 +14,6 @@ type Language = 'fr' | 'en';
 type Props = {
   lang: Language;
   news: NewsCardProps;
-  withHeader?: boolean;
-  headerSubtitle?: string;
 };
 
 export default function NewsSecondCard({ lang, news}: Props) {

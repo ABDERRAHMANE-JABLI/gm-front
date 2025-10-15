@@ -166,8 +166,8 @@ sinon : */
 /* Footer */
 .footer { margin-top: auto; }
 
-/* CTA LIRE PLUS avec effet “remplissage jaune” */
-.cta {
+/* MainButton LIRE PLUS avec effet “remplissage jaune” */
+.MainButton {
   position: relative; overflow: hidden;
   display: inline-flex; align-items: center; justify-content: center;
   width: 100%; 
@@ -181,7 +181,7 @@ sinon : */
   text-transform: uppercase;
   text-overflow: ellipsis;
 }
-.ctaText { 
+.MainButtonText { 
     position: relative; 
     z-index: 1;
     font-family: var(--button-label-font-family); 
@@ -193,11 +193,11 @@ sinon : */
     line-height: var(--button-label-line-height);
     text-overflow: ellipsis;
 }
-.cta::before {
+.MainButton::before {
   content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);
   z-index: 0; transform: scaleX(0); transform-origin: left center; transition: transform .45s ease;
 }
-.cta:hover::before, .cta:focus-visible::before { transform: scaleX(1); }
+.MainButton:hover::before, .MainButton:focus-visible::before { transform: scaleX(1); }
 
 .captionButtons {
   display: flex;
@@ -316,7 +316,7 @@ sinon : */
   z-index: 5;
   display: block;
 }
-.moreBtn, .cta, .captionBtn { position: relative; z-index: 10; }
+.moreBtn, .MainButton, .captionBtn { position: relative; z-index: 10; }
 
 
 /*ici new style

@@ -44,6 +44,7 @@ import {
 
 import styles from "./styles.module.css";
 import SvgDemo from "@/components/SvgDemo";
+import { tree } from "next/dist/build/templates/app-page";
 
 export const metadata: Metadata = {
   title: "Test Cards - Gault&Millau",
@@ -81,7 +82,7 @@ export default async function TestCardsPage({ params }: PageProps) {
           🎨 SVG Import Demo
         </h2>
         <div className={styles.cardGrid}>
-          <SvgDemo size={32} color="#ff6b35" />
+          <SvgDemo size={32} color="#5335ffff" />
         </div>
       </section>
 
@@ -241,7 +242,6 @@ export default async function TestCardsPage({ params }: PageProps) {
           {RestaurantData.slice(0, 3).map((restaurant, index) => (
             <RestaurantCard key={`restauran-${index}`} lang={lang} restaurant={restaurant} withHeader={true} />
           ))}
-
           {ArtisanData.slice(0,3).map((artisan, index) => (
             <ArtisanCard key={`artisans-${index}`} lang={lang} Artisan={artisan} withHeader={true}/>
           ))}
@@ -257,6 +257,53 @@ export default async function TestCardsPage({ params }: PageProps) {
           {WineriesData.slice(0,3).map((winery, index) => (
             <WineryCard key={`winerys-${index}`} Winery={winery} lang={lang} withHeader={true}/>
           ))}
+
+          <ChampagneCard 
+              key="champagneHeader" 
+              lang={lang} 
+              ChampagneProduct={ChampagnesData[7]}
+              withHeader={true}
+            />
+
+            <WineCard 
+              key="wineheader" 
+              lang={lang} 
+              WineProduct={WinesData[0]}
+              withHeader={true}
+            />
+
+            <WhiskyCard 
+              key="whisky-${index}" 
+              lang={lang} 
+              WhiskyProduct={WhiskiesData[0]}
+              withHeader={true}
+            />
+
+            <CognacCard 
+              key="cognac-${index}" 
+              lang={lang} 
+              CognacProduct={CognacsData[0]}
+              withHeader={true} 
+            />
+
+              <ArmagnacCard 
+              key="armagnac-${index}" 
+              lang={lang} 
+              ArmagnacProduct={ArmagnacsData[0]}
+              withHeader={true} 
+            />
+            <CalvadosCard 
+              key="calvados-${index}" 
+              lang={lang} 
+              CalvadosProduct={CalvadosData[0]} 
+              withHeader={true}
+            />
+            <RumCard 
+              key="rum-${index}" 
+              lang={lang} 
+              RumProduct={RumsData[2]}
+              withHeader={true}
+            />
 
         </div>
       </section>

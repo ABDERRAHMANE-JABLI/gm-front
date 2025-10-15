@@ -6,7 +6,8 @@ import styles from "./people.module.css";
 import { useClientTranslation } from '@/lib/i18n/client';
 import PeopleProps from "@/types/Peoples";
 import Toques from "../common/Toques";
-import PeopleIcon from "@/components/Icons/People";
+import PeopleIcon from "@/public/icons/menu/people.svg";
+import CardHeader from "../common/HeaderCard";
 
 type Language = 'fr' | 'en';
 
@@ -30,19 +31,7 @@ export default function PeopleCard({ lang, People, withHeader }: Props) {
 
             {/* Header pour la page LA PLACE */}
             {withHeader && (
-                <div className={styles.cardHeader}>
-                    <div className={styles.headerLeft}>
-                        <span className={styles.iconWrapper}>
-                            <PeopleIcon width={28} height={28} />
-                        </span>
-                        <div className={styles.headerTexts}>
-                            <span className={styles.headerTitle}>People</span>
-                        </div>
-                    </div>
-                        <Link href={`/${lang}/Peoples`} className={styles.moreBtn}>
-                            {t('common.see_more')}
-                        </Link>
-                </div>
+                <CardHeader title="People" href={`/${lang}/peoples/}`} seeMoreLabel={t("common.see_more")} icon={<PeopleIcon width={28} height={28} />} />
             )}
 
             <div className={styles.thumbWrapper}>

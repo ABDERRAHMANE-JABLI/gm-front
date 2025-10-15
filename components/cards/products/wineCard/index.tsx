@@ -6,15 +6,18 @@ import BaseComponent from "../baseComponent";
 import WineCardProps from "@/types/product/wine";
 import { getColorHex } from "@/utils/getColor";
 import { useClientTranslation } from "@/lib/i18n/client";
+import WineIcon from "@/public/icons/menu/wine.svg";
+import CardHeader from "../../common/HeaderCard";
 
 type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language
   WineProduct: WineCardProps
+  withHeader?:boolean
 };
 
-export default function WineCardComponent({ lang, WineProduct }: Props) {
+export default function WineCardComponent({ lang, WineProduct, withHeader }: Props) {
 
   const { t } = useClientTranslation(lang);
 
@@ -25,7 +28,8 @@ export default function WineCardComponent({ lang, WineProduct }: Props) {
       note={WineProduct.note ?? ""}
       typeProduct={t('products.wine')}
       thumbId={WineProduct.thumbId}
-      hrefProduct={`/${lang}/wineries/${WineProduct.domainSlug}/${WineProduct.slug}`}>
+      hrefProduct={`/${lang}/wineries/${WineProduct.domainSlug}/${WineProduct.slug}`}
+      header={withHeader && (<CardHeader title={t('products.wine')} href={`/${lang}/wines/`} seeMoreLabel={t("common.see_more")} icon={<WineIcon width={28} height={28} />}/>)}>
       
       <div className={styles.details}>
         {
@@ -47,7 +51,7 @@ export default function WineCardComponent({ lang, WineProduct }: Props) {
                 {t("libelle.appellation")} :
               </span>
               <span className={`${styles.figmaCaptionValue} ${styles.vertical} ${styles["clamp-2"]} ${styles.sm}`}>
-                {WineProduct.appellation}
+                {WineProduct.appellation.slice(0, 2).join(", ")}
               </span>
             </div>
           )
@@ -65,7 +69,6 @@ export default function WineCardComponent({ lang, WineProduct }: Props) {
             </div>
           </div>
         )}
-        
         {WineProduct.varieties && (
           <div className={styles.cardDetailVer}>
             <span className={`${styles.figmaCaption} ${styles.vertical} ${styles.ellipsis} ${styles.sm}`}>

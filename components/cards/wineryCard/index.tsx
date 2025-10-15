@@ -5,7 +5,8 @@ import { SmartImage } from "@/components/SmartImage";
 import styles from "./winnery.module.css";
 import { useClientTranslation } from '@/lib/i18n/client';
 import { WineryProps } from "@/types/Winery";
-import WineryIcon from "@/components/Icons/WInnery";
+import WineryIcon from "@/public/icons/menu/winery.svg";
+import CardHeader from "../common/HeaderCard";
 
 type Language = 'fr' | 'en';
 
@@ -28,20 +29,9 @@ export default function WineryCard({ lang, Winery, withHeader }: Props) {
 
       {/* Header pour la page LA PLACE */}
       {withHeader && (
-        <div className={styles.cardHeader}>
-          <div className={styles.headerLeft}>
-            <span className={styles.iconWrapper}>
-              <WineryIcon width={28} height={28} />
-            </span>
-            <div className={styles.headerTexts}>
-              <span className={styles.headerTitle}>{t('products.winnery')}</span>
-            </div>
-          </div>
-          <Link href={`/${lang}/wineries/`} className={styles.moreBtn}>
-            {t('common.see_more')}
-          </Link>
-        </div>
+        <CardHeader title={t("products.winnery")} href={`/${lang}/hotels/}`} seeMoreLabel={t("common.see_more")} icon={<WineryIcon width={28} height={28} />} />
       )}
+
       <div className={styles.thumbWrapper}>
         <SmartImage id={imageId} width={666} height={444} fit="cover" lazyload />
       </div>

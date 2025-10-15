@@ -5,16 +5,19 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import CalvadosCardProps from "@/types/product/calvados";
 import { useClientTranslation } from "@/lib/i18n/client";
+import CardHeader from "../../common/HeaderCard";
+import SpiritIcon from "@/public/icons/menu/spirit.svg";
 
 type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language
   CalvadosProduct: CalvadosCardProps
+  withHeader?:boolean
 };
 
 
-export default function CalvadosCardComponent({ lang, CalvadosProduct }: Props) {
+export default function CalvadosCardComponent({ lang, CalvadosProduct, withHeader }: Props) {
 
   const { t } = useClientTranslation(lang);
   // on peut avoir des produit avec region et/ou pays seulement
@@ -28,7 +31,9 @@ export default function CalvadosCardComponent({ lang, CalvadosProduct }: Props) 
       note={CalvadosProduct.note ?? ""}
       typeProduct={t('products.calvados')}
       thumbId={CalvadosProduct.thumbId}
-      hrefProduct={`/${lang}/bottles/${CalvadosProduct.slug}`}>
+      hrefProduct={`/${lang}/bottles/${CalvadosProduct.slug}`}
+      header={withHeader && (<CardHeader title={t('products.calvados')} href={`/${lang}/spirits/`} seeMoreLabel={t("common.see_more")} icon={<SpiritIcon width={28} height={28} />}/>)}>
+
 
       <div className={styles.details}>
         {

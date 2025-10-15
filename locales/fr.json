@@ -82,7 +82,8 @@
     "armagnac": "Armagnac",
     "calvados": "Calvados",
     "whisky": "Whisky",
-    "winnery":"Domaines"
+    "winnery":"Domaines",
+    "spirits":"Spiritueux"
   },
   "libelle": {
     "vintage": "Millésime",

@@ -5,24 +5,24 @@ import React from "react";
 import RumCardProps from "@/types/product/rum";
 import BaseComponent from "../baseComponent";
 import { useClientTranslation } from "@/lib/i18n/client";
+import CardHeader from "../../common/HeaderCard";
+import SpiritIcon from "@/public/icons/menu/spirit.svg";
 
 type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language
   RumProduct: RumCardProps
+  withHeader?:boolean
 };
 
-export default function RumCardComponent({ lang, RumProduct }: Props) {
+export default function RumCardComponent({ lang, RumProduct, withHeader}: Props) {
 
   const { t } = useClientTranslation(lang);
 
   //on peut avoir des produit avec region et/ou pays seulement
   // donc on doit construire cette chaine :  
   const spanCountry = `${RumProduct.originCountry ? t("libelle.country") : ""}${RumProduct.region ? " / "+t("libelle.region") : ""} :`;
-
- 
-
 
   return (
 
@@ -32,7 +32,8 @@ export default function RumCardComponent({ lang, RumProduct }: Props) {
       note={RumProduct.note ?? ""}
       typeProduct={t('products.rum')}
       thumbId={RumProduct.thumbId}
-      hrefProduct={`/${lang}/bottles/${RumProduct.slug}`}>
+      hrefProduct={`/${lang}/bottles/${RumProduct.slug}`}
+      header={withHeader && (<CardHeader title={t('products.rum')} href={`/${lang}/spirits/`} seeMoreLabel={t("common.see_more")} icon={<SpiritIcon width={28} height={28} />}/>)}>
 
       <div className={styles.details}>
         {

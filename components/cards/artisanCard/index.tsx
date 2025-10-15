@@ -5,7 +5,8 @@ import { SmartImage } from "@/components/SmartImage";
 import styles from "./artisanCard.module.css";
 import { useClientTranslation } from '@/lib/i18n/client';
 import { ArtisanProps } from "@/types/Artisans";
-import ArtisanIcon from "@/components/Icons/Artisan";
+import ArtisanIcon from "@/public/icons/menu/artisan.svg";
+import CardHeader from "../common/HeaderCard";
 
 type Language = 'fr' | 'en';
 
@@ -26,19 +27,7 @@ export default function ArtisanCard({ lang, Artisan, withHeader }: Props) {
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
             {withHeader && (
-                <div className={styles.cardHeader}>
-                    <div className={styles.headerLeft}>
-                        <span className={styles.iconWrapper}>
-                            <ArtisanIcon width={28} height={28} />
-                        </span>
-                        <div className={styles.headerTexts}>
-                            <span className={styles.headerTitle}>Artisans</span>
-                        </div>
-                    </div>
-                        <Link href={`/${lang}/artisans/`} className={styles.moreBtn}>
-                            {t('common.see_more')}
-                        </Link>
-                </div>
+                <CardHeader title="Artisan" href={`/${lang}/artisans/}`} seeMoreLabel={t("common.see_more")} icon={<ArtisanIcon width={28} height={28} />} />
             )}
             <div className={styles.thumbWrapper}>
                 <SmartImage id={imageId} alt={Artisan.title} width={666} height={444} fit="cover" lazyload />

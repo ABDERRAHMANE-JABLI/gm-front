@@ -12,14 +12,15 @@ type Props = {
     typeProduct: string;
     thumbId?: string;
     hrefProduct: string;
+    header?: React.ReactNode;
     children: React.ReactNode
 };
 
-export default function BaseComponent({ brand, title, note, typeProduct, thumbId, hrefProduct, children }: Props) {
+export default function BaseComponent({ brand, title, note, typeProduct, thumbId, hrefProduct,header, children }: Props) {
     const imageId = thumbId || "";
-
     return (
-        <article className={`${styles.lazyContent} ${styles.loaded}`}>
+        <article className={`${styles.card} ${header && styles.cardWithHeader}`}>
+            {header}
             <Link href={hrefProduct} aria-label={title}>
                 <div className={`${styles.cardkindEmpty} ${styles.cardkindProduct}`}>
                     <div className={`${styles.cardPaddingContainer} ${styles.titleContainer}`}>

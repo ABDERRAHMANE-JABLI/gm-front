@@ -7,7 +7,8 @@ import { useClientTranslation } from '@/lib/i18n/client';
 import { HotelProps } from "@/types/Hotels";
 import Stars from "../common/Stars";
 import Toques from "../common/Toques";
-import HotelIcon from "@/components/Icons/Hotel";
+import HotelIcon from "@/public/icons/menu/hotel.svg";
+import CardHeader from "../common/HeaderCard";
 
 type Language = 'fr' | 'en';
 
@@ -31,19 +32,7 @@ export default function HotelCard({ lang, Hotel, withHeader}: Props) {
             
             {/* Header pour la page LA PLACE */}
             {withHeader && (
-                <div className={styles.cardHeader}>
-                    <div className={styles.headerLeft}>
-                        <span className={styles.iconWrapper}>
-                            <HotelIcon width={28} height={28} />
-                        </span>
-                        <div className={styles.headerTexts}>
-                            <span className={styles.headerTitle}>Hotels</span>
-                        </div>
-                    </div>
-                        <Link href={`/${lang}/hotels`} className={styles.moreBtn}>
-                            {t('common.see_more')}
-                        </Link>
-                </div>
+                <CardHeader title="Hotel" href={`/${lang}/hotels/}`} seeMoreLabel={t("common.see_more")} icon={<HotelIcon width={28} height={28} />} />
             )}
 
             <div className={styles.thumbWrapper}>

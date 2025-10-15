@@ -215,3 +215,7 @@
     letter-spacing: var(--note-20-letter-spacing);
     line-height: var(--note-20-line-height)
 }
+
+.toque path {
+  fill: currentColor !important;
+}

@@ -56,13 +56,13 @@ export const RestaurantData: RestaurantProps[] = [
     noteDescription: "Sponsorisé",
     thumbId: "e9c5ea4c-ebe4-46c8-998f-49b37349cf96",
     openingPeriods: {
-      monday: [{ begin: "12:00", end: "14:30" }, { begin: "19:00", end: "22:30" }],
-      tuesday: [{ begin: "12:00", end: "14:30" }, { begin: "19:00", end: "22:30" }],
-      wednesday: [{ begin: "12:00", end: "14:30" }, { begin: "19:00", end: "22:30" }],
-      thursday: [{ begin: "12:00", end: "14:30" }, { begin: "19:00", end: "22:30" }],
-      friday: [{ begin: "12:00", end: "14:30" }, { begin: "19:00", end: "23:30" }],
-      saturday: [{ begin: "12:00", end: "15:00" }, { begin: "19:00", end: "23:30" }],
-      sunday: [{ begin: "12:00", end: "15:00" }]
+      monday: [{ begin: "12:00", end: "14:30" }, { begin: "19:00", end: "01:30" }],
+      tuesday: [{ begin: "12:00", end: "14:30" }, { begin: "19:00", end: "23:30" }],
+      wednesday: [{ begin: "08:00", end: "14:30" }, { begin: "19:00", end: "22:30" }],
+      thursday: [{ begin: "08:00", end: "14:30" }, { begin: "19:00", end: "22:30" }],
+      friday: [{ begin: "08:00", end: "14:30" }, { begin: "19:00", end: "23:30" }],
+      saturday: [{ begin: "08:00", end: "15:00" }, { begin: "19:00", end: "23:30" }],
+      sunday: [{ begin: "08:00", end: "15:00" }]
     },
     address: "15 Rue de la Paix, 75002 Paris",
     cuisines: ["Brasserie", "Français"],

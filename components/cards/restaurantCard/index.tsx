@@ -7,7 +7,9 @@ import { RestaurantProps } from "@/types/Restaurant";
 import Toques from "../common/Toques";
 import { isOpenNow } from "@/utils/openingHour";
 import { useClientTranslation } from "@/lib/i18n/client";
-import RestaurantIcon from "@/components/Icons/Restaurant";
+import RestaurantIcon from "@/public/icons/menu/restaurant.svg";
+import CardHeader from "../common/HeaderCard";
+import CheckIcon from "@/public/icons/check.svg";
 
 type Language = 'fr' | 'en';
 
@@ -33,27 +35,14 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
             
             {/* Header pour la page LA PLACE */}
             {withHeader && (
-                <div className={styles.cardHeader}>
-                    <div className={styles.headerLeft}>
-                        <span className={styles.iconWrapper}>
-                            <RestaurantIcon width={28} height={28} />
-                        </span>
-                        <div className={styles.headerTexts}>
-                            <span className={styles.headerTitle}>Restaurants</span>
-                        </div>
-                    </div>
-                        <Link href={`/${lang}/restaurants/`} className={styles.moreBtn}>
-                            {t('common.see_more')}
-                        </Link>
-                </div>
+                <CardHeader title="Restaurant" href={`/${lang}/restaurants/}`} seeMoreLabel={t("common.see_more")} icon={<RestaurantIcon width={28} height={28} />} />
             )}
+
             <div className={styles.thumbWrapper}>
                 <SmartImage id={imageId} alt={restaurant.title} width={666} height={444} fit="cover" lazyload />
-
                 {isOpen && (
                     <span className={`${styles.statusBadge} ${styles.statusOpen}`} role="status">
-                        <svg width="10px" height="10px" viewBox="0 0 1600 1280" fill="currentColor" className="svgCheck" aria-hidden="true"><path fill="currentColor" d="M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68"></path>
-                        </svg>
+                        <CheckIcon className={styles.svgCheck} />
                         <span>Ouvert</span>
                     </span>
                 )}

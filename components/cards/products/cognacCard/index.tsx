@@ -5,18 +5,21 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import CognacCardProps from "@/types/product/cognac";
 import { useClientTranslation } from "@/lib/i18n/client";
+import CardHeader from "../../common/HeaderCard";
+import SpiritIcon from "@/public/icons/menu/spirit.svg";
+
 
 type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language
   CognacProduct: CognacCardProps
+  withHeader?:boolean
 };
 
-export default function CognacCardComponent({ lang, CognacProduct }: Props) {
+export default function CognacCardComponent({ lang, CognacProduct, withHeader }: Props) {
  
   const { t } = useClientTranslation(lang);
-  // on peut avoir des produit avec region et/ou pays seulement
   const spanCountry = `${CognacProduct.originCountry ? t("libelle.country") : ""}${CognacProduct.region ? " / "+t("libelle.region") : ""} :`;
  
   return (
@@ -26,7 +29,8 @@ export default function CognacCardComponent({ lang, CognacProduct }: Props) {
       note={CognacProduct.note ?? ""}
       typeProduct={t('products.cognac')}
       thumbId={CognacProduct.thumbId}
-      hrefProduct={`/${lang}/bottles/${CognacProduct.slug}`}>
+      hrefProduct={`/${lang}/bottles/${CognacProduct.slug}`}
+      header={withHeader && (<CardHeader title={t('products.cognac')} href={`/${lang}/spirits/`} seeMoreLabel={t("common.see_more")} icon={<SpiritIcon width={28} height={28} />}/>)}>
 
       <div className={styles.details}>
         {
