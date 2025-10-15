@@ -219,12 +219,9 @@ export default async function TestCardsPage({ params }: PageProps) {
           📖 Recipe Cards
           <span className={styles.badge}>{RecipesData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ RecipeCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
         <div className={styles.cardsGrid}>
           {RecipesData.map((recipe, index) => (
-            <RecipeCard key={`recipe-${index}`} />
+            <RecipeCard key={`recipe-${index}`} lang={lang} Recipe={recipe} />
           ))}
         </div>
       </section>

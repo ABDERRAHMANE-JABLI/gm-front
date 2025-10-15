@@ -44,6 +44,7 @@ export interface RecipeCardProps {
   resume: string;
   slug: string;
   thumbId: string;                
+  theme?: string[];     
   buttons: [] | [RecipeCardButtonProps] | [RecipeCardButtonProps, RecipeCardButtonProps];
   rating?: RecipeCardRatingProps; // Informations de notation facultatives
 }
