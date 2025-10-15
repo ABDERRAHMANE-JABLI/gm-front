@@ -5,15 +5,18 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import WhiskyCardProps from "@/types/product/whisky";
 import { useClientTranslation } from "@/lib/i18n/client";
+import CardHeader from "../../common/HeaderCard";
+import SpiritIcon from "@/public/icons/menu/spirit.svg";
 
 type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language
   WhiskyProduct: WhiskyCardProps
+  withHeader?:boolean
 };
 
-export default function WhiskyCardComponent({ lang, WhiskyProduct }: Props) {
+export default function WhiskyCardComponent({ lang, WhiskyProduct, withHeader}: Props) {
 
   const { t } = useClientTranslation(lang);
   // on peut avoir des produit avec region et/ou pays seulement
@@ -27,7 +30,9 @@ export default function WhiskyCardComponent({ lang, WhiskyProduct }: Props) {
       note={WhiskyProduct.note ?? ""}
       typeProduct={t('products.whisky')}
       thumbId={WhiskyProduct.thumbId}
-      hrefProduct={`/${lang}/bottles/${WhiskyProduct.slug}`}>
+      hrefProduct={`/${lang}/bottles/${WhiskyProduct.slug}`}
+      header={withHeader && (<CardHeader title={t('products.whisky')} href={`/${lang}/spirits/`} seeMoreLabel={t("common.see_more")} icon={<SpiritIcon width={28} height={28} />}/>)}>
+
 
       <div className={styles.details}>
         {

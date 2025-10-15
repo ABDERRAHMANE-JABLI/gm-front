@@ -1,13 +1,3 @@
-/*.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: var(--GMI-carddefaultbackground);
-  border: 1px solid var(--GMI-cardbordercolor);
-  overflow: hidden;
-  height: 100%;
-}
-*/
 .card {
   position: relative;
   display: flex;
@@ -20,16 +10,16 @@
   flex: 0 0 auto;
 }
 
-.cardWithHeather{
-  height : 520px !important;
-}
-
 .card:hover{
   border-color: var(--yellowGM);
   box-shadow: 0 6px 18px #0000002e
 }
 
-/* Header pour la palge PLAE*/
+/* ******************* Header Style pour la page PLACE ******************************************* */
+.cardWithHeather{
+  height : 520px !important;
+}
+
 .cardHeader {
   display: flex;
   align-items: center;
@@ -60,6 +50,9 @@
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
+.iconWrapper{
+    padding-top: 3px;
+}
 
 .moreBtn {
   position: relative;
@@ -98,6 +91,10 @@
   transform: scaleX(1);
 }
 
+.iconWrapper{
+    padding-top: 3px;
+}
+/***************** Fin Style pour La page PLACE =============================================*/
 
 /* Media */
 .thumbWrapper { position: relative; width: 100%; padding-top: 66.66%; background: #f8f8f8; overflow: visible; }
@@ -169,8 +166,8 @@ sinon : */
 /* Footer */
 .footer { margin-top: auto; }
 
-/* CTA LIRE PLUS avec effet “remplissage jaune” */
-.cta {
+/* MainButton LIRE PLUS avec effet “remplissage jaune” */
+.MainButton {
   position: relative; overflow: hidden;
   display: inline-flex; align-items: center; justify-content: center;
   width: 100%; 
@@ -184,7 +181,7 @@ sinon : */
   text-transform: uppercase;
   text-overflow: ellipsis;
 }
-.ctaText { 
+.MainButtonText { 
     position: relative; 
     z-index: 1;
     font-family: var(--button-label-font-family); 
@@ -196,11 +193,11 @@ sinon : */
     line-height: var(--button-label-line-height);
     text-overflow: ellipsis;
 }
-.cta::before {
+.MainButton::before {
   content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);
   z-index: 0; transform: scaleX(0); transform-origin: left center; transition: transform .45s ease;
 }
-.cta:hover::before, .cta:focus-visible::before { transform: scaleX(1); }
+.MainButton:hover::before, .MainButton:focus-visible::before { transform: scaleX(1); }
 
 .captionButtons {
   display: flex;
@@ -319,7 +316,7 @@ sinon : */
   z-index: 5;
   display: block;
 }
-.moreBtn, .cta, .captionBtn { position: relative; z-index: 10; }
+.moreBtn, .MainButton, .captionBtn { position: relative; z-index: 10; }
 
 
 /*ici new style

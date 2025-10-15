@@ -5,34 +5,42 @@ import { SmartImage } from "@/components/SmartImage";
 import styles from "./winnery.module.css";
 import { useClientTranslation } from '@/lib/i18n/client';
 import { WineryProps } from "@/types/Winery";
+import WineryIcon from "@/public/icons/menu/winery.svg";
+import CardHeader from "../common/HeaderCard";
 
 type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language;
   Winery: WineryProps;
+  withHeader?: boolean;
 };
 
-export default function WineryCard({ lang, Winery }: Props) {
+export default function WineryCard({ lang, Winery, withHeader }: Props) {
 
   const { t } = useClientTranslation(lang);
   const imageId = Winery?.thumbId ?? "07df5907-c383-48a9-910f-8b78ce49852d";
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
       <Link href={`/${lang}/wineries/${Winery?.slug}`}>
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
+
+      {/* Header pour la page LA PLACE */}
+      {withHeader && (
+        <CardHeader title={t("products.winnery")} href={`/${lang}/hotels/}`} seeMoreLabel={t("common.see_more")} icon={<WineryIcon width={28} height={28} />} />
+      )}
+
       <div className={styles.thumbWrapper}>
         <SmartImage id={imageId} width={666} height={444} fit="cover" lazyload />
       </div>
 
       <div className={styles.body}>
         <div className={`${styles.cardPaddingContainer} ${styles.titleContainer}`}>
-            <span className={`${styles.leftContent}`}>{Winery.title}</span>
-
-            <span className={`${styles.rightContent}`}>
-              <svg id="Calque_champagne" data-name="Calque_champagne" viewBox="0 0 600 600" fill="currentColor"  width="26px" height="26px" className={styles["producer-kind"]} aria-hidden="true">
+          <span className={`${styles.leftContent}`}>{Winery.title}</span>
+          <span className={`${styles.rightContent}`}>
+            <svg id="Calque_champagne" data-name="Calque_champagne" viewBox="0 0 600 600" fill="currentColor" width="26px" height="26px" className={styles["producer-kind"]} aria-hidden="true">
               <defs>
                 <style>{`
                 .champagne-cls-1 { fill: #fff; }
@@ -59,24 +67,24 @@ export default function WineryCard({ lang, Winery }: Props) {
           </span>
         </div>
         <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
-                    {Winery.address && (
-                        <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t('common.address')}</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.textUpper}`} title={Winery.address}>{Winery.address}</span>
-                        </div>
-                    )}
-                    {!!Winery.productions && (
-                        <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Production</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles['clamp-2']}`}>{Winery.productions.join(", ")}</span>
-                        </div>
-                    )}
-                    {!!Winery.services && (
-                        <div className={styles.cardDetailHor}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t('common.service')}</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles['clamp-2']}`}>{Winery.services.join(", ")}</span>
-                        </div>
-              )}
+          {Winery.address && (
+            <div className={styles.cardDetailHor}>
+              <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t('common.address')}</span>
+              <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.textUpper}`} title={Winery.address}>{Winery.address}</span>
+            </div>
+          )}
+          {!!Winery.productions && (
+            <div className={styles.cardDetailHor}>
+              <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Production</span>
+              <span className={`${styles.figmaCaptionValue} ${styles['clamp-2']}`}>{Winery.productions.join(", ")}</span>
+            </div>
+          )}
+          {!!Winery.services && (
+            <div className={styles.cardDetailHor}>
+              <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t('common.service')}</span>
+              <span className={`${styles.figmaCaptionValue} ${styles['clamp-2']}`}>{Winery.services.join(", ")}</span>
+            </div>
+          )}
         </div>
       </div>
     </article>

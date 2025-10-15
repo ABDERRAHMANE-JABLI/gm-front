@@ -214,6 +214,10 @@
 .headerLeft { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .headerTexts { display: flex; flex-direction: column; min-width: 0; }
 
+.iconWrapper{
+    padding-top: 3px;
+}
+
 .moreBtn {
   position: relative;
   padding: 6px 10px;

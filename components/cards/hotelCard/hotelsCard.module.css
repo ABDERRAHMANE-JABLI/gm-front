@@ -18,7 +18,12 @@
   box-shadow: 8px 8px 10px #0000001f;
 }
 
-/* Header pour la palge PLAE*/
+
+/* ******************* Header Style pour la page PLACE ******************************************* */
+.cardWithHeather{
+  height : 520px !important;
+}
+
 .cardHeader {
   display: flex;
   align-items: center;
@@ -31,6 +36,67 @@
 }
 
 
+.headerLeft { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.headerTexts { display: flex; flex-direction: column; min-width: 0; }
+.headerTitle {
+  text-transform: uppercase;
+  font-family: var(--filter-title-font-family);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  color: var(--GMI-black);
+}
+.headerSubtitle {
+  font-family: var(--news-header-title-font-family);
+  font-size: 10px;
+  font-weight: 300;
+  line-height: var(--news-header-title-line-height);
+  color: var(--GMI-black);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+
+.moreBtn {
+  position: relative;
+  padding: 6px 10px;
+  border: 1px solid var(--GMI-cardbordercolor);
+  border-radius: var(--GMI-borderradius);
+  text-decoration: none;
+  color: var(--GMI-black);
+  font-family: var(--button-label-font-family);
+  font-size: var(--button-label-font-size); 
+  font-style: var(--button-label-font-style);
+  font-weight: var(--button-label-font-weight);
+  height: 26px;
+  justify-content: center;
+  letter-spacing: var(--button-label-letter-spacing);
+  line-height: var(--button-label-line-height);
+  background: transparent;
+  overflow: hidden;
+  z-index: 10;
+  text-transform: uppercase;
+}
+
+.moreBtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--GMI-outlinedyellow);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
+.moreBtn:hover::before,
+.moreBtn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.iconWrapper{
+    padding-top: 3px;
+}
+/* ******************* FIN Style pour la page PLACE ******************************************* */
 
 /* Media */
 .thumbWrapper { position: relative; width: 100%; padding-top: 66.66%; background: #f8f8f8; overflow: visible; }
@@ -287,7 +353,7 @@
 .stretchedLink {
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 2;
   display: block;
 }
 

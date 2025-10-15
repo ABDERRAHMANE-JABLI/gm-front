@@ -1,44 +1,41 @@
 
-.lazyContent {
-    position: relative;
-    height: auto;
-    min-height: 400px;
-    opacity: 0;
-    transition: opacity .5s ease-in-out;
-    width: 100%
-}
-
-.lazyContent.loaded {
-    min-height: unset;
-    opacity: 1
-}
-
-
-.cardkindEmpty {
+.card {
     background-color: var(--GMI-carddefaultbackground);
     border: unset;
     border: 1px solid var(--GMI-cardbordercolor);
+    position: relative;
     height: auto;
+    min-height: 480px;
+    width: 100%
+}
+
+.card:hover{
+  border-color: var(--GMI-outlinedyellow);
+  box-shadow: 8px 8px 10px #0000001f;
+}
+
+.cardWithHeader{
+    height: auto !important;
+    min-height: 520px;
+}
+
+.cardkindEmpty {
+    height: 100%;
     padding-bottom: 20px;
     width: 100%
 }
 
-.cardkindEmpty:hover {
-    border-color: var(--GMI-cardbordercolor);
-    box-shadow: unset;
-    cursor: pointer;
-}
 
 @media (min-width: 479px) {
     .cardkindEmpty {
-        height:var(--GMI-defaultcardheight);
-        transition: border-color .3s ease,box-shadow .3s ease;
+        height: 480px;
+        min-height: unset;
         width: var(--GMI-defaultcardwidth)
     }
 
-    .cardkindEmpty:hover {
-        border-color: var(--yellowGM);
-        box-shadow: 0 6px 18px #0000002e
+    .card:hover{
+        border-color: var(--GMI-outlinedyellow);
+        box-shadow: 8px 8px 10px #0000001f;
     }
 
     .cardkindEmpty.sponsored {
@@ -47,13 +44,13 @@
 }
 
 @media (min-width: 479px) {
-    .lazyContent {
+    .card {
         height:480px;
         min-height: unset;
         width: 300px
     }
 
-    .lazyContent.horizontal {
+    .card.horizontal {
         height: auto;
         min-height: unset;
         width: auto
@@ -92,10 +89,9 @@
 .cardkindProduct .imageAndDetails {
     align-items: flex-start;
     display: flex;
-    flex: 1 1 auto;
-    gap: 20px;
+    height: 320px !important;
+    gap: 40px;
     overflow: hidden;
-    background: #fff !important;
 }
 
 
@@ -105,7 +101,6 @@
     max-width: 120px;
     min-width: 120px;
     overflow: hidden;
-  background: #fff !important;
 }
 
 .cardkindProduct .imageAndDetails > .imageWrapper picture,
@@ -197,6 +192,14 @@
 @media (min-width: 479px) {
     .cardkindProduct .titleContainer {
         height:130px
+    }
+
+    .cardWithHeader {
+        height: 520px !important;
+    }
+
+    .cardkindProduct .imageAndDetails {
+        gap: 20px;
     }
 }
 
@@ -363,3 +366,5 @@
   display: block;
   cursor: pointer;
 }
+
+

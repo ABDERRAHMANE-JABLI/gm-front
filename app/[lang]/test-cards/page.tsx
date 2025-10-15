@@ -46,6 +46,7 @@ import { UtensilsData } from "@/FakeData";
 
 import styles from "./styles.module.css";
 import SvgDemo from "@/components/SvgDemo";
+import { tree } from "next/dist/build/templates/app-page";
 
 export const metadata: Metadata = {
   title: "Test Cards - Gault&Millau",
@@ -83,7 +84,7 @@ export default async function TestCardsPage({ params }: PageProps) {
           🎨 SVG Import Demo
         </h2>
         <div className={styles.cardGrid}>
-          <SvgDemo size={32} color="#ff6b35" />
+          <SvgDemo size={32} color="#5335ffff" />
         </div>
       </section>
 
@@ -143,7 +144,7 @@ export default async function TestCardsPage({ params }: PageProps) {
         </h2>
         <div className={styles.cardsGrid}>
           {ArtisanData.map((artisan, index) => (
-            <ArtisanCard key={`artisan-${index}`} lang={lang} Artisan={artisan} />
+            <ArtisanCard key={`artisan-${index}`} lang={lang} Artisan={artisan}/>
           ))}
         </div>
       </section>
@@ -232,19 +233,77 @@ export default async function TestCardsPage({ params }: PageProps) {
           📍 The Place Cards
           <span className={styles.badge}>{PlacesData.length}</span>
         </h2>
-        <div className={styles.infoBox}>
-          <p>⚠️ ThePlaceCard n&apos;est pas encore implémenté - affichage du composant par défaut</p>
-        </div>
-        <div className={styles.infoBox}>
-          <p>⚠️ To Do : Adapter les composants (restau, hotels, people .....) pour qu’ils puissent accepter un header lorsqu’ils sont utilisés dans la page LA PLACE.</p>
-        </div>
-        <div className={styles.infoBox}>
-          <p>⚠️ Implementer la fonctionnalité de la Traduction (fr, en)</p>
-        </div>
         <div className={styles.cardsGrid}>
-          {PlacesData.map((place, index) => (
-            <ThePlaceCard key={`place-${index}`} />
+
+          {hotelData.slice(0, 3).map((hotel, index) => (
+              <HotelCard key={`hotelPlace-${index}`} lang={lang} Hotel={hotel} withHeader={true} />
           ))}
+          {RestaurantData.slice(0, 3).map((restaurant, index) => (
+            <RestaurantCard key={`restauran-${index}`} lang={lang} restaurant={restaurant} withHeader={true} />
+          ))}
+          {ArtisanData.slice(0,3).map((artisan, index) => (
+            <ArtisanCard key={`artisans-${index}`} lang={lang} Artisan={artisan} withHeader={true}/>
+          ))}
+
+          {NewsCardData.slice(0,3).map((news, index) => (
+            <NewsCard key={`new-${index}`} lang={lang} news={news} withHeader={true}/>
+          ))}
+
+          {PeopleData.slice(0,3).map((people, index) => (
+            <PeopleCard key={`peoples-${index}`} lang={lang} People={people}  withHeader={true} />
+          ))}
+
+          {WineriesData.slice(0,3).map((winery, index) => (
+            <WineryCard key={`winerys-${index}`} Winery={winery} lang={lang} withHeader={true}/>
+          ))}
+
+          <ChampagneCard 
+              key="champagneHeader" 
+              lang={lang} 
+              ChampagneProduct={ChampagnesData[7]}
+              withHeader={true}
+            />
+
+            <WineCard 
+              key="wineheader" 
+              lang={lang} 
+              WineProduct={WinesData[0]}
+              withHeader={true}
+            />
+
+            <WhiskyCard 
+              key="whisky-${index}" 
+              lang={lang} 
+              WhiskyProduct={WhiskiesData[0]}
+              withHeader={true}
+            />
+
+            <CognacCard 
+              key="cognac-${index}" 
+              lang={lang} 
+              CognacProduct={CognacsData[0]}
+              withHeader={true} 
+            />
+
+              <ArmagnacCard 
+              key="armagnac-${index}" 
+              lang={lang} 
+              ArmagnacProduct={ArmagnacsData[0]}
+              withHeader={true} 
+            />
+            <CalvadosCard 
+              key="calvados-${index}" 
+              lang={lang} 
+              CalvadosProduct={CalvadosData[0]} 
+              withHeader={true}
+            />
+            <RumCard 
+              key="rum-${index}" 
+              lang={lang} 
+              RumProduct={RumsData[2]}
+              withHeader={true}
+            />
+
         </div>
       </section>
 

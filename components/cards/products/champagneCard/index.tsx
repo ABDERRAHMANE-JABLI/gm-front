@@ -5,15 +5,18 @@ import React from "react";
 import BaseComponent from "../baseComponent";
 import ChampagneCardProps from "@/types/product/champagne";
 import { useClientTranslation } from "@/lib/i18n/client";
+import CardHeader from "../../common/HeaderCard";
+import ChampagneIcon from "@/public/icons/menu/champagne.svg";
 
 type Language = 'fr' | 'en';
 
 type Props = {
   lang: Language
   ChampagneProduct: ChampagneCardProps
+  withHeader?:boolean
 };
 
-export default function ChampagneCardComponent({ lang, ChampagneProduct }: Props) {
+export default function ChampagneCardComponent({ lang, ChampagneProduct, withHeader }: Props) {
 
   const { t } = useClientTranslation(lang);
  
@@ -24,7 +27,9 @@ export default function ChampagneCardComponent({ lang, ChampagneProduct }: Props
       note={ChampagneProduct.note ?? ""}
       typeProduct={t('products.champagne')}
       thumbId={ChampagneProduct.thumbId}
-      hrefProduct={`/${lang}/wineries/${ChampagneProduct.domainSlug}/${ChampagneProduct.slug}`}>
+      hrefProduct={`/${lang}/wineries/${ChampagneProduct.domainSlug}/${ChampagneProduct.slug}`}
+      header={withHeader && (<CardHeader title={t('products.champagne')} href={`/${lang}/champagnes/`} seeMoreLabel={t("common.see_more")} icon={<ChampagneIcon width={28} height={28} />}/>)}>
+
 
       <div className={styles.details}>
         {

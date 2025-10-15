@@ -158,7 +158,7 @@
     flex-grow: 1;
     flex-wrap: wrap;
     justify-content: center;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .place-card-header .place-card-header-title>.title {
@@ -168,7 +168,8 @@
     font-style: var(--news-header-title-font-style);
     font-weight: var(--news-header-title-font-weight);
     letter-spacing: var(--news-header-title-letter-spacing);
-    line-height: var(--news-header-title-line-height)
+    line-height: var(--news-header-title-line-height);
+    text-transform: uppercase;
 }
 
 .place-card-header.xl .place-card-header-title>.title {
@@ -302,6 +303,9 @@
 }
 .figma-placeCardButton, .figma-cardButton { position: relative; z-index: 10; }
 
+.iconWrapper{
+    padding-top: 3px;
+}
 
 @media (max-width: 575px) {
   .uneDeux-card {

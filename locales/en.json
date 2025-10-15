@@ -81,7 +81,9 @@
     "cognac": "Cognac",
     "armagnac": "Armagnac",
     "calvados": "Calvados",
-    "whisky": "Whisky"
+    "whisky": "Whisky",
+    "winnery":"Wine Estate",
+    "spirits":"Spirits"
   },
   "libelle": {
     "vintage": "Vintage",
