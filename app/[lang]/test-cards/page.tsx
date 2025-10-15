@@ -18,6 +18,7 @@ import CognacCard from "@/components/cards/products/cognacCard";
 import ArmagnacCard from "@/components/cards/products/armagnacCard";
 import CalvadosCard from "@/components/cards/products/calvadosCard";
 import RumCard from "@/components/cards/products/rumCard";
+import UtensilCard from "@/components/cards/utensilCard";
 
 // Import centralisé de toutes les données mockées via le fichier index
 import { 
@@ -41,6 +42,7 @@ import {
   CalvadosData,
   RumsData
 } from "@/FakeData";
+import { UtensilsData } from "@/FakeData";
 
 import styles from "./styles.module.css";
 import SvgDemo from "@/components/SvgDemo";
@@ -363,6 +365,23 @@ export default async function TestCardsPage({ params }: PageProps) {
               key={`rum-${index}`} 
               lang={lang} 
               RumProduct={rum} 
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* Utensils */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>
+          🍴 Utensils
+          <span className={styles.badge}>{UtensilsData.length}</span>
+        </h2>
+        <div className={styles.cardsGrid}>
+          {UtensilsData.map((ute, index) => (
+             <UtensilCard 
+                key={`utensil-${index}`} 
+                lang={lang} 
+                Utensil={ute} 
             />
           ))}
         </div>
