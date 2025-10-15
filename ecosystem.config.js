@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'gmi-website',
       exec_mode: 'cluster',
-      instances: 'max', // Or a number of instances
+      instances: process.env.PM2_INSTANCES || 'max', // Use PM2_INSTANCES env variable or 'max' by default
       script: './node_modules/next/dist/bin/next',
       args: 'start',
       exp_backoff_restart_delay: 100, // optional, adjust as needed

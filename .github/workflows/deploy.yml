@@ -1,0 +1,25 @@
+name: Deploy to Jelastic (Infomaniak)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to Infomaniak Jelastic via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.JELASTIC_HOST }}
+          username: ${{ secrets.JELASTIC_USER }}
+          port: ${{ secrets.JELASTIC_PORT }}
+          key: ${{ secrets.JELASTIC_SSH_KEY }}
+          script: |
+            echo "🚀 Starting zero-downtime deploy on Jelastic..."
+            bash /home/jelastic/deploy.sh
+            echo "✅ Deploy finished successfully!"
