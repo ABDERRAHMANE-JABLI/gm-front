@@ -8,7 +8,7 @@ module.exports = {
       args: 'start',
       exp_backoff_restart_delay: 100, // optional, adjust as needed
       watch: true, // optional, adjust as needed
-      max_memory_restart: '400M', // optional, adjust as needed
+      max_memory_restart: '600M', // optional, adjust as needed
       env: {
         NODE_ENV: 'production',
         ALLOWED_DOMAINS: '*.gm.wip,*.gaultmillau.com',
