@@ -13,7 +13,16 @@ module.exports = {
         NODE_ENV: 'production',
         ALLOWED_DOMAINS: '*.gm.wip,*.gaultmillau.com',
         PORT: '3000',
-        HOSTNAME: '0.0.0.0'
+        HOSTNAME: '0.0.0.0',
+        "pm2_autoscale":{
+              "is_enabled": true,
+              // "scale_cpu_threshold": 95,
+              "release_cpu_threshold": 50,
+              "max_workers": 40,
+              "min_seconds_to_add_worker": 10,
+              "min_seconds_to_release_worker": 30,
+              "debug": true,
+        }
       }
     }
   ]
