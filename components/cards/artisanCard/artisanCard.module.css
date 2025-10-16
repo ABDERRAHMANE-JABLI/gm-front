@@ -371,8 +371,13 @@
   inset: 0;
   z-index: 5;
   display: block;
+  width: 300px;
+  height: 480px;
 }
 
+.cardWithHeather a .stretchedLink{
+  height: 520px;
+}
 
 .clamp-2,.clamp-3,.clamp-4,.clamp-5,.clamp-6,.clamp-7,.clamp-8 {
     display: -webkit-box;
@@ -400,6 +405,10 @@
         height: 200px !important;
         object-fit: cover;
         display: block;
+    }
+
+    .stretchedLink{
+      width: 100% !important;
     }
     
 }

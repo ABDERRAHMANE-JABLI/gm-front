@@ -24,6 +24,8 @@ export interface UtensilProps {
    */
   title: string;
 
+  slug: string;
+
   /**
    * Brève description de l'ustensile
    * @example "Idéale pour mélanger et racler sans rayer."

@@ -32,7 +32,7 @@ export default function HotelCard({ lang, Hotel, withHeader}: Props) {
             
             {/* Header pour la page LA PLACE */}
             {withHeader && (
-                <CardHeader title="Hotel" href={`/${lang}/hotels/}`} seeMoreLabel={t("common.see_more")} icon={<HotelIcon width={28} height={28} />} />
+                <CardHeader title="Hotel" href={`/${lang}/hotels/`} seeMoreLabel={t("common.see_more")} icon={<HotelIcon width={28} height={28} />} />
             )}
 
             <div className={styles.thumbWrapper}>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./NewsCard.module.css";
 import { NewsCardProps, NewsCardButtonProps } from "@/types/News";
-import { hrefCard, hrefButton, defaultLabelByKind } from "@/lib/NewsCard";
+import { hrefCard, hrefButton, defaultLabelByKind } from "@/utils/NewsCardLink";
 import { useClientTranslation } from '@/lib/i18n/client';
 import NewsIcon from "@/public/icons/menu/blog.svg";
 import CardHeader from "../common/HeaderCard";

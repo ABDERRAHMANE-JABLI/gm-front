@@ -9,8 +9,7 @@ import NewsCard from "@/components/cards/NewsCard";
 import NewsSecondCard from "@/components/cards/newsSecondCard";
 import SingleNewsCard from "@/components/cards/newsUneCard";
 import  WineryCard  from "@/components/cards/wineryCard";
-import { RecipeCard } from "@/components/cards/recipeCard";
-import { ThePlaceCard } from "@/components/cards/thePlaceCard";
+import  RecipeCard from "@/components/cards/recipeCard";
 import ChampagneCard from "@/components/cards/products/champagneCard";
 import WineCard from "@/components/cards/products/wineCard";
 import WhiskyCard from "@/components/cards/products/whiskyCard";
@@ -42,11 +41,12 @@ import {
   CalvadosData,
   RumsData
 } from "@/FakeData";
+
 import { UtensilsData } from "@/FakeData";
 
 import styles from "./styles.module.css";
 import SvgDemo from "@/components/SvgDemo";
-import { tree } from "next/dist/build/templates/app-page";
+import HorizontalRecipeCard from "@/components/cards/recipeCard/HorizontalCard";
 
 export const metadata: Metadata = {
   title: "Test Cards - Gault&Millau",
@@ -222,8 +222,18 @@ export default async function TestCardsPage({ params }: PageProps) {
         </h2>
         <div className={styles.cardsGrid}>
           {RecipesData.map((recipe, index) => (
-            <RecipeCard key={`recipe-${index}`} lang={lang} Recipe={recipe} />
+            <RecipeCard key={`recipe-${index}`} lang={lang} recipe={recipe} />
           ))}
+        </div>
+      </section>
+
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>
+          📖 Recipe Horizontal Cards
+          <span className={styles.badge}>{RecipesData.length}</span>
+        </h2>
+        <div className={styles.cardsGrid}>
+            <HorizontalRecipeCard key={`recipe-Ho`}  recipe={RecipesData[4]} lang={lang}/>
         </div>
       </section>
 
@@ -303,6 +313,10 @@ export default async function TestCardsPage({ params }: PageProps) {
               RumProduct={RumsData[2]}
               withHeader={true}
             />
+
+            {RecipesData.slice(0,3).map((recipe, index) => (
+            <RecipeCard key={`recipe-${index}`} lang={lang} recipe={recipe} withHeader={true}/>
+          ))}
 
         </div>
       </section>
@@ -437,7 +451,7 @@ export default async function TestCardsPage({ params }: PageProps) {
              <UtensilCard 
                 key={`utensil-${index}`} 
                 lang={lang} 
-                Utensil={ute} 
+                Ustensil={ute} 
             />
           ))}
         </div>
