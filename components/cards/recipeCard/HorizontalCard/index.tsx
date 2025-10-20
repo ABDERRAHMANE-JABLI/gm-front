@@ -6,6 +6,8 @@ import styles from "./horizontalRecipe.module.css";
 import { RecipeCardProps, RecipeCardButtonProps, RecipeCardButtonKind } from "@/types/Recipe";
 import Toques from "../../common/Toques";
 import { hrefButtonRecipe, hrefCardRecipe } from "../hrefRecipeButton";
+import { useClientTranslation } from '@/lib/i18n/client';
+
 
 type Language = "fr" | "en";
 
@@ -20,7 +22,7 @@ export default function HorizontalRecipeCard({ lang, recipe }: Props) {
   const nbToques = recipe.rating?.nbToques ?? 7;
   const cardHref = hrefCardRecipe(lang, recipe.slug);
   const isSinglePeople = recipe.buttons.length === 1 && recipe.buttons[0].buttonKind === RecipeCardButtonKind.PEOPLE;
-  
+  const { t } = useClientTranslation(lang);
 
   return (
     <div className={`${styles["cardkind-horizontal-empty"]} ${styles["cardkind-horizontal-blog"]}`}>
@@ -55,9 +57,9 @@ export default function HorizontalRecipeCard({ lang, recipe }: Props) {
               ))}
             </div>
           ) : (
-              <Link href={cardHref} className={`${styles.MainButton} ${styles.horizontal}`}>
+              <Link href={cardHref} className={`${styles.MainButton} ${styles.horizontal}`} aria-label={recipe.title} title={recipe.title}>
                 <span className={styles.MainButtonText}>
-                  voir plus
+                  {t('common.read_more')}
                 </span>
               </Link>
             )

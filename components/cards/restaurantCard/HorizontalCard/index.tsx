@@ -21,8 +21,8 @@ export default function HorizontalRestauCard({ lang, restaurant }: Props) {
 
   return (
     <div className={`${styles["cardkind-horizontal-empty"]} ${styles["cardkind-horizontal-blog"]}`}>
-      <Link href={`/${lang}/restaurant/${restaurant?.slug}`} aria-label={restaurant.title}>
-                <span className={styles.stretchedLink} aria-hidden="true" />
+      <Link href={`/${lang}/restaurant/${restaurant?.slug}`} aria-label={restaurant.title} title={restaurant.title}>
+        <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
       <div className={styles["thumbnail-wrapper"]}>
         <SmartImage id={imageId} alt={restaurant.title} width={400} height={270} fit="cover" lazyload/>
@@ -70,6 +70,7 @@ export default function HorizontalRestauCard({ lang, restaurant }: Props) {
             <Link
               className={`${styles["figma-cardButton"]} ${styles.horizontal} ${styles["clamp-1"]}`}
               title={restaurant.title}
+              aria-label={restaurant.title}
               href={`/${lang}/restaurant/${restaurant.slug}`}
             >
               <span className={`text-uppercase ${styles.ellipsis}`}>

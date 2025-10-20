@@ -47,6 +47,7 @@ import { UtensilsData } from "@/FakeData";
 import styles from "./styles.module.css";
 import SvgDemo from "@/components/SvgDemo";
 import HorizontalRecipeCard from "@/components/cards/recipeCard/HorizontalCard";
+import UtensilHorizontalCard from "@/components/cards/utensilCard/HorizontaleCard";
 
 export const metadata: Metadata = {
   title: "Test Cards - Gault&Millau",
@@ -233,7 +234,7 @@ export default async function TestCardsPage({ params }: PageProps) {
           <span className={styles.badge}>{RecipesData.length}</span>
         </h2>
         <div className={styles.cardsGrid}>
-            <HorizontalRecipeCard key={`recipe-Ho`}  recipe={RecipesData[4]} lang={lang}/>
+            <HorizontalRecipeCard key={`recipe-Ho`}  recipe={RecipesData[2]} lang={lang}/>
         </div>
       </section>
 
@@ -316,6 +317,14 @@ export default async function TestCardsPage({ params }: PageProps) {
 
             {RecipesData.slice(0,3).map((recipe, index) => (
             <RecipeCard key={`recipe-${index}`} lang={lang} recipe={recipe} withHeader={true}/>
+          ))}
+
+          {UtensilsData.map((ute, index) => (
+             <UtensilCard 
+                key={`utensil-${index}`} 
+                lang={lang} 
+                Utensil={ute} WithHeader={true}
+            />
           ))}
 
         </div>
@@ -443,7 +452,7 @@ export default async function TestCardsPage({ params }: PageProps) {
       {/* Utensils */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
-          🍴 Utensils
+          🍴 Utensils Group
           <span className={styles.badge}>{UtensilsData.length}</span>
         </h2>
         <div className={styles.cardsGrid}>
@@ -451,11 +460,28 @@ export default async function TestCardsPage({ params }: PageProps) {
              <UtensilCard 
                 key={`utensil-${index}`} 
                 lang={lang} 
-                Ustensil={ute} 
+                Utensil={ute}
             />
           ))}
         </div>
       </section>
+
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>
+          🍴 Utensils
+          <span className={styles.badge}>{UtensilsData.length}</span>
+        </h2>
+        <div className={styles.cardsGrid}>
+          {UtensilsData.map((ute, index) => (
+             <UtensilHorizontalCard 
+                key={`utensil-${index}`} 
+                lang={lang} 
+                utensil={ute}
+            />
+          ))}
+        </div>
+      </section>
+
 
       {/* Footer */}
       <footer style={{ textAlign: 'center', padding: '2rem', color: '#6c757d' }}>

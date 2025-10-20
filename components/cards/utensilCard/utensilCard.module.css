@@ -2,12 +2,20 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background: var(--GMI-carddefaultbackground);
   border: 1px solid var(--GMI-cardbordercolor);
   overflow: hidden;
   width: 300px;
-  height: 450px;
+  height: 480px;
+  padding-bottom: 20px;
   flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.card:hover{
+  border-color: var(--yellowGM);
+  box-shadow: 0 6px 18px #0000002e
 }
 
 .thumbWrapper {
@@ -28,11 +36,22 @@
 }
 
 .categoryUtensilTitle {
-  margin: 0 0 10px; 
   color: var(--GMI-black);
   font-family: var(--card-title-font-family) !important;
-  font-size: var(--card-title-font-size);
+  font-size: 24px;
   font-weight: var(--card-title-font-weight);
+  line-height: var(--card-title-line-height);
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 2; line-clamp: 2;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.categoryUtensilCollection{
+  color: var(--GMI-black);
+  font-family: var(--card-title-font-family) !important;
+  font-size: 24px;
+  font-weight: normal;
   line-height: var(--card-title-line-height);
   display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
   -webkit-line-clamp: 2; line-clamp: 2;
@@ -44,6 +63,10 @@
     padding: 20px 20px 0;
     position: relative;
     width: 100%
+}
+
+.categoryUtensilTitle {
+  max-height: 55px; /* empêche que le texte prenne trop de place */
 }
 
 
@@ -116,133 +139,34 @@ h4.utensilTitle {
   content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);
   z-index: 0; transform: scaleX(0); transform-origin: left center; transition: transform .45s ease;
 }
-.discoverButton:hover::before, .discoverButton:focus-visible::before { transform: scaleX(1); }
-
-
-
-#carouselUtensils {
-    max-height: 464px
+.discoverButton:hover::before,
+.discoverButton:focus-visible::before {
+  transform: scaleX(1);
 }
 
-#carouselUtensils img {
-    aspect-ratio: 2.1;
-    height: 100%;
-    object-fit: contain
+.cardWithHeather{
+  height : 520px !important;
 }
 
-#carouselUtensils .overText {
-    background-color: rgba(0,0,0,.5);
-    bottom: 0;
-    color: #fff;
-    font-size: 20px;
-    position: absolute;
-    text-align: center;
-    text-shadow: 2px 2px 3px #000,-1px 0 4px #000
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+  width: 300px;
+  height: 480px;
 }
 
-#carouselUtensils .overText p {
-    margin: 10px
-}
-
-@media (max-width: 767.98px) {
-    .categoryUtensil {
-        height:320px;
-        max-height: 320px;
-        max-width: 100%
-    }
-
-    .categoryUtensil img {
-        aspect-ratio: 3/4;
-        max-width: 133px
-    }
-
-    .utensilContainer {
-        height: unset;
-        max-height: unset;
-        transition: height 2.2s ease;
-        -webkit-transition: height 2.2s ease
-    }
-
-    .utensilContainerDescription {
-        padding: 10px
-    }
-
-    .utensilContainer .imgContainer {
-        margin-bottom: 6px
-    }
-
-    .utensilContainer .imgContainer img {
-        aspect-ratio: 3/4;
-        height: 300px;
-        max-height: 300px;
-        object-fit: contain;
-        overflow: hidden;
-        width: auto
-    }
-
-    h4.utensilTitle {
-        font: normal normal 700 20px/24px Montserrat;
-        height: 78px;
-        letter-spacing: 0;
-        margin-bottom: unset;
-        text-transform: uppercase
-    }
-
-    .utensilContainer .utensilText {
-        display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical
-    }
-
-    .utensilContainer .utensilText.show-all {
-        height: auto;
-        overflow: visible;
-        text-overflow: none;
-        -webkit-line-clamp: unset
-    }
+.cardWithHeather a .stretchedLink{
+  height: 520px;
 }
 
 
-.discoverBtn {
-    border: 1px solid var(--borderButton);
-    border-radius: var(--border-radius);
-    font-size: 12px;
-    font-weight: 700;
-    margin: 0 auto;
-    text-transform: uppercase;
-    -webkit-transition: background-color .1s ease-in;
-    -moz-transition: background-color .1s ease-in;
-    -o-transition: background-color .1s ease-in;
-    transition: background-color .1s ease-in;
-    width: 75%
-}
-
-#peoplesContainerCa .discoverBtn,.card .discoverBtn {
-    width: 100%
-}
-
-.discoverBtn.stretched-link:hover,.discoverBtn:hover {
-    background-color: var(--yellowGM);
-    border: 1px solid var(--borderButton);
-    color: unset!important
-}
-
-
-@media (max-width: 575.98px) {
-    .discoverBtn {
-        font-size:10px;
-        max-width: 85%
-    }
-
-    .discoverBtn.readMore {
-        font-size: unset;
-        height: 35px;
-        max-width: 85%
-    }
-
-    #carouselUtensils .overText {
-        font-size: 15px
+@media (max-width: 479px) {
+    .card {
+        width: 100%;
+     }
+    .stretchedLink{
+        width: 100%;
     }
 }

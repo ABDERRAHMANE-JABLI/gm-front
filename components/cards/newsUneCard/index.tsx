@@ -25,7 +25,7 @@ export default function SingleNewsCard({ lang, news }: Props) {
 
     return (
         <article className={styles.uneCard}>
-            <Link href={cardHref} aria-label={`${news.title} — ${t('common.read_more')}`}>
+            <Link href={cardHref} aria-label={news.title} title={news.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
             <div className={styles.cardHeader}>
@@ -40,7 +40,7 @@ export default function SingleNewsCard({ lang, news }: Props) {
                         )}
                     </div>
                 </div>
-                <Link href={`/${lang}/blogs/`} className={styles.moreBtn}>
+                <Link href={`/${lang}/blogs/`} className={styles.moreBtn} aria-label={news.title} title={news.title}>
                     {t('common.see_more')}
                 </Link>
             </div>
@@ -72,7 +72,7 @@ export default function SingleNewsCard({ lang, news }: Props) {
                             </div>
                         ) : (
                             showMainButton && (
-                                <Link href={cardHref} className={styles.figmaCardButton} title={news.title}>
+                                <Link href={cardHref} className={styles.figmaCardButton} aria-label={news.title} title={news.title}>
                                     <span className={`text-uppercase ${styles.ellipsis}`}>{t('common.read_more')}</span>
                                 </Link>
                             )
@@ -103,7 +103,7 @@ function CaptionButton({ lang, data }: { lang: string; data: NewsCardButtonProps
   const url = hrefButton(lang, data.buttonKind, data.slug);
 
   return (
-    <Link href={url} className={styles.figmaCardButton} >
+    <Link href={url} className={styles.figmaCardButton}>
       <span className={styles.captionLabel}>{label}</span>
       <span className={styles.captionText}>
         <strong className={styles.captionLine1}>{data.text_line1}</strong>

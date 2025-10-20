@@ -5,41 +5,52 @@ import Link from "next/link";
 import styles from "./utensilCard.module.css";
 import { UtensilProps } from "@/types/Utensils";
 import { SmartImage } from "@/components/SmartImage";
+import CardHeader from "../common/HeaderCard";
+import { useClientTranslation } from '@/lib/i18n/client';
+import UtensilIcon from "@/public/icons/menu/utensil.svg";
 
 
 type Language = "fr" | "en";
 
 type UtensilCardProps = {
-  lang : Language;
-  Ustensil : UtensilProps,
+  lang : Language
+  Utensil : UtensilProps
   WithHeader?:boolean
 };
 
 
-export default function UtensilCard({ lang, Ustensil }: UtensilCardProps) {
-  const href = `/${lang}/${Ustensil.slug}`;
+export default function UtensilCard({ lang, Utensil, WithHeader }: UtensilCardProps) {
+  const href = `/${lang}/${Utensil.slug}`;
+  const { t } = useClientTranslation(lang);
+
   return (
-    <div className={`${styles.card} ${styles.categoryUtensil}`}>
+    <article className={`${styles.card} ${styles.categoryUtensil} ${WithHeader ? styles.cardWithHeather : ''}`}>
+      <Link href={href} aria-label={Utensil.title} title={Utensil.title}>
+        <span className={styles.stretchedLink} aria-hidden="true" />
+      </Link>
+        {/* Header pour la page LA PLACE */}
+        {WithHeader && (
+            <CardHeader title={t('navigation.utensils')} href={`/${lang}/Utensils/}`} seeMoreLabel={t("common.see_more")} icon={<UtensilIcon width={28} height={28}/>} />
+        )}
       <div className={styles.thumbWrapper}>
-        <SmartImage id={Ustensil.thumbId} alt={Ustensil.title} width={225}  fit="cover" lazyload/>
+        <SmartImage id={Utensil.thumbId} alt={Utensil.title} width={225} fit="cover" lazyload/>
       </div>
 
       <div className={styles.cardPaddingContainer}>
         <p className={styles.categoryUtensilCollection}>
-            La Collection
+            {t("libelle.collection")}
         </p>
-      <h5 className={styles.categoryUtensilTitle}>
-        {Ustensil.title}
-      </h5>
+        <p className={styles.categoryUtensilTitle}>
+          {Utensil.title}
+        </p>
       </div>
       
-
       <div className={styles.cardPaddingContainer}>
-        <Link href={href} className={styles.discoverButton}>
-          <span className={styles.discoverText}>Décourvir</span>
+        <Link href={href} className={styles.discoverButton} aria-label={Utensil.title} title={Utensil.title}>
+          <span  className={styles.discoverButtonText}>{t("common.discover")}</span>
         </Link>
       </div>
       
-    </div>
+    </article>
   );
 }

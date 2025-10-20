@@ -29,7 +29,7 @@ export default function CardHeader({title, href, icon, seeMoreLabel, subtitle,}:
           {subtitle && <span className={styles.headerSubtitle}>{subtitle}</span>}
         </div>
       </div>
-      <Link href={href} className={styles.moreBtn}>
+      <Link href={href} className={styles.moreBtn} aria-label={title} title={title}>
         {seeMoreLabel}
       </Link>
     </div>

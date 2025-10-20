@@ -28,7 +28,7 @@ export default function RecipeCard({ lang, recipe, withHeader }: Props) {
 
   return (
     <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ""}`}>
-      <Link href={cardHref} aria-label={`${recipe.title} — ${t("common.read_more")}`}>
+      <Link href={cardHref} aria-label={recipe.title} title={recipe.title}>
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
 
@@ -53,7 +53,7 @@ export default function RecipeCard({ lang, recipe, withHeader }: Props) {
               ))}
             </div>
           ) : (
-              <Link href={cardHref} className={styles.MainButton}>
+              <Link href={cardHref} className={styles.MainButton} aria-label={recipe.title} title={recipe.title}>
                 <span className={styles.MainButtonText}>
                   {t("common.read_more")}
                 </span>

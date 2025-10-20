@@ -15,6 +15,7 @@
     "about": "À propos",
     "discover": "Découvrir",
     "read_more": "Lire plus",
+    "read_less":"Lire Moins",
     "see_more": "Voir plus",
     "search_placeholder": "Rechercher un restaurant, un chef, un artisan, une recette, un domaine, un hôtel, une ville…",
     "address" : "lieu",
@@ -98,6 +99,7 @@
     "region": "Région",
     "alcoholVolume": "Teneur en Alcool",
     "classification": "Classification",
-    "type": "Type"
+    "type": "Type",
+    "collection":"La Collection"
   }
 }

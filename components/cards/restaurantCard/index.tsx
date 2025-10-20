@@ -29,7 +29,7 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
 
     return (
         <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
-            <Link href={`/${lang}/restaurant/${restaurant?.slug}`} aria-label={restaurant.title}>
+            <Link href={`/${lang}/restaurant/${restaurant?.slug}`} aria-label={restaurant.title} title={restaurant.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
             
