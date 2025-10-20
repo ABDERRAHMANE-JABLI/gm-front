@@ -1,11 +1,11 @@
 import { RestaurantProps } from "@/types/Restaurant";
 
-export const HorizontalRestauData: RestaurantProps={
+export const HorizontalRestauData: RestaurantProps = {
   title: "Airelles Château de Versaille Airelles Château de Versaille de",
   slug: "flocon-de-sel",
   nbToques: 6,
-  noteDescription:"table d'exception",
-  thumbId: "5425c316-bfe3-48e4-ac1b-c3c2f7542fb8", 
+  noteDescription: "table d'exception",
+  thumbId: "5425c316-bfe3-48e4-ac1b-c3c2f7542fb8",
   openingPeriods: {
     monday: [
       { begin: "12:00", end: "14:00" },
@@ -35,9 +35,9 @@ export const HorizontalRestauData: RestaurantProps={
   },
   address: "75018 Paris",
   cuisines: ["Cuisine d'auteur", "Français"],
-  budget : "310€ - 370€",
+  budget: "310€ - 370€",
   chief: "Alain Ducasse",
-  note:"19,5"
+  note: "19,5"
 };
 
 
@@ -66,7 +66,7 @@ export const RestaurantData: RestaurantProps[] = [
     },
     address: "15 Rue de la Paix, 75002 Paris",
     cuisines: ["Brasserie", "Français"],
-    services:["Hébergement"],
+    services: ["Hébergement"],
     budget: "25€ - 45€",
     chief: "Pierre Martin",
     distance: "2.3 km"
@@ -99,56 +99,77 @@ export const RestaurantData: RestaurantProps[] = [
     cuisines: ["Bistrot", "Traditionnel"],
     budget: "30€ - 50€",
     chief: "Léon Dupont",
-    peoples: ["léon-dupond"],
-    menu:[
+    peoples: [{
+      title: "Léon Dupont",
+      slug: "leon-dupont",
+      activity: "Chef"
+    },
+    {
+      title: "Joe Sommelier",
+      slug: "",
+      activity: "Sommelier"
+    }],
+    menu: [
       {
-        kind:"Entrée",
-        dishes:[
+        kind: "Entrée",
+        dishes: [
           {
-            title:"Crumble de Saint Marcellin, Muesli au Miel",
-            price:"11 €",
-            isSignature:false
+            title: "Crumble de Saint Marcellin, Muesli au Miel",
+            price: "11 €",
+            isSignature: false
           },
           {
-            title:"Carpaccio de Poulpe, Espuma au Piment d'Espelette",
-            price:"15 €",
-            isSignature:false
+            title: "Carpaccio de Poulpe, Espuma au Piment d'Espelette",
+            price: "15 €",
+            isSignature: false
           }
         ]
       },
       {
-        kind:"Plat principal",
-        dishes:[
+        kind: "Plat principal",
+        dishes: [
           {
-            title:"Filet de Canette Française Rôti à la Pâte de Coing",
-            price:"20 €",
-            isSignature:false
+            title: "Filet de Canette Française Rôti à la Pâte de Coing",
+            price: "20 €",
+            isSignature: false
           },
           {
-            title:"Pavé de Saumon D'Ecosse à L'unilaterale, Crème à l'Aneth",
-            price:"25 €",
-            isSignature:false
+            title: "Pavé de Saumon D'Ecosse à L'unilaterale, Crème à l'Aneth",
+            price: "25 €",
+            isSignature: false
           }
         ]
       },
       {
-        kind:"Dessert",
-        dishes:[
+        kind: "Dessert",
+        dishes: [
           {
-            title:"L’Inimitable « Tarte au Citron » de Léon",
-            price:"11 €",
-            isSignature:true
+            title: "L’Inimitable « Tarte au Citron » de Léon",
+            price: "11 €",
+            isSignature: true
           },
           {
-            title:"Entremet Fondant à la Mangue",
-            price:"11 €",
-            isSignature:false
+            title: "Entremet Fondant à la Mangue",
+            price: "11 €",
+            isSignature: false
           }
         ]
       }
     ],
+    menuFormulas:[
+      {
+        title: "Formule Déjeuner",
+        price: "32€",
+        isDrinkIncluded: false
+      },
+      {
+        title: "Formule Dîner",
+        price: "45€",
+        isDrinkIncluded: true
+      }
+    ],
     reviewYear: 2026,
-    review:"Typiquement le bistrot de potes et d'habitués qui vous colore une soirée avec une carte de vins affriolante et des assiettes qui réchauffent le cœur. On pourrait craindre un peu le surjoué et l'artifice, mais l'accueil s'avère sincèrement chaleureux et dévoué et les plats ne mentent pas. Une bonne terrine de campagne, un peu grasse, mais de bon goût, une joue de bœuf bien confite sauce vin rouge avec une purée grand-mère un poil sèche, une profiterole géante et simple à la fois, mais honnêtement faite avec une pâte à chou maison, à travers une carte un peu fourre-tout, mais qui reflète aussi les envies d'aujourd'hui, entre plats de ménage, tataki, carpaccio de poulpe, risotto truffe parmesan et burger. La cave donne du choix et du bon sur la plupart des régions, avec des pichets et des verres bienvenus."
+    review: "Typiquement le bistrot de potes et d'habitués qui vous colore une soirée avec une carte de vins affriolante et des assiettes qui réchauffent le cœur. On pourrait craindre un peu le surjoué et l'artifice, mais l'accueil s'avère sincèrement chaleureux et dévoué et les plats ne mentent pas. Une bonne terrine de campagne, un peu grasse, mais de bon goût, une joue de bœuf bien confite sauce vin rouge avec une purée grand-mère un poil sèche, une profiterole géante et simple à la fois, mais honnêtement faite avec une pâte à chou maison, à travers une carte un peu fourre-tout, mais qui reflète aussi les envies d'aujourd'hui, entre plats de ménage, tataki, carpaccio de poulpe, risotto truffe parmesan et burger. La cave donne du choix et du bon sur la plupart des régions, avec des pichets et des verres bienvenus."
   },
   // Restaurant 1 toque
   {

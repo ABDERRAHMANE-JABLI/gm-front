@@ -26,7 +26,7 @@ export default interface PeopleProps {
      * @description Rôle principal de la personne (affiché en majuscules sous le nom)
      * @example ["CHEF"], ["PÂTISSIER"], ["SOMMELIER", "DIRECTEUR DE SALLE"]
      */
-    activity?: string[];
+    activity?: string[]|string;
 
     /** 
      * Nombre de toques
