@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./NewsCard.module.css";
 import { NewsCardProps, NewsCardButtonProps } from "@/types/News";
-import { hrefCard, hrefButton, defaultLabelByKind } from "@/lib/NewsCard";
+import { hrefCard, hrefButton, defaultLabelByKind } from "@/utils/NewsCardLink";
 import { useClientTranslation } from '@/lib/i18n/client';
 import NewsIcon from "@/public/icons/menu/blog.svg";
 import CardHeader from "../common/HeaderCard";
@@ -29,7 +29,7 @@ export default function NewsCard({ lang, news, withHeader}: Props) {
 
   return (
     <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
-      <Link href={cardHref} aria-label={`${news.title} — ${t('common.read_more')}`}>
+      <Link href={cardHref} aria-label={news.title} title={news.title} >
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
 

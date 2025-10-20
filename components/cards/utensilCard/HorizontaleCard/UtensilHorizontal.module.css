@@ -1,0 +1,197 @@
+.card {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: flex-start;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 1000px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  transition: max-height 3s ease;
+}
+
+.card:hover{
+  border-left: 3px solid red;
+  border-bottom: 3px solid red;
+  box-shadow: 0 6px 18px #0000002e
+}
+
+.cardTitle{
+  color: var(--GMI-black);
+  display: -webkit-box;
+  font-family: var(--card-title-font-family);
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  letter-spacing: var(--card-title-letter-spacing);
+  line-height: var(--card-title-line-height);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-style: var(--card-title-font-style);
+  text-transform: capitalize;
+  margin-bottom: 8px;
+}
+
+.code {font-size:12px; margin-bottom:5px; font-weight: 400; text-transform: uppercase;}
+
+.description { 
+  color: var(--GMI-black);
+  font-family: var(--news-card-text-font-family);
+  font-size: var(--news-card-text-font-size);
+  font-weight: var(--news-card-text-font-weight);
+  line-height: var(--news-card-text-line-height);
+  text-align:justify; 
+  transition: all 0.3s ease;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+
+.imageContainer{
+  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow: hidden;
+}
+.imageContainer picture,
+.imageContainer img{
+  width:100%;
+  height:auto;
+  max-height:350px;
+  object-fit:contain;
+  display:block;
+  transition: transform 0.8s ease;
+}
+
+.details{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.cardPaddingContainer{ padding:20px 20px 0px; position:relative; width:100%; }
+
+
+.readMoreBtn {
+  position: relative; overflow: hidden;
+  display: none; 
+  align-items: center; 
+  justify-content: center;
+  width: 100%; 
+  height: 40px;
+  border: 1px solid var(--GMI-buttonbordercolor); 
+  border-radius: var(--GMI-buttonborderradius);
+  font-size: 13px;
+  text-decoration: none; 
+  color: var(--GMI-black); 
+  background: transparent;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+   position: relative; z-index: 10; 
+   margin-top: auto;
+   cursor: pointer;
+}
+
+
+.readMoreBtnText { 
+    position: relative; 
+    z-index: 1;
+    font-family: var(--button-label-font-family); 
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: var(--button-label-font-weight);
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    text-overflow: ellipsis;
+    text-align: center !important;
+    transition: transform 0.45s ease;
+}
+
+.readMoreBtn:hover::before,
+.readMoreBtn:focus-visible::before {
+  transform: scaleX(1);
+  background: var(--GMI-outlinedyellow);
+}
+
+.imageContainer:hover picture,
+.imageContainer:hover img{
+  transform: scale(1.15);
+}
+
+@media (max-width: 1000px) {
+  .card{
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 300px;
+    height: auto;          
+    min-height: 480px;          
+    border: 1px solid var(--GMI-cardbordercolor);
+    background: var(--GMI-carddefaultbackground);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    align-self: flex-start;
+  }
+  .readMoreBtn{
+    display: flex;
+  }
+
+  .HideDetails{
+     display: -webkit-box !important;
+ overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  -webkit-line-clamp: 3 !important; 
+  line-clamp: 3 !important;
+}
+
+.description:not(.HideDetails) {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+  .imageContainer{
+    width:100%;
+    height:200px !important;          
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#fff;
+  }
+  .imageContainer picture,
+.imageContainer img{
+  width:100%;
+  height:200px;
+  object-fit:contain;
+  display:block;
+}
+
+  .details{
+    flex:1 1 auto;                
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;     
+    gap: 8px;
+  }
+
+
+  .description{
+    text-align: start;
+  }
+
+  .readMoreBtn:hover{
+    background: var(--yellowGM);
+    color:#000;
+  }
+}
+
+@media (max-width: 479px) {
+    .card {
+        width: 100%;
+     }
+}

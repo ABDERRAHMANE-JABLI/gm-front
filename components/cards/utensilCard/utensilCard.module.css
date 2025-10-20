@@ -1,0 +1,172 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--GMI-carddefaultbackground);
+  border: 1px solid var(--GMI-cardbordercolor);
+  overflow: hidden;
+  width: 300px;
+  height: 480px;
+  padding-bottom: 20px;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.card:hover{
+  border-color: var(--yellowGM);
+  box-shadow: 0 6px 18px #0000002e
+}
+
+.thumbWrapper {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thumbWrapper picture,
+.thumbWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.categoryUtensilTitle {
+  color: var(--GMI-black);
+  font-family: var(--card-title-font-family) !important;
+  font-size: 24px;
+  font-weight: var(--card-title-font-weight);
+  line-height: var(--card-title-line-height);
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 2; line-clamp: 2;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.categoryUtensilCollection{
+  color: var(--GMI-black);
+  font-family: var(--card-title-font-family) !important;
+  font-size: 24px;
+  font-weight: normal;
+  line-height: var(--card-title-line-height);
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 2; line-clamp: 2;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.cardPaddingContainer {
+    padding: 20px 20px 0;
+    position: relative;
+    width: 100%
+}
+
+.categoryUtensilTitle {
+  max-height: 55px; /* empêche que le texte prenne trop de place */
+}
+
+
+h4.categoryUtensilTitle:first-letter {
+    text-transform: uppercase
+}
+
+.utensilContainer {
+    height: 400px;
+    max-height: 400px
+}
+
+.utensilContainerDescription {
+    padding: 30px 30px 30px 10px
+}
+
+.utensilContainer img {
+    aspect-ratio: 3/4;
+    object-fit: contain;
+    overflow: hidden;
+    width: 100%
+}
+
+h4.utensilTitle {
+    font: normal normal 700 24px/29px Montserrat;
+    letter-spacing: 0;
+    margin-bottom: 30px;
+    text-transform: uppercase
+}
+
+.utensilSearchKey {
+    font: normal normal normal 10px Montserrat;
+    letter-spacing: 0;
+    margin-bottom: unset
+}
+
+
+.discoverButton {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 100%; 
+  height: 40px;
+  border: 1px solid var(--GMI-buttonbordercolor); 
+  border-radius: var(--GMI-buttonborderradius);
+  font-size: 13px;
+  text-decoration: none; 
+  color: var(--GMI-black); 
+  background: transparent;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+   position: relative; z-index: 10; 
+   margin-top: auto;
+}
+
+
+.discoverButtonText { 
+    position: relative; 
+    z-index: 1;
+    font-family: var(--button-label-font-family); 
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: var(--button-label-font-weight);
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    text-overflow: ellipsis;
+}
+
+.discoverButton::before {
+  content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);
+  z-index: 0; transform: scaleX(0); transform-origin: left center; transition: transform .45s ease;
+}
+.discoverButton:hover::before,
+.discoverButton:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.cardWithHeather{
+  height : 520px !important;
+}
+
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+  width: 300px;
+  height: 480px;
+}
+
+.cardWithHeather a .stretchedLink{
+  height: 520px;
+}
+
+
+@media (max-width: 479px) {
+    .card {
+        width: 100%;
+     }
+    .stretchedLink{
+        width: 100%;
+    }
+}

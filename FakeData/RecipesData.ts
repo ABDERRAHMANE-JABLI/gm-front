@@ -8,7 +8,7 @@ export const RecipesData: RecipeProps[] = [
 		title: "Œuf parfait, crème de cèpes et chips de jambon",
 		resume: "Un œuf cuit à basse température, sublimé par une crème de cèpes et le croustillant du jambon.",
 		slug: "oeuf-parfait-creme-cepes-jambon",
-		thumbId: "5425c316-bfe3-48e4-ac1b-c3c2f7542fb8",
+		thumbId: "ef3efe8c-c823-40f1-95c0-a3d0a5dc2633",
 		theme: ["automne", "champignons"],
 		buttons: [
 			{
@@ -26,11 +26,31 @@ export const RecipesData: RecipeProps[] = [
 		}
 	},
 	{
+		id: "rec_004",
+		title: "Tarte Tatin classique, crème crue",
+		resume: "Pommes caramélisées fondantes et pâte croustillante, servies avec une cuillerée de crème.",
+		slug: "tarte-tatin-classique",
+		thumbId: "9291bc21-31f8-4d7b-86e8-4667ceed695f",
+		theme: ["Végetarien", "tradition"],
+		buttons: [
+			{
+				buttonKind: RecipeCardButtonKind.PEOPLE,
+				text_line1: "Antoin LEVET",
+				text_line2: "Caramel & pâte",
+				slug: "secrets-tatin"
+			}
+		],
+		rating: {
+			nbToques: -1,
+			noteDescription: "Sponsorisée"
+		}
+	},
+	{
 		id: "rec_002",
-		title: "Saint-Jacques snackées, purée de panais et jus corsé",
-		resume: "La délicatesse des Saint-Jacques, relevée par un jus corsé et la douceur du panais.",
+		title: "Saint-Jacques snackées, purée de panais et jus corsé, ",
+		resume: "La délicatesse des Saint-Jacques, relevée par un jus corsé et la douceur du panais. Saint-Jacques snackées, purée de panais et jus corsé, Saint-Jacques snackées, purée de panais et jus corsé,",
 		slug: "saint-jacques-panais-jus-corse",
-		thumbId: "4763a23b-2508-4a51-9cae-53b4da465f87",
+		thumbId: "96d30a93-0fc8-4f7e-a5f9-09a27f1a96b8",
 		theme: ["fêtes", "poisson"],
 		buttons: [
 			{
@@ -41,7 +61,7 @@ export const RecipesData: RecipeProps[] = [
 			},
 			{
 				buttonKind: RecipeCardButtonKind.RESTAURANT,
-				label: "Où goûter",
+				label: "Restaurant",
 				text_line1: "Le Petit Gourmet",
 				slug: "le-petit-gourmet"
 			}
@@ -54,33 +74,38 @@ export const RecipesData: RecipeProps[] = [
 	},
 	{
 		id: "rec_003",
-		title: "Risotto crémeux au safran et parmesan",
+		title: "Risotto crémeux au safran et parmesan ",
 		resume: "Un classique italien, onctueux à cœur, relevé par le parfum du safran.",
 		slug: "risotto-safran-parmesan",
-		thumbId: "01d3cfef-738f-4fff-9684-4a7583af9f6b",
-		theme: ["végétarien"],
+		thumbId: "60f367b7-cf72-4e56-b0b6-edf30d2efd6c",
+		theme: ["Edition 2023"],
 		buttons: [],
 		rating: {
 			nbToques: 0
 		}
 	},
 	{
-		id: "rec_004",
-		title: "Tarte Tatin classique, crème crue",
-		resume: "Pommes caramélisées fondantes et pâte croustillante, servies avec une cuillerée de crème.",
+		id: "rec_005",
+		title: "Andouille de Jargeau en brioche, betterave, moutarde d’Orléans",
+		resume: "Le cheffe Marie Gricourt a ouvert son restaurant Gric où elle sert avec son équipe une cuisine classique et local mais revisitée à l’image de sa recette d’andouille de Jargeau en brioche. ",
 		slug: "tarte-tatin-classique",
-		thumbId: "59fd20f3-5cfb-4587-b0ca-bfd9a7a2e686",
-		theme: ["dessert", "tradition"],
+		thumbId: "a1ab9e2e-a84a-4e65-8c61-793f19b3c538",
+		theme: ["Intermediaire", "tradition"],
 		buttons: [
 			{
 				buttonKind: RecipeCardButtonKind.PEOPLE,
-				text_line1: "Secrets de cuisson",
-				text_line2: "Caramel & pâte",
+				text_line1: "Marie Gricourt",
 				slug: "secrets-tatin"
+			},
+			{
+				buttonKind: RecipeCardButtonKind.RESTAURANT,
+				label: "Restaurant",
+				text_line1: "Le Petit Gourmet",
+				slug: "le-petit-gourmet"
 			}
 		],
 		rating: {
-			nbToques: -1,
+			nbToques: 6,
 			noteDescription: "Sponsorisée"
 		}
 	}

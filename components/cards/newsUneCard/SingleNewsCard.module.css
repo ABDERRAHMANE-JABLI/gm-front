@@ -27,13 +27,16 @@
   line-height: 15px;
   color: var(--GMI-black);
 }
+
 .headerSubtitle {
   font-family: var(--news-header-title-font-family);
   font-size: 10px;
   font-weight: 300;
   line-height: var(--news-header-title-line-height);
   color: var(--GMI-black);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .uneCard {
@@ -103,33 +106,35 @@
 }
 
 .themeTag {
-    position: absolute;
-    align-items: center;
-    background-color: var(--GMI-outlinedyellow);
-    border-radius: 8px;
-    left: 50%; top: 225px; transform: translateX(-50%);
-    font-family: var(--news-categories-yellow-font-family);
-    font-size: var(--news-categories-yellow-font-size);
-    font-style: var(--news-categories-yellow-font-style);
-    font-weight: var(--news-categories-yellow-font-weight);
-    height:  30px;
-    max-width: 200px;
-    justify-content: center;
-    text-transform: capitalize;
-    line-height: var(--news-categories-yellow-line-height);
-    padding: 5px 12px;
-    white-space: nowrap; 
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: none;
+  position: absolute;
+  align-items: center;
+  background-color: var(--GMI-outlinedyellow);
+  border-radius: 8px;
+  left: 50%;
+  top: 215px;
+  transform: translateX(-50%);
+  font-family: var(--news-categories-yellow-font-family);
+  font-size: var(--news-categories-yellow-font-size);
+  font-style: var(--news-categories-yellow-font-style);
+  font-weight: var(--news-categories-yellow-font-weight);
+  height: 30px;
+  max-width: 200px;
+  justify-content: center;
+  text-transform: capitalize;
+  line-height: var(--news-categories-yellow-line-height);
+  padding: 5px 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: none;
 }
 
 .buttonsContainer {
   margin-top: auto;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100% !important;
 }
 
 .uneCard:hover {
@@ -149,7 +154,7 @@
   flex-wrap: nowrap;
 }
 
-.uneCard .details > .contentColumn {
+.uneCard .details>.contentColumn {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -157,19 +162,19 @@
   padding-bottom: 20px;
 }
 
-.uneCard .details > .thumbnail-wrapper {
+.uneCard .details>.thumbnail-wrapper {
   width: 700px;
   position: relative;
   background-color: var(--GMI-carddefaultbackground);
   overflow: hidden;
 }
 
-.uneCard .details > .thumbnail-wrapper .thumbnail-frame {
+.uneCard .details>.thumbnail-wrapper .thumbnail-frame {
   width: 100%;
   height: 100%;
 }
 
-.uneCard .details > .contentColumn .themeTagWrapper {
+.uneCard .details>.contentColumn .themeTagWrapper {
   align-items: center;
   background-color: var(--GMI-outlinedyellow);
   border-radius: 8px;
@@ -189,7 +194,7 @@
   max-width: 100%;
 }
 
-.uneCard .details > .contentColumn .synopsis {
+.uneCard .details>.contentColumn .synopsis {
   color: var(--GMI-black);
   font-family: var(--news-card-text-font-family);
   font-size: var(--news-card-text-font-size);
@@ -201,21 +206,21 @@
   max-width: 100%;
 }
 
-.uneCard .details > .contentColumn .buttonsContainer {
+.headerLeft {
   display: flex;
-  position: relative;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
   gap: 10px;
-  width: 100%;
+  min-width: 0;
 }
 
-.headerLeft { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.headerTexts { display: flex; flex-direction: column; min-width: 0; }
+.headerTexts {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 
-.iconWrapper{
-    padding-top: 3px;
+.iconWrapper {
+  padding-top: 3px;
 }
 
 .moreBtn {
@@ -239,6 +244,7 @@
   text-transform: uppercase;
 
 }
+
 .moreBtn::before {
   content: "";
   position: absolute;
@@ -249,21 +255,72 @@
   transform-origin: left center;
   transition: transform 0.45s ease;
 }
+
 .moreBtn:hover::before,
 .moreBtn:focus-visible::before {
   transform: scaleX(1);
 }
 
+
+.figmaCardButton {
+  --left-color-anim: #fff;
+  --figma-button-border-radius: var(--GMI-buttonborderradius);
+  align-items: center;
+  background-color: var(--GMI-carddefaultbackground);
+  background: linear-gradient(to left, var(--left-color-anim) 50%, var(--yellowGM) 50%);
+  background-position: 100% 100%;
+  background-size: 200% 100%;
+  border: 1px solid;
+  border-color: var(--GMI-buttonbordercolor);
+  border-radius: var(--figma-button-border-radius);
+  box-sizing: border-box;
+  color: var(--GMI-black);
+  column-gap: 10px;
+  display: flex;
+  flex-direction: row;
+  font-family: var(--button-label-font-family);
+  font-size: var(--button-label-font-size);
+  font-style: var(--button-label-font-style);
+  font-weight: var(--button-label-font-weight);
+  height: 40px;
+  justify-content: center;
+  letter-spacing: var(--button-label-letter-spacing);
+  line-height: var(--button-label-line-height);
+  overflow: hidden;
+  padding: 12px 10px;
+  position: relative;
+  transition: all .25s ease-out;
+  width: 260px;
+  z-index: 5
+}
+
+.figmaCardButton:hover {
+  background-position: 0 100%;
+}
+
+.figma-placeCardButton,
+.figmaCardButton {
+  position: relative;
+  z-index: 10;
+}
+
+
 .title {
-  margin: 0 0 10px; color: var(--GMI-black);
+  margin: 0 0 10px;
+  color: var(--GMI-black);
   font-family: var(--card-title-font-family) !important;
   font-size: var(--card-title-font-size);
   font-weight: var(--card-title-font-weight);
   line-height: var(--card-title-line-height);
-  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
-  -webkit-line-clamp: 3; line-clamp: 3;
-  
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+
 }
+
 .synopsis {
   color: var(--GMI-black);
   font-family: var(--news-card-text-font-family);
@@ -271,12 +328,18 @@
   font-weight: var(--news-card-text-font-weight);
   line-height: var(--news-card-text-line-height);
   margin-bottom: 16px;
-  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
-  -webkit-line-clamp: 3; line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
 }
 
 /* Footer */
-.footer { margin-top: auto; }
+.footer {
+  margin-top: auto;
+}
 
 
 .stretchedLink {
@@ -284,229 +347,333 @@
   inset: 0;
   z-index: 5;
   display: block;
+  width: 1000px;
+  height: 506px;
 }
-.moreBtn, .cta, .captionBtn { position: relative; z-index: 10; }
+
+.moreBtn,
+.cta,
+.captionBtn {
+  position: relative;
+  z-index: 10;
+}
 
 
 
 .uneCard .details {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    height: 100%;
-    width: 100%
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
+  width: 100%
 }
 
 
 .uneCard .details>.contentColumn {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding-bottom: 20px;
-    width: 300px
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  width: 300px
 }
 
 .uneCard .details>.thumbnailWrapper {
-    background-color: var( --GMI-carddefaultbackground );
-    overflow: hidden;
-    position: relative;
-    width: 700px
+  background-color: var(--GMI-carddefaultbackground);
+  overflow: hidden;
+  position: relative;
+  width: 700px
 }
 
 .hrSpacer {
-    align-self: stretch;
-    flex: 1;
-    flex-grow: 1;
-    position: relative;
-    width: 100%
+  align-self: stretch;
+  flex: 1;
+  flex-grow: 1;
+  position: relative;
+  width: 100%
 }
 
 .cardPaddingContainer {
-    padding: 20px 20px 0;
-    position: relative;
-    width: 100%
+  padding: 20px 20px 0;
+  position: relative;
+  width: 100%
 }
 
 .cardTitle {
-    color: var(--GMI-black);
-    display: -webkit-box;
-    font-family: var(--card-title-font-family);
-    font-size: var(--card-title-font-size);
-    font-weight: var(--card-title-font-weight);
-    letter-spacing: var(--card-title-letter-spacing);
-    line-height: var(--card-title-line-height);
-    text-transform: capitalize;
-    overflow: hidden;
-    position: relative;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    font-style: var(--card-title-font-style)
+  color: var(--GMI-black);
+  display: -webkit-box;
+  font-family: var(--card-title-font-family);
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  letter-spacing: var(--card-title-letter-spacing);
+  line-height: var(--card-title-line-height);
+  text-transform: capitalize;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-style: var(--card-title-font-style)
 }
 
 .clamp3 {
-    -webkit-line-clamp: 3!important;
-    line-clamp: 3!important;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden
 }
 
 .clamp5 {
-    -webkit-line-clamp: 5!important;
-    line-clamp: 5!important;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden
+  -webkit-line-clamp: 5 !important;
+  line-clamp: 5 !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden
 }
 
 .clamp8 {
-    -webkit-line-clamp: 8!important;
-    line-clamp: 8!important;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden
+  -webkit-line-clamp: 8 !important;
+  line-clamp: 8 !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden
 }
 
 .uneCard .details>.contentColumn .synopsis {
-    color: var(--GMI-black);
-    font-family: var(--news-card-text-font-family);
-    font-size: var(--news-card-text-font-size);
-    font-style: var(--news-card-text-font-style);
-    font-weight: var(--news-card-text-font-weight);
-    letter-spacing: var(--news-card-text-letter-spacing);
-    line-height: var(--news-card-text-line-height);
-    max-width: 100%;
-    overflow: hidden
+  color: var(--GMI-black);
+  font-family: var(--news-card-text-font-family);
+  font-size: var(--news-card-text-font-size);
+  font-style: var(--news-card-text-font-style);
+  font-weight: var(--news-card-text-font-weight);
+  letter-spacing: var(--news-card-text-letter-spacing);
+  line-height: var(--news-card-text-line-height);
+  max-width: 100%;
+  overflow: hidden
 }
 
 .uneCard .details>.contentColumn .buttonsContainer {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: flex-end;
-    position: relative;
-    width: 100%
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-end;
+  position: relative;
+  width: 100% !important;
 }
 
-
-.figmaCardButton {
-    --left-color-anim: var(--GMI-carddefaultbackground); /* valeur par défaut */
-    --figma-button-border-radius: var(--GMI-buttonborderradius);
-    align-items: center;
-    background-color: var(--GMI-carddefaultbackground);
-    background: linear-gradient(to left,var(--left-color-anim) 50%,var(--yellowGM) 50%);
-    background-position: 100% 100%;
-    background-size: 200% 100%;
-    border: 1px solid;
-    border-color: var(--GMI-buttonbordercolor);
-    border-radius: var(--figma-button-border-radius);
-    box-sizing: border-box;
-    color: var(--GMI-black);
-    column-gap: 10px;
-    display: flex;
-    flex-direction: row;
-    font-family: var(--button-label-font-family);
-    font-size: var(--button-label-font-size);
-    font-style: var(--button-label-font-style);
-    font-weight: var(--button-label-font-weight);
-    height: 40px;
-    justify-content: center;
-    letter-spacing: var(--button-label-letter-spacing);
-    line-height: var(--button-label-line-height);
-    overflow: hidden;
-    padding: 12px 10px;
-    position: relative;
-    transition: all .25s ease-out;
-    width: 260px;
-    z-index: 15;
-    text-transform: uppercase;
-}
 
 .figmaCardButton.transparentButton {
-    --left-color-anim: transparent
+  --left-color-anim: transparent
 }
 
 .figmaCardButton:hover {
-    background-position: 0 100%;
-    border-radius: var(--figma-button-border-radius)
+  background-position: 0 100%;
+  border-radius: var(--figma-button-border-radius)
 }
 
 
+.captionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+
+/* contenu au-dessus du jaune */
+.captionLabel,
+.captionText,
+.chevron {
+  position: relative;
+  z-index: 1;
+}
+
+
+.captionLabel {
+  color: var(--GMI-black);
+  flex: 0 0 auto;
+  font-family: Montserrat, Helvetica;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 16px;
+  text-transform: capitalize;
+  width: 60px;
+
+}
+
+.captionText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-overflow: ellipsis;
+  font-family: var(--button-label-font-family);
+  font-size: var(--button-label-font-size);
+  font-style: var(--button-label-font-style);
+  text-transform: uppercase;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.captionLine1 {
+  font-weight: 700;
+}
+
+.captionLine2 {
+  font-weight: 500;
+}
+
+.captionLine1,
+.captionLine2 {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  font-size: 13px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 100%;
+  color: var(--GMI-black);
+  font-family: var(--button-label-font-family);
+  font-size: var(--button-label-font-size);
+  font-style: var(--button-label-font-style);
+}
+
+.chevron {
+  font-size: 20px;
+  color: #000000;
+  font-weight: 500;
+}
+
 @media (max-width: 950px) {
+  .resumTwoLines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+
+  .resumFourLines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+
   .uneCard {
-    height: 500px;
-    transition: border-color .3s ease,box-shadow .3s ease;
-    width: var(--GMI-defaultcardwidth);
+    height: 520px;
+    width: 300px;
+    padding-bottom: 20px !important;
   }
 
   .uneCard .details {
-    flex-direction: column-reverse !important; 
+    flex-direction: column-reverse !important;
   }
-  
-  .themeTag{
+
+  .themeTag {
     display: block !important;
   }
 
-  .uneCard .thumbnailWrapper {
-    width: 100% !important;
-    height: 200px !important;
-  }
 
-  .hrSpacer{
+  .hrSpacer {
     display: none !important;
   }
 
-  .uneCard .thumbnailWrapper img {
+  .thumbnailWrapper {
     width: 100% !important;
-    height: 200px !important;
-    object-fit: cover !important;
+    height: 190px !important;
+  }
+
+  .thumbnailWrapper picture,
+  .thumbnailWrapper img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
     display: block;
   }
 
 
-  .synopsis{
-    margin: 0px;
-    -webkit-line-clamp: 3!important;
-    line-clamp: 3!important;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .contentColumn{
+  .contentColumn {
     padding: 0px;
   }
 
   .buttonsContainer {
-    margin-top: 0 !important;
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
+    margin-bottom: 0;
   }
-  .figmaCardButton{
+
+
+  .buttonsContainer,
+  .captionButtons {
+    width: 100%;
     display: flex;
-    width: 260px;
+  }
+
+  .figmaCardButton {
+    width: 100% !important;
+  }
+
+  .stretchedLink {
+    width: 300px;
+    height: 520px;
   }
 }
 
 
 @media (max-width: 479px) {
   .uneCard {
-    transition: border-color .3s ease,box-shadow .3s ease;
+    transition: border-color .3s ease, box-shadow .3s ease;
     width: 100%;
   }
 
-  .contentColumn{
+  .contentColumn {
+    padding: 0px;
     width: 100% !important;
+  }
+
+  .uneCard .details {
+    flex-direction: column-reverse !important;
+    justify-content: space-between;
+    align-items: stretch !important;
+  }
+
+  .uneCard .thumbnailWrapper {
+    width: 100% !important;
+    height: 190px !important;
   }
 
   .uneCard .thumbnailWrapper img {
     width: 100% !important;
-    height: 200px !important;
+    height: 100% !important;
     object-fit: cover !important;
     display: block;
   }
 
+  .buttonsContainer,
+  .captionButtons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    /* force les enfants à s’étirer */
+  }
+
+  .figmaCardButton {
+    width: 100% !important;
+  }
+
+  .captionText {
+    margin-left: 30px;
+  }
+
+  .stretchedLink {
+    width: 100%;
+    height: 520px;
+  }
 }

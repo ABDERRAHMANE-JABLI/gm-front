@@ -29,13 +29,13 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
 
     return (
         <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
-            <Link href={`/${lang}/restaurant/${restaurant?.slug}`} aria-label={restaurant.title}>
+            <Link href={`/${lang}/restaurant/${restaurant?.slug}`} aria-label={restaurant.title} title={restaurant.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
             
             {/* Header pour la page LA PLACE */}
             {withHeader && (
-                <CardHeader title="Restaurant" href={`/${lang}/restaurants/}`} seeMoreLabel={t("common.see_more")} icon={<RestaurantIcon width={28} height={28} />} />
+                <CardHeader title="Restaurant" href={`/${lang}/restaurants/`} seeMoreLabel={t("common.see_more")} icon={<RestaurantIcon width={28} height={28} />} />
             )}
 
             <div className={styles.thumbWrapper}>

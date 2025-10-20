@@ -21,7 +21,7 @@ export default function BaseComponent({ brand, title, note, typeProduct, thumbId
     return (
         <article className={`${styles.card} ${header && styles.cardWithHeader}`}>
             {header}
-            <Link href={hrefProduct} aria-label={title}>
+            <Link href={hrefProduct} aria-label={title} title={title} className={styles.stretchedLink}>
                 <div className={`${styles.cardkindEmpty} ${styles.cardkindProduct}`}>
                     <div className={`${styles.cardPaddingContainer} ${styles.titleContainer}`}>
                         <span className={styles.cardTitle}>

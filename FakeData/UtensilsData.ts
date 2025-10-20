@@ -7,64 +7,28 @@ export const UtensilsData: UtensilProps[] = [
   {
     id: "ute_001",
     title: "Spatule en silicone",
-    description: "Idéale pour mélanger et racler sans rayer vos casseroles.",
-    thumbId: "7a9b3b89-2a3b-4f0a-bf44-1f6e4a6f1123",
-    thumbIdOver: "7a9b3b89-2a3b-4f0a-bf44-1f6e4a6f1124"
+    description: "Avec sa tête en nylon résistant à la chaleur et son manche ergonomique, cette cuillère Gault&Millau offre un équilibre parfait entre souplesse et robustesse. Que vous remuiez délicatement une sauce ou serviez généreusement une portion, la cuillère en nylon devient votre alliée fiable. Non seulement elle préserve la surface de vos ustensiles de cuisine, mais elle résiste également aux températures élevées, assurant une performance sans compromis.",
+    thumbId: "cafaee49-c268-4bed-b865-e8ecb77d87e5",
+    slug:"les_necessaires",
+    code:"SKU973637",
+    thumbIdOver: "0eda28e8-1c2b-4097-9b0a-9679da2b9620"
   },
   {
     id: "ute_002",
-    title: "Fouet inox",
+    title: "apéritif et œnologie, apéritif et œnologie apéritif et œnologie",
+    slug:"les_necessaires",
+    code:"SKU0987373",
     description: "Parfait pour monter des blancs et émulsionner sauces et crèmes.",
-    thumbId: "0f4c7e9a-0d2f-4f61-9aaf-44f3b6c0b221"
+    thumbId: "a98a056b-fba0-4f56-af16-d1a9eb9ee44a",
+    thumbIdOver:"8b0d6266-5347-462b-b1fb-282924dca08e"
   },
   {
     id: "ute_003",
-    title: "Couteau de chef 20cm",
-    description: "Polyvalent pour émincer, trancher et hacher avec précision.",
-    thumbId: "1a2b3c4d-5e6f-7081-92a3-b4c5d6e7f890",
-    thumbIdOver: "1a2b3c4d-5e6f-7081-92a3-b4c5d6e7f891"
+    title: "Bois",
+    slug:"les_necessaires",
+    code:"SKU25373883",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque maiores soluta natus dolorem laboriosam accusantium consequatur ad quasi ut deleniti ipsa placeat non suscipit, eveniet, fuga eaque incidunt dicta possimus Rem dolorum voluptatem sapiente. Ullam amet, delectus tenetur a autem, laboriosam hic id saepe asperiores recusandae esse voluptas. Optio vero odit est, doloremque voluptatem eveniet repellat sequi excepturi dolores consequuntur  esse voluptas. Optio vero odit est, doloremque voluptatem eveniet repellat sequi excepturi dolores consequuntur",
+    thumbId:"58354fab-0f06-4e75-8725-0d5053f7fbfb"
   },
-  {
-    id: "ute_004",
-    title: "Maryse",
-    description: "Parfaite pour incorporer délicatement sans casser les préparations.",
-    thumbId: "2b3c4d5e-6f70-8192-a3b4-c5d6e7f8901a"
-  },
-  {
-    id: "ute_005",
-    title: "Pince de service",
-    description: "Manipulation précise des aliments à la poêle ou au dressage.",
-    thumbId: "3c4d5e6f-7081-92a3-b4c5-d6e7f8901a2b"
-  },
-  {
-    id: "ute_006",
-    title: "Éplucheur",
-    description: "Pour peler fruits et légumes rapidement et en sécurité.",
-    thumbId: "4d5e6f70-8192-a3b4-c5d6-e7f8901a2b3c"
-  },
-  {
-    id: "ute_007",
-    title: "Râpe microplane",
-    description: "Zestes fins d'agrumes, parmesan et épices en un clin d'œil.",
-    thumbId: "5e6f7081-92a3-b4c5-d6e7-f8901a2b3c4d"
-  },
-  {
-    id: "ute_008",
-    title: "Thermomètre sonde",
-    description: "Cuissons maîtrisées des viandes, caramels et chocolats.",
-    thumbId: "6f708192-a3b4-c5d6-e7f8-901a2b3c4d5e",
-    thumbIdOver: "6f708192-a3b4-c5d6-e7f8-901a2b3c4d5f"
-  },
-  {
-    id: "ute_009",
-    title: "Balance de précision",
-    description: "Dosage exact au gramme près pour pâtisserie et sauces.",
-    thumbId: "708192a3-b4c5-d6e7-f890-1a2b3c4d5e6f"
-  },
-  {
-    id: "ute_010",
-    title: "Cisaille de cuisine",
-    description: "Coupe nette des herbes, volailles et emballages.",
-    thumbId: "8192a3b4-c5d6-e7f8-901a-2b3c4d5e6f70"
-  }
+ 
 ];

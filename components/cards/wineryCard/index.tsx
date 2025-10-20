@@ -23,7 +23,7 @@ export default function WineryCard({ lang, Winery, withHeader }: Props) {
 
   return (
     <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
-      <Link href={`/${lang}/wineries/${Winery?.slug}`}>
+      <Link href={`/${lang}/wineries/${Winery?.slug}`} title={Winery.title} aria-label={Winery.title}>
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
 
@@ -33,7 +33,7 @@ export default function WineryCard({ lang, Winery, withHeader }: Props) {
       )}
 
       <div className={styles.thumbWrapper}>
-        <SmartImage id={imageId} width={666} height={444} fit="cover" lazyload />
+        <SmartImage id={imageId} width={666} height={444} fit="cover" alt={Winery.title} lazyload />
       </div>
 
       <div className={styles.body}>

@@ -310,12 +310,20 @@ sinon : */
   color: #000000;
   font-weight: 500;
 }
+
 .stretchedLink {
   position: absolute;
   inset: 0;
   z-index: 5;
   display: block;
+  width: 300px;
+  height: 480px;
 }
+
+.cardWithHeather a .stretchedLink{
+  height: 520px;
+}
+
 .moreBtn, .MainButton, .captionBtn { position: relative; z-index: 10; }
 
 
@@ -341,7 +349,14 @@ sinon : */
         object-fit: cover;
         display: block;
     }
-    
+
+  .captionText {
+    margin-left: 30px;
+  }
+
+  .stretchedLink{
+    width: 100%;
+  }
 }
 
   

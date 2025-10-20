@@ -25,7 +25,7 @@ export function isOpenNow(periods?: OpeningPeriods, now: Date = new Date()): boo
     const inRange = (begin: TimeFormat, end: TimeFormat) => {
         const start = toMinutes(begin);
         // 00:00 = minuit -> on le considère comme 24:00 pour “jusqu’à minuit”
-        let endMin = end === "00:00" ? 24 * 60 : toMinutes(end);
+        const endMin = end === "00:00" ? 24 * 60 : toMinutes(end);
 
         // créneau qui traverse minuit (ex: 19:00-02:00)
         if (endMin <= start && end !== "00:00") {

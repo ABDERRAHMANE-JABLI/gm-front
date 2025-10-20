@@ -107,7 +107,7 @@
 .cardkindProduct .imageAndDetails > .imageWrapper img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
+  object-fit: contain !important;
   display: block;
   background-color: white !important;
 }
@@ -146,6 +146,13 @@
 .cardkindProduct .imageAndDetails .featured-container div.featured svg {
     transform: rotate(90deg)
 }
+
+
+.stretchedLink {
+  width: 300px !important;
+  height: 480px;
+}
+
 
 .cardkindProduct .imageAndDetails>.details {
     align-self: stretch;
@@ -200,6 +207,9 @@
 
     .cardkindProduct .imageAndDetails {
         gap: 20px;
+    }
+    .stretchedLink{
+        width: 100% !important;
     }
 }
 
@@ -359,12 +369,5 @@
 }
 
 
-.stretchedLink {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: block;
-  cursor: pointer;
-}
 
 

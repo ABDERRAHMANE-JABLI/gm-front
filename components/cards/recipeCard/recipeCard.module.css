@@ -1,0 +1,365 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--GMI-carddefaultbackground);
+  border: 1px solid var(--GMI-cardbordercolor);
+  overflow: hidden;
+  width: 300px;
+  height: 480px;
+  flex: 0 0 auto;
+}
+
+.card:hover{
+  border-color: var(--yellowGM);
+  box-shadow: 0 6px 18px #0000002e
+}
+
+/* ******************* Header Style pour la page PLACE ******************************************* */
+.cardWithHeather{
+  height : 520px !important;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px;
+  height: 40px;
+  border-bottom: 1px solid var(--GMI-cardbordercolor);
+  background: #fff;
+}
+
+.headerLeft { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.headerTexts { display: flex; flex-direction: column; min-width: 0; }
+.headerTitle {
+  text-transform: uppercase;
+  font-family: var(--filter-title-font-family);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  color: var(--GMI-black);
+}
+.headerSubtitle {
+  font-family: var(--news-header-title-font-family);
+  font-size: 10px;
+  font-weight: 300;
+  line-height: var(--news-header-title-line-height);
+  color: var(--GMI-black);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.iconWrapper{
+    padding-top: 3px;
+}
+
+.moreBtn {
+  position: relative;
+  padding: 6px 10px;
+  border: 1px solid var(--GMI-cardbordercolor);
+  border-radius: var(--GMI-borderradius);
+  text-decoration: none;
+  color: var(--GMI-black);
+  font-family: var(--button-label-font-family);
+  font-size: var(--button-label-font-size); 
+  font-style: var(--button-label-font-style);
+  font-weight: var(--button-label-font-weight);
+  height: 26px;
+  justify-content: center;
+  letter-spacing: var(--button-label-letter-spacing);
+  line-height: var(--button-label-line-height);
+  background: transparent;
+  overflow: hidden;
+  z-index: 1;
+  text-transform: uppercase;
+}
+
+.moreBtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--GMI-outlinedyellow);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
+.moreBtn:hover::before,
+.moreBtn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.iconWrapper{
+    padding-top: 3px;
+}
+/***************** Fin Style pour La page PLACE =============================================*/
+
+/* Media */
+.thumbWrapper { position: relative; width: 100%; padding-top: 66.66%; background: #f8f8f8; overflow: visible; }
+.imageLink { position: absolute; inset: 0; display: block; }
+.thumbWrapper :global(img.topImageCard) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Badge */
+.badge {
+  position: absolute; left: 50%; bottom: -15px; transform: translateX(-50%);
+  height: 30px; padding: 0 12px; display: inline-flex; align-items: center;
+  border-radius: 8px; 
+  background-color : var(--GMI-outlinedyellow); z-index: 2;
+  font-family: var(--news-categories-yellow-font-family);
+  font-size: var(--news-categories-yellow-font-size);
+  font-weight: var(--news-categories-yellow-font-weight);
+  line-height: var(--news-categories-yellow-line-height);
+  white-space: nowrap;
+}
+
+/* Bodyj */
+.body { display: flex; 
+  flex-direction: column; 
+  flex: 1; 
+  padding: 20px 20px 0px; 
+  padding-bottom: 20px;
+}
+
+.title {
+  margin: 0 0 10px; color: var(--GMI-black);
+  font-family: var(--card-title-font-family) !important;
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  line-height: var(--card-title-line-height);
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 3; line-clamp: 3;
+  text-transform: capitalize;
+}
+
+.synopsis {
+  color: var(--GMI-black);
+  font-family: var(--news-card-text-font-family);
+  font-size: var(--news-card-text-font-size);
+  font-weight: var(--news-card-text-font-weight);
+  line-height: var(--news-card-text-line-height);
+  padding-top: 10px;
+  margin-bottom: 15px;
+}
+/*
+si dans notre composant News Card, on peut avoir 2 buttons ou plus comme btn chef et btn restaurant
+alors la, notre paragraphe resume doit s'etendre sur 2 lignes max pour ne pas avoir un debordement*/
+.resumTwoLines{
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2; line-clamp: 2;
+}
+/*
+sinon : */
+.resumFourLines{
+  display: -webkit-box; 
+  -webkit-box-orient: vertical; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4; line-clamp: 4;
+}
+
+
+/* Footer */
+.footer { margin-top: auto; }
+
+/* MainButton LIRE PLUS avec effet “remplissage jaune” */
+.MainButton {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 100%; 
+  height: 40px;
+  border: 1px solid var(--GMI-buttonbordercolor); 
+  border-radius: var(--GMI-buttonborderradius);
+  font-size: 13px;
+  text-decoration: none; 
+  color: var(--GMI-black); 
+  background: transparent;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+}
+.MainButtonText { 
+    position: relative; 
+    z-index: 1;
+    font-family: var(--button-label-font-family); 
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: var(--button-label-font-weight);
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    text-overflow: ellipsis;
+}
+.MainButton::before {
+  content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);
+  z-index: 0; transform: scaleX(0); transform-origin: left center; transition: transform .45s ease;
+}
+.MainButton:hover::before, .MainButton:focus-visible::before { transform: scaleX(1); }
+
+.captionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; 
+}
+
+.captionBtn {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 10px;
+  border: 1px solid var(--GMI-cardbordercolor);
+  border-radius: var(--GMI-buttonborderradius);
+  background-color: white;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.25s ease;
+  column-gap: 10px;
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  overflow: hidden;
+  z-index: 0;
+  text-overflow: ellipsis;
+}
+
+
+/* effet de hover jaune */
+.captionBtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--GMI-outlinedyellow);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+
+.captionBtn:hover::before,
+.captionBtn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+/* contenu au-dessus du jaune */
+.captionLabel,
+.captionText,
+.chevron {
+  position: relative;
+  z-index: 1;
+}
+
+
+.captionLabel {
+    color: var(--GMI-black);
+    flex: 0 0 auto;
+    font-family: Montserrat, Helvetica;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-transform: capitalize;
+    width: 60px;
+    
+}
+
+.captionText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-overflow: ellipsis;
+  font-family: var(--button-label-font-family);
+  font-size: var(--button-label-font-size); 
+  font-style: var(--button-label-font-style); 
+  text-transform: uppercase;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.captionLine1 {
+  font-weight: 700;
+}
+
+.captionLine2 {
+  font-weight: 500;
+}
+
+.captionLine1, .captionLine2{
+  display: block;
+  width: 100%;
+  overflow: hidden;        
+  white-space: nowrap;      
+  text-overflow: ellipsis;  
+  line-height: 1.2;
+  font-size: 13px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 100%;
+  color: var(--GMI-black);
+  font-family: var(--button-label-font-family);
+  font-size: var(--button-label-font-size); 
+  font-style: var(--button-label-font-style); 
+}
+
+.chevron {
+  font-size: 20px;
+  color: #000000;
+  font-weight: 500;
+}
+
+.stretchedLink {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: block;
+  width: 300px;
+  height: 480px;
+}
+
+.cardWithHeather a .stretchedLink{
+  height: 520px;
+}
+
+.moreBtn, .MainButton, .captionBtn { position: relative; z-index: 10; }
+
+
+/*ici new style
+***********
+****
+***
+****/
+
+@media (max-width: 479px) {
+     .card {
+        width: 100%;
+     }
+     .thumbWrapper{
+        width: 100%;
+        height: 200px !important;
+        padding-top: 0px;
+     }
+    .thumbWrapper picture,
+    .thumbWrapper img {
+        width: 100%;
+        height: 200px !important;
+        object-fit: cover;
+        display: block;
+    }
+
+  .captionText {
+    margin-left: 30px;
+  }
+
+  .stretchedLink{
+    width: 100%;
+  }
+}
+
+.textCenter{
+  text-align: center;
+}
+  

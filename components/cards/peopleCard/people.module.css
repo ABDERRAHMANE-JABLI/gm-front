@@ -282,10 +282,15 @@
 .stretchedLink {
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 2;
   display: block;
+  width: 300px;
+  height: 480px;
 }
 
+.cardWithHeather a .stretchedLink{
+  height: 520px;
+}
 
 @media (max-width: 479px) {
      .card {
@@ -302,6 +307,9 @@
         height: 200px !important;
         object-fit: cover;
         display: block;
+    }
+    .stretchedLink{
+      width: 100% !important;
     }
     
 }

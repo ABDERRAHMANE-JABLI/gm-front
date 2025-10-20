@@ -27,7 +27,7 @@ export default function ArtisanCard({ lang, Artisan, withHeader }: Props) {
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
             {withHeader && (
-                <CardHeader title="Artisan" href={`/${lang}/artisans/}`} seeMoreLabel={t("common.see_more")} icon={<ArtisanIcon width={28} height={28} />} />
+                <CardHeader title="Artisan" href={`/${lang}/artisans/`} seeMoreLabel={t("common.see_more")} icon={<ArtisanIcon width={28} height={28} />} />
             )}
             <div className={styles.thumbWrapper}>
                 <SmartImage id={imageId} alt={Artisan.title} width={666} height={444} fit="cover" lazyload />
