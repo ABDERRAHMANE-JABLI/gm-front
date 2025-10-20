@@ -15,7 +15,8 @@
 import { OpeningPeriods } from "./Time";
 import people from "@/types/Peoples";
 
-export interface RestaurantProps {
+
+export interface RestaurantCardProps {
     /** 
      * Nom du restaurant
      * @example "Le Bernardin"
@@ -62,14 +63,6 @@ export interface RestaurantProps {
     thumbId?: string;
 
     /** 
-     * Galerie de photos du restaurant
-     * @description Liste d'identifiants d'images supplémentaires
-     * @example ["img_12345", "img_67890"]
-     * @optional
-     */
-    carousel?: string[];
-    
-    /** 
      * Horaires d'ouverture du restaurant
      * @description Horaires pour chaque jour de la semaine
      * @optional
@@ -90,8 +83,6 @@ export interface RestaurantProps {
      */
     chief?: string;
 
-    peoples?: people[];
-    
     /** 
      * Types de cuisine proposés
      * @description Liste des types de cuisine (français, italien, asiatique, etc.)
@@ -100,22 +91,7 @@ export interface RestaurantProps {
      */
     cuisines?: string[];
 
-     /** 
-     * Types de service proposés
-     * @description Liste des types de service (livraison, sur place, à emporter, etc.)
-     * @example ["livraison", "sur place"]
-     * @optional
-     */
-    services?: string[];
-
-     /** 
-     * Types d'ambiance proposés
-     * @description Liste des types d'ambiance (décontractée, romantique, familiale, etc.)
-     * @example ["Entre amis", "Décontracté"]
-     * @optional
-     */
-    moments?: string[];
-    
+   
     /** 
      * Information sur le budget/prix
      * @description Texte décrivant la gamme de prix
@@ -139,7 +115,36 @@ export interface RestaurantProps {
      * @optional
      */
     distance?: string;
+}
 
+export interface RestaurantProps extends RestaurantCardProps {
+
+    /** 
+     * Galerie de photos du restaurant
+     * @description Liste d'identifiants d'images supplémentaires
+     * @example ["img_12345", "img_67890"]
+     * @optional
+     */
+    carousel?: string[];
+    
+    peoples?: people[];
+    
+     /** 
+     * Types de service proposés
+     * @description Liste des types de service (livraison, sur place, à emporter, etc.)
+     * @example ["livraison", "sur place"]
+     * @optional
+     */
+    services?: string[];
+
+     /** 
+     * Types d'ambiance proposés
+     * @description Liste des types d'ambiance (décontractée, romantique, familiale, etc.)
+     * @example ["Entre amis", "Décontracté"]
+     * @optional
+     */
+    moments?: string[];
+    
     /** 
      * Indique si le restaurant propose un hébergement
      * @description Permet de savoir si l'établissement est aussi un hôtel
@@ -231,6 +236,12 @@ export interface RestaurantProps {
         isDrinkIncluded?: boolean;
     }[];
 
+    /** 
+     * Menu
+     * @description Menu du restaurant
+     * @example [{ kind: "Entrée", dishes: [{ title: "Entrée 1", price: "10€" }, { title: "Entrée 2", price: "20€" }] }]
+     * @optional
+     */
     menu?:
         {
             kind?: string;

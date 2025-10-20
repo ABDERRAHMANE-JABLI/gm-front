@@ -1,6 +1,6 @@
-import { RestaurantProps } from "@/types/Restaurant";
+import { RestaurantCardProps, RestaurantProps } from "@/types/Restaurant";
 
-export const HorizontalRestauData: RestaurantProps = {
+export const HorizontalRestauData: RestaurantCardProps = {
   title: "Airelles Château de Versaille Airelles Château de Versaille de",
   slug: "flocon-de-sel",
   nbToques: 6,
@@ -47,7 +47,7 @@ export const HorizontalRestauData: RestaurantProps = {
  * - Restaurant avec données très longues pour tester le multiligne
  * - Différents états : ouvert/fermé, avec/sans distance, avec/sans données optionnelles
  */
-export const RestaurantData: RestaurantProps[] = [
+export const RestaurantCardDatas: RestaurantCardProps[] = [
   // Restaurant sponsorisé (nbToques = -1)
   {
     title: "La Brasserie du Quartier",
@@ -66,7 +66,6 @@ export const RestaurantData: RestaurantProps[] = [
     },
     address: "15 Rue de la Paix, 75002 Paris",
     cuisines: ["Brasserie", "Français"],
-    services: ["Hébergement"],
     budget: "25€ - 45€",
     chief: "Pierre Martin",
     distance: "2.3 km"
@@ -80,12 +79,6 @@ export const RestaurantData: RestaurantProps[] = [
     note: "12",
     noteDescription: "Sélectionné",
     thumbId: "4763a23b-2508-4a51-9cae-53b4da465f87",
-    carousel: [
-      "c33f8b8f-13cc-43f0-a72d-2f19037c6975",
-      "27b827be-6a0f-44e4-b396-d394bbd308b6",
-      "18789d32-bd15-44b1-ad36-8e200aa8211b",
-      "16a1d19b-76ee-4f4f-81bc-74216c43159c",
-    ],
     openingPeriods: {
       monday: [{ begin: "04:00", end: "22:00" }, { begin: "18:30", end: "22:00" }],
       tuesday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "22:00" }],
@@ -99,78 +92,7 @@ export const RestaurantData: RestaurantProps[] = [
     cuisines: ["Bistrot", "Traditionnel"],
     budget: "30€ - 50€",
     chief: "Léon Dupont",
-    peoples: [{
-      title: "Léon Dupont",
-      slug: "leon-dupont",
-      activity: "Chef"
-    },
-    {
-      title: "Joe Sommelier",
-      slug: "",
-      activity: "Sommelier"
-    }],
-    menu: [
-      {
-        kind: "Entrée",
-        dishes: [
-          {
-            title: "Crumble de Saint Marcellin, Muesli au Miel",
-            price: "11 €",
-            isSignature: false
-          },
-          {
-            title: "Carpaccio de Poulpe, Espuma au Piment d'Espelette",
-            price: "15 €",
-            isSignature: false
-          }
-        ]
-      },
-      {
-        kind: "Plat principal",
-        dishes: [
-          {
-            title: "Filet de Canette Française Rôti à la Pâte de Coing",
-            price: "20 €",
-            isSignature: false
-          },
-          {
-            title: "Pavé de Saumon D'Ecosse à L'unilaterale, Crème à l'Aneth",
-            price: "25 €",
-            isSignature: false
-          }
-        ]
-      },
-      {
-        kind: "Dessert",
-        dishes: [
-          {
-            title: "L’Inimitable « Tarte au Citron » de Léon",
-            price: "11 €",
-            isSignature: true
-          },
-          {
-            title: "Entremet Fondant à la Mangue",
-            price: "11 €",
-            isSignature: false
-          }
-        ]
-      }
-    ],
-    menuFormulas:[
-      {
-        title: "Formule Déjeuner",
-        price: "32€",
-        isDrinkIncluded: false
-      },
-      {
-        title: "Formule Dîner",
-        price: "45€",
-        isDrinkIncluded: true
-      }
-    ],
-    reviewYear: 2026,
-    review: "Typiquement le bistrot de potes et d'habitués qui vous colore une soirée avec une carte de vins affriolante et des assiettes qui réchauffent le cœur. On pourrait craindre un peu le surjoué et l'artifice, mais l'accueil s'avère sincèrement chaleureux et dévoué et les plats ne mentent pas. Une bonne terrine de campagne, un peu grasse, mais de bon goût, une joue de bœuf bien confite sauce vin rouge avec une purée grand-mère un poil sèche, une profiterole géante et simple à la fois, mais honnêtement faite avec une pâte à chou maison, à travers une carte un peu fourre-tout, mais qui reflète aussi les envies d'aujourd'hui, entre plats de ménage, tataki, carpaccio de poulpe, risotto truffe parmesan et burger. La cave donne du choix et du bon sur la plupart des régions, avec des pichets et des verres bienvenus."
-  },
+    distance: "1.2 km"},
   // Restaurant 1 toque
   {
     title: "L'Atelier Gourmand",
@@ -372,4 +294,107 @@ export const RestaurantData: RestaurantProps[] = [
   }
 ];
 
+export const RestaurantData: RestaurantProps[] = [
+  
+
+  // Restaurant sans toques (nbToques = 0)
+  {
+    title: "Chez Léon",
+    slug: "chez-leon",
+    nbToques: 1,
+    note: "12",
+    noteDescription: "Sélectionné",
+    thumbId: "4763a23b-2508-4a51-9cae-53b4da465f87",
+    carousel: [
+      "c33f8b8f-13cc-43f0-a72d-2f19037c6975",
+      "27b827be-6a0f-44e4-b396-d394bbd308b6",
+      "18789d32-bd15-44b1-ad36-8e200aa8211b",
+      "16a1d19b-76ee-4f4f-81bc-74216c43159c",
+    ],
+    openingPeriods: {
+      monday: [{ begin: "04:00", end: "22:00" }, { begin: "18:30", end: "22:00" }],
+      tuesday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "22:00" }],
+      wednesday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "22:00" }],
+      thursday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "22:00" }],
+      friday: [{ begin: "11:30", end: "14:00" }, { begin: "18:30", end: "23:00" }],
+      saturday: [{ begin: "11:30", end: "14:30" }, { begin: "18:30", end: "23:00" }],
+      sunday: []
+    },
+    address: "8 Avenue de l'Opéra, 75001 Paris",
+    cuisines: ["Bistrot", "Traditionnel"],
+    budget: "30€ - 50€",
+    chief: "Léon Dupont",
+    peoples: [{
+      title: "Léon Dupont",
+      slug: "leon-dupont",
+      activity: "Chef"
+    },
+    {
+      title: "Joe Sommelier",
+      activity: "Sommelier",
+      slug: ""
+    }],
+    menu: [
+      {
+        kind: "Entrée",
+        dishes: [
+          {
+            title: "Crumble de Saint Marcellin, Muesli au Miel",
+            price: "11 €",
+            isSignature: false
+          },
+          {
+            title: "Carpaccio de Poulpe, Espuma au Piment d'Espelette",
+            price: "15 €",
+            isSignature: false
+          }
+        ]
+      },
+      {
+        kind: "Plat principal",
+        dishes: [
+          {
+            title: "Filet de Canette Française Rôti à la Pâte de Coing",
+            price: "20 €",
+            isSignature: false
+          },
+          {
+            title: "Pavé de Saumon D'Ecosse à L'unilaterale, Crème à l'Aneth",
+            price: "25 €",
+            isSignature: false
+          }
+        ]
+      },
+      {
+        kind: "Dessert",
+        dishes: [
+          {
+            title: "L’Inimitable « Tarte au Citron » de Léon",
+            price: "11 €",
+            isSignature: true
+          },
+          {
+            title: "Entremet Fondant à la Mangue",
+            price: "11 €",
+            isSignature: false
+          }
+        ]
+      }
+    ],
+    menuFormulas:[
+      {
+        title: "Formule Déjeuner",
+        price: "32€",
+        isDrinkIncluded: false
+      },
+      {
+        title: "Formule Dîner",
+        price: "45€",
+        isDrinkIncluded: true
+      }
+    ],
+    reviewYear: 2026,
+    review: "Typiquement le bistrot de potes et d'habitués qui vous colore une soirée avec une carte de vins affriolante et des assiettes qui réchauffent le cœur. On pourrait craindre un peu le surjoué et l'artifice, mais l'accueil s'avère sincèrement chaleureux et dévoué et les plats ne mentent pas. Une bonne terrine de campagne, un peu grasse, mais de bon goût, une joue de bœuf bien confite sauce vin rouge avec une purée grand-mère un poil sèche, une profiterole géante et simple à la fois, mais honnêtement faite avec une pâte à chou maison, à travers une carte un peu fourre-tout, mais qui reflète aussi les envies d'aujourd'hui, entre plats de ménage, tataki, carpaccio de poulpe, risotto truffe parmesan et burger. La cave donne du choix et du bon sur la plupart des régions, avec des pichets et des verres bienvenus."
+  }
+];
 

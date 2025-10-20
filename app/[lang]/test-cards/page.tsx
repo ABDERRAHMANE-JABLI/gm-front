@@ -40,7 +40,8 @@ import {
   CognacsData,
   ArmagnacsData,
   CalvadosData,
-  RumsData
+  RumsData,
+  RestaurantCardDatas
 } from "@/FakeData";
 import { UtensilsData } from "@/FakeData";
 
@@ -92,10 +93,10 @@ export default async function TestCardsPage({ params }: PageProps) {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>
           🍽️ Restaurant Cards
-          <span className={styles.badge}>{RestaurantData.length}</span>
+          <span className={styles.badge}>{RestaurantCardDatas.length}</span>
         </h2>
         <div className={styles.cardsGrid}>
-          {RestaurantData.map((restaurant, index) => (
+          {RestaurantCardDatas.map((restaurant, index) => (
             <RestaurantCard key={`restaurant-${index}`} lang={lang} restaurant={restaurant} />
           ))}
         </div>
