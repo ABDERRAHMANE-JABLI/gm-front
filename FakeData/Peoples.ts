@@ -1,4 +1,4 @@
-import PeopleCardProps from "@/types/Peoples";
+import PeopleProps from "@/types/Peoples";
 
 /**
  * Collection complète de personnes mockées pour tester tous les cas de figure
@@ -8,7 +8,7 @@ import PeopleCardProps from "@/types/Peoples";
  * - Avec/sans distinctions
  * - Personne avec données très longues pour tester le multiligne
  */
-export const PeopleData: PeopleCardProps[] = [
+export const PeopleData: PeopleProps[] = [
   // Chef 6 toques (le maximum) - Légende
   {
     title: "Alain Ducasse",

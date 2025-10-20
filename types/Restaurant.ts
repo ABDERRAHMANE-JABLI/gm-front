@@ -13,6 +13,7 @@
  */
 
 import { OpeningPeriods } from "./Time";
+import people from "@/types/Peoples";
 
 export interface RestaurantProps {
     /** 
@@ -59,6 +60,14 @@ export interface RestaurantProps {
      * @optional
      */
     thumbId?: string;
+
+    /** 
+     * Galerie de photos du restaurant
+     * @description Liste d'identifiants d'images supplémentaires
+     * @example ["img_12345", "img_67890"]
+     * @optional
+     */
+    carousel?: string[];
     
     /** 
      * Horaires d'ouverture du restaurant
@@ -80,6 +89,8 @@ export interface RestaurantProps {
      * @optional
      */
     chief?: string;
+
+    peoples?: people[];
     
     /** 
      * Types de cuisine proposés
@@ -88,6 +99,22 @@ export interface RestaurantProps {
      * @optional
      */
     cuisines?: string[];
+
+     /** 
+     * Types de service proposés
+     * @description Liste des types de service (livraison, sur place, à emporter, etc.)
+     * @example ["livraison", "sur place"]
+     * @optional
+     */
+    services?: string[];
+
+     /** 
+     * Types d'ambiance proposés
+     * @description Liste des types d'ambiance (décontractée, romantique, familiale, etc.)
+     * @example ["Entre amis", "Décontracté"]
+     * @optional
+     */
+    moments?: string[];
     
     /** 
      * Information sur le budget/prix
@@ -112,4 +139,106 @@ export interface RestaurantProps {
      * @optional
      */
     distance?: string;
+
+    /** 
+     * Indique si le restaurant propose un hébergement
+     * @description Permet de savoir si l'établissement est aussi un hôtel
+     * @default false
+     * @optional
+     */
+    hasHotel?: boolean;
+
+    /** 
+     * Année de la dernière revue du restaurant
+     * @description Indique l'année de la dernière évaluation ou revue
+     * @example 2023
+     * @optional
+     */
+    reviewYear?: number;
+
+    /** 
+     * Texte de la dernière revue du restaurant
+     * @description Brève description ou extrait de la dernière revue
+     * @example "Un repas exceptionnel avec un service impeccable."
+     * @optional
+     */
+    review? : string;
+
+    /** 
+     * Lien de réservation en ligne
+     * @description URL pour réserver une table en ligne
+     * @example "https://reservation.lebernardin.com"
+     * @optional
+     */
+    bookingLink?: string;
+
+    /** 
+     * Indique si le numéro de téléphone doit être masqué
+     * @description Utile pour les restaurants sans ligne téléphonique publique
+     * @default false
+     * @optional
+     */
+    noPhone?: boolean;
+
+    /** 
+     * Numéro de téléphone du restaurant
+     * @description Numéro à afficher pour les réservations ou informations
+     * @example "+33 1 23 45 67 89"
+     * @optional
+     */
+    phone?: string;
+
+    /** 
+     * Site web du restaurant
+     * @description URL du site officiel du restaurant
+     * @example "https://www.lebernardin.com"
+     * @optional
+     */
+    website?: string;
+
+    /** 
+     * Réseaux sociaux du restaurant
+     * @description Liste des profils sur les réseaux sociaux
+     * @example [{ platform: "instagram", link: "https://instagram.com/lebernardin" }]
+     * @optional
+     */
+    socialNetworks?: 
+        {
+            platform: "instagram" | "facebook" | "twitter" | "linkedin";
+            link: string;
+        }[];
+
+    /** 
+     * Coordonnées géographiques du restaurant
+     * @description Latitude et longitude pour la localisation sur une carte
+     * @example { lat: 48.8566, lng: 2.3522 }
+     * @optional
+     */
+    geo?: {
+        lat: number;
+        lng: number;
+    };
+
+    /** 
+     * Formules de menu proposées
+     * @description Liste des formules de menu avec titre, prix et indication si boisson incluse
+     * @example [{ title: "Menu Déjeuner", price: "35€", isDrinkIncluded: true }]
+     * @optional
+     */
+    menuFormulas?: {
+        title: string;
+        price: string;
+        isDrinkIncluded?: boolean;
+    }[];
+
+    menu?:
+        {
+            kind?: string;
+            dishes:
+                {
+                    title: string;
+                    price?: string;
+                    isSignature?: boolean;
+                }[]
+        }[]
 }

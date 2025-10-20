@@ -1,4 +1,4 @@
-export default interface PeopleCardProps {
+export default interface PeopleProps {
     /** 
      * Slug de la personne
      * @description Identifiant unique pour l'URL
