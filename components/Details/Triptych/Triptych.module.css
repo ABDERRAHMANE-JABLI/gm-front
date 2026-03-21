@@ -1,0 +1,343 @@
+.Triptych {
+    position: relative;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 12px;
+    width:1000px;
+    height:auto;
+    max-height:440px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.wrapper{
+    position: relative;
+}
+
+.Triptych .photoCounter {
+    position: absolute;
+    right:20px;
+    bottom:10px;
+    display: inline-flex;
+    justify-content: center;
+    height: 30px;
+    background-color: white;
+    min-width:88px;
+    align-items: center;
+    font: normal normal bold 10px Montserrat;
+    white-space: nowrap;
+    pointer-events: none;
+    border-radius: 8px;
+}
+
+.Triptych .mainView {
+    flex: 0 1 660px;
+    max-width: 660px;
+    height: auto;
+}
+
+.Triptych .mainView.oneImage {
+    flex: 1 1 100%;
+    max-width: 100%;
+    overflow: hidden;
+    gap: 10px 10px;
+}
+
+.Triptych .secondView {
+    flex: 0 1 320px;
+    max-width: 330px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Triptych .mainView > .wrapper > picture > img,
+.Triptych .secondView > .wrapper > picture > img {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1.5;
+}
+
+.Triptych.pointer .mainView > .wrapper > picture > img,
+.Triptych.pointer .secondView > .wrapper > picture > img {
+    cursor: pointer;
+}
+
+.Copyright {
+    position: absolute;
+    bottom: 6px;
+    left: 8px;
+    font-size: 12px;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.CopyrightModal {
+    position: absolute;
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    bottom: 10px;
+    font-size: 14px;
+}
+
+@media (max-width: 1030px){
+  .Triptych{
+    flex-direction: column;
+    gap: 5px; 
+    max-height: unset;
+    height: auto;
+    width: 100%;
+    max-width: 100%;       
+    overflow: hidden;
+  }
+
+  .Triptych .mainView{
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 1000px;
+  }
+
+  .Triptych .secondView{
+    flex: unset;
+    display: flex;
+    flex-direction: row;   
+    gap: 5px;
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: nowrap;
+  }
+
+  .Triptych .secondView > .wrapper{
+    flex: 0 0 calc(50% - 3px);
+    max-width: calc(50% - 3px);
+    height: 250px;
+  }
+
+  .Triptych .mainView > .wrapper > picture > img,
+  .Triptych .secondView > .wrapper > picture > img{
+    display: block;
+    width: 100%;
+    height: 100% !important;
+    object-fit:cover;
+  }
+
+  .Triptych .photoCounter {
+    right:20px;
+    top:10px;
+}
+
+}
+
+@media (max-width: 500px){
+  .Triptych .secondView > .wrapper{
+    flex: 0 0 calc(50% - 3px);
+    max-width: calc(50% - 3px);
+    height: 200px;
+  }
+}
+
+
+.triptychmodal {
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.triptychmodal .modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.triptychmodal .modal-content {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.triptychmodal .modal-header {
+    background-color: var(--yellowGM) !important;
+    border-bottom: 2px solid var(--redGM);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.triptychmodal .modal-body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    flex: 1;
+}
+
+.triptychmodal .modal-body > .owl-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.btn-close{
+    color: white;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.btn-close svg{
+    color: rgb(64, 63, 63);
+}
+
+.btn-close:hover svg{
+    color: rgb(0, 0, 0);
+}
+
+.triptychmodal .modal-body > .owl-carousel img {
+    width: 100%;
+    height: auto;
+    max-width: 95vw;
+    max-height: 80vh;
+    object-fit: contain;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+.owlDots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.owlDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: #bdbabab6;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.owlDot:hover {
+  background-color: var(--yellowGM);
+}
+
+.owlDot.active {
+  background-color: var(--yellowGM);
+  transform: scale(1.3);
+}
+
+
+    .triptychmodal .modal-body > .owl-carousel .nav-button {
+        border:5px solid var(--yellowGM);
+        height:65px;
+        width:65px;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .triptychmodal .modal-body > .owl-carousel .nav-button .arrow {
+        color: var(--yellowGM);
+        font-size: 1.5rem;
+    }
+
+    .triptychmodal .modal-body > .owl-carousel .nav-button:hover {
+        background-color: var(--yellowGM);
+    }
+
+    .triptychmodal .modal-body > .owl-carousel .nav-button:hover > .arrow {
+        color: red !important;
+    }
+
+@media (max-width: 850px) {
+  /* repositionner les boutons */
+  .triptychmodal .modal-body > .owl-carousel {
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .triptychmodal .modal-body > .owl-carousel .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 3px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    border-color: var(--yellowGM);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .triptychmodal .modal-body > .owl-carousel .owl-prev {
+    left: 15px;
+  }
+
+  .triptychmodal .modal-body > .owl-carousel .owl-next {
+    right: 15px;
+  }
+
+  .triptychmodal .modal-body > .owl-carousel .nav-button .arrow {
+    width: 30px;
+    height: 30px;
+    color: var(--yellowGM);
+  }
+
+  .triptychmodal .modal-body > .owl-carousel img {
+    max-height: 70vh;
+  }
+}
+
+
+
+.arrow {
+  color: var(--yellowGM) !important;
+}
+
+.arrow path {
+  stroke: currentColor !important;
+}
+
+
+/*
+ Effet de transition entre les images 
+ */
+.zoomImage {
+  opacity: 0.8;
+  transform: scale(1.02);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.zoomImage.active {
+  opacity: 1;
+  transform: scale(1);
+}

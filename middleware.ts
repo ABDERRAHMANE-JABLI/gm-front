@@ -14,25 +14,12 @@ export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   let country = 'FR'; // default country
   
-  // Extract country from subdomain for different domain patterns
-  // Supports: fr.gm.wip (FR), us.gm.wip (US), de.gm.wip (DE), etc.
+  // Extract country from subdomain (e.g., fr.example.com → FR)
   const hostParts = hostname.split('.');
   const subdomain = hostParts[0];
-  
-  // Check if it's a supported domain pattern
-  const isGmWipDomain = hostname.includes('.gm.wip');
-  const isGaultMillauDomain = hostname.includes('.gaultmillau.com');
-  const isLocalhost = hostname.includes('localhost') || hostname.includes('127.0.0.1');
-  
-  if (isGmWipDomain || isGaultMillauDomain || isLocalhost) {
-    if (subdomain && subdomain.length === 2) {
-      country = subdomain.toUpperCase(); // e.g., 'fr' -> 'FR', 'us' -> 'US'
-    }
-  } else {
-    // For other domains, still extract country from subdomain if valid
-    if (subdomain && subdomain.length === 2) {
-      country = subdomain.toUpperCase();
-    }
+
+  if (subdomain && subdomain.length === 2) {
+    country = subdomain.toUpperCase();
   }
   
   // Check if path already starts with language code

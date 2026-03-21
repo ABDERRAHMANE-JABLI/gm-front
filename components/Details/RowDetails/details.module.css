@@ -1,0 +1,236 @@
+.RowDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 1000px;
+  gap: 20px;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.colLeft {
+  flex: 1 1 650px;
+  padding-top: 10px;
+}
+
+
+.title {
+  color: var(--GMI-black);
+  font-family: var(--card-title-font-family) !important;
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  line-height: var(--card-title-line-height);
+  font : normal 900 40px/46px "Source Serif 4";
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 2; 
+  line-clamp: 2;
+  text-transform: capitalize;
+}
+
+.paddingContainer{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.subTitle {
+  color: var(--GMI-black);
+  font-family: var(--news-card-text-font-family);
+  font-size: var(--news-card-text-font-size);
+  font-weight: var(--news-card-text-font-weight);
+  line-height: var(--news-card-text-line-height);
+  text-transform: uppercase;
+}
+
+.colRight {
+  flex: 1 1 330px;
+  padding-top: 10px;
+  padding-right: 10px;
+}
+
+.childrenContent{
+  width: 100%;
+}
+
+
+.Budget {
+    align-items: center;
+    align-self: center;
+    border: 2px solid var(--yellowGM);
+    border-radius: 12px;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    gap: 0 15px;
+    height: 100%;
+    max-width: 362px;
+    min-height: 70px;
+    overflow: hidden;
+    padding-left: 24px;
+    padding-right: 16px
+}
+
+.Budget .currency {
+    font: normal normal bolder 20px/14px Montserrat
+}
+
+.Budget .text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font: normal normal 500 9px/10px Montserrat;
+    gap: 5px 0;
+    max-width: 120px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    overflow: hidden;
+    white-space: normal
+}
+
+.Budget .text .rowPrice {
+    font: normal normal 700 14px/14px Montserrat;
+    text-transform: uppercase
+}
+
+.Budget .price {
+    flex: 1;
+    font: normal normal bolder 20px/14px Montserrat;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+/*le styl des childreen, il faut le rendre globals pour qu'il fonctionne*/
+
+.RowDetails :global(.cardDetailHor) {
+  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: 100%;
+}
+
+.RowDetails :global(.cardDetailHor > :first-child) {
+  flex-basis: 20%;
+  flex-shrink: 0;
+}
+
+.RowDetails :global(.cardDetailHor.horizontal > :first-child) {
+  flex-basis: 95px;
+  flex-shrink: 0;
+}
+
+.RowDetails :global(.cardDetailHor > :nth-child(2)) {
+  min-width: 0;
+}
+
+.RowDetails :global(.ellipsis) {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+  white-space: nowrap;
+}
+
+.RowDetails :global(.figmaCaptionValue) {
+  color: var(--GMI-black);
+  font-family: var(--card-detail-value-font-family);
+  font-size: 14px;
+  font-style: var(--card-detail-value-font-style);
+  font-weight: 700;
+  letter-spacing: var(--card-detail-value-letter-spacing);
+  line-height: var(--card-detail-value-line-height);
+  padding: var(--GMI-carddetailhorizontalpaddingh);
+  text-transform: capitalize;
+}
+
+.RowDetails :global(.figmaCaptionValue.outlined) {
+  background-color: var(--GMI-outlinedyellow);
+  border-radius: 8px;
+  padding: 2px var(--GMI-carddetailhorizontalpaddingh);
+}
+
+.RowDetails :global(.sponsored .figmaCaptionValue.outlined) {
+  background-color: var(--GMI-sponsored-bgColor);
+}
+
+
+@media (max-width: 1030px){
+ .RowDetails{
+  width: 100%;
+  flex-direction: column;
+  gap: 0px;
+ }
+
+ .colLeft, .colRight {
+  flex: unset;
+  width: 100%;
+}
+
+.colLeft{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.colRight{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.childrenContent{
+  width: 75%;
+}
+
+.links{
+  padding-top: 30px;
+}
+
+.RowDetails :global(.cardDetailHor > :first-child) {
+  flex-basis: 20%;
+  flex-shrink: 0;
+}
+
+}
+
+@media (max-width: 500px){
+ .colLeft, .colRight {
+  flex: unset;
+  width: 100%;
+}
+
+.colLeft{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0px;
+  justify-content: space-around;
+}
+
+.colRight{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.childrenContent{
+  width: 100%;
+}
+
+.links{
+  width: auto;
+  margin: 0 auto;
+}
+
+.RowDetails :global(.cardDetailHor > :first-child) {
+  flex-basis: 20%;
+  flex-shrink: 0;
+}
+
+}

@@ -2,142 +2,73 @@
 
 import React from 'react'
 import styles from './styles.module.css'
+import Triptych from '@/components/Details/Triptych'
+import { RestaurantData } from '@/FakeData'
+import HeaderPage from '@/components/Details/HeaderPage'
+import Toques from '@/components/cards/common/Toques'
+import RowDetails from '@/components/Details/RowDetails'
+import { useClientTranslation } from '@/lib/i18n/client'
+import MapCard from '@/components/Details/Cards/MapCard'
 
-interface Language {
-  fr: string
-  en: string
-}
+type Language = 'fr' | 'en';
 
 interface Props {
-  lang: 'fr' | 'en'
+  lang: Language
   slug: string
 }
 
-const content: Record<string, Language> = {
-  backToRestaurants: {
-    fr: '← Retour aux restaurants',
-    en: '← Back to restaurants'
-  },
-  rating: {
-    fr: 'Note Gault&Millau',
-    en: 'Gault&Millau Rating'
-  },
-  cuisine: {
-    fr: 'Type de cuisine',
-    en: 'Cuisine type'
-  },
-  price: {
-    fr: 'Gamme de prix',
-    en: 'Price range'
-  },
-  address: {
-    fr: 'Adresse',
-    en: 'Address'
-  },
-  phone: {
-    fr: 'Téléphone',
-    en: 'Phone'
-  },
-  website: {
-    fr: 'Site web',
-    en: 'Website'
-  },
-  hours: {
-    fr: 'Horaires',
-    en: 'Opening hours'
-  },
-  services: {
-    fr: 'Services',
-    en: 'Services'
-  },
-  description: {
-    fr: 'Description',
-    en: 'Description'
-  },
-  menu: {
-    fr: 'Menu',
-    en: 'Menu'
-  },
-  photos: {
-    fr: 'Photos',
-    en: 'Photos'
-  },
-  reviews: {
-    fr: 'Avis',
-    en: 'Reviews'
-  },
-  booking: {
-    fr: 'Réserver',
-    en: 'Book'
-  },
-  share: {
-    fr: 'Partager',
-    en: 'Share'
-  },
-  favorite: {
-    fr: 'Ajouter aux favoris',
-    en: 'Add to favorites'
-  },
-  loadingTitle: {
-    fr: 'Chargement du restaurant...',
-    en: 'Loading restaurant...'
-  },
-  loadingText: {
-    fr: 'Nous récupérons les informations de ce restaurant pour vous.',
-    en: 'We are retrieving information about this restaurant for you.'
-  }
-}
+export default function RestaurantDetailPage({ lang }: Props) {
 
-export default function RestaurantDetailPage({ lang, slug }: Props) {
-  const t = (key: string) => content[key]?.[lang] || content[key]?.fr || ''
+  const { t } = useClientTranslation(lang);
+  const links={phone: "+33123456789", siteWeb: "https://gaultmillau.fr", mail: "contact@gaultmillau.fr", facebook: "https://facebook.com/gaultmillau", instagram: "https://instagram.com/gaultmillau"};
   
-  // Convert slug to display name
-  const restaurantName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-
   return (
     <div className={styles.restaurantDetailPage}>
       <div className={styles.container}>
-        {/* Breadcrumb */}
-        <nav className={styles.breadcrumb}>
-          <a href={`/${lang}/restaurants`} className={styles.breadcrumbLink}>
-            {t('backToRestaurants')}
-          </a>
-        </nav>
 
         {/* Restaurant Header */}
-        <header className={styles.restaurantHeader}>
-          <div className={styles.headerContent}>
-            <h1 className={styles.restaurantName}>{restaurantName}</h1>
-            <div className={styles.restaurantMeta}>
-              <div className={styles.rating}>
-                <span className={styles.ratingLabel}>{t('rating')}</span>
-                <span className={styles.ratingValue}>--/20</span>
-              </div>
-              <div className={styles.cuisine}>
-                <span className={styles.cuisineLabel}>{t('cuisine')}</span>
-                <span className={styles.cuisineValue}>Cuisine française</span>
-              </div>
-              <div className={styles.price}>
-                <span className={styles.priceLabel}>{t('price')}</span>
-                <span className={styles.priceValue}>€€€</span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.actions}>
-            <button className={styles.bookingButton}>{t('booking')}</button>
-            <button className={styles.favoriteButton}>{t('favorite')}</button>
-            <button className={styles.shareButton}>{t('share')}</button>
-          </div>
+        <header>
+          <HeaderPage title={RestaurantData[0].title} subTitle={RestaurantData[0].address || ''}>
+            <Toques nbToques={RestaurantData[0].nbToques} note={RestaurantData[0].note} description={RestaurantData[0].noteDescription} />
+          </HeaderPage>
         </header>
+        {/* Restaurant Triptych */}
+        <section className={styles.sectionTriptych}>
+          <Triptych images={RestaurantData[0].carousel || []} title={RestaurantData[0].title} />
+        </section>
+
+        {/* Restaurant ROW Details */}
+        <section className={styles.sectionTriptych}>
+          <RowDetails links={links} budget={RestaurantData[0].budget} budgetDescription="Budget à titre indicatif par personne (hors boissons)">
+                  {RestaurantData[0].chief && (
+                        <div className="cardDetailHor">
+                            <span className="figmaCaption ellipsis">{t("common.chef")}</span>
+                            <span className="figmaCaptionValue ellipsis" title={RestaurantData[0].chief}>{RestaurantData[0].chief}</span>
+                        </div>
+                    )}
+                    {!!RestaurantData[0].cuisines?.length && (
+                        <div className="cardDetailHor">
+                            <span className="figmaCaption ellipsis">{t("common.cooking")}</span>
+                            <span className="figmaCaptionValue ellipsis outlined">{RestaurantData[0].cuisines.join(" | ")}</span>
+                        </div>
+                    )}
+                    {RestaurantData[0].budget && (
+                        <div className="cardDetailHor">
+                            <span className="figmaCaption ellipsis">{t("common.budget")}</span>
+                            <span className="figmaCaptionValue ellipsis">{RestaurantData[0].budget}</span>
+                        </div>
+                    )}
+          </RowDetails>
+        </section>
+
 
         {/* Restaurant Content */}
         <main className={styles.restaurantContent}>
           <div className={styles.mainContent}>
             {/* Description Section */}
             <section className={styles.section}>
-              <h2 className={styles.sectionTitle}>{t('description')}</h2>
               <div className={styles.description}>
-                <p>Informations détaillées sur le restaurant à venir...</p>
+                    <MapCard address={RestaurantData[0].address} latitude={RestaurantData[0].geo?.lat} longitude={RestaurantData[0].geo?.lng}/>
               </div>
             </section>
 

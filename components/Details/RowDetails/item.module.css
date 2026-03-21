@@ -1,0 +1,53 @@
+
+.cardDetailHor {
+    align-items: baseline;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
+}
+
+.cardDetailHor>:first-child {
+    flex-basis: 32%;
+    flex-shrink: 0
+}
+
+.cardDetailHor.horizontal>:first-child {
+    flex-basis: 95px;
+    flex-shrink: 0
+}
+
+.cardDetailHor>:nth-child(2) {
+    min-width: 0
+}
+
+.ellipsis {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis!important;
+    white-space: nowrap
+}
+
+
+.figmaCaptionValue {
+    color: var(--GMI-black);
+    font-family: var(--card-detail-value-font-family);
+    font-size: 14px;
+    font-style: var(--card-detail-value-font-style);
+    font-weight: 700;
+    letter-spacing: var(--card-detail-value-letter-spacing);
+    line-height: var(--card-detail-value-line-height);
+    padding: var(--GMI-carddetailhorizontalpaddingh);
+    text-transform: capitalize;
+}
+
+
+.figmaCaptionValue.outlined {
+    background-color: var(--GMI-outlinedyellow);
+    border-radius: 8px;
+    padding: 2px var(--GMI-carddetailhorizontalpaddingh)
+}
+
+.sponsored .figmaCaptionValue.outlined {
+    background-color: var(--GMI-sponsored-bgColor)
+}

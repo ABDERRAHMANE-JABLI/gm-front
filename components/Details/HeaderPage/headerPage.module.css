@@ -1,0 +1,113 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 1000px;
+  gap: 20px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.colLeft {
+  flex: 1 1 650px;
+}
+
+
+.title {
+  color: var(--GMI-black);
+  font-family: var(--card-title-font-family) !important;
+  font-size: var(--card-title-font-size);
+  font-weight: var(--card-title-font-weight);
+  line-height: var(--card-title-line-height);
+  font : normal 900 40px/46px "Source Serif 4";
+  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 2; 
+  line-clamp: 2;
+  text-transform: capitalize;
+}
+
+.paddingContainer{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.subTitle {
+  color: var(--GMI-black);
+  font-family: var(--news-card-text-font-family);
+  font-size: var(--news-card-text-font-size);
+  font-weight: var(--news-card-text-font-weight);
+  line-height: var(--news-card-text-line-height);
+  text-transform: uppercase;
+  padding-top: 10px;
+}
+
+.colRight {
+  flex: 1 1 330px;
+  padding-top: 5px;
+}
+
+.buttonContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btn {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 120px; 
+  height: 40px;
+  border: 1px solid var(--GMI-buttonbordercolor); 
+  border-radius: var(--GMI-buttonborderradius);
+  font-size: 13px;
+  text-decoration: none; 
+  color: var(--GMI-black); 
+  background: transparent;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.btnText { 
+    position: relative; 
+    z-index: 1;
+    font-family: var(--button-label-font-family); 
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: bold;
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    text-overflow: ellipsis;
+}
+.btn::before {
+  content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);
+  z-index: 0; transform: scaleX(0); transform-origin: left center; transition: transform .45s ease;
+}
+.btn:hover::before, .btn:focus-visible::before { transform: scaleX(1); }
+
+.btn svg{ 
+    margin-right: 10px;
+}
+
+
+@media (max-width: 1030px){
+ .header{
+  width: 100%;
+  flex-direction: column;
+  gap: 0px;
+ }
+
+ .colLeft, .colRight {
+  flex: unset;
+  width: 100%;
+}
+
+.buttonContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+}

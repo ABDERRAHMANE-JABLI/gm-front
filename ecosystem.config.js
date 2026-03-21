@@ -11,7 +11,7 @@ module.exports = {
       max_memory_restart: '600M', // optional, adjust as needed
       env: {
         NODE_ENV: 'production',
-        ALLOWED_DOMAINS: '*.gm.wip,*.gaultmillau.com',
+        ALLOWED_DOMAINS: '*.gaultmillau.com',
         PORT: '3000',
         HOSTNAME: '0.0.0.0',
         // "pm2_autoscale":{

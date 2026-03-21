@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  allowedDevOrigins:['*.gm.wip','localhost:3000'],
+  allowedDevOrigins:['localhost:3000'],
   webpack(config) {
     // Configuration pour transformer les SVG en composants React
     config.module.rules.push({
@@ -34,12 +34,6 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: '*.gaultmillau.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'http',
-        hostname: '*.gm.wip',
         port: '',
         pathname: '/**',
       },

@@ -24,3 +24,10 @@ export interface NewsCardProps {
   thumbId: string;                
   buttons: [] | [NewsCardButtonProps] | [NewsCardButtonProps, NewsCardButtonProps];
 }
+
+
+
+
+
+
+

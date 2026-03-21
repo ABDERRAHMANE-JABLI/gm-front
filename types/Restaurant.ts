@@ -14,6 +14,8 @@
 
 import { OpeningPeriods } from "./Time";
 import people from "@/types/Peoples";
+import { ImageProps } from "./Image";
+
 
 
 export interface RestaurantCardProps {
@@ -125,7 +127,7 @@ export interface RestaurantProps extends RestaurantCardProps {
      * @example ["img_12345", "img_67890"]
      * @optional
      */
-    carousel?: string[];
+    carousel?: ImageProps[];
     
     peoples?: people[];
     

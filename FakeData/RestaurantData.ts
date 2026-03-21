@@ -295,8 +295,6 @@ export const RestaurantCardDatas: RestaurantCardProps[] = [
 ];
 
 export const RestaurantData: RestaurantProps[] = [
-  
-
   // Restaurant sans toques (nbToques = 0)
   {
     title: "Chez Léon",
@@ -304,12 +302,12 @@ export const RestaurantData: RestaurantProps[] = [
     nbToques: 1,
     note: "12",
     noteDescription: "Sélectionné",
-    thumbId: "4763a23b-2508-4a51-9cae-53b4da465f87",
-    carousel: [
-      "c33f8b8f-13cc-43f0-a72d-2f19037c6975",
-      "27b827be-6a0f-44e4-b396-d394bbd308b6",
-      "18789d32-bd15-44b1-ad36-8e200aa8211b",
-      "16a1d19b-76ee-4f4f-81bc-74216c43159c",
+    thumbId: "c33f8b8f-13cc-43f0-a72d-2f19037c6975",
+    carousel: [{ id: "c33f8b8f-13cc-43f0-a72d-2f19037c6975", copyRight: "© Chez Léon" },
+      { id: "c33f8b8f-13cc-43f0-a72d-2f19037c6975", copyRight: "© Chez Franck" },
+      { id: "27b827be-6a0f-44e4-b396-d394bbd308b6", copyRight: "© Chez Léon" },
+      { id: "18789d32-bd15-44b1-ad36-8e200aa8211b", copyRight: "© Chez Lisa" },
+      { id: "16a1d19b-76ee-4f4f-81bc-74216c43159c", copyRight: "© Chez Léon" }
     ],
     openingPeriods: {
       monday: [{ begin: "04:00", end: "22:00" }, { begin: "18:30", end: "22:00" }],
@@ -321,7 +319,7 @@ export const RestaurantData: RestaurantProps[] = [
       sunday: []
     },
     address: "8 Avenue de l'Opéra, 75001 Paris",
-    cuisines: ["Bistrot", "Traditionnel"],
+    cuisines: ["Bistrot", "Traditionnel", "Bistrot", "Traditionnel", "Bistrot", "Traditionnel"],
     budget: "30€ - 50€",
     chief: "Léon Dupont",
     peoples: [{
@@ -393,6 +391,7 @@ export const RestaurantData: RestaurantProps[] = [
         isDrinkIncluded: true
       }
     ],
+    geo:{lat:48.858370, lng:2.294481},
     reviewYear: 2026,
     review: "Typiquement le bistrot de potes et d'habitués qui vous colore une soirée avec une carte de vins affriolante et des assiettes qui réchauffent le cœur. On pourrait craindre un peu le surjoué et l'artifice, mais l'accueil s'avère sincèrement chaleureux et dévoué et les plats ne mentent pas. Une bonne terrine de campagne, un peu grasse, mais de bon goût, une joue de bœuf bien confite sauce vin rouge avec une purée grand-mère un poil sèche, une profiterole géante et simple à la fois, mais honnêtement faite avec une pâte à chou maison, à travers une carte un peu fourre-tout, mais qui reflète aussi les envies d'aujourd'hui, entre plats de ménage, tataki, carpaccio de poulpe, risotto truffe parmesan et burger. La cave donne du choix et du bon sur la plupart des régions, avec des pichets et des verres bienvenus."
   }

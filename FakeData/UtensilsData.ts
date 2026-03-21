@@ -30,5 +30,4 @@ export const UtensilsData: UtensilProps[] = [
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque maiores soluta natus dolorem laboriosam accusantium consequatur ad quasi ut deleniti ipsa placeat non suscipit, eveniet, fuga eaque incidunt dicta possimus Rem dolorum voluptatem sapiente. Ullam amet, delectus tenetur a autem, laboriosam hic id saepe asperiores recusandae esse voluptas. Optio vero odit est, doloremque voluptatem eveniet repellat sequi excepturi dolores consequuntur  esse voluptas. Optio vero odit est, doloremque voluptatem eveniet repellat sequi excepturi dolores consequuntur",
     thumbId:"58354fab-0f06-4e75-8725-0d5053f7fbfb"
   },
- 
 ];

@@ -1,0 +1,106 @@
+.MapCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--GMI-carddefaultbackground);
+  border: 1px solid var(--GMI-cardbordercolor);
+  overflow: hidden;
+  width: 300px;
+  height: 520px;
+  flex: 0 0 auto;
+}
+
+
+
+.MapCard:hover{
+  border-color: var(--GMI-outlinedyellow);
+  box-shadow: 8px 8px 10px #0000001f;
+}
+
+.MapCard>.headerContent {
+    align-items: center;
+    column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    font: normal normal 700 14px/16px Montserrat;
+    max-height: 40px;
+    min-height: 40px;
+    padding: 1px 10px;
+    text-transform: uppercase;
+    width: 100%
+}
+
+.cardPaddingContainer {
+    padding: 20px 20px 0;
+    position: relative;
+    width: 100%
+}
+
+.MapCard .mapImage {
+    height: 340px;
+    object-fit: cover;
+    width: 100%
+}
+
+.MapCard>.bodyContent {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font: normal normal 500 14px/20px Montserrat;
+    height: 100%;
+    padding: 20px;
+    text-align: start
+}
+
+.MapCard>.bodyContent>.addressWrapper {
+    position: relative;
+    width: 100%;
+    column-gap: 20px;
+    display: flex;
+    flex-direction: row
+}
+
+.MapCard>.bodyContent>.addressWrapper>.labelValue {
+    font-weight: 700
+}
+
+.MapCard>.bodyContent>.addressWrapper>.address {
+    font: normal normal 700 14px/20px Montserrat;
+    display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
+  -webkit-line-clamp: 2; line-clamp: 2;
+  text-transform: capitalize;
+}
+
+
+.CardButtonLink {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 100%; 
+  height: 40px;
+  border: 1px solid var(--GMI-buttonbordercolor); 
+  border-radius: var(--GMI-buttonborderradius);
+  font-size: 13px;
+  text-decoration: none; 
+  color: var(--GMI-black); 
+  background: transparent;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  margin-top: 10px;
+}
+.CardButtonLinkText { 
+    position: relative; 
+    z-index: 1;
+    font-family: var(--button-label-font-family); 
+    font-size: var(--button-label-font-size);
+    font-style: var(--button-label-font-style);
+    font-weight: var(--button-label-font-weight);
+    justify-content: center;
+    letter-spacing: var(--button-label-letter-spacing);
+    line-height: var(--button-label-line-height);
+    text-overflow: ellipsis;
+}
+.CardButtonLink::before {
+  content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);
+  z-index: 0; transform: scaleX(0); transform-origin: left center; transition: transform .45s ease;
+}
+.CardButtonLink:hover::before, .CardButtonLink:focus-visible::before { transform: scaleX(1); }
