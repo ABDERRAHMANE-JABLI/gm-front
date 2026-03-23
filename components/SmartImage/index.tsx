@@ -33,7 +33,24 @@ export const SmartImage = (props: Props) => {
         urlParams = `?transforms=${transforms}`;
     }
 
-    const baseUrl = `https://assets.gaultmillau.com/assets/${id}`;
+    // Full URL (e.g. S3) — use directly without Directus transforms
+    if (id.startsWith("http")) {
+        return (
+            <picture>
+                <img
+                    src={id}
+                    className="topImageCard"
+                    alt={alt}
+                    title={alt}
+                    loading={lazyload ? "lazy" : "eager"}
+                    decoding="async"
+                    fetchPriority={lazyload ? "auto" : "high"}
+                />
+            </picture>
+        );
+    }
+
+    const baseUrl = `${process.env.NEXT_PUBLIC_ASSETS_URL}/assets/${id}`;
 
     if (id) {
         return (

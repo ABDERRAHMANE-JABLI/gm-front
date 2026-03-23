@@ -5,6 +5,7 @@ export const rootByKind: Record<NewsCardButtonKind, string> = {
   [NewsCardButtonKind.HOTEL]: "hotels",
   [NewsCardButtonKind.PEOPLE]: "peoples",
   [NewsCardButtonKind.RESTAURANT]: "restaurant",
+  [NewsCardButtonKind.RIYAD]: "riyads",
   [NewsCardButtonKind.WINERY]: "wineries",
 };
 
@@ -13,6 +14,7 @@ export const defaultLabelByKind: Record<NewsCardButtonKind, string> = {
   [NewsCardButtonKind.HOTEL]: "Hôtel",
   [NewsCardButtonKind.PEOPLE]: "Chef",
   [NewsCardButtonKind.RESTAURANT]: "Restaurant",
+  [NewsCardButtonKind.RIYAD]: "Riyad",
   [NewsCardButtonKind.WINERY]: "Vigneron",
 };
 

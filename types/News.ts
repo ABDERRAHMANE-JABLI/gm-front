@@ -4,6 +4,7 @@ export enum NewsCardButtonKind {
   HOTEL = "hotel",
   PEOPLE = "people",
   RESTAURANT = "restaurant",
+  RIYAD = "riyad",
   WINERY = "winery",
 }
 

@@ -1,41 +1,28 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import RestaurantsPage from '@/page-components/Restaurants/List';
+import Layout from "@/components/layout/Layout/Layout";
+import RestaurantsPage from "@/page-components/Restaurants/List";
+import { Language } from "@/lib/i18n/types";
+import type { Metadata } from "next";
 
-// Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';
 
-interface PageProps {
-  params: Promise<{
-    lang: 'fr' | 'en';
-  }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
-
-  const titles = {
-    fr: 'Recherche de restaurants - Gault&Millau',
-    en: 'Restaurant search - Gault&Millau'
-  };
-
-  const descriptions = {
-    fr: 'Trouvez les meilleurs restaurants près de chez vous avec Gault&Millau. Recherchez par cuisine, localisation, note et plus encore.',
-    en: 'Find the best restaurants near you with Gault&Millau. Search by cuisine, location, rating and more.'
-  };
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: titles[lang],
-    description: descriptions[lang],
+    title: 'Restaurants - Gault&Millau',
+    description: 'Découvrez les meilleurs restaurants sélectionnés par Gault&Millau Maroc',
   };
 }
 
-export default async function RestaurantSearchPageRoute({ params }: PageProps) {
+export default async function RestaurantsPageRoute({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
+  const language = lang as Language;
 
-  if (!['fr', 'en'].includes(lang)) {
-    notFound();
-  }
-
-  return <RestaurantsPage lang={lang} />;
+  return (
+    <Layout language={language}>
+      <RestaurantsPage lang={language} />
+    </Layout>
+  );
 }

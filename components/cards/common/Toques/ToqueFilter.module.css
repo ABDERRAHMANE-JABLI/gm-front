@@ -1,0 +1,67 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ─── Button : fond jaune par défaut ─── */
+.item {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  background: #FFD700;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.itemGold {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  background: #ffffff;
+  border: 2px solid goldenrod;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.item:hover {
+  border-color: #1a1a1a;
+}
+
+/* Active : bordure noire pour montrer la sélection */
+.itemActive {
+  border-color: #1a1a1a;
+}
+
+/* ─── Toque row ─── */
+.toqueRow {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* 1–5 toques : icônes noires */
+.toqueIcon {
+  fill: #1a1a1a;
+  flex-shrink: 0;
+}
+
+/* 6 toques (Or) : icônes gold */
+.toqueGold {
+  fill: #C9972A;
+  background-color: white !important;
+}
+
+/* ─── Sélectionné (0 toque) ─── */
+.selectedLabel {
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
