@@ -1,75 +1,39 @@
-export type Hour = '00' | '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09' | 
-           '10' | '11' | '12' | '13' | '14' | '15' | '16' | '17' | '18' | '19' | 
-           '20' | '21' | '22' | '23';
+/**
+ * Abréviations des jours de la semaine retournées par l'API
+ */
+export type DayOfWeek = 'Lun' | 'Mar' | 'Mer' | 'Jeu' | 'Ven' | 'Sam' | 'Dim';
 
 /**
- * Type représentant une minute valide (00-59)
- * @description Utilisé pour garantir que seules les minutes valides sont acceptées
-
+ * Un créneau horaire renvoyé par l'API pour un jour donné.
+ *
+ * Cas 1 — service déjeuner + dîner séparés :
+ *   lunchOpeningTime / lunchClosingTime  pour le midi
+ *   dinnerOpeningTime / dinnerClosingTime pour le soir
+ *
+ * Cas 2 — ouverture continue (ex. 11h → 23h) :
+ *   lunchOpeningTime = heure d'ouverture
+ *   dinnerClosingTime = heure de fermeture
+ *   les deux autres champs sont null
+ *
+ * Tous les champs sont des ISO strings ("1970-01-01T10:30:00+00:00") ou null.
  */
-export type AnyMinute = '00' | '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09' |
-                '10' | '11' | '12' | '13' | '14' | '15' | '16' | '17' | '18' | '19' |
-                '20' | '21' | '22' | '23' | '24' | '25' | '26' | '27' | '28' | '29' |
-                '30' | '31' | '32' | '33' | '34' | '35' | '36' | '37' | '38' | '39' |
-                '40' | '41' | '42' | '43' | '44' | '45' | '46' | '47' | '48' | '49' |
-                '50' | '51' | '52' | '53' | '54' | '55' | '56' | '57' | '58' | '59';
-
-/**
- * Format d'heure strict au format HH:MM
- * @description Template literal type qui combine Hour et AnyMinute pour créer un format d'heure valide
- */
-export type TimeFormat = `${Hour}:${AnyMinute}`;
-
-/**
- * Interface représentant une plage horaire d'ouverture
- * @description Définit une période d'ouverture avec heure de début et de fin
- */
-export interface OpeningHours {
-    /** 
-     * Heure de début au format HH:MM
-     * @example '11:30'
-     */
-    begin: TimeFormat;
-    
-    /** 
-     * Heure de fin au format HH:MM
-     * @example '14:00'
-     */
-    end: TimeFormat;
+export interface OpeningHour {
+  dayOfWeek:          DayOfWeek;
+  lunchOpeningTime:   string | null;
+  lunchClosingTime:   string | null;
+  dinnerOpeningTime:  string | null;
+  dinnerClosingTime:  string | null;
 }
 
 /**
- * Interface représentant les horaires d'ouverture pour toute la semaine
- * @description Contient les horaires d'ouverture pour chaque jour de la semaine
- * @example 
- * {
- *   monday: [{ begin: '11:30', end: '14:00' }, { begin: '19:00', end: '22:00' }],
- *   tuesday: [{ begin: '11:30', end: '14:00' }],
- *   // ... autres jours
- * }
+ * Extrait "HH:MM" depuis une ISO string de l'API.
+ * Retourne null si la valeur est null ou invalide.
+ *
+ * @example
+ * parseApiTime("1970-01-01T10:30:00+00:00") // "10:30"
  */
-export interface OpeningPeriods {
-    /** 
-     * Horaires du lundi - tableau de plages horaires, pas de chevauchement autorisé
-     * @example [{ begin: '11:30', end: '14:00' }, { begin: '19:00', end: '22:00' }]
-     */
-    monday: OpeningHours[];
-    
-    /** Horaires du mardi */
-    tuesday: OpeningHours[];
-    
-    /** Horaires du mercredi */
-    wednesday: OpeningHours[];
-    
-    /** Horaires du jeudi */
-    thursday: OpeningHours[];
-    
-    /** Horaires du vendredi */
-    friday: OpeningHours[];
-    
-    /** Horaires du samedi */
-    saturday: OpeningHours[];
-    
-    /** Horaires du dimanche */
-    sunday: OpeningHours[];
+export function parseApiTime(iso: string | null): string | null {
+  if (!iso) return null;
+  const match = iso.match(/T(\d{2}:\d{2})/);
+  return match ? match[1] : null;
 }

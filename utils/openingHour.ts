@@ -1,49 +1,67 @@
-import { OpeningPeriods, Hour, AnyMinute, TimeFormat } from "@/types/Time";
+import { OpeningHour, DayOfWeek, parseApiTime } from '@/types/Time';
 
-// utils/isOpenNow.ts
-type DayKey =
-    | "sunday" | "monday" | "tuesday" | "wednesday"
-    | "thursday" | "friday" | "saturday";
-
-const dayKeys: DayKey[] = [
-    "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
-];
-
-const toMinutes = (t: TimeFormat): number => {
-    const [hh, mm] = t.split(":") as [Hour, AnyMinute];
-    return Number(hh) * 60 + Number(mm);
+// Correspondance DayOfWeek abrégé → index JS (0=Dim … 6=Sam)
+const DAY_INDEX: Record<DayOfWeek, number> = {
+  Dim: 0,
+  Lun: 1,
+  Mar: 2,
+  Mer: 3,
+  Jeu: 4,
+  Ven: 5,
+  Sam: 6,
 };
 
-export function isOpenNow(periods?: OpeningPeriods, now: Date = new Date()): boolean {
-    if (!periods) return false;
+/** Convertit "HH:MM" en minutes depuis minuit */
+function toMin(hhmm: string): number {
+  const [h, m] = hhmm.split(':').map(Number);
+  return h * 60 + m;
+}
 
-    const dayIdx = now.getDay(); // 0=Sunday ... 6=Saturday
-    const today = dayKeys[dayIdx];
-    const prev = dayKeys[(dayIdx + 6) % 7];
-    const nowMin = now.getHours() * 60 + now.getMinutes();
+/**
+ * Vérifie si l'heure `nowMin` est dans [openMin, closeMin[.
+ * Gère les créneaux qui traversent minuit (ex: 22:00 → 02:00).
+ */
+function inRange(openMin: number, closeMin: number, nowMin: number): boolean {
+  if (closeMin <= openMin) {
+    // traverse minuit
+    return nowMin >= openMin || nowMin < closeMin;
+  }
+  return nowMin >= openMin && nowMin < closeMin;
+}
 
-    const inRange = (begin: TimeFormat, end: TimeFormat) => {
-        const start = toMinutes(begin);
-        // 00:00 = minuit -> on le considère comme 24:00 pour “jusqu’à minuit”
-        const endMin = end === "00:00" ? 24 * 60 : toMinutes(end);
+/**
+ * Retourne true si le restaurant est actuellement ouvert
+ * selon la liste d'OpeningHour retournée par l'API.
+ */
+export function isOpenNow(hours: OpeningHour[] | undefined, now: Date = new Date()): boolean {
+  if (!hours || hours.length === 0) return false;
 
-        // créneau qui traverse minuit (ex: 19:00-02:00)
-        if (endMin <= start && end !== "00:00") {
-            return nowMin >= start || nowMin < endMin;
-        }
-        // créneau normal dans la journée
-        return nowMin >= start && nowMin < endMin; // [start, end)
-    };
+  const todayIdx = now.getDay();
+  const nowMin   = now.getHours() * 60 + now.getMinutes();
 
-    // 1) créneaux du jour
-    if ((periods[today] ?? []).some(p => inRange(p.begin, p.end))) return true;
+  const todaySlots = hours.filter((h) => DAY_INDEX[h.dayOfWeek] === todayIdx);
 
-    // 2) si après minuit: vérifier les créneaux d’hier qui DÉBORDENT après minuit
-    return (periods[prev] ?? []).some(p => {
-        const start = toMinutes(p.begin);
-        const endRaw = toMinutes(p.end);
-        const endMin = p.end === "00:00" ? 24 * 60 : endRaw;
-        // débordement = end <= start (sauf 00:00 qui signifie “jusqu’à minuit”)
-        return endMin <= start && p.end !== "00:00" && nowMin < endMin;
-    });
+  for (const slot of todaySlots) {
+    const lunchOpen  = parseApiTime(slot.lunchOpeningTime);
+    const lunchClose = parseApiTime(slot.lunchClosingTime);
+    const dinnerOpen = parseApiTime(slot.dinnerOpeningTime);
+    const dinnerClose = parseApiTime(slot.dinnerClosingTime);
+
+    // Cas 1 : service déjeuner complet
+    if (lunchOpen && lunchClose && inRange(toMin(lunchOpen), toMin(lunchClose), nowMin)) {
+      return true;
+    }
+
+    // Cas 2 : service dîner complet
+    if (dinnerOpen && dinnerClose && inRange(toMin(dinnerOpen), toMin(dinnerClose), nowMin)) {
+      return true;
+    }
+
+    // Cas 3 : ouverture continue (lunchOpen = ouverture, dinnerClose = fermeture)
+    if (lunchOpen && dinnerClose && !lunchClose && !dinnerOpen) {
+      if (inRange(toMin(lunchOpen), toMin(dinnerClose), nowMin)) return true;
+    }
+  }
+
+  return false;
 }

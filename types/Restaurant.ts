@@ -12,7 +12,7 @@
  * }
  */
 
-import { OpeningPeriods } from "./Time";
+import type { OpeningHour } from "./Time";
 import people from "@/types/Peoples";
 import { ImageProps } from "./Image";
 
@@ -69,7 +69,7 @@ export interface RestaurantCardProps {
      * @description Horaires pour chaque jour de la semaine
      * @optional
      */
-    openingPeriods?: OpeningPeriods;
+    openingHours?: OpeningHour[];
     
     /** 
      * Adresse complète du restaurant

@@ -1,4 +1,7 @@
 import { ApiPagination } from './Article';
+import type { OpeningHour } from '@/types/Time';
+
+export type { OpeningHour };
 
 export interface ApiCity {
   cityName: string;
@@ -30,6 +33,7 @@ export interface ApiRestaurant {
   budgetMax?: number;
   isSponsorised: boolean;
   cuisines: string[];
+  openingHour?: OpeningHour[];
 }
 
 export interface ApiRestaurantListResponse {

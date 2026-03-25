@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import Link from "next/link";
 import { SmartImage } from "@/components/SmartImage";
 import styles from "./RestaurantCard.module.css";
@@ -24,7 +25,10 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
     const { t } = useClientTranslation(lang);
 
     const imageId = restaurant?.thumbId ?? "";
-    const isOpen = isOpenNow(restaurant.openingPeriods);
+    const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+      setIsOpen(isOpenNow(restaurant.openingHours));
+    }, [restaurant.openingHours]);
     const isSponsored = restaurant.nbToques === -1 ? true : false;
 
     return (

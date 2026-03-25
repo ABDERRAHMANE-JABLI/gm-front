@@ -24,11 +24,11 @@ interface ActiveFilters {
   toques:   number[];
   cuisines: string[];
   styles:   string[];
-  service:  string;
+  services: string[];
 }
 
 const EMPTY_FILTERS: ActiveFilters = {
-  city: '', toques: [], cuisines: [], styles: [], service: '',
+  city: '', toques: [], cuisines: [], styles: [], services: [],
 };
 
 export default function RestaurantsContent({
@@ -54,7 +54,7 @@ export default function RestaurantsContent({
       cuisines: next.cuisines.length   ? next.cuisines : undefined,
       styles:   next.styles.length     ? next.styles   : undefined,
       toques:   next.toques.length     ? next.toques   : undefined,
-      service:  next.service           || undefined,
+      services: next.services.length    ? next.services  : undefined,
     };
     const result = await fetchRestaurants(opts);
     if (page === 1) {
@@ -116,8 +116,9 @@ export default function RestaurantsContent({
       )
     : restaurants;
 
-  const hasActiveFilters =
-    active.city || active.toques.length || active.cuisines.length || active.styles.length || active.service;
+  const hasActiveFilters = Boolean(
+    active.city || active.toques.length || active.cuisines.length || active.styles.length || active.services.length
+  );
 
   return (
     <div className={styles.blogsPage}>
@@ -227,8 +228,13 @@ export default function RestaurantsContent({
                 {filters.services.map(({ libelle, slug }) => (
                   <li key={slug}>
                     <button
-                      className={`${styles.filterItem} ${active.service === slug ? styles.filterItemActive : ''}`}
-                      onClick={() => handleFilterChange('service', slug)}
+                      className={`${styles.filterItem} ${active.services.includes(slug) ? styles.filterItemActive : ''}`}
+                      onClick={() => {
+                        const next = active.services.includes(slug)
+                          ? active.services.filter((s) => s !== slug)
+                          : [...active.services, slug];
+                        handleFilterChange('services', next);
+                      }}
                     >
                       {libelle}
                     </button>

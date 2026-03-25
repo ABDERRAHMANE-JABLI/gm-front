@@ -40,6 +40,19 @@ import ToqueIcon from '@/public/icons/toque.svg'
  */
 
 
+function descriptionFromNote(note?: string | number): string | undefined {
+  if (note === undefined) return undefined;
+  const n = typeof note === 'string' ? parseFloat(note) : note;
+  if (isNaN(n)) return undefined;
+  if (n >= 10  && n < 11)  return 'Table originale';
+  if (n >= 11  && n < 13)  return 'Table gourmande';
+  if (n >= 13  && n < 15)  return 'Table de chef';
+  if (n >= 15  && n < 17)  return 'Table remarquable';
+  if (n >= 17  && n < 19)  return 'Table de prestige';
+  if (n >= 19  && n <= 20) return 'Table exceptionnelle';
+  return undefined;
+}
+
 type Language = "fr" | "en";
 
 type ToquesProps = {
@@ -53,6 +66,7 @@ type ToquesProps = {
 
 
 export default function Toques({ nbToques, note, description, withDescription=true, tailleSmall=false, lang}: ToquesProps) {
+  const resolvedDescription = description ?? descriptionFromNote(note);
   const { t } = useClientTranslation(lang);
   
   if (nbToques === 0)
@@ -97,7 +111,7 @@ export default function Toques({ nbToques, note, description, withDescription=tr
           {note !== undefined && (
             <div className="note"><div className="text-wrapper">{note}</div><div className="element"></div></div>
           )}
-          {description && <span className="description">{description}</span>}
+          {withDescription && <span className="description">{resolvedDescription}</span>}
         </div>
       </div>
     );

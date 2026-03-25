@@ -54,7 +54,8 @@ function mapRestaurantToCard(r: ApiRestaurant): RestaurantCardProps {
     budget:   r.budgetMin !== undefined && r.budgetMax !== undefined
       ? `${r.budgetMin} - ${r.budgetMax} MAD`
       : undefined,
-    address:  r.city?.cityName,
+    address:      r.city?.cityName,
+    openingHours: r.openingHour ?? [],
   };
 }
 
@@ -67,7 +68,7 @@ export interface FetchRestaurantsOptions {
   toques?:   number[];
   cuisines?: string[];
   styles?:   string[];
-  service?:  string;
+  services?: string[];
 }
 
 
@@ -94,7 +95,7 @@ export async function fetchRestaurants(
     limit: String(limit),
   });
   if (options.city)    params.set('city',    options.city);
-  if (options.service) params.set('service[]', options.service);
+  options.services?.forEach((s) => params.append('service[]', s));
   options.toques?.forEach((t)  => params.append('toques[]',  String(t)));
   options.cuisines?.forEach((c) => params.append('cuisine[]', c));
   options.styles?.forEach((s)   => params.append('style[]',   s));
@@ -107,7 +108,7 @@ export async function fetchRestaurants(
       `${getApiBaseUrl()}/api/restaurants?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 3600 },
+        next:    { revalidate: 300 }, // 5 min — à remplacer par on-demand revalidation en prod
         headers: { Accept: 'application/json' },
       }
     );
@@ -155,7 +156,7 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
       `${getApiBaseUrl()}/api/restaurants/filters`,
       {
         signal:  controller.signal,
-        cache:   'no-store',
+        next:    { revalidate: 300 }, // 5 min — à remplacer par on-demand revalidation en prod
         headers: { Accept: 'application/json' },
       }
     );
