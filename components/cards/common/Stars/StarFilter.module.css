@@ -1,0 +1,41 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 5px 10px;
+  background: #FFD700;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.item:hover {
+  border-color: #1a1a1a;
+}
+
+.itemActive {
+  border-color: #1a1a1a;
+}
+
+.starIcon {
+  font-size: 14px;
+  line-height: 1;
+  color: #1a1a1a;
+}
+
+.selectedLabel {
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

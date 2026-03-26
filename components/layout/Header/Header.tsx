@@ -42,11 +42,7 @@ interface HeaderProps {
 
 function FrenchFlag() {
   return (
-    <svg width="28" height="20" viewBox="0 0 3 2" aria-label="Drapeau français" className={styles.flag}>
-      <rect width="1" height="2" fill="#002395" />
-      <rect x="1" width="1" height="2" fill="#fff" />
-      <rect x="2" width="1" height="2" fill="#ED2939" />
-    </svg>
+    <MoroccoFlag width="28" height="24" />
   );
 }
 

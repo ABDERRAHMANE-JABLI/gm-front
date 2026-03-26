@@ -61,7 +61,7 @@ export default function HotelCard({ lang, Hotel, withHeader}: Props) {
             {/* Contenu */}
             <div className={styles.body}>
                 <div className={styles.cardPaddingContainer}>
-                    <Stars nbStars={Hotel.nbStars} description={Hotel.nbStarsDescription} lang={lang}/>
+                    <Stars nbStars={Hotel.nbStars} isSponsorised={Hotel.isSponsorised} lang={lang}/>
                 </div>
 
                 <div className={styles.cardPaddingContainer}>

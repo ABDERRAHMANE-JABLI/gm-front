@@ -47,7 +47,8 @@ export interface HotelProps {
      * @example "hors classement, hôtel remarquable"
      * @optional
      */
-    nbStarsDescription: string;
+    nbStarsDescription?: string;
+    isSponsorised?: boolean;
     
     /** 
      * Nombre de toques du meilleur restaurant de l'hôtel

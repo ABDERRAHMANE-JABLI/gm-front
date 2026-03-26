@@ -1,5 +1,5 @@
 import Layout from '@/components/layout/Layout/Layout';
-import HotelsPage from '@/page-components/Hotels/List';
+import RiyadsPage from '@/page-components/Riyads/List';
 import { Language } from '@/lib/i18n/types';
 import type { Metadata } from 'next';
 
@@ -7,12 +7,12 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Hôtels - Gault&Millau',
-    description: 'Découvrez les plus beaux hôtels sélectionnés par Gault&Millau Maroc',
+    title: 'Riyads - Gault&Millau',
+    description: 'Découvrez les plus beaux riyads sélectionnés par Gault&Millau Maroc',
   };
 }
 
-export default async function HotelsPageRoute({
+export default async function RiyadsPageRoute({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -22,7 +22,7 @@ export default async function HotelsPageRoute({
 
   return (
     <Layout language={language}>
-      <HotelsPage lang={language} />
+      <RiyadsPage lang={language} />
     </Layout>
   );
 }

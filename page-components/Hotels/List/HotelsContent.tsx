@@ -2,99 +2,88 @@
 
 import { useState } from 'react';
 import styles from '@/styles/listPage.module.css';
-import RestaurantCard from '@/components/cards/restaurantCard';
+import HotelCard from '@/components/cards/hotelCard';
 import SearchIcon from '@/public/icons/search.svg';
-import { RestaurantCardProps } from '@/types/Restaurant';
+import { HotelProps } from '@/types/Hotels';
 import { ApiPagination } from '@/types/api/Article';
-import { ApiRestaurantFilters } from '@/types/api/Restaurant';
-import { fetchRestaurants, FetchRestaurantsOptions } from '@/lib/api/restaurants';
+import { ApiHotelFilters } from '@/types/api/Hotel';
+import { fetchHotels, FetchHotelsOptions } from '@/lib/api/hotels';
 import ToqueFilter from '@/components/cards/common/Toques/ToqueFilter';
+import StarFilter from '@/components/cards/common/Stars/StarFilter';
 
 type Language = 'fr' | 'en';
 
-interface RestaurantsContentProps {
+interface HotelsContentProps {
   lang: Language;
-  initialRestaurants: RestaurantCardProps[];
+  initialHotels: HotelProps[];
   initialPagination: ApiPagination;
-  filters: ApiRestaurantFilters;
+  filters: ApiHotelFilters;
 }
 
 interface ActiveFilters {
   city:     string;
+  stars:    number[];
   toques:   number[];
-  cuisines: string[];
   styles:   string[];
   services: string[];
 }
 
 const EMPTY_FILTERS: ActiveFilters = {
-  city: '', toques: [], cuisines: [], styles: [], services: [],
+  city: '', stars: [], toques: [], styles: [], services: [],
 };
 
-export default function RestaurantsContent({
+export default function HotelsContent({
   lang,
-  initialRestaurants,
+  initialHotels,
   initialPagination,
   filters,
-}: RestaurantsContentProps) {
-  const [restaurants, setRestaurants] = useState<RestaurantCardProps[]>(initialRestaurants);
-  const [pagination, setPagination]   = useState<ApiPagination>(initialPagination);
-  const [loading, setLoading]         = useState(false);
+}: HotelsContentProps) {
+  const [hotels, setHotels]         = useState<HotelProps[]>(initialHotels);
+  const [pagination, setPagination] = useState<ApiPagination>(initialPagination);
+  const [loading, setLoading]       = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [active, setActive]           = useState<ActiveFilters>(EMPTY_FILTERS);
+  const [active, setActive]         = useState<ActiveFilters>(EMPTY_FILTERS);
 
   const hasMore = pagination.page < pagination.total_pages;
 
   async function applyFilters(next: ActiveFilters, page = 1) {
     setLoading(true);
-    const opts: FetchRestaurantsOptions = {
+    const opts: FetchHotelsOptions = {
       page,
       limit:    9,
-      city:     next.city              || undefined,
-      cuisines: next.cuisines.length   ? next.cuisines : undefined,
-      styles:   next.styles.length     ? next.styles   : undefined,
-      toques:   next.toques.length     ? next.toques   : undefined,
-      services: next.services.length    ? next.services  : undefined,
+      city:     next.city             || undefined,
+      stars:    next.stars.length     ? next.stars    : undefined,
+      toques:   next.toques.length    ? next.toques   : undefined,
+      styles:   next.styles.length    ? next.styles   : undefined,
+      services: next.services.length  ? next.services : undefined,
     };
-    const result = await fetchRestaurants(opts);
+    const result = await fetchHotels(opts);
     if (page === 1) {
-      setRestaurants(result.restaurants);
+      setHotels(result.hotels);
     } else {
-      setRestaurants((prev) => [...prev, ...result.restaurants]);
+      setHotels((prev) => [...prev, ...result.hotels]);
     }
     setPagination(result.pagination);
     setLoading(false);
   }
 
-  function handleFilterChange<K extends keyof ActiveFilters>(
-    key: K,
-    value: ActiveFilters[K]
-  ) {
+  function handleFilterChange<K extends keyof ActiveFilters>(key: K, value: ActiveFilters[K]) {
     const next = { ...active, [key]: value };
     setActive(next);
     setSearchQuery('');
     applyFilters(next);
   }
 
-  function toggleToque(toque: number) {
-    const next = active.toques.includes(toque)
-      ? active.toques.filter((t) => t !== toque)
-      : [...active.toques, toque];
-    handleFilterChange('toques', next);
+  function toggleNumber(key: 'stars' | 'toques', val: number) {
+    const arr = active[key];
+    const next = arr.includes(val) ? arr.filter((v) => v !== val) : [...arr, val];
+    handleFilterChange(key, next);
   }
 
-  function toggleCuisine(slug: string) {
-    const next = active.cuisines.includes(slug)
-      ? active.cuisines.filter((c) => c !== slug)
-      : [...active.cuisines, slug];
-    handleFilterChange('cuisines', next);
-  }
-
-  function toggleStyle(slug: string) {
-    const next = active.styles.includes(slug)
-      ? active.styles.filter((s) => s !== slug)
-      : [...active.styles, slug];
-    handleFilterChange('styles', next);
+  function toggleSlug(key: 'styles' | 'services', slug: string) {
+    const arr = active[key];
+    const next = arr.includes(slug) ? arr.filter((s) => s !== slug) : [...arr, slug];
+    handleFilterChange(key, next);
   }
 
   function resetFilters() {
@@ -109,15 +98,15 @@ export default function RestaurantsContent({
   }
 
   const displayed = searchQuery.trim()
-    ? restaurants.filter(
-        (r) =>
-          r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          r.address?.toLowerCase().includes(searchQuery.toLowerCase())
+    ? hotels.filter(
+        (h) =>
+          h.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          h.address?.toLowerCase().includes(searchQuery.toLowerCase())
       )
-    : restaurants;
+    : hotels;
 
   const hasActiveFilters = Boolean(
-    active.city || active.toques.length || active.cuisines.length || active.styles.length || active.services.length
+    active.city || active.stars.length || active.toques.length || active.styles.length || active.services.length
   );
 
   return (
@@ -129,7 +118,7 @@ export default function RestaurantsContent({
           <SearchIcon width={18} height={18} className={styles.searchIcon} />
           <input
             type="search"
-            placeholder="Rechercher un restaurant, une ville..."
+            placeholder="Rechercher un hôtel, une ville..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className={styles.searchInput}
@@ -150,52 +139,25 @@ export default function RestaurantsContent({
           )}
 
           {/* Villes */}
-          {filters.cities.length > 0 && <p className={styles.sidebarTitle}>Ville</p>}
           {filters.cities.length > 0 && (
-            <ul className={styles.filterList}>
-              <li>
-                <button
-                  className={`${styles.filterItem} ${active.city === '' ? styles.filterItemActive : ''}`}
-                  onClick={() => handleFilterChange('city', '')}
-                >
-                  Toutes
-                </button>
-              </li>
-              {filters.cities.map(({ cityName, slug }) => (
-                <li key={slug}>
+            <>
+              <p className={styles.sidebarTitle}>Ville</p>
+              <ul className={styles.filterList}>
+                <li>
                   <button
-                    className={`${styles.filterItem} ${active.city === slug ? styles.filterItemActive : ''}`}
-                    onClick={() => handleFilterChange('city', slug)}
+                    className={`${styles.filterItem} ${active.city === '' ? styles.filterItemActive : ''}`}
+                    onClick={() => handleFilterChange('city', '')}
                   >
-                    {cityName}
+                    Toutes
                   </button>
                 </li>
-              ))}
-            </ul>
-          )}
-
-          {filters.toques.length > 0 && (
-            <>
-              <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Toques</p>
-              <ToqueFilter
-                toques={filters.toques}
-                selected={active.toques}
-                onToggle={toggleToque}
-              />
-            </>
-          )}
-
-          {filters.cuisines.length > 0 && (
-            <>
-              <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Cuisine</p>
-              <ul className={styles.filterList}>
-                {filters.cuisines.map(({ libelle, slug }) => (
+                {filters.cities.map(({ cityName, slug }) => (
                   <li key={slug}>
                     <button
-                      className={`${styles.filterItem} ${active.cuisines.includes(slug) ? styles.filterItemActive : ''}`}
-                      onClick={() => toggleCuisine(slug)}
+                      className={`${styles.filterItem} ${active.city === slug ? styles.filterItemActive : ''}`}
+                      onClick={() => handleFilterChange('city', slug)}
                     >
-                      {libelle}
+                      {cityName}
                     </button>
                   </li>
                 ))}
@@ -203,6 +165,31 @@ export default function RestaurantsContent({
             </>
           )}
 
+          {/* Étoiles */}
+          {filters.stars.length > 0 && (
+            <>
+              <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Étoiles</p>
+              <StarFilter
+                stars={filters.stars}
+                selected={active.stars}
+                onToggle={(s) => toggleNumber('stars', s)}
+              />
+            </>
+          )}
+
+          {/* Toques */}
+          {filters.toques.length > 0 && (
+            <>
+              <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Toques</p>
+              <ToqueFilter
+                toques={filters.toques}
+                selected={active.toques}
+                onToggle={(t) => toggleNumber('toques', t)}
+              />
+            </>
+          )}
+
+          {/* Styles */}
           {filters.styles.length > 0 && (
             <>
               <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Style</p>
@@ -211,7 +198,7 @@ export default function RestaurantsContent({
                   <li key={slug}>
                     <button
                       className={`${styles.filterItem} ${active.styles.includes(slug) ? styles.filterItemActive : ''}`}
-                      onClick={() => toggleStyle(slug)}
+                      onClick={() => toggleSlug('styles', slug)}
                     >
                       {libelle}
                     </button>
@@ -221,6 +208,7 @@ export default function RestaurantsContent({
             </>
           )}
 
+          {/* Services */}
           {filters.services.length > 0 && (
             <>
               <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Services</p>
@@ -229,12 +217,7 @@ export default function RestaurantsContent({
                   <li key={slug}>
                     <button
                       className={`${styles.filterItem} ${active.services.includes(slug) ? styles.filterItemActive : ''}`}
-                      onClick={() => {
-                        const next = active.services.includes(slug)
-                          ? active.services.filter((s) => s !== slug)
-                          : [...active.services, slug];
-                        handleFilterChange('services', next);
-                      }}
+                      onClick={() => toggleSlug('services', slug)}
                     >
                       {libelle}
                     </button>
@@ -249,18 +232,18 @@ export default function RestaurantsContent({
         {/* ── Cards area ── */}
         <div className={styles.cardsArea}>
 
-          {loading && restaurants.length === 0 ? (
+          {loading && hotels.length === 0 ? (
             <p className={styles.loadingText}>Chargement...</p>
           ) : displayed.length === 0 ? (
             <div className={styles.emptyState}>
-              <p className={styles.emptyTitle}>Aucun restaurant trouvé</p>
+              <p className={styles.emptyTitle}>Aucun hôtel trouvé</p>
               <p className={styles.emptyText}>Essayez d&apos;autres critères de recherche.</p>
             </div>
           ) : (
             <>
               <div className={styles.cardsGrid}>
-                {displayed.map((restaurant) => (
-                  <RestaurantCard key={restaurant.slug} lang={lang} restaurant={restaurant} />
+                {displayed.map((hotel) => (
+                  <HotelCard key={hotel.slug} lang={lang} Hotel={hotel} />
                 ))}
               </div>
 

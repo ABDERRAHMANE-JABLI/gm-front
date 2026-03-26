@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import NewsCard from '@/components/cards/NewsCard';
-import styles from './styles.module.css';
+import styles from '@/styles/listPage.module.css';
 import { NewsCardProps } from '@/types/News';
 import { ApiPagination, ApiTheme } from '@/types/api/Article';
 import { fetchArticles } from '@/lib/api/articles';
@@ -57,7 +57,7 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
   }
 
   return (
-    <div className={styles.blogsPage}>
+    <div className={styles.listPage}>
 
       {/* ── Search bar ── */}
       <div className={styles.searchBar}>

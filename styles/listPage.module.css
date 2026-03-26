@@ -1,5 +1,6 @@
-/* ─── Page wrapper ───────────────────────────────────────────────── */
-.blogsPage {
+/* ─── Shared layout for all list pages (Blogs, Restaurants, Hotels, Riyads…) ─── */
+
+.listPage {
   min-height: 100vh;
   background-color: var(--GMI-pagecolor, #fff);
 }
@@ -39,8 +40,7 @@
   background: transparent;
   outline: none;
   font-family: var(--search-box-font-family, "Montserrat", Helvetica);
-  font-size: var(--search-box-font-size, 14px);
-  font-weight: var(--search-box-font-weight, 400);
+  font-size: 14px;
   color: var(--GMI-black, #1a1a1a);
 }
 
@@ -52,7 +52,6 @@
 .body {
   display: flex;
   align-items: flex-start;
-  gap: 0;
   max-width: calc(250px + 1000px + 60px);
   margin: 0 auto;
   padding: 40px var(--main-container-padding, 40px);
@@ -63,27 +62,64 @@
   width: 220px;
   flex-shrink: 0;
   padding-right: 40px;
+  margin-right: 15px;
   position: sticky;
   top: calc(var(--header-height, 150px) + 24px);
+  max-height: calc(100vh - var(--header-height, 150px) - 48px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 transparent;
 }
 
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 2px; }
+
+/* ─── Reset button ───────────────────────────────────────────────── */
+.resetBtn {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 7px 10px;
+  background: transparent;
+  border: 1.5px solid var(--GMI-black, #1a1a1a);
+  font-family: "Montserrat", Helvetica;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--GMI-black, #1a1a1a);
+  transition: background 0.15s, color 0.15s;
+}
+
+.resetBtn:hover {
+  background: var(--GMI-black, #1a1a1a);
+  color: #fff;
+}
+
+/* ─── Sidebar titles ─────────────────────────────────────────────── */
 .sidebarTitle {
   font-family: var(--filter-title-font-family, "Montserrat", Helvetica);
-  font-size: var(--filter-title-font-size, 14px);
-  font-weight: var(--filter-title-font-weight, 700);
+  font-size: 14px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--GMI-black, #1a1a1a);
-  margin-bottom: 16px;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
   border-bottom: 1.5px solid var(--GMI-black, #1a1a1a);
 }
 
+.sidebarTitleGap {
+  margin-top: 24px;
+}
+
+/* ─── Filter list ────────────────────────────────────────────────── */
 .filterList {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .filterItem {
@@ -92,8 +128,8 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 7px 10px;
-  font-family: var(--filter-count-font-family, "Montserrat", Helvetica);
+  padding: 6px 10px;
+  font-family: "Montserrat", Helvetica;
   font-size: 13px;
   font-weight: 400;
   color: #555;
@@ -106,7 +142,7 @@
 }
 
 .filterItemActive {
-  font-weight: var(--filter-label-active-font-weight, 700);
+  font-weight: 700;
   color: var(--GMI-black, #1a1a1a);
   background: #f4f4f4;
 }
@@ -137,13 +173,13 @@
   background: transparent;
   color: var(--GMI-black, #1a1a1a);
   border: 1.5px solid var(--GMI-black, #1a1a1a);
-  font-family: var(--button-label-font-family, "Montserrat", Helvetica);
+  font-family: "Montserrat", Helvetica;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s, color 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,7 +196,7 @@
   cursor: not-allowed;
 }
 
-/* Loading dots */
+/* ─── Loading dots ───────────────────────────────────────────────── */
 .loadingDots {
   display: flex;
   gap: 6px;
@@ -196,7 +232,7 @@
 }
 
 .emptyTitle {
-  font-family: var(--filter-title-font-family, "Montserrat", Helvetica);
+  font-family: "Montserrat", Helvetica;
   font-size: 18px;
   font-weight: 600;
   color: var(--GMI-black, #1a1a1a);
@@ -210,46 +246,15 @@
 
 /* ─── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 1300px) {
-  .body {
-    max-width: 100%;
-  }
-
-  .cardsArea {
-    width: 100%;
-    min-width: 0;
-  }
+  .body { max-width: 100%; }
+  .cardsArea { width: 100%; min-width: 0; }
 }
 
 @media (max-width: 900px) {
-  .body {
-    flex-direction: column;
-    padding: 24px 20px;
-  }
-
-  .sidebar {
-    width: 100%;
-    padding-right: 0;
-    position: static;
-    margin-bottom: 24px;
-  }
-
-  .filterList {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .filterItem {
-    width: auto;
-    border: 1px solid #d0d0d0;
-    padding: 6px 14px;
-  }
-
-  .filterItemActive {
-    border-color: var(--GMI-black, #1a1a1a);
-  }
-
-  .searchBar {
-    padding: 12px 20px;
-  }
+  .body { flex-direction: column; padding: 24px 20px; }
+  .sidebar { width: 100%; padding-right: 0; position: static; margin-bottom: 24px; max-height: none; }
+  .filterList { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .filterItem { width: auto; border: 1px solid #d0d0d0; padding: 5px 12px; }
+  .filterItemActive { border-color: var(--GMI-black, #1a1a1a); }
+  .searchBar { padding: 12px 20px; }
 }

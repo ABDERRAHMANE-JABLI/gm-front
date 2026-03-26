@@ -109,7 +109,7 @@ export default function Toques({ nbToques, note, description, withDescription=tr
         </div>
         <div className="note-and-description">
           {note !== undefined && (
-            <div className="note"><div className="text-wrapper">{note}</div><div className="element"></div></div>
+            <div className="note"><div className="text-wrapper">{note}</div><div className="element"> /20</div></div>
           )}
           {withDescription && <span className="description">{resolvedDescription}</span>}
         </div>
