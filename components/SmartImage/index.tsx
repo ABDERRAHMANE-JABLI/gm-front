@@ -1,4 +1,4 @@
-import React from "react";
+import Image from 'next/image';
 
 interface Props {
     id: string;
@@ -6,76 +6,66 @@ interface Props {
     width?: number;
     height?: number;
     fit?: "cover" | "contain" | "fill";
-    background?: [number, number, number, number]; // tableau RGBA
+    background?: [number, number, number, number];
     lazyload?: boolean;
 }
 
-export const SmartImage = (props: Props) => {
-    const { id, width, height, fit, background, lazyload, alt } = props;
+export const SmartImage = ({ id, width, height, fit, background, lazyload, alt }: Props) => {
+    const altText = alt ?? '';
 
+    // ── Pas d'image ───────────────────────────────────────────────────────────
     if (!id) {
-        throw Error("id not defined.");
+        return (
+            <picture>
+                <img alt={altText} src="/default-image.jpg" className="topImageCard" />
+            </picture>
+        );
     }
 
-    let urlParams = "";
+    // ── URL S3 complète → next/image (optimisation automatique) ───────────────
+    if (id.startsWith('http')) {
+        return (
+            <Image
+                src={id}
+                fill
+                className="topImageCard"
+                alt={altText}
+                loading={lazyload ? 'lazy' : 'eager'}
+                priority={!lazyload}
+                sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 400px"
+                style={{ objectFit: fit ?? 'cover' }}
+            />
+        );
+    }
 
+    // ── Directus : URL avec transforms ────────────────────────────────────────
+    let urlParams = '';
     if (width || height || fit || background) {
         const transform = [
-            "resize",
+            'resize',
             {
-                ...(width ? { width } : {}),
-                ...(height ? { height } : {}),
-                ...(fit ? { fit } : {}),
+                ...(width  ? { width }      : {}),
+                ...(height ? { height }     : {}),
+                ...(fit    ? { fit }        : {}),
                 ...(background ? { background } : {}),
             },
         ];
-        const transforms = encodeURIComponent(JSON.stringify([transform]));
-        urlParams = `?transforms=${transforms}`;
-    }
-
-    // Full URL (e.g. S3) — use directly without Directus transforms
-    if (id.startsWith("http")) {
-        return (
-            <picture>
-                <img
-                    src={id}
-                    className="topImageCard"
-                    alt={alt}
-                    title={alt}
-                    loading={lazyload ? "lazy" : "eager"}
-                    decoding="async"
-                    fetchPriority={lazyload ? "auto" : "high"}
-                />
-            </picture>
-        );
+        urlParams = `?transforms=${encodeURIComponent(JSON.stringify([transform]))}`;
     }
 
     const baseUrl = `${process.env.NEXT_PUBLIC_ASSETS_URL}/assets/${id}`;
 
-    if (id) {
-        return (
-            <picture>
-                <source
-                    srcSet={`${baseUrl}${urlParams}&format=avif`}
-                    type="image/avif"
-                />
-                <img
-                    src={`${baseUrl}${urlParams}&format=webp`}
-                    className="topImageCard"
-                    alt={alt}
-                    title={alt}
-                    loading={lazyload ? "lazy" : "eager"}
-                    decoding="async"
-                    fetchPriority={lazyload ? "auto" : "high"}
-                />
-            </picture>
-        );
-    }
-    else {
-        return (
-            <picture>
-                <img alt={alt} src="/default-image.jpg" className="topImageCard" />
-            </picture>
-        );
-    }
+    return (
+        <picture>
+            <source srcSet={`${baseUrl}${urlParams}&format=avif`} type="image/avif" />
+            <img
+                src={`${baseUrl}${urlParams}&format=webp`}
+                className="topImageCard"
+                alt={altText}
+                loading={lazyload ? 'lazy' : 'eager'}
+                decoding="async"
+                fetchPriority={lazyload ? 'auto' : 'high'}
+            />
+        </picture>
+    );
 };

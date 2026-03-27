@@ -95,7 +95,7 @@ export async function fetchHotels(
       `${getApiBaseUrl()}/api/hotels?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 300 },
+        next:    { revalidate: 3600 },
         headers: { Accept: 'application/json' },
       }
     );

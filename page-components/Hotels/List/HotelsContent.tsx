@@ -7,7 +7,8 @@ import SearchIcon from '@/public/icons/search.svg';
 import { HotelProps } from '@/types/Hotels';
 import { ApiPagination } from '@/types/api/Article';
 import { ApiHotelFilters } from '@/types/api/Hotel';
-import { fetchHotels, FetchHotelsOptions } from '@/lib/api/hotels';
+import type { FetchHotelsOptions } from '@/lib/api/hotels';
+import { loadMoreHotels } from '@/lib/actions/hotels';
 import ToqueFilter from '@/components/cards/common/Toques/ToqueFilter';
 import StarFilter from '@/components/cards/common/Stars/StarFilter';
 
@@ -57,7 +58,7 @@ export default function HotelsContent({
       styles:   next.styles.length    ? next.styles   : undefined,
       services: next.services.length  ? next.services : undefined,
     };
-    const result = await fetchHotels(opts);
+    const result = await loadMoreHotels(opts);
     if (page === 1) {
       setHotels(result.hotels);
     } else {

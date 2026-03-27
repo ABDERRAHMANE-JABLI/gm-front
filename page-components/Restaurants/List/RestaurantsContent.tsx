@@ -7,7 +7,8 @@ import SearchIcon from '@/public/icons/search.svg';
 import { RestaurantCardProps } from '@/types/Restaurant';
 import { ApiPagination } from '@/types/api/Article';
 import { ApiRestaurantFilters } from '@/types/api/Restaurant';
-import { fetchRestaurants, FetchRestaurantsOptions } from '@/lib/api/restaurants';
+import type { FetchRestaurantsOptions } from '@/lib/api/restaurants';
+import { loadMoreRestaurants } from '@/lib/actions/restaurants';
 import ToqueFilter from '@/components/cards/common/Toques/ToqueFilter';
 
 type Language = 'fr' | 'en';
@@ -56,7 +57,7 @@ export default function RestaurantsContent({
       toques:   next.toques.length     ? next.toques   : undefined,
       services: next.services.length    ? next.services  : undefined,
     };
-    const result = await fetchRestaurants(opts);
+    const result = await loadMoreRestaurants(opts);
     if (page === 1) {
       setRestaurants(result.restaurants);
     } else {

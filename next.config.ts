@@ -28,13 +28,16 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'assets.gaultmillau.com',
-        port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: '*.gaultmillau.com',
-        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets-gaultmillau-maroc.s3.eu-west-par.io.cloud.ovh.net',
         pathname: '/**',
       },
     ],

@@ -108,7 +108,7 @@ export async function fetchRestaurants(
       `${getApiBaseUrl()}/api/restaurants?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 300 }, // 5 min — à remplacer par on-demand revalidation en prod
+        next:    { revalidate: 3600 },
         headers: { Accept: 'application/json' },
       }
     );
@@ -156,7 +156,7 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
       `${getApiBaseUrl()}/api/restaurants/filters`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 300 }, // 5 min — à remplacer par on-demand revalidation en prod
+        next:    { revalidate: 3600 },
         headers: { Accept: 'application/json' },
       }
     );

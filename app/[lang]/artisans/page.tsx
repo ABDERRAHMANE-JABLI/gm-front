@@ -1,41 +1,27 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import ArtisansPage from '../../../page-components/Artisans/List';
+import Layout from '@/components/layout/Layout/Layout';
+import ArtisansPage from '@/page-components/Artisans/List';
+import { Language } from '@/lib/i18n/types';
+import type { Metadata } from 'next';
 
-// Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';
 
-interface PageProps {
-  params: Promise<{
-    lang: 'fr' | 'en';
-  }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
-
-  const titles = {
-    fr: 'Recherche d\'artisans - Gault&Millau',
-    en: 'Artisan search - Gault&Millau'
-  };
-
-  const descriptions = {
-    fr: 'Découvrez les meilleurs artisans des métiers de bouche sélectionnés par Gault&Millau. Boulangers, pâtissiers, chocolatiers et plus encore.',
-    en: 'Discover the best food artisans selected by Gault&Millau. Bakers, pastry chefs, chocolatiers and more.'
-  };
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: titles[lang],
-    description: descriptions[lang],
+    title: 'Artisans - Gault&Millau',
+    description: 'Découvrez les meilleurs artisans sélectionnés par Gault&Millau Maroc',
   };
 }
 
-export default async function ArtisansPageRoute({ params }: PageProps) {
+export default async function ArtisansPageRoute({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
 
-  if (!['fr', 'en'].includes(lang)) {
-    notFound();
-  }
-
-  return <ArtisansPage lang={lang} />;
+  return (
+    <Layout language={lang as Language}>
+      <ArtisansPage lang={lang as Language} />
+    </Layout>
+  );
 }

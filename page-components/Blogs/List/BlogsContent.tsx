@@ -5,7 +5,7 @@ import NewsCard from '@/components/cards/NewsCard';
 import styles from '@/styles/listPage.module.css';
 import { NewsCardProps } from '@/types/News';
 import { ApiPagination, ApiTheme } from '@/types/api/Article';
-import { fetchArticles } from '@/lib/api/articles';
+import { loadMoreArticles } from '@/lib/actions/articles';
 import SearchIcon from '@/public/icons/search.svg';
 
 type Language = 'fr' | 'en';
@@ -37,7 +37,7 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
   async function handleThemeChange(theme: string) {
     setSelectedTheme(theme);
     setLoading(true);
-    const result = await fetchArticles({ theme: theme || undefined, page: 1, limit: 9 });
+    const result = await loadMoreArticles({ theme: theme || undefined, page: 1, limit: 9 });
     setArticles(result.articles);
     setPagination(result.pagination);
     setLoading(false);
@@ -46,7 +46,7 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
   async function loadMore() {
     if (loading || !hasMore) return;
     setLoading(true);
-    const result = await fetchArticles({
+    const result = await loadMoreArticles({
       theme: selectedTheme || undefined,
       page:  pagination.page + 1,
       limit: pagination.limit,

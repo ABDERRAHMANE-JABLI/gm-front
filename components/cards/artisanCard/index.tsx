@@ -55,7 +55,7 @@ export default function ArtisanCard({ lang, Artisan, withHeader }: Props) {
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.textUpper}`} title={Artisan.address}>{Artisan.address}</span>
                         </div>
                     )}
-                    {Artisan.otherActivities && (
+                    {Artisan.otherActivities && Artisan.otherActivities?.length > 0 &&(
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.activity")}</span>
                             <span className={`${styles.figmaCaptionValue}`}>{Artisan.otherActivities?.[0]}</span>

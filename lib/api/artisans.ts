@@ -1,6 +1,6 @@
-import { ApiRiyad, ApiRiyadListResponse, ApiRiyadFilters } from '@/types/api/Riyad';
+import { ApiArtisan, ApiArtisanListResponse, ApiArtisanFilters } from '@/types/api/Artisan';
 import { ApiPagination } from '@/types/api/Article';
-import { HotelProps } from '@/types/Hotels';
+import { ArtisanProps } from '@/types/Artisans';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_LIMIT = 50;
@@ -21,78 +21,72 @@ function sanitizeLimit(limit: unknown): number {
   return Number.isFinite(n) && n >= 1 ? Math.min(n, MAX_LIMIT) : 9;
 }
 
-function isValidListResponse(body: unknown): body is ApiRiyadListResponse {
+function isValidListResponse(body: unknown): body is ApiArtisanListResponse {
   return (
     typeof body === 'object' &&
     body !== null &&
     'data' in body &&
-    Array.isArray((body as ApiRiyadListResponse).data) &&
+    Array.isArray((body as ApiArtisanListResponse).data) &&
     'pagination' in body
   );
 }
 
 // ─── Mapping ────────────────────────────────────────────────────────────────
 
-function mapRiyadToCard(h: ApiRiyad): HotelProps {
+function mapArtisanToCard(a: ApiArtisan): ArtisanProps {
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
 
   return {
-    title:              h.name,
-    slug:               h.slug,
-    thumbId:            `${s3}/${h.thumbId}`,
-    isGmSelected:       !h.isSponsorised,
-    isSponsorised:      h.isSponsorised,
-    nbStars:            h.nbrStars,
-    restaurantNbtoques: h.nbrToques,
-    services:           h.services ?? [],
-    address:            h.lieu,
-    budget:             h.budgetMin !== undefined ? `${h.budgetMin} MAD` : undefined,
+    title:           a.title,
+    slug:            a.slug,
+    thumbId:         a.thumbId ? `${s3}/${a.thumbId}` : undefined,
+    isGmSelected:    !a.isSponsorised,
+    primaryActivity: a.mainActivity?.libelle ?? '',
+    otherActivities: a.otherActivities ?? null,
+    services:        a.services,
+    address:         a.lieu,
   };
 }
 
 // ─── Options / Result ────────────────────────────────────────────────────────
 
-export interface FetchRiyadsOptions {
-  page?:     number;
-  limit?:    number;
-  city?:     string;
-  stars?:    number[];
-  toques?:   number[];
-  styles?:   string[];
-  services?: string[];
+export interface FetchArtisansOptions {
+  page?:       number;
+  limit?:      number;
+  city?:       string;
+  activities?: string[];
+  services?:   string[];
 }
 
-export interface FetchRiyadsResult {
-  riyads:     HotelProps[];
+export interface FetchArtisansResult {
+  artisans:   ArtisanProps[];
   pagination: ApiPagination;
 }
 
-const EMPTY_RESULT: FetchRiyadsResult = {
-  riyads:     [],
+const EMPTY_RESULT: FetchArtisansResult = {
+  artisans:   [],
   pagination: { page: 1, limit: 9, total: 0, total_pages: 0 },
 };
 
-// ─── fetchRiyads ─────────────────────────────────────────────────────────────
+// ─── fetchArtisans ───────────────────────────────────────────────────────────
 
-export async function fetchRiyads(
-  options: FetchRiyadsOptions = {}
-): Promise<FetchRiyadsResult> {
+export async function fetchArtisans(
+  options: FetchArtisansOptions = {}
+): Promise<FetchArtisansResult> {
   const page  = sanitizePage(options.page);
   const limit = sanitizeLimit(options.limit);
 
   const params = new URLSearchParams({ page: String(page), limit: String(limit) });
   if (options.city) params.set('city', options.city);
-  options.stars?.forEach((s)    => params.append('stars[]',   String(s)));
-  options.toques?.forEach((t)   => params.append('toques[]',  String(t)));
-  options.styles?.forEach((s)   => params.append('style[]',   s));
-  options.services?.forEach((s) => params.append('service[]', s));
+  options.activities?.forEach((a) => params.append('activity[]', a));
+  options.services?.forEach((s)   => params.append('service[]',  s));
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
   try {
     const res = await fetch(
-      `${getApiBaseUrl()}/api/riyads?${params.toString()}`,
+      `${getApiBaseUrl()}/api/artisans?${params.toString()}`,
       {
         signal:  controller.signal,
         next:    { revalidate: 3600 },
@@ -101,7 +95,7 @@ export async function fetchRiyads(
     );
 
     if (!res.ok) {
-      console.error(`[riyads] API responded with ${res.status}`);
+      console.error(`[artisans] API responded with ${res.status}`);
       return EMPTY_RESULT;
     }
 
@@ -109,7 +103,7 @@ export async function fetchRiyads(
     if (!isValidListResponse(body)) return EMPTY_RESULT;
 
     return {
-      riyads:     body.data.map(mapRiyadToCard),
+      artisans:   body.data.map(mapArtisanToCard),
       pagination: body.pagination,
     };
   } catch {
@@ -119,19 +113,19 @@ export async function fetchRiyads(
   }
 }
 
-// ─── fetchRiyadFilters ───────────────────────────────────────────────────────
+// ─── fetchArtisanFilters ─────────────────────────────────────────────────────
 
-const EMPTY_FILTERS: ApiRiyadFilters = {
-  cities: [], stars: [], toques: [], styles: [], services: [],
+const EMPTY_FILTERS: ApiArtisanFilters = {
+  cities: [], activities: [], services: [],
 };
 
-export async function fetchRiyadFilters(): Promise<ApiRiyadFilters> {
+export async function fetchArtisanFilters(): Promise<ApiArtisanFilters> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
   try {
     const res = await fetch(
-      `${getApiBaseUrl()}/api/riyads/filters`,
+      `${getApiBaseUrl()}/api/artisans/filters`,
       {
         signal:  controller.signal,
         cache:   'no-store',
@@ -144,13 +138,11 @@ export async function fetchRiyadFilters(): Promise<ApiRiyadFilters> {
     const body: unknown = await res.json();
     if (typeof body !== 'object' || body === null) return EMPTY_FILTERS;
 
-    const b = body as Partial<ApiRiyadFilters>;
+    const b = body as Partial<ApiArtisanFilters>;
     return {
-      cities:   Array.isArray(b.cities)   ? b.cities   : [],
-      stars:    Array.isArray(b.stars)    ? b.stars    : [],
-      toques:   Array.isArray(b.toques)   ? b.toques   : [],
-      styles:   Array.isArray(b.styles)   ? b.styles   : [],
-      services: Array.isArray(b.services) ? b.services : [],
+      cities:     Array.isArray(b.cities)     ? b.cities     : [],
+      activities: Array.isArray(b.activities) ? b.activities : [],
+      services:   Array.isArray(b.services)   ? b.services   : [],
     };
   } catch {
     return EMPTY_FILTERS;
