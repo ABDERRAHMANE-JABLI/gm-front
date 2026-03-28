@@ -5,6 +5,37 @@
   background-color: var(--GMI-pagecolor, #fff);
 }
 
+/* ─── Page header (no sidebar pages) ────────────────────────────── */
+.pageHeader {
+  max-width: calc(1000px + 2 * var(--main-container-padding, 40px));
+  margin: 0 auto;
+  padding: 48px var(--main-container-padding, 40px) 24px;
+  border-bottom: 1.5px solid var(--GMI-black, #1a1a1a);
+}
+
+.pageTitle {
+  font-family: var(--card-title-font-family, "Montserrat", Helvetica);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--GMI-black, #1a1a1a);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Centered container (no sidebar) ───────────────────────────── */
+.centeredContainer {
+  max-width: calc(1000px + 2 * var(--main-container-padding, 40px));
+  margin: 0 auto;
+  padding: 40px var(--main-container-padding, 40px);
+}
+
+@media (max-width: 1080px) {
+  .pageHeader,
+  .centeredContainer {
+    max-width: 100%;
+  }
+}
+
 /* ─── Search bar ─────────────────────────────────────────────────── */
 .searchBar {
   width: 100%;

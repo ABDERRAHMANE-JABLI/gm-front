@@ -51,7 +51,10 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
       page:  pagination.page + 1,
       limit: pagination.limit,
     });
-    setArticles((prev) => [...prev, ...result.articles]);
+    setArticles((prev) => {
+      const seen = new Set(prev.map((r) => r.slug));
+      return [...prev, ...result.articles.filter((r) => !seen.has(r.slug))];
+    });
     setPagination(result.pagination);
     setLoading(false);
   }

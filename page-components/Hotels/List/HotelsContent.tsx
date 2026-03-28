@@ -62,7 +62,10 @@ export default function HotelsContent({
     if (page === 1) {
       setHotels(result.hotels);
     } else {
-      setHotels((prev) => [...prev, ...result.hotels]);
+      setHotels((prev) => {
+        const seen = new Set(prev.map((r) => r.slug));
+        return [...prev, ...result.hotels.filter((r) => !seen.has(r.slug))];
+      });
     }
     setPagination(result.pagination);
     setLoading(false);

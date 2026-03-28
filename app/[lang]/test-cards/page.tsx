@@ -43,12 +43,9 @@ import {
   RestaurantCardDatas
 } from "@/FakeData";
 
-import { UtensilsData } from "@/FakeData";
-
 import styles from "./styles.module.css";
 import SvgDemo from "@/components/SvgDemo";
 import HorizontalRecipeCard from "@/components/cards/recipeCard/HorizontalCard";
-import UtensilHorizontalCard from "@/components/cards/utensilCard/HorizontaleCard";
 
 export const metadata: Metadata = {
   title: "Test Cards - Gault&Millau",
@@ -320,13 +317,6 @@ export default async function TestCardsPage({ params }: PageProps) {
             <RecipeCard key={`recipe-${index}`} lang={lang} recipe={recipe} withHeader={true}/>
           ))}
 
-          {UtensilsData.map((ute, index) => (
-             <UtensilCard 
-                key={`utensil-${index}`} 
-                lang={lang} 
-                Utensil={ute} WithHeader={true}
-            />
-          ))}
 
         </div>
       </section>
@@ -450,38 +440,6 @@ export default async function TestCardsPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Utensils */}
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          🍴 Utensils Group
-          <span className={styles.badge}>{UtensilsData.length}</span>
-        </h2>
-        <div className={styles.cardsGrid}>
-          {UtensilsData.map((ute, index) => (
-             <UtensilCard 
-                key={`utensil-${index}`} 
-                lang={lang} 
-                Utensil={ute}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          🍴 Utensils
-          <span className={styles.badge}>{UtensilsData.length}</span>
-        </h2>
-        <div className={styles.cardsGrid}>
-          {UtensilsData.map((ute, index) => (
-             <UtensilHorizontalCard 
-                key={`utensil-${index}`} 
-                lang={lang} 
-                utensil={ute}
-            />
-          ))}
-        </div>
-      </section>
 
 
       {/* Footer */}

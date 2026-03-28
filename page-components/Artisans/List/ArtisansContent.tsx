@@ -54,7 +54,10 @@ export default function ArtisansContent({
     if (page === 1) {
       setArtisans(result.artisans);
     } else {
-      setArtisans((prev) => [...prev, ...result.artisans]);
+      setArtisans((prev) => {
+        const seen = new Set(prev.map((r) => r.slug));
+        return [...prev, ...result.artisans.filter((r) => !seen.has(r.slug))];
+      });
     }
     setPagination(result.pagination);
     setLoading(false);

@@ -61,7 +61,10 @@ export default function RestaurantsContent({
     if (page === 1) {
       setRestaurants(result.restaurants);
     } else {
-      setRestaurants((prev) => [...prev, ...result.restaurants]);
+      setRestaurants((prev) => {
+        const seen = new Set(prev.map((r) => r.slug));
+        return [...prev, ...result.restaurants.filter((r) => !seen.has(r.slug))];
+      });
     }
     setPagination(result.pagination);
     setLoading(false);

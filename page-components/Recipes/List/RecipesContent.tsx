@@ -54,7 +54,10 @@ export default function RecipesContent({
     if (page === 1) {
       setRecipes(result.recipes);
     } else {
-      setRecipes((prev) => [...prev, ...result.recipes]);
+      setRecipes((prev) => {
+        const seen = new Set(prev.map((r) => r.slug));
+        return [...prev, ...result.recipes.filter((r) => !seen.has(r.slug))];
+      });
     }
     setPagination(result.pagination);
     setLoading(false);

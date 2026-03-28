@@ -22,7 +22,6 @@ export { RecipesData } from './RecipesData';
 export type { RecipeProps } from './RecipesData';
 export { PlacesData } from './PlacesData';
 export type { PlaceProps } from './PlacesData';
-export { UtensilsData } from './UtensilsData';
 export {
   ChampagnesData,
   WinesData,
@@ -52,7 +51,6 @@ export const MOCK_STATS = {
   armagnacs: 6,
   calvados: 6,
   rums: 8,
-  utensils: 10,
   get total(): number {
     return Object.values(this).filter(v => typeof v === 'number').reduce((a, b) => a + b, 0);
   }

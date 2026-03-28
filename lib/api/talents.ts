@@ -54,8 +54,8 @@ export interface FetchTalentsOptions {
   page?:    number;
   limit?:   number;
   toques?:  number[];
-  role?:    string;
-  award?:   string;
+  role?:    string[];
+  award?:   string[];
 }
 
 export interface FetchTalentsResult {
@@ -77,9 +77,9 @@ export async function fetchTalents(
   const limit = sanitizeLimit(options.limit);
 
   const params = new URLSearchParams({ page: String(page), limit: String(limit) });
-  options.toques?.forEach((t) => params.append('toque[]', String(t)));
-  if (options.role)  params.set('role',  options.role);
-  if (options.award) params.set('award', options.award);
+  options.toques?.forEach((t) => params.append('toques[]', String(t)));
+  options.role?.forEach((r) => params.append('role[]', r));
+  options.award?.forEach((a) => params.append('award[]', a));
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);

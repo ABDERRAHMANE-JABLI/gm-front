@@ -22,11 +22,11 @@ interface PeoplesContentProps {
 
 interface ActiveFilters {
   toques: number[];
-  role:   string;
-  award:  string;
+  role:   string[];
+  award:  string[];
 }
 
-const EMPTY_FILTERS: ActiveFilters = { toques: [], role: '', award: '' };
+const EMPTY_FILTERS: ActiveFilters = { toques: [], role: [], award: [] };
 
 export default function PeoplesContent({
   lang,
@@ -48,14 +48,17 @@ export default function PeoplesContent({
       page,
       limit:  9,
       toques: next.toques.length ? next.toques : undefined,
-      role:   next.role  || undefined,
-      award:  next.award || undefined,
+      role:   next.role.length ? next.role : undefined,
+      award:  next.award.length ? next.award : undefined,
     };
     const result = await loadMoreTalents(opts);
     if (page === 1) {
       setTalents(result.talents);
     } else {
-      setTalents((prev) => [...prev, ...result.talents]);
+      setTalents((prev) => {
+        const seen = new Set(prev.map((r) => r.slug));
+        return [...prev, ...result.talents.filter((r) => !seen.has(r.slug))];
+      });
     }
     setPagination(result.pagination);
     setLoading(false);
@@ -69,8 +72,17 @@ export default function PeoplesContent({
     applyFilters(next);
   }
 
-  function handleFilterChange(key: 'role' | 'award', value: string) {
-    const next = { ...active, [key]: value };
+  function toggleRole(slug: string) {
+    const arr  = active.role;
+    const next = { ...active, role: arr.includes(slug) ? arr.filter((r) => r !== slug) : [...arr, slug] };
+    setActive(next);
+    setSearchQuery('');
+    applyFilters(next);
+  }
+
+  function toggleAward(slug: string) {
+    const arr  = active.award;
+    const next = { ...active, award: arr.includes(slug) ? arr.filter((a) => a !== slug) : [...arr, slug] };
     setActive(next);
     setSearchQuery('');
     applyFilters(next);
@@ -95,7 +107,7 @@ export default function PeoplesContent({
       )
     : talents;
 
-  const hasActiveFilters = Boolean(active.toques.length || active.role || active.award);
+  const hasActiveFilters = Boolean(active.toques.length || active.role.length || active.award.length);
 
   return (
     <div className={styles.listPage}>
@@ -143,19 +155,11 @@ export default function PeoplesContent({
             <>
               <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Rôle</p>
               <ul className={styles.filterList}>
-                <li>
-                  <button
-                    className={`${styles.filterItem} ${active.role === '' ? styles.filterItemActive : ''}`}
-                    onClick={() => handleFilterChange('role', '')}
-                  >
-                    Tous
-                  </button>
-                </li>
                 {filters.roles.map(({ libelle, slug }) => (
                   <li key={slug}>
                     <button
-                      className={`${styles.filterItem} ${active.role === slug ? styles.filterItemActive : ''}`}
-                      onClick={() => handleFilterChange('role', slug)}
+                      className={`${styles.filterItem} ${active.role.includes(slug) ? styles.filterItemActive : ''}`}
+                      onClick={() => toggleRole(slug)}
                     >
                       {libelle}
                     </button>
@@ -170,19 +174,11 @@ export default function PeoplesContent({
             <>
               <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Distinctions</p>
               <ul className={styles.filterList}>
-                <li>
-                  <button
-                    className={`${styles.filterItem} ${active.award === '' ? styles.filterItemActive : ''}`}
-                    onClick={() => handleFilterChange('award', '')}
-                  >
-                    Toutes
-                  </button>
-                </li>
                 {filters.awards.map(({ libelle, slug }) => (
                   <li key={slug}>
                     <button
-                      className={`${styles.filterItem} ${active.award === slug ? styles.filterItemActive : ''}`}
-                      onClick={() => handleFilterChange('award', slug)}
+                      className={`${styles.filterItem} ${active.award.includes(slug) ? styles.filterItemActive : ''}`}
+                      onClick={() => toggleAward(slug)}
                     >
                       {libelle}
                     </button>

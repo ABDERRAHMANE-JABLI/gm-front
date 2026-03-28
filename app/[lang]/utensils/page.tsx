@@ -1,41 +1,33 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Layout from '@/components/layout/Layout/Layout';
 import UtensilsPage from '@/page-components/UtensilsPage';
+import { Language } from '@/lib/i18n/types';
 
-// Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';
 
 interface PageProps {
-  params: Promise<{
-    lang: 'fr' | 'en';
-  }>;
+  params: Promise<{ lang: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { lang } = await params;
-
-  const titles = {
-    fr: 'Ustensiles de cuisine - Gault&Millau',
-    en: 'Kitchen utensils - Gault&Millau'
-  };
-
-  const descriptions = {
-    fr: 'Découvrez les meilleurs ustensiles et équipements de cuisine professionnels recommandés par Gault&Millau. L\'art culinaire commence par les bons outils.',
-    en: 'Discover the best professional kitchen utensils and equipment recommended by Gault&Millau. Culinary art begins with the right tools.'
-  };
-
   return {
-    title: titles[lang],
-    description: descriptions[lang],
+    title:       lang === 'fr' ? 'Ustensiles - Gault&Millau' : 'Utensils - Gault&Millau',
+    description: lang === 'fr'
+      ? 'Découvrez les collections d\'ustensiles recommandées par Gault&Millau.'
+      : 'Discover utensil collections recommended by Gault&Millau.',
   };
 }
 
 export default async function UtensilsPageRoute({ params }: PageProps) {
   const { lang } = await params;
+  if (!['fr', 'en'].includes(lang)) notFound();
+  const language = lang as Language;
 
-  if (!['fr', 'en'].includes(lang)) {
-    notFound();
-  }
-
-  return <UtensilsPage lang={lang} />;
+  return (
+    <Layout language={language}>
+      <UtensilsPage lang={language} />
+    </Layout>
+  );
 }

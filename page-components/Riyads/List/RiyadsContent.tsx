@@ -62,7 +62,10 @@ export default function RiyadsContent({
     if (page === 1) {
       setRiyads(result.riyads);
     } else {
-      setRiyads((prev) => [...prev, ...result.riyads]);
+      setRiyads((prev) => {
+        const seen = new Set(prev.map((r) => r.slug));
+        return [...prev, ...result.riyads.filter((r) => !seen.has(r.slug))];
+      });
     }
     setPagination(result.pagination);
     setLoading(false);
