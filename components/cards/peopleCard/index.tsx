@@ -46,20 +46,20 @@ export default function PeopleCard({ lang, People, withHeader }: Props) {
 
                 <div className={styles.cardPaddingContainer}>
                     <h3 className={styles.title}>{People.title}</h3>
-                    <span className={styles.subTitle}>{People.activity?.[0]}</span>
+                    <span className={styles.subTitle}>{Array.isArray(People.role) ? People.role[0] : People.role}</span>
                 </div>
                 
                 <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
-                   {People.distinction && (
+                   {!!People.distinction?.length && (
                         <div className={styles.cardDetail}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.distinction")} :</span>
                             <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>{People.distinction.slice(0, 2).join(", ")}</span>
                         </div>
                     )} 
-                    {People.establishmentType && People.establishmentTitle && (
+                    {!!People.chefAt?.length && (
                         <div className={styles.cardDetail}>
-                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{People.establishmentType} :</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-1"]}`}>{People.establishmentTitle}</span>
+                            <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Établissements :</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>{People.chefAt.map(item => item.name).join(", ")}</span>
                         </div>
                     )} 
                 </div>

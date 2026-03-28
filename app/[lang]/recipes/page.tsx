@@ -1,41 +1,27 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import Layout from '@/components/layout/Layout/Layout';
 import RecipesPage from '@/page-components/Recipes/List';
+import { Language } from '@/lib/i18n/types';
+import type { Metadata } from 'next';
 
-// Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';
 
-interface PageProps {
-  params: Promise<{
-    lang: 'fr' | 'en';
-  }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
-
-  const titles = {
-    fr: 'Recherche de recettes - Gault&Millau',
-    en: 'Recipe search - Gault&Millau'
-  };
-
-  const descriptions = {
-    fr: 'Découvrez les meilleures recettes des chefs étoilés et restaurants Gault&Millau. Techniques culinaires et saveurs d\'exception.',
-    en: 'Discover the best recipes from starred chefs and Gault&Millau restaurants. Culinary techniques and exceptional flavors.'
-  };
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: titles[lang],
-    description: descriptions[lang],
+    title: 'Recettes - Gault&Millau',
+    description: 'Découvrez les meilleures recettes des chefs sélectionnés par Gault&Millau Maroc',
   };
 }
 
-export default async function RecipeSearchPageRoute({ params }: PageProps) {
+export default async function RecipesPageRoute({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
 
-  if (!['fr', 'en'].includes(lang)) {
-    notFound();
-  }
-
-  return <RecipesPage lang={lang} />;
+  return (
+    <Layout language={lang as Language}>
+      <RecipesPage lang={lang as Language} />
+    </Layout>
+  );
 }

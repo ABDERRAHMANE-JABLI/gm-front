@@ -26,7 +26,7 @@ export default interface PeopleProps {
      * @description Rôle principal de la personne (affiché en majuscules sous le nom)
      * @example ["CHEF"], ["PÂTISSIER"], ["SOMMELIER", "DIRECTEUR DE SALLE"]
      */
-    activity?: string[]|string;
+    role?: string[]|string;
 
     /** 
      * Nombre de toques
@@ -60,20 +60,6 @@ export default interface PeopleProps {
      */
     distinction?: string[];
 
-    /** 
-     * Établissement principal
-     * @description Nom de l'établissement principal où travaille la personne
-     * @example "La Grenouillère", "Pierre Gimonnet et Fils"
-     * @optional
-     */
-    establishmentTitle?: string;
-
-    /** 
-     * Type d'établissement
-     * @description Type de l'établissement principal
-     * @example "restaurant", "artisan", "hotel", "winery"
-     * @optional
-     */
-    establishmentType?: string;
+    chefAt?: { name: string }[]
 
 }

@@ -1,41 +1,27 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import Layout from '@/components/layout/Layout/Layout';
 import PeoplesPage from '@/page-components/People/List';
+import { Language } from '@/lib/i18n/types';
+import type { Metadata } from 'next';
 
-// Force dynamic rendering (SSR)
 export const dynamic = 'force-dynamic';
 
-interface PageProps {
-  params: Promise<{
-    lang: 'fr' | 'en';
-  }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
-
-  const titles = {
-    fr: 'Recherche de personnalités - Gault&Millau',
-    en: 'People search - Gault&Millau'
-  };
-
-  const descriptions = {
-    fr: 'Découvrez les plus grandes personnalités de la gastronomie : chefs étoilés, critiques culinaires, sommeliers et acteurs de l\'art de vivre.',
-    en: 'Discover the greatest personalities in gastronomy: starred chefs, culinary critics, sommeliers and lifestyle figures.'
-  };
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: titles[lang],
-    description: descriptions[lang],
+    title: 'Talents - Gault&Millau',
+    description: 'Découvrez les chefs et talents sélectionnés par Gault&Millau Maroc',
   };
 }
 
-export default async function PeopleSearchPageRoute({ params }: PageProps) {
+export default async function PeoplesPageRoute({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
 
-  if (!['fr', 'en'].includes(lang)) {
-    notFound();
-  }
-
-  return <PeoplesPage lang={lang} />;
+  return (
+    <Layout language={lang as Language}>
+      <PeoplesPage lang={lang as Language} />
+    </Layout>
+  );
 }

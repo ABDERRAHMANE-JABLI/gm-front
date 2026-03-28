@@ -27,6 +27,7 @@ export interface ApiRestaurant {
   city: ApiCity;
   thumbId: string;
   chef?: ApiChef;
+  lieu?: string;
   nbrToques: number;
   noteGM?: number;
   budgetMin?: number;

@@ -54,7 +54,7 @@ function mapRestaurantToCard(r: ApiRestaurant): RestaurantCardProps {
     budget:   r.budgetMin !== undefined && r.budgetMax !== undefined
       ? `${r.budgetMin} - ${r.budgetMax} MAD`
       : undefined,
-    address:      r.city?.cityName,
+    address:      r.lieu,
     openingHours: r.openingHour ?? [],
   };
 }
