@@ -1,7 +1,8 @@
-import Layout from '@/components/layout/Layout/Layout';
-import ArtisansPage from '@/page-components/Artisans/List';
-import { Language } from '@/lib/i18n/types';
-import type { Metadata } from 'next';
+import Layout from "@/components/layout/Layout/Layout";
+import ArtisansContent from "@/page-components/Artisans/List/ArtisansContent";
+import { fetchArtisans, fetchArtisanFilters } from "@/lib/api/artisans";
+import { Language } from "@/lib/i18n/types";
+import type { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
 
@@ -18,10 +19,21 @@ export default async function ArtisansPageRoute({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  const language = lang as Language;
+
+  const [{ artisans, pagination }, filters] = await Promise.all([
+    fetchArtisans({ page: 1, limit: 9 }),
+    fetchArtisanFilters(),
+  ]);
 
   return (
-    <Layout language={lang as Language}>
-      <ArtisansPage lang={lang as Language} />
+    <Layout language={language}>
+      <ArtisansContent
+        lang={language}
+        initialArtisans={artisans}
+        initialPagination={pagination}
+        filters={filters}
+      />
     </Layout>
   );
 }

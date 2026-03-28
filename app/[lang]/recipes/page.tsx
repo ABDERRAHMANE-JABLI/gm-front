@@ -1,7 +1,8 @@
-import Layout from '@/components/layout/Layout/Layout';
-import RecipesPage from '@/page-components/Recipes/List';
-import { Language } from '@/lib/i18n/types';
-import type { Metadata } from 'next';
+import Layout from "@/components/layout/Layout/Layout";
+import RecipesContent from "@/page-components/Recipes/List/RecipesContent";
+import { fetchRecipes, fetchRecipeFilters } from "@/lib/api/recipes";
+import { Language } from "@/lib/i18n/types";
+import type { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
 
@@ -18,10 +19,21 @@ export default async function RecipesPageRoute({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  const language = lang as Language;
+
+  const [{ recipes, pagination }, filters] = await Promise.all([
+    fetchRecipes({ page: 1, limit: 9 }),
+    fetchRecipeFilters(),
+  ]);
 
   return (
-    <Layout language={lang as Language}>
-      <RecipesPage lang={lang as Language} />
+    <Layout language={language}>
+      <RecipesContent
+        lang={language}
+        initialRecipes={recipes}
+        initialPagination={pagination}
+        filters={filters}
+      />
     </Layout>
   );
 }

@@ -1,7 +1,8 @@
-import Layout from '@/components/layout/Layout/Layout';
-import HotelsPage from '@/page-components/Hotels/List';
-import { Language } from '@/lib/i18n/types';
-import type { Metadata } from 'next';
+import Layout from "@/components/layout/Layout/Layout";
+import HotelsContent from "@/page-components/Hotels/List/HotelsContent";
+import { fetchHotels, fetchHotelFilters } from "@/lib/api/hotels";
+import { Language } from "@/lib/i18n/types";
+import type { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
 
@@ -20,9 +21,19 @@ export default async function HotelsPageRoute({
   const { lang } = await params;
   const language = lang as Language;
 
+  const [{ hotels, pagination }, filters] = await Promise.all([
+    fetchHotels({ page: 1, limit: 9 }),
+    fetchHotelFilters(),
+  ]);
+
   return (
     <Layout language={language}>
-      <HotelsPage lang={language} />
+      <HotelsContent
+        lang={language}
+        initialHotels={hotels}
+        initialPagination={pagination}
+        filters={filters}
+      />
     </Layout>
   );
 }

@@ -1,33 +1,43 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import Layout from '@/components/layout/Layout/Layout';
-import UtensilsPage from '@/page-components/UtensilsPage';
-import { Language } from '@/lib/i18n/types';
+import Layout from "@/components/layout/Layout/Layout";
+import UtensilsContent from "@/page-components/UtensilsPage/UtensilsContent";
+import { fetchUtensils } from "@/lib/api/utensils";
+import { Language } from "@/lib/i18n/types";
+import styles from "@/styles/listPage.module.css";
+import type { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
 
-interface PageProps {
-  params: Promise<{ lang: string }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { lang } = await params;
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title:       lang === 'fr' ? 'Ustensiles - Gault&Millau' : 'Utensils - Gault&Millau',
-    description: lang === 'fr'
-      ? 'Découvrez les collections d\'ustensiles recommandées par Gault&Millau.'
-      : 'Discover utensil collections recommended by Gault&Millau.',
+    title: 'Ustensiles - Gault&Millau',
+    description: 'Découvrez les collections d\'ustensiles recommandées par Gault&Millau.',
   };
 }
 
-export default async function UtensilsPageRoute({ params }: PageProps) {
+export default async function UtensilsPageRoute({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
-  if (!['fr', 'en'].includes(lang)) notFound();
   const language = lang as Language;
+
+  const { utensils, pagination } = await fetchUtensils({ page: 1, limit: 9 });
 
   return (
     <Layout language={language}>
-      <UtensilsPage lang={language} />
+      <div className={styles.listPage}>
+        <header className={styles.pageHeader}>
+          <h1 className={styles.pageTitle}>
+            {language === 'fr' ? 'Nos collections' : 'Our collections'}
+          </h1>
+        </header>
+        <UtensilsContent
+          lang={language}
+          initialUtensils={utensils}
+          initialPagination={pagination}
+        />
+      </div>
     </Layout>
   );
 }
