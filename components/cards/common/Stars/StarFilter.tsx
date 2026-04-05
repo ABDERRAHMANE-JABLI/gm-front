@@ -21,7 +21,7 @@ export default function StarFilter({ stars, selected, onToggle }: StarFilterProp
               onClick={() => onToggle(star)}
               aria-pressed={isActive}
             >
-              {star === 0 ? (
+              {star === -1 ? (
                 <span className={styles.selectedLabel}>Sélectionné</span>
               ) : (
                 <span className={styles.starIcon}>{'★'.repeat(star)}</span>

@@ -1,16 +1,10 @@
+import 'server-only';
 import { ApiArticle, ApiArticleListResponse, ApiArticleFilters, ApiTheme, ApiPagination } from '@/types/api/Article';
 import { NewsCardProps, NewsCardButtonProps, NewsCardButtonKind } from '@/types/News';
+import { getApiBaseUrl, getApiHeaders } from './_config';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_LIMIT = 50;
-
-// ─── Validation ────────────────────────────────────────────────────────────────
-
-function getApiBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) throw new Error('NEXT_PUBLIC_API_URL is not defined');
-  return url;
-}
 
 function sanitizePage(page: unknown): number {
   const n = parseInt(String(page), 10);
@@ -38,39 +32,44 @@ function isValidApiResponse(body: unknown): body is ApiArticleListResponse {
 function buildButtons(article: ApiArticle): NewsCardProps['buttons'] {
   const candidates: NewsCardButtonProps[] = [];
 
-  if (article.restaurant?.slug) {
-    candidates.push({
-      buttonKind: NewsCardButtonKind.RESTAURANT,
-      text_line1: article.restaurant.name ?? article.restaurant.slug,
-      slug: article.restaurant.slug,
-    });
-  }
+  // Priorité : talent → restaurant → hotel → riyad → artisan (max 2)
   if (article.talent?.slug) {
     candidates.push({
       buttonKind: NewsCardButtonKind.PEOPLE,
       text_line1: article.talent.fullName ?? article.talent.slug,
-      slug: article.talent.slug,
+      slug:       article.talent.slug,
+    });
+  }
+  if (article.restaurant?.slug) {
+    candidates.push({
+      buttonKind: NewsCardButtonKind.RESTAURANT,
+      text_line1: article.restaurant.name ?? article.restaurant.slug,
+      text_line2: article.restaurant.lieu,
+      slug:       article.restaurant.slug,
     });
   }
   if (article.hotel?.slug) {
     candidates.push({
       buttonKind: NewsCardButtonKind.HOTEL,
       text_line1: article.hotel.name ?? article.hotel.slug,
-      slug: article.hotel.slug,
+      text_line2: article.hotel.lieu,
+      slug:       article.hotel.slug,
     });
   }
   if (article.riyad?.slug) {
     candidates.push({
       buttonKind: NewsCardButtonKind.RIYAD,
       text_line1: article.riyad.name ?? article.riyad.slug,
-      slug: article.riyad.slug,
+      text_line2: article.riyad.lieu,
+      slug:       article.riyad.slug,
     });
   }
   if (article.artisan?.slug) {
     candidates.push({
       buttonKind: NewsCardButtonKind.ARTISAN,
       text_line1: article.artisan.title ?? article.artisan.slug,
-      slug: article.artisan.slug,
+      text_line2: article.artisan.lieu,
+      slug:       article.artisan.slug,
     });
   }
 
@@ -86,7 +85,7 @@ function mapArticleToCard(article: ApiArticle): NewsCardProps {
     slug: article.slug,
     resume: article.resume,
     thumbId: `${s3BaseUrl}/${article.thumbId}`,
-    theme: article.theme ? [article.theme.libelle] : [],
+    theme: article.theme ?? undefined,
     buttons: buildButtons(article),
   };
 }
@@ -94,9 +93,9 @@ function mapArticleToCard(article: ApiArticle): NewsCardProps {
 // ─── Fetch ─────────────────────────────────────────────────────────────────────
 
 export interface FetchArticlesOptions {
-  page?: number;
-  limit?: number;
-  theme?: string;
+  page?:   number;
+  limit?:  number;
+  themes?: string[];
 }
 
 export interface FetchArticlesResult {
@@ -119,7 +118,7 @@ export async function fetchArticleFilters(): Promise<ApiTheme[]> {
       {
         signal: controller.signal,
         next:   { revalidate: 3600 },
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 
@@ -160,7 +159,7 @@ export async function fetchArticles(options: FetchArticlesOptions = {}): Promise
     page:  String(page),
     limit: String(limit),
   });
-  if (options.theme) params.set('theme[]', options.theme);
+  options.themes?.forEach((t) => params.append('theme[]', t));
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
@@ -171,7 +170,7 @@ export async function fetchArticles(options: FetchArticlesOptions = {}): Promise
       {
         signal: controller.signal,
         next:   { revalidate: 3600 },
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 

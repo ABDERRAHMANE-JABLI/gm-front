@@ -57,33 +57,34 @@ type Language = "fr" | "en";
 
 type ToquesProps = {
   nbToques: number;
+  isSponsorised?: boolean;
   note?: string | number;
   description?: string;
   withDescription? : boolean;
-  tailleSmall? : boolean; // tailleSmall : true ---> Petit toques pour le composant HotelCards
-  lang? : Language; //par defaut "fr"
+  tailleSmall? : boolean;
+  lang? : Language;
 };
 
 
-export default function Toques({ nbToques, note, description, withDescription=true, tailleSmall=false, lang}: ToquesProps) {
+export default function Toques({ nbToques, isSponsorised, note, description, withDescription=true, tailleSmall=false, lang}: ToquesProps) {
   const resolvedDescription = description ?? descriptionFromNote(note);
   const { t } = useClientTranslation(lang);
-  
-  if (nbToques === 0)
+
+  if (isSponsorised)
     return (
-        <div className="notation">
-          <div className={`toques ${tailleSmall ? 'sm' : ''}`}>
-            <div className="toque-wrapper">
-              <span>{t("common.selected")}</span>
-            </div>
-          </div>
-        </div>
+      <div className="notation">
+        <div className={`toques sponsored ${tailleSmall ? 'sm' : ''}`}><div className="toque-wrapper"><span>{t("common.sponsored")}</span></div></div>
+      </div>
     );
 
   if (nbToques === -1)
     return (
       <div className="notation">
-        <div className={`toques sponsored ${tailleSmall ? 'sm' : ''}`}><div className="toque-wrapper"><span>{t("common.sponsored")}</span></div></div>
+        <div className={`toques ${tailleSmall ? 'sm' : ''}`}>
+          <div className="toque-wrapper">
+            <span>{t("common.selected")}</span>
+          </div>
+        </div>
       </div>
     );
 

@@ -1,8 +1,9 @@
 export interface ApiLinkedEntity {
-  name?: string;    // restaurant, hotel, riyad
-  title?: string;   // artisan
-  fullName?: string; // talent
+  name?: string;      // restaurant, hotel, riyad
+  title?: string;     // artisan
+  fullName?: string;  // talent
   slug: string;
+  lieu?: string;      // restaurant, hotel, riyad, artisan
 }
 
 export interface ApiTheme {
@@ -19,7 +20,7 @@ export interface ApiArticle {
   slug: string;
   resume: string;
   thumbId: string;
-  theme: { libelle: string; slug: string } | null;
+  theme: string;
   talent: ApiLinkedEntity | null;
   restaurant: ApiLinkedEntity | null;
   hotel: ApiLinkedEntity | null;

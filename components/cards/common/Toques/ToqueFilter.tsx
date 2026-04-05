@@ -38,7 +38,7 @@ export default function ToqueFilter({ toques, selected, onToggle }: ToqueFilterP
               onClick={() => onToggle(toque)}
               aria-pressed={isActive}
             >
-              {toque === 0 ? (
+              {toque === -1 ? (
                 <span className={styles.selectedLabel}>Sélectionné</span>
               ) : toque === 6 ? (
                 <ToqueRow count={5} isGold={true} />

@@ -30,7 +30,7 @@ export default function HorizontalRestauCard({ lang, restaurant }: Props) {
 
       <div className={styles.rightContent}>
         <div className={styles.divToques}>
-          <Toques nbToques={restaurant.nbToques} description={restaurant.noteDescription} note={restaurant.note} lang={lang}/>
+          <Toques nbToques={restaurant.nbToques} isSponsorised={restaurant.isSponsorised} description={restaurant.noteDescription} note={restaurant.note} lang={lang}/>
         </div>
         
         <div>

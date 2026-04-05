@@ -39,6 +39,7 @@ export interface RestaurantCardProps {
      * @example 4
      */
     nbToques: number;
+    isSponsorised?: boolean;
     
     /** 
      * Note du restaurant

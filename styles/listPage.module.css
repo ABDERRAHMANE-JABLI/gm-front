@@ -36,7 +36,51 @@
   }
 }
 
-/* ─── Search bar ─────────────────────────────────────────────────── */
+/* ─── Search bar (new shared sticky bar) ────────────────────────── */
+.searchBarContainer {
+  position: sticky;
+  top: 145.6px;
+  z-index: 50;
+  background: #fff;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.2);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.searchBarWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.searchBarBox {
+  flex: 1;
+  background: #fff;
+  border: 1px solid rgb(77, 77, 77);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.filterToggleBtn {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+/* ─── Search bar (old - kept for compatibility) ──────────────────── */
 .searchBar {
   width: 100%;
   background: #fff;
@@ -85,7 +129,7 @@
   align-items: flex-start;
   max-width: calc(250px + 1000px + 60px);
   margin: 0 auto;
-  padding: 40px var(--main-container-padding, 40px);
+  padding: 30px var(--main-container-padding, 30px);
 }
 
 /* ─── Sidebar ────────────────────────────────────────────────────── */
@@ -95,8 +139,9 @@
   padding-right: 40px;
   margin-right: 15px;
   position: sticky;
-  top: calc(var(--header-height, 150px) + 24px);
-  max-height: calc(100vh - var(--header-height, 150px) - 48px);
+  top: calc(var(--header-height, 150px) + 30px);
+  align-self: flex-start;
+  max-height: calc(100vh - var(--header-height, 150px) - 60px);
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #d0d0d0 transparent;
@@ -106,27 +151,48 @@
 .sidebar::-webkit-scrollbar-track { background: transparent; }
 .sidebar::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 2px; }
 
-/* ─── Reset button ───────────────────────────────────────────────── */
-.resetBtn {
-  width: 100%;
-  margin-bottom: 16px;
-  padding: 7px 10px;
-  background: transparent;
-  border: 1.5px solid var(--GMI-black, #1a1a1a);
-  font-family: "Montserrat", Helvetica;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: var(--GMI-black, #1a1a1a);
-  transition: background 0.15s, color 0.15s;
+/* ─── Sidebar header (title + reset) ────────────────────────────── */
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.resetBtn:hover {
-  background: var(--GMI-black, #1a1a1a);
-  color: #fff;
+.sidebarHeaderTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Montserrat", Helvetica;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--GMI-black, #1a1a1a);
 }
+
+.resetBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Montserrat", Helvetica;
+  font-size: 12px;
+  font-weight: 600;
+  color: #e05a3a;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  padding: 0;
+}
+
+.resetBtnHidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.resetBtn:hover { opacity: 0.7; }
 
 /* ─── Sidebar titles ─────────────────────────────────────────────── */
 .sidebarTitle {
@@ -151,7 +217,15 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  max-height: 150px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 transparent;
 }
+
+.filterList::-webkit-scrollbar { width: 4px; }
+.filterList::-webkit-scrollbar-track { background: transparent; }
+.filterList::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 2px; }
 
 .filterItem {
   width: 100%;
@@ -284,8 +358,14 @@
 @media (max-width: 900px) {
   .body { flex-direction: column; padding: 24px 20px; }
   .sidebar { width: 100%; padding-right: 0; position: static; margin-bottom: 24px; max-height: none; }
-  .filterList { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .filterList { flex-direction: row; flex-wrap: wrap; gap: 8px; max-height: none; overflow-y: visible; }
   .filterItem { width: auto; border: 1px solid #d0d0d0; padding: 5px 12px; }
   .filterItemActive { border-color: var(--GMI-black, #1a1a1a); }
   .searchBar { padding: 12px 20px; }
+
+  .searchBarContainer { top: 135px; }
+  .searchBarWrapper { width: 100%; padding: 0 16px; }
+  .filterToggleBtn { display: flex; }
+  .sidebarHidden { display: none !important; }
+  .sidebarOpen { display: block !important; }
 }

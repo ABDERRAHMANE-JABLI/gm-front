@@ -1,15 +1,11 @@
+import 'server-only';
+import { getApiBaseUrl, getApiHeaders } from './_config';
 import { ApiArtisan, ApiArtisanListResponse, ApiArtisanFilters } from '@/types/api/Artisan';
 import { ApiPagination } from '@/types/api/Article';
 import { ArtisanProps } from '@/types/Artisans';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_LIMIT = 50;
-
-function getApiBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) throw new Error('NEXT_PUBLIC_API_URL is not defined');
-  return url;
-}
 
 function sanitizePage(page: unknown): number {
   const n = parseInt(String(page), 10);
@@ -78,8 +74,8 @@ export async function fetchArtisans(
 
   const params = new URLSearchParams({ page: String(page), limit: String(limit) });
   if (options.city) params.set('city', options.city);
-  options.activities?.forEach((a) => params.append('activity[]', a));
-  options.services?.forEach((s)   => params.append('service[]',  s));
+  options.activities?.forEach((a) => params.append('activity', a));
+  options.services?.forEach((s)   => params.append('service[]', s));
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
@@ -90,7 +86,7 @@ export async function fetchArtisans(
       {
         signal:  controller.signal,
         next:    { revalidate: 3600 },
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 
@@ -129,7 +125,7 @@ export async function fetchArtisanFilters(): Promise<ApiArtisanFilters> {
       {
         signal:  controller.signal,
         cache:   'no-store',
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 

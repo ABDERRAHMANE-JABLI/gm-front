@@ -1,0 +1,121 @@
+.containerSearch {
+  position: sticky;
+  top: 145.6px;
+  z-index: 50;
+  background: #fff;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.2);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.searchBar {
+  flex: 1;
+  background: #fff;
+  border: 1px solid rgb(77, 77, 77);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.searchInner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: calc(1000px + 2 * var(--main-container-padding, 40px));
+  margin: 0 auto;
+}
+
+.searchIcon {
+  flex-shrink: 0;
+  color: #1a1a1a;
+  width: 22px;
+  height: 22px;
+}
+
+.searchText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.searchLabel {
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1a1a1a;
+  width: 100%;
+  padding: 0;
+}
+
+.searchInput::placeholder {
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+/* ── Filter toggle button (mobile only) ── */
+.filterToggleBtn {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: white;
+  border: 1px solid rgb(255, 255, 255);
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+  .containerSearch {
+    top: 135px;
+  }
+
+  .searchWrapper {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .searchBar {
+    padding: 10px 14px;
+  }
+
+  .filterToggleBtn {
+    display: flex;
+  }
+
+  /* Sidebar cachée par défaut sur mobile */
+  .sidebarHidden {
+    display: none;
+  }
+
+  /* Sidebar visible quand filtersOpen */
+  .sidebarOpen {
+    display: block;
+  }
+}

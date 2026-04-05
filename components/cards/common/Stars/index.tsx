@@ -17,6 +17,7 @@ function descriptionFromStars(n: number): string {
   if (n === 4) return 'Hôtel de Prestige';
   if (n === 3) return 'Hôtel remarquable';
   if (n === 2) return 'Hôtel Confort';
+  if (n === 1) return '';
   return 'Hors-classement';
 }
 
@@ -35,7 +36,7 @@ export default function Stars({ nbStars, description, isSponsorised, lang}: Star
         </div>
     );
 
-  if (nbStars === 0)
+  if (nbStars === -1)
     return (
         <div className="hotelRating" >
           <div className="stars">
@@ -47,7 +48,7 @@ export default function Stars({ nbStars, description, isSponsorised, lang}: Star
         </div>
     );
 
-  if (nbStars > 0 && nbStars <= 5)
+  if (nbStars >= 1 && nbStars <= 5)
     return (
       <div className="hotelRating">
           <div className="stars">

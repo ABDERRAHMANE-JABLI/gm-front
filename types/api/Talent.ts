@@ -14,7 +14,7 @@ export interface ApiTalent {
   thumbId: string | null;
   nbrToques: number | null;
   noteGM: number | null;
-  role: { role: string } | null;
+  role: string | null;
   chefAt: { name: string }[];
   awards: string[];
 }

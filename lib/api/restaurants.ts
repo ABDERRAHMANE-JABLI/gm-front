@@ -1,3 +1,5 @@
+import 'server-only';
+import { getApiBaseUrl, getApiHeaders } from './_config';
 import {
   ApiRestaurant,
   ApiRestaurantListResponse,
@@ -10,12 +12,6 @@ const FETCH_TIMEOUT_MS = 8000;
 const MAX_LIMIT = 50;
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
-
-function getApiBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) throw new Error('NEXT_PUBLIC_API_URL is not defined');
-  return url;
-}
 
 function sanitizePage(page: unknown): number {
   const n = parseInt(String(page), 10);
@@ -47,7 +43,8 @@ function mapRestaurantToCard(r: ApiRestaurant): RestaurantCardProps {
     title:    r.name,
     slug:     r.slug,
     thumbId:  `${s3BaseUrl}/${r.thumbId}`,
-    nbToques: r.isSponsorised ? -1 : r.nbrToques,
+    nbToques:      r.nbrToques,
+    isSponsorised: r.isSponsorised,
     note:     r.noteGM !== undefined ? `${r.noteGM}` : undefined,
     chief:    r.chef?.fullName,
     cuisines: r.cuisines,
@@ -109,7 +106,7 @@ export async function fetchRestaurants(
       {
         signal:  controller.signal,
         next:    { revalidate: 3600 },
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 
@@ -157,7 +154,7 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
       {
         signal:  controller.signal,
         next:    { revalidate: 3600 },
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 

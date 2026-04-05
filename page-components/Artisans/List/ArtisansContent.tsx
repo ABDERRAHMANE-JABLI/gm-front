@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import styles from '@/styles/listPage.module.css';
 import ArtisanCard from '@/components/cards/artisanCard';
-import SearchIcon from '@/public/icons/search.svg';
+import SearchBar from '@/components/SearchBar';
 import { ArtisanProps } from '@/types/Artisans';
 import { ApiPagination } from '@/types/api/Article';
 import { ApiArtisanFilters } from '@/types/api/Artisan';
@@ -37,6 +37,7 @@ export default function ArtisansContent({
   const [pagination, setPagination]   = useState<ApiPagination>(initialPagination);
   const [loading, setLoading]         = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [active, setActive]           = useState<ActiveFilters>(EMPTY_FILTERS);
 
   const hasMore = pagination.page < pagination.total_pages;
@@ -106,16 +107,18 @@ export default function ArtisansContent({
     <div className={styles.listPage}>
 
       {/* ── Search bar ── */}
-      <div className={styles.searchBar}>
-        <div className={styles.searchInner}>
-          <SearchIcon width={18} height={18} className={styles.searchIcon} />
-          <input
-            type="search"
-            placeholder="Rechercher un artisan, une activité, une ville..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.searchInput}
-          />
+      <div className={styles.searchBarContainer}>
+        <div className={styles.searchBarWrapper}>
+          <div className={styles.searchBarBox}>
+            <SearchBar type="artisan" value={searchQuery} onChange={setSearchQuery} />
+          </div>
+          <button
+            className={styles.filterToggleBtn}
+            onClick={() => setFiltersOpen((v) => !v)}
+            aria-label="Filtres"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" color="black"><g fill="none" fillRule="evenodd"><path d="m12.594 23.258-.012.002-.071.035-.02.004-.014-.004-.071-.036q-.016-.004-.024.006l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427q-.004-.016-.016-.018m.264-.113-.014.002-.184.093-.01.01-.003.011.018.43.005.012.008.008.201.092q.019.005.029-.008l.004-.014-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014-.034.614q.001.018.017.024l.015-.002.201-.093.01-.008.003-.011.018-.43-.003-.012-.01-.01z"/><path fill="currentColor" d="M16 15c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2h9.17A3 3 0 0 1 16 15m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2M8 9a3 3 0 0 1 2.762 1.828l.067.172H20a1 1 0 0 1 .117 1.993L20 13h-9.17a3.001 3.001 0 0 1-5.592.172L5.17 13H4a1 1 0 0 1-.117-1.993L4 11h1.17A3 3 0 0 1 8 9m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2m8-8c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 0 1 0-2h9.17A3 3 0 0 1 16 3m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/></g></svg>
+          </button>
         </div>
       </div>
 
@@ -123,13 +126,19 @@ export default function ArtisansContent({
       <div className={styles.body}>
 
         {/* ── Sidebar ── */}
-        <aside className={styles.sidebar}>
+        <aside className={`${styles.sidebar} ${filtersOpen ? styles.sidebarOpen : styles.sidebarHidden}`}>
 
-          {hasActiveFilters && (
-            <button className={styles.resetBtn} onClick={resetFilters}>
-              Réinitialiser
+          <div className={styles.sidebarHeader}>
+            <span className={styles.sidebarHeaderTitle}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" color="black"><g fill="none" fillRule="evenodd"><path d="m12.594 23.258-.012.002-.071.035-.02.004-.014-.004-.071-.036q-.016-.004-.024.006l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427q-.004-.016-.016-.018m.264-.113-.014.002-.184.093-.01.01-.003.011.018.43.005.012.008.008.201.092q.019.005.029-.008l.004-.014-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014-.034.614q.001.018.017.024l.015-.002.201-.093.01-.008.003-.011.018-.43-.003-.012-.01-.01z"/><path fill="currentColor" d="M16 15c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2h9.17A3 3 0 0 1 16 15m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2M8 9a3 3 0 0 1 2.762 1.828l.067.172H20a1 1 0 0 1 .117 1.993L20 13h-9.17a3.001 3.001 0 0 1-5.592.172L5.17 13H4a1 1 0 0 1-.117-1.993L4 11h1.17A3 3 0 0 1 8 9m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2m8-8c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 0 1 0-2h9.17A3 3 0 0 1 16 3m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/></g></svg>
+            </span>
+            <button
+              className={`${styles.resetBtn} ${hasActiveFilters ? '' : styles.resetBtnHidden}`}
+              onClick={resetFilters}
+            >
+              Effacer les filtres ×
             </button>
-          )}
+          </div>
 
           {/* Villes */}
           {filters.cities.length > 0 && (

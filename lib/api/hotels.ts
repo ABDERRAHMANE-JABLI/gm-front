@@ -1,15 +1,11 @@
+import 'server-only';
+import { getApiBaseUrl, getApiHeaders } from './_config';
 import { ApiHotel, ApiHotelListResponse, ApiHotelFilters } from '@/types/api/Hotel';
 import { ApiPagination } from '@/types/api/Article';
 import { HotelProps } from '@/types/Hotels';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_LIMIT = 50;
-
-function getApiBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) throw new Error('NEXT_PUBLIC_API_URL is not defined');
-  return url;
-}
 
 function sanitizePage(page: unknown): number {
   const n = parseInt(String(page), 10);
@@ -96,7 +92,7 @@ export async function fetchHotels(
       {
         signal:  controller.signal,
         next:    { revalidate: 3600 },
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 
@@ -135,7 +131,7 @@ export async function fetchHotelFilters(): Promise<ApiHotelFilters> {
       {
         signal:  controller.signal,
         cache:   'no-store',
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 

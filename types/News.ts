@@ -21,7 +21,7 @@ export interface NewsCardProps {
   title: string;
   resume: string;
   slug: string;
-  theme?: string[];               // on affiche theme?.[0]
+  theme?: string;               // on affiche theme?.[0]
   thumbId: string;                
   buttons: [] | [NewsCardButtonProps] | [NewsCardButtonProps, NewsCardButtonProps];
 }

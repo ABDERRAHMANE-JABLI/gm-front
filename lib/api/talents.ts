@@ -1,15 +1,11 @@
+import 'server-only';
+import { getApiBaseUrl, getApiHeaders } from './_config';
 import { ApiTalent, ApiTalentListResponse, ApiTalentFilters } from '@/types/api/Talent';
 import { ApiPagination } from '@/types/api/Article';
 import PeopleProps from '@/types/Peoples';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_LIMIT = 50;
-
-function getApiBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) throw new Error('NEXT_PUBLIC_API_URL is not defined');
-  return url;
-}
 
 function sanitizePage(page: unknown): number {
   const n = parseInt(String(page), 10);
@@ -42,7 +38,7 @@ function mapTalentToCard(t: ApiTalent): PeopleProps {
     thumbId:            t.thumbId ? `${s3}/${t.thumbId}` : undefined,
     nbToques:           t.nbrToques ?? undefined,
     note:        t.noteGM != null ? String(t.noteGM) : undefined,
-    role:        t.role?.role ? [t.role.role] : undefined,
+    role:        t.role ? [t.role] : undefined,
     distinction: t.awards ?? [],
     chefAt:      t.chefAt ?? [],
   };
@@ -90,7 +86,7 @@ export async function fetchTalents(
       {
         signal:  controller.signal,
         next:    { revalidate: 3600 },
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 
@@ -129,7 +125,7 @@ export async function fetchTalentFilters(): Promise<ApiTalentFilters> {
       {
         signal:  controller.signal,
         next:    { revalidate: 3600 },
-        headers: { Accept: 'application/json' },
+        headers: getApiHeaders(),
       }
     );
 

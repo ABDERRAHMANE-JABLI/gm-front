@@ -1,19 +1,11 @@
+import 'server-only';
+import { getApiBaseUrl, getApiHeaders } from './_config';
 import { ApiUtensil, ApiUtensilListResponse, ApiUtensilItem, ApiUtensilItemListResponse } from '@/types/api/Utensil';
 import { ApiPagination } from '@/types/api/Article';
 import { UtensilProps, UtensilItemProps } from '@/types/Utensils';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_LIMIT = 50;
-
-function getApiBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_API_URL;
-  if (!url) throw new Error('NEXT_PUBLIC_API_URL is not defined');
-  return url;
-}
-
-function getS3(): string {
-  return process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
-}
 
 function sanitizePage(page: unknown): number {
   const n = parseInt(String(page), 10);
@@ -30,10 +22,11 @@ const EMPTY_PAGINATION: ApiPagination = { page: 1, limit: 9, total: 0, total_pag
 // ─── Collections (/api/ustensils) ────────────────────────────────────────────
 
 function mapUtensilToCard(u: ApiUtensil): UtensilProps {
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
   return {
     title:   u.name,
     slug:    u.slug,
-    thumbId: u.thumbId ? `${getS3()}/${u.thumbId}` : undefined,
+    thumbId: u.thumbId ? `${s3}/${u.thumbId}` : undefined,
   };
 }
 
@@ -60,7 +53,7 @@ export async function fetchUtensils(
     const params = new URLSearchParams({ page: String(page), limit: String(limit) });
     const res = await fetch(
       `${getApiBaseUrl()}/api/ustensils?${params}`,
-      { signal: controller.signal, next: { revalidate: 3600 }, headers: { Accept: 'application/json' } }
+      { signal: controller.signal, next: { revalidate: 3600 }, headers: getApiHeaders() }
     );
 
     if (!res.ok) {
@@ -88,10 +81,11 @@ export async function fetchUtensils(
 // ─── Items d'une collection (/api/ustensils/:slug) ────────────────────────────
 
 function mapUtensilItemToCard(u: ApiUtensilItem): UtensilItemProps {
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
   return {
     title:       u.name,
     slug:        u.slug,
-    thumbId:     u.thumbId ? `${getS3()}/${u.thumbId}` : undefined,
+    thumbId:     u.thumbId ? `${s3}/${u.thumbId}` : undefined,
     code:        u.refUstensil,
     description: u.description,
   };
@@ -121,7 +115,7 @@ export async function fetchUtensilItems(
     const params = new URLSearchParams({ page: String(page), limit: String(limit) });
     const res = await fetch(
       `${getApiBaseUrl()}/api/ustensils/${collectionSlug}?${params}`,
-      { signal: controller.signal, next: { revalidate: 3600 }, headers: { Accept: 'application/json' } }
+      { signal: controller.signal, next: { revalidate: 3600 }, headers: getApiHeaders() }
     );
 
     if (!res.ok) {

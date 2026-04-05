@@ -29,7 +29,6 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
     useEffect(() => {
       setIsOpen(isOpenNow(restaurant.openingHours));
     }, [restaurant.openingHours]);
-    const isSponsored = restaurant.nbToques === -1 ? true : false;
 
     return (
         <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
@@ -66,7 +65,7 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
             <div className={styles.body}>
                 
                 <div className={styles.cardPaddingContainer}>
-                    <Toques nbToques={restaurant.nbToques} note={restaurant.note} description={restaurant.noteDescription} lang={lang}/>
+                    <Toques nbToques={restaurant.nbToques} isSponsorised={restaurant.isSponsorised} note={restaurant.note} description={restaurant.noteDescription} lang={lang}/>
                 </div>
 
                 <div className={styles.cardPaddingContainer}>
@@ -90,7 +89,7 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
                     {!!restaurant.cuisines?.length && (
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.cooking")}</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.outlined} ${isSponsored ? styles.bgSponsored : ''}`}>{restaurant.cuisines.join(" | ")}</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.outlined} ${restaurant.isSponsorised ? styles.bgSponsored : ''}`}>{restaurant.cuisines.join(" | ")}</span>
                         </div>
                     )}
                     {restaurant.budget && (

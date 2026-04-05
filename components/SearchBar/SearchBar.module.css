@@ -1,0 +1,46 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchIcon {
+  flex-shrink: 0;
+  color: #1a1a1a;
+  width: 20px;
+  height: 20px;
+}
+
+.searchText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.searchLabel {
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #3c3b3b;
+  width: 100%;
+  padding: 0;
+}
+
+.searchInput::placeholder {
+  color: #1a1a1a;
+  font-weight: 700;
+}
