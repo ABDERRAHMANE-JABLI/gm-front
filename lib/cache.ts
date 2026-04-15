@@ -91,7 +91,7 @@ export interface CacheEntry<T = unknown> {
  * ```
  */
 export class CacheManager {
-  private redis = getRedisClient();
+  private get redis() { return getRedisClient(); }
   private statsKey = 'cache:stats';
   private tagsPrefix = 'cache:tags:';
   private defaultTTL = 3600; // 1 hour

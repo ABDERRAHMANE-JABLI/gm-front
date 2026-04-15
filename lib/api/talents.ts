@@ -85,7 +85,7 @@ export async function fetchTalents(
       `${getApiBaseUrl()}/api/talents?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 3600 },
+        next:    { tags: ['people_list'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -124,7 +124,7 @@ export async function fetchTalentFilters(): Promise<ApiTalentFilters> {
       `${getApiBaseUrl()}/api/talents/filters`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 3600 },
+        next:    { tags: ['people_list', 'people_filters'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );

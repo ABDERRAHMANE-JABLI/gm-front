@@ -25,13 +25,13 @@ export default function PeopleCard({ lang, People, withHeader }: Props) {
 
     return (
         <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
-            <Link href={`/${lang}/People/${People?.slug}`} aria-label={People.title} title={People.title}>
+            <Link href={`/${lang}/peoples/${People?.slug}`} aria-label={People.title} title={People.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
 
             {/* Header pour la page LA PLACE */}
             {withHeader && (
-                <CardHeader title="People" href={`/${lang}/peoples/}`} seeMoreLabel={t("common.see_more")} icon={<PeopleIcon width={28} height={28} />} />
+                <CardHeader title="People" href={`/${lang}/peoples/`} seeMoreLabel={t("common.see_more")} icon={<PeopleIcon width={28} height={28} />} />
             )}
 
             <div className={styles.thumbWrapper}>

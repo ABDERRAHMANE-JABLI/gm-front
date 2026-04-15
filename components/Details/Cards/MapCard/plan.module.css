@@ -5,9 +5,8 @@
   background: var(--GMI-carddefaultbackground);
   border: 1px solid var(--GMI-cardbordercolor);
   overflow: hidden;
-  width: 300px;
-  height: 520px;
-  flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
 }
 
 
@@ -37,9 +36,12 @@
 }
 
 .MapCard .mapImage {
-    height: 340px;
+    height: 300px;
     object-fit: cover;
-    width: 100%
+    width: 100%;
+    display: block;
+    border: none;
+    flex-shrink: 0;
 }
 
 .MapCard>.bodyContent {
@@ -87,17 +89,18 @@
   text-overflow: ellipsis;
   margin-top: 10px;
 }
-.CardButtonLinkText { 
-    position: relative; 
+.CardButtonLinkText {
+    position: relative;
     z-index: 1;
-    font-family: var(--button-label-font-family); 
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--button-label-font-family);
     font-size: var(--button-label-font-size);
     font-style: var(--button-label-font-style);
     font-weight: var(--button-label-font-weight);
-    justify-content: center;
     letter-spacing: var(--button-label-letter-spacing);
-    line-height: var(--button-label-line-height);
-    text-overflow: ellipsis;
+    line-height: 1;
 }
 .CardButtonLink::before {
   content: ""; position: absolute; inset: 0; background: var(--GMI-outlinedyellow);

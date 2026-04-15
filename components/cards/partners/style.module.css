@@ -1,0 +1,260 @@
+.partenaire {
+    width: 1000px;
+    margin: 0 auto;
+    height: 350px;
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+/***************************************************
+ *  LEFT SECTION (wrapper + header + contenu)
+ ***************************************************/
+.leftWrapper {
+    width: 650px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #f4d000;
+    background: #f9f6d9;
+}
+
+/************** HEADER LEFT **************/
+.leftHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #fffdf0;
+    border-bottom: 2px solid #f4d000;
+}
+
+.partenaireLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.ampersand {
+    background: #f4d000;
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/************** BTN VOIR PLUS **************/
+.topBtn {
+  position: relative;
+  padding: 6px 12px;
+  border: 1px solid var(--GMI-cardbordercolor, #000);
+  border-radius: var(--GMI-borderradius, 20px);
+  text-decoration: none;
+  color: var(--GMI-black, #000);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.topBtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--GMI-outlinedyellow, #f4d000);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s ease;
+}
+
+.topBtn:hover::before {
+  transform: scaleX(1);
+}
+
+.left {
+    flex: 1;  /* occupe toute la hauteur libre */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px 40px;
+}
+
+/************** LOGO GAULT&MILLAU **************/
+.leftTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.leftTitle h4{
+  font-size: 40px;
+    font-weight: 900;
+    font-family: 'Lora', sans-serif;
+    color: #000;
+    margin-bottom: 10px;
+}
+.leftTitle p{
+  font-size: 12px;
+    font-weight: 700;
+    font-family: 'Lora', sans-serif;
+    color: #000;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+/***************************************************
+ *  SLIDER
+ ***************************************************/
+.leftSlider {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 40px;
+}
+
+/************** FLÈCHES **************/
+.arrowLeft,
+.arrowRight {
+    position: absolute;
+    background: #f4d000;
+    color: #000;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    border-radius: 50%;
+    opacity: 0.7;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrowLeft {
+    left: 0;
+}
+
+.arrowRight {
+    right: 0;
+}
+
+/************** MARQUEE ANIMATION **************/
+
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  gap: 32px;
+  width: max-content;
+  animation: marqueeScroll 18s linear infinite;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 90px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logoLink:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/***************************************************
+ *  RIGHT SECTION (Devenez Partenaires)
+ ***************************************************/
+.partenaire .right{
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px 0px;
+  border: 2px solid #f4d000;
+  background: #f9f6d9;
+}
+
+.partenaire .right h4 {
+    font-size: 40px;
+    font-weight: 900;
+    font-family: 'Lora', sans-serif;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.partenaire .right .logoGM {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+
+
+.Btn{
+  color: black;
+  background-color: #ffe100;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  width: auto;
+  max-width: 300px;
+  text-align: center;
+  text-transform: capitalize;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.Btn:hover{
+  background-color: rgba(255, 225, 0, 0.65);
+}
+
+@media  screen and (max-width:950px){
+    .partenaire, .leftWrapper{
+    width: 100%;
+  }
+  .left, .partenaire{
+    padding: 10px;
+  }
+  .partenaire .right{
+    display: none;
+  }
+}

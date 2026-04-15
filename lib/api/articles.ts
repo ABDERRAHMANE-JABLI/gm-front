@@ -117,7 +117,7 @@ export async function fetchArticleFilters(): Promise<ApiTheme[]> {
       `${getApiBaseUrl()}/api/articles/filters`,
       {
         signal: controller.signal,
-        next:   { revalidate: 3600 },
+        next:   { tags: ['articles_list', 'articles_filters'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -169,7 +169,7 @@ export async function fetchArticles(options: FetchArticlesOptions = {}): Promise
       `${getApiBaseUrl()}/api/articles?${params.toString()}`,
       {
         signal: controller.signal,
-        next:   { revalidate: 3600 },
+        next:   { tags: ['articles_list'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );

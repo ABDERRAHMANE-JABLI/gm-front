@@ -22,12 +22,16 @@
     "chef":"Chef",
     "cooking":"Cooking",
     "budget":"Budget",
+    "budget_note":"(MAD) indicative price per pers. (exclu drinks)",
+    "budget_hotel":"(MAD) Per night without breakfast",
     "selected":"Selected",
     "sponsored":"Sponsored",
     "gold":"Gault&Millau Academy's Member",
     "service":"Services",
     "activity":"Activity",
-    "distinction":"Awards"
+    "distinction":"Awards",
+    "services":"Services",
+    "styles":"Styles"
   },
   "navigation": {
     "la_place": "The Place",

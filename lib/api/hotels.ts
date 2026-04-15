@@ -1,6 +1,6 @@
 import 'server-only';
 import { getApiBaseUrl, getApiHeaders } from './_config';
-import { ApiHotel, ApiHotelListResponse, ApiHotelFilters } from '@/types/api/Hotel';
+import { ApiHotel, ApiHotelListResponse, ApiHotelFilters, ApiHotelDetail } from '@/types/api/Hotel';
 import { ApiPagination } from '@/types/api/Article';
 import { HotelProps } from '@/types/Hotels';
 
@@ -91,7 +91,7 @@ export async function fetchHotels(
       `${getApiBaseUrl()}/api/hotels?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 3600 },
+        next:    { tags: ['hotels_list'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -130,7 +130,7 @@ export async function fetchHotelFilters(): Promise<ApiHotelFilters> {
       `${getApiBaseUrl()}/api/hotels/filters`,
       {
         signal:  controller.signal,
-        cache:   'no-store',
+        next:    { tags: ['hotels_list', 'hotels_filters'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -150,6 +150,26 @@ export async function fetchHotelFilters(): Promise<ApiHotelFilters> {
     };
   } catch {
     return EMPTY_FILTERS;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+// ─── fetchHotelDetail ───────────────────────────────────────────────────────
+
+export async function fetchHotelDetail(slug: string): Promise<ApiHotelDetail | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(
+      `${getApiBaseUrl()}/api/hotels/${slug}`,
+      { signal: controller.signal, next: { tags: [`hotel_${slug}`], revalidate: 3600 }, headers: getApiHeaders() }
+    );
+    if (!res.ok) return null;
+    return await res.json() as ApiHotelDetail;
+  } catch {
+    return null;
   } finally {
     clearTimeout(timeout);
   }

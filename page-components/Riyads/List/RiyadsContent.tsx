@@ -256,7 +256,7 @@ export default function RiyadsContent({
             <>
               <div className={styles.cardsGrid}>
                 {displayed.map((riyad) => (
-                  <HotelCard key={riyad.slug} lang={lang} Hotel={riyad} />
+                  <HotelCard key={riyad.slug} lang={lang} Hotel={riyad} basePath="riyads" />
                 ))}
               </div>
 

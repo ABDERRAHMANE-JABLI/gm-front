@@ -1,75 +1,112 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import styles from './Footer.module.css';
+import GMLogo from '@/public/icons/GaultMillau.svg';
 
-interface FooterProps {
-  className?: string;
-}
-
-/**
- * Footer component for Gault&Millau website
- */
-const Footer: React.FC<FooterProps> = ({ className = '' }) => {
-  const footerClasses = [styles.footer, className].filter(Boolean).join(' ');
+const Footer: React.FC = () => {
 
   return (
-    <footer className={footerClasses}>
+    <footer className={styles.footer}>
+      <div className={styles.yellowLine}></div>
+
       <div className={styles.container}>
-        <div className={styles.footerContent}>
-          {/* Logo Section */}
-          <div className={styles.footerSection}>
-            <div className={styles.logo}>
-              <span className={styles.logoText}>Gault&Millau</span>
-            </div>
-            <p className={styles.description}>
-              Le guide gastronomique de référence depuis 1972
-            </p>
+
+        <div className={styles.column}>
+          <div className={styles.logoWrapper}>
+            <GMLogo width="180"/>
           </div>
 
-          {/* Navigation Links */}
-          <div className={styles.footerSection}>
-            <h4 className={styles.sectionTitle}>Navigation</h4>
-            <ul className={styles.linkList}>
-              <li><Link href="/fr/restaurants" className={styles.link}>Restaurants</Link></li>
-              <li><Link href="/fr/chefs" className={styles.link}>Chefs</Link></li>
-              <li><Link href="/fr/recettes" className={styles.link}>Recettes</Link></li>
-              <li><Link href="/fr/actualites" className={styles.link}>Actualités</Link></li>
-            </ul>
-          </div>
+          <div className={styles.links}>
+            <Link
+              href="https://www.gaultmillau.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
+              À propos
+            </Link>
 
-          {/* Services */}
-          <div className={styles.footerSection}>
-            <h4 className={styles.sectionTitle}>Services</h4>
-            <ul className={styles.linkList}>
-              <li><Link href="/fr/guide" className={styles.link}>Guide Gault&Millau</Link></li>
-              <li><Link href="/fr/abonnement" className={styles.link}>Abonnement</Link></li>
-              <li><Link href="/fr/partenaires" className={styles.link}>Partenaires</Link></li>
-              <li><Link href="/fr/contact" className={styles.link}>Contact</Link></li>
-            </ul>
-          </div>
+            <Link
+              href="/Infos/conditions-generales-de-vente"
+              className={styles.link}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Conditions Générales de Vente
+            </Link>
 
-          {/* Legal */}
-          <div className={styles.footerSection}>
-            <h4 className={styles.sectionTitle}>Informations</h4>
-            <ul className={styles.linkList}>
-              <li><Link href="/fr/mentions-legales" className={styles.link}>Mentions légales</Link></li>
-              <li><Link href="/fr/politique-confidentialite" className={styles.link}>Politique de confidentialité</Link></li>
-              <li><Link href="/fr/cookies" className={styles.link}>Cookies</Link></li>
-              <li><Link href="/fr/conditions-utilisation" className={styles.link}>Conditions d&apos;utilisation</Link></li>
-            </ul>
+            <Link
+              href="/Infos/politique-de-confidentialite"
+              className={styles.link}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Politique de confidentialité
+            </Link>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className={styles.bottomBar}>
-          <p className={styles.copyright}>
-            © 2024 Gault&Millau. Tous droits réservés.
+        <div className={styles.column}>
+          <h4>Notre sélection</h4>
+          <Link
+            href="/toques"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Toques
+          </Link>
+          <Link
+            href="/hospitalite"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Hospitalité
+          </Link>
+          <Link
+            href="/guide"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Le Guide
+          </Link>
+          <Link
+            href="/kit-media"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Kit Média
+          </Link>
+        </div>
+
+        <div className={styles.column}>
+          <h4>Contact</h4>
+          <address>
+            81 BD Moulay Hassan I,<br />
+            6<sup>e</sup> étage,<br />
+            Casablanca, Maroc
+          </address>
+
+          <Link
+            href="/contact"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Contact
+          </Link>
+
+          <a href="tel:+212664082188">Appeler : (+212) 6 64 08 21 88</a>
+        </div>
+
+        <div className={styles.column}>
+          <h4>Le Kit Média</h4>
+          <a
+            href="/media/KIT_MEDIA_GAULTMILLAU_MA.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ouvrir le Kit Média (PDF)
+          </a>
+
+          <p className={styles.copy}>
+            Gault&Millau Maroc © 2025
+            <br />
+            Tous droits réservés
           </p>
-          <div className={styles.social}>
-            <Link href="#" className={styles.socialLink}>Facebook</Link>
-            <Link href="#" className={styles.socialLink}>Twitter</Link>
-            <Link href="#" className={styles.socialLink}>Instagram</Link>
-          </div>
         </div>
       </div>
     </footer>

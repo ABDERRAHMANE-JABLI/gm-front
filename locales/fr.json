@@ -22,12 +22,16 @@
     "chef":"Chef",
     "cooking":"Cuisine",
     "budget":"Budget",
+    "budget_note":"(MAD) à titre indicatif, par pers. (hors boissons)",
+    "budget_hotel":"(MAD) Par nuit sans petit déjeuner",
     "selected":"Sélectionné",
     "sponsored":"Sponsorisé",
     "gold":"Membre de L'Académie Gault&Millau",
     "service":"Truc en +",
     "activity":"Activité",
-    "distinction":"Distinction"
+    "distinction":"Distinction",
+    "services":"Truc en +",
+    "styles":"Styles"
   },
   "navigation": {
     "la_place": "La Place",

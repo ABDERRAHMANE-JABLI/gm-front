@@ -1,42 +1,38 @@
+import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
+import Layout from '@/components/layout/Layout/Layout'
 import HotelDetailPage from '@/page-components/Hotels/Detail'
+import { fetchHotelDetail } from '@/lib/api/hotels'
+import { fetchPartners } from '@/lib/api/partners'
 import { Language } from '@/lib/types'
-
-// Force dynamic rendering
-export const dynamic = 'force-dynamic'
 
 interface Props {
   params: Promise<{ lang: Language; slug: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { lang, slug } = await params
-  
-  const hotelName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
-  
-  const titles = {
-    fr: `${hotelName} | Hôtel Gault&Millau`,
-    en: `${hotelName} | Gault&Millau Hotel`
-  }
-  
-  const descriptions = {
-    fr: `Découvrez ${hotelName}, hôtel sélectionné par Gault&Millau. Excellence hôtelière, gastronomie et art de vivre à la française.`,
-    en: `Discover ${hotelName}, hotel selected by Gault&Millau. Hotel excellence, gastronomy and French art of living.`
-  }
+  const { slug } = await params
+  const hotel = await fetchHotelDetail(slug)
+  const name = hotel?.name ?? slug.replace(/-/g, ' ')
 
   return {
-    title: titles[lang] || titles.fr,
-    description: descriptions[lang] || descriptions.fr,
-    openGraph: {
-      title: titles[lang] || titles.fr,
-      description: descriptions[lang] || descriptions.fr,
-      type: 'website',
-    },
+    title: `${name} | Gault&Millau`,
+    description: hotel?.avisGM ?? `Découvrez ${name}, hôtel sélectionné par Gault&Millau.`,
   }
 }
 
 export default async function Page({ params }: Props) {
   const { lang, slug } = await params
-  
-  return <HotelDetailPage lang={lang} slug={slug} />
+  const [hotel, partners] = await Promise.all([
+    fetchHotelDetail(slug),
+    fetchPartners(),
+  ])
+
+  if (!hotel) notFound()
+
+  return (
+    <Layout language={lang}>
+      <HotelDetailPage lang={lang} hotel={hotel} partners={partners} />
+    </Layout>
+  )
 }

@@ -8,27 +8,26 @@ import Stars from '@/components/cards/common/Stars'
 import RowDetails from '@/components/Details/RowDetails'
 import MapCard from '@/components/Details/Cards/MapCard'
 import { SmartImage } from '@/components/SmartImage'
-import { ApiHotelDetail } from '@/types/api/Hotel'
+import { ApiRiyadDetail } from '@/types/api/Riyad'
 import { Language } from '@/lib/types'
-import { ApiPartner } from '@/types/api/Partner'
-import PartenairesSection from '@/components/cards/partners'
-import HotelIcon from '@/public/icons/menu/hotel.svg'
+import RiyadIcon from '@/public/icons/menu/winery.svg'
 import RestaurantIcon from '@/public/icons/menu/restaurant.svg'
 import HorizontalRestauCard from '@/components/cards/restaurantCard/HorizontalCard'
-import { useClientTranslation } from '@/lib/i18n/client'
+import PartenairesSection from '@/components/cards/partners'
+import { ApiPartner } from '@/types/api/Partner'
 
-export interface HotelDetailPageProps {
+export interface RiyadDetailPageProps {
   lang: Language;
-  hotel: ApiHotelDetail;
+  riyad: ApiRiyadDetail;
   partners?: ApiPartner[];
 }
 
-export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDetailPageProps) {
+export default function RiyadDetailPage({ lang, riyad, partners = [] }: RiyadDetailPageProps) {
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
   const [avisExpanded, setAvisExpanded] = useState(false);
   const [avisTruncated, setAvisTruncated] = useState(false);
   const avisTextRef = useRef<HTMLParagraphElement>(null);
-  const { t } = useClientTranslation(lang);
+
   useEffect(() => {
     const el = avisTextRef.current;
     if (!el) return;
@@ -36,31 +35,31 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
       setAvisTruncated(el.scrollHeight > el.clientHeight + 2);
     }, 50);
     return () => clearTimeout(timer);
-  }, [hotel.avisGM]);
+  }, [riyad.avisGM]);
 
-  const address = [hotel.adresse, hotel.city?.cityName].filter(Boolean).join(', ');
+  const address = [riyad.adresse, riyad.city?.cityName].filter(Boolean).join(', ');
 
-  const budget = hotel.budgetMin != null
-    ? `${hotel.budgetMin}${hotel.budgetMax != null ? ` – ${hotel.budgetMax}` : ''} MAD`
+  const budget = riyad.budgetMin != null
+    ? `${riyad.budgetMin} MAD`
     : undefined;
 
   const links = {
-    phone:     hotel.tel      ?? undefined,
-    siteWeb:   hotel.website  ?? undefined,
-    instagram: hotel.instagram ?? undefined,
+    phone:     riyad.tel       ?? undefined,
+    siteWeb:   riyad.website   ?? undefined,
+    instagram: riyad.instagram ?? undefined,
   };
 
   const allImages = [
-    hotel.thumbId ? `${s3}/${hotel.thumbId}` : null,
-    ...hotel.imagesSecondaire.map((img) => `${s3}/${img}`),
+    riyad.thumbId ? `${s3}/${riyad.thumbId}` : null,
+    ...riyad.imagesSecondaire.map((img) => `${s3}/${img}`),
   ].filter(Boolean) as string[];
 
   const triptychImages = allImages.map((id) => ({ id }));
 
-  const lat = hotel.latitude  ? parseFloat(hotel.latitude)  : undefined;
-  const lng = hotel.longitude ? parseFloat(hotel.longitude) : undefined;
+  const lat = riyad.latitude  ? parseFloat(riyad.latitude)  : undefined;
+  const lng = riyad.longitude ? parseFloat(riyad.longitude) : undefined;
 
-  const year = new Date(hotel.createdAt ?? Date.now()).getFullYear();
+  const year = new Date(riyad.createdAt ?? Date.now()).getFullYear();
 
   return (
     <div className={styles.restaurantDetailPage}>
@@ -68,8 +67,8 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
 
         {/* Header */}
         <header>
-          <HeaderPage title={hotel.name} subTitle={address}>
-            <Stars nbStars={hotel.nbrStars} isSponsorised={hotel.isSponsorised} lang={lang} />
+          <HeaderPage title={riyad.name} subTitle={address} reservationLink={riyad.reservationLink}>
+            <Stars nbStars={riyad.nbrStars} isSponsorised={riyad.isSponsorised} lang={lang} />
           </HeaderPage>
         </header>
 
@@ -77,35 +76,41 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
         {triptychImages.length === 1 && (
           <section className={styles.sectionTriptych}>
             <div className={styles.singleImage}>
-              <SmartImage id={triptychImages[0].id} alt={hotel.name} fit="cover" />
+              <SmartImage id={triptychImages[0].id} alt={riyad.name} fit="cover" />
             </div>
           </section>
         )}
         {triptychImages.length > 1 && (
           <section className={styles.sectionTriptych}>
-            <Triptych images={triptychImages} title={hotel.name} />
+            <Triptych images={triptychImages} title={riyad.name} />
           </section>
         )}
 
         {/* Row Details */}
         <section className={styles.sectionTriptych}>
-          <RowDetails links={links} budget={budget} budgetDescription={t('common.budget_hotel')}>
-            {hotel.styles.length > 0 && (
+          <RowDetails links={links} budget={budget} budgetDescription="Par nuit sans petit-déjeuner">
+            {riyad.budgetMin != null && (
+              <div className="cardDetailHor">
+                <span className="figmaCaption ellipsis">Budget min</span>
+                <span className="figmaCaptionValue ellipsis">{riyad.budgetMin} MAD / nuit</span>
+              </div>
+            )}
+            {riyad.styles.length > 0 && (
               <div className="cardDetailHor">
                 <span className="figmaCaption ellipsis">Style</span>
-                <span className="figmaCaptionValue ellipsis">{hotel.styles.join(' | ')}</span>
+                <span className="figmaCaptionValue ellipsis">{riyad.styles.join(' | ')}</span>
               </div>
             )}
-            {hotel.services.length > 0 && (
+            {riyad.services.length > 0 && (
               <div className="cardDetailHor">
                 <span className="figmaCaption ellipsis">Services</span>
-                <span className="figmaCaptionValue ellipsis">{hotel.services.join(', ')}</span>
+                <span className="figmaCaptionValue ellipsis">{riyad.services.join(', ')}</span>
               </div>
             )}
-            {hotel.restaurant && (
+            {riyad.restaurant && (
               <div className="cardDetailHor">
                 <span className="figmaCaption ellipsis">Restaurant</span>
-                <span className="figmaCaptionValue ellipsis">{hotel.restaurant.name}</span>
+                <span className="figmaCaptionValue ellipsis">{riyad.restaurant.name}</span>
               </div>
             )}
           </RowDetails>
@@ -115,17 +120,17 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
         <section className={`${styles.cardsRow} ${avisExpanded ? styles.cardsRowExpanded : ''}`}>
 
           {/* Avis GM */}
-          {(hotel.avisGM) && (
+          {riyad.avisGM && (
             <div className={avisExpanded ? styles.avisCardFull : styles.avisCardWide}>
               <div className={styles.avisHeader}>
-                <span className={styles.avisIcon}><HotelIcon width={40} height={40} /></span>
+                <span className={styles.avisIcon}><RiyadIcon width={40} height={40} /></span>
                 <div>
                   <p className={styles.avisTitle}>L'avis de Gault&Millau</p>
                   <p className={styles.avisYear}>{year}</p>
                 </div>
               </div>
               <p ref={avisTextRef} className={`${styles.avisText} ${avisExpanded ? styles.avisTextExpanded : ''}`}>
-                {hotel.avisGM}
+                {riyad.avisGM}
               </p>
               {(avisTruncated || avisExpanded) && (
                 <button className={styles.CardButtonLink} onClick={() => setAvisExpanded((v) => !v)}>
@@ -138,29 +143,34 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
           {/* Plan */}
           {lat != null && lng != null && (
             <div className={styles.mapWrapper}>
-              <MapCard address={address} latitude={lat} longitude={lng} />
+              <MapCard
+                address={address}
+                latitude={lat}
+                longitude={lng}
+                mapsIframe={riyad.mapsIframe}
+              />
             </div>
           )}
 
         </section>
 
-        {/* Restaurant de l'hôtel */}
-        {hotel.restaurant && (() => {
-          const r = hotel.restaurant!;
+        {/* Restaurant du riyad */}
+        {riyad.restaurant && (() => {
+          const r = riyad.restaurant!;
           const restoBudget = r.budgetMin != null && r.budgetMax != null
             ? `${r.budgetMin} – ${r.budgetMax} MAD`
             : r.budgetMin != null ? `${r.budgetMin} MAD` : undefined;
 
           const restoProps = {
-            title:           r.name,
-            slug:            r.slug,
-            thumbId:         r.thumbId ? `${s3}/${r.thumbId}` : undefined,
-            nbToques:        r.nbrToques,
-            isSponsorised:   r.isSponsorised,
-            note:            r.noteGM != null ? String(r.noteGM) : undefined,
-            cuisines:        r.cuisines,
-            chief:           r.chef ?? undefined,
-            budget:          restoBudget,
+            title:         r.name,
+            slug:          r.slug,
+            thumbId:       r.thumbId ? `${s3}/${r.thumbId}` : undefined,
+            nbToques:      r.nbrToques,
+            isSponsorised: r.isSponsorised,
+            note:          r.noteGM != null ? String(r.noteGM) : undefined,
+            cuisines:      r.cuisines,
+            chief:         r.chef ?? undefined,
+            budget:        restoBudget,
           };
 
           return (
@@ -169,7 +179,7 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
                 <span className={styles.avisIcon}>
                   <RestaurantIcon width={28} height={28} />
                 </span>
-                <p className={styles.avisTitle}>Découvrez le restaurant de l'hôtel</p>
+                <p className={styles.avisTitle}>Découvrez le restaurant du riyad</p>
               </div>
               <HorizontalRestauCard lang={lang} restaurant={restoProps} />
             </section>

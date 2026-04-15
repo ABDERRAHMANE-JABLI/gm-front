@@ -1,6 +1,6 @@
 import 'server-only';
 import { getApiBaseUrl, getApiHeaders } from './_config';
-import { ApiRiyad, ApiRiyadListResponse, ApiRiyadFilters } from '@/types/api/Riyad';
+import { ApiRiyad, ApiRiyadListResponse, ApiRiyadFilters, ApiRiyadDetail } from '@/types/api/Riyad';
 import { ApiPagination } from '@/types/api/Article';
 import { HotelProps } from '@/types/Hotels';
 
@@ -91,7 +91,7 @@ export async function fetchRiyads(
       `${getApiBaseUrl()}/api/riyads?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 3600 },
+        next:    { tags: ['riyads_list'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -130,7 +130,7 @@ export async function fetchRiyadFilters(): Promise<ApiRiyadFilters> {
       `${getApiBaseUrl()}/api/riyads/filters`,
       {
         signal:  controller.signal,
-        cache:   'no-store',
+        next:    { tags: ['riyads_list', 'riyads_filters'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -150,6 +150,26 @@ export async function fetchRiyadFilters(): Promise<ApiRiyadFilters> {
     };
   } catch {
     return EMPTY_FILTERS;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+// ─── fetchRiyadDetail ────────────────────────────────────────────────────────
+
+export async function fetchRiyadDetail(slug: string): Promise<ApiRiyadDetail | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(
+      `${getApiBaseUrl()}/api/riyads/${slug}`,
+      { signal: controller.signal, next: { tags: [`riyad_${slug}`], revalidate: 3600 }, headers: getApiHeaders() }
+    );
+    if (!res.ok) return null;
+    return await res.json() as ApiRiyadDetail;
+  } catch {
+    return null;
   } finally {
     clearTimeout(timeout);
   }

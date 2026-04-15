@@ -16,9 +16,10 @@ type Props = {
     lang: Language;
     Hotel: HotelProps;
     withHeader?: boolean;
+    basePath?: string;
 };
 
-export default function HotelCard({ lang, Hotel, withHeader}: Props) {
+export default function HotelCard({ lang, Hotel, withHeader, basePath = 'hotels' }: Props) {
 
     const { t } = useClientTranslation(lang);
     const imageId = Hotel?.thumbId ?? "";
@@ -26,13 +27,13 @@ export default function HotelCard({ lang, Hotel, withHeader}: Props) {
 
     return (
         <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
-            <Link href={`/${lang}/hotels/${Hotel?.slug}`} aria-label={Hotel.title} title={Hotel.title}>
+            <Link href={`/${lang}/${basePath}/${Hotel?.slug}`} aria-label={Hotel.title} title={Hotel.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
             
             {/* Header pour la page LA PLACE */}
             {withHeader && (
-                <CardHeader title="Hotel" href={`/${lang}/hotels/`} seeMoreLabel={t("common.see_more")} icon={<HotelIcon width={28} height={28} />} />
+                <CardHeader title="Hotel" href={`/${lang}/${basePath}/`} seeMoreLabel={t("common.see_more")} icon={<HotelIcon width={28} height={28} />} />
             )}
 
             <div className={styles.thumbWrapper}>

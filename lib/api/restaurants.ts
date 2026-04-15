@@ -4,6 +4,7 @@ import {
   ApiRestaurant,
   ApiRestaurantListResponse,
   ApiRestaurantFilters,
+  ApiRestaurantDetail,
 } from '@/types/api/Restaurant';
 import { ApiPagination } from '@/types/api/Article';
 import { RestaurantCardProps } from '@/types/Restaurant';
@@ -105,7 +106,7 @@ export async function fetchRestaurants(
       `${getApiBaseUrl()}/api/restaurants?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 3600 },
+        next:    { tags: ['restaurants_list'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -153,7 +154,7 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
       `${getApiBaseUrl()}/api/restaurants/filters`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 3600 },
+        next:    { tags: ['restaurants_list', 'restaurants_filters'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -185,6 +186,40 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
       console.error('[restaurants/filters] Fetch error:', err);
     }
     return EMPTY_FILTERS;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+// ─── fetchRestaurantDetail ──────────────────────────────────────────────────
+
+export async function fetchRestaurantDetail(slug: string): Promise<ApiRestaurantDetail | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(
+      `${getApiBaseUrl()}/api/restaurants/${slug}`,
+      {
+        signal:  controller.signal,
+        next:    { tags: [`restaurant_${slug}`], revalidate: 3600 },
+        headers: getApiHeaders(),
+      }
+    );
+
+    if (!res.ok) {
+      console.error(`[restaurants/detail] API responded with ${res.status}`);
+      return null;
+    }
+
+    return await res.json() as ApiRestaurantDetail;
+  } catch (err) {
+    if (err instanceof Error && err.name === 'AbortError') {
+      console.error('[restaurants/detail] Request timed out');
+    } else {
+      console.error('[restaurants/detail] Fetch error:', err);
+    }
+    return null;
   } finally {
     clearTimeout(timeout);
   }

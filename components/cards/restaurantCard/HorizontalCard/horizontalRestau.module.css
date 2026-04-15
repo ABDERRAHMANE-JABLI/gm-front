@@ -24,11 +24,12 @@
 
 .cardkind-horizontal-empty>.thumbnail-wrapper {
     aspect-ratio: 3/2;
-    flex: 0 0 auto;
+    flex: 0 0 400px;
     max-width: 400px;
     min-width: 400px;
     object-fit: cover;
-    overflow: hidden
+    overflow: hidden;
+    position: relative;
 }
 
 .cardkind-horizontal-empty>.thumbnail-wrapper .thumbnail-frame {
@@ -363,9 +364,9 @@
   }
 
   .cardkind-horizontal-empty {
-    flex-direction: column; 
-    width: 300px;
-    height: 480px;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
   }
 
   .cardkind-horizontal-blog > .rightContent > .horizontal-container {
@@ -409,51 +410,44 @@
 
 
   .cardkind-horizontal-empty > .thumbnail-wrapper {
-    width: 300px;
-    height: 200px;
-    max-width: 100%;
-    min-width: auto;
-  }
-
-  .cardkind-horizontal-empty > .thumbnail-wrapper picture,
-  .cardkind-horizontal-empty > .thumbnail-wrapper img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    flex: 0 0 auto;
+    min-width: auto;
+    max-width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
   }
 
   .cardkind-horizontal-empty > .rightContent {
     flex: 1;
     width: 100%;
-    padding: 20px 20px 20px !important;
+    padding: 16px !important;
     box-sizing: border-box;
-    gap: 0px !important;
+    gap: 8px !important;
     overflow: visible;
   }
- 
 
   .figma-cardButton {
     display: none;
   }
 
-  .cardkind-horizontal-blog > .rightContent  {
-        margin-left: 0px
-    }
+  .cardkind-horizontal-blog > .rightContent {
+    margin-left: 0px;
+  }
 
   .cardPaddingContainer {
-    padding: 20px 0 0;
+    padding: 0;
     position: relative;
-    width: 100%
-    }
+    width: 100%;
+  }
 
-    .cardPaddingContainer.details{
-        align-items: self-start;
-    }
+  .cardPaddingContainer.details {
+    align-items: self-start;
+  }
 
-    .horizontal-container{
-        overflow: visible;
-    }
+  .horizontal-container {
+    overflow: visible;
+  }
 }
 
 
@@ -464,95 +458,48 @@
   }
 
   .cardkind-horizontal-empty {
-    flex-direction: column; 
-    width: 100%;
-    height: 480px;
-  }
-
-  .cardkind-horizontal-blog > .rightContent > .horizontal-container {
-    display: flex;
     flex-direction: column;
-    align-items: flex-start; 
-    justify-content: flex-start;
-    gap: 8px;
     width: 100%;
-    overflow: visible;
+    height: auto;
   }
-
-
-  .cardPaddingContainer.details {
-    align-items: flex-start !important;
-    text-align: left;
-    width: 100%;
-  }
-
-  .cardDetailHor {
-    justify-content: flex-start;
-    text-align: left;
-    width: 100%;
-  }
-
-  .card-title.horizontal {
-  margin-top: 20px;
-  color: var(--GMI-black);
-  font-family: var(--card-title-font-family) !important;
-  font-size: var(--card-title-font-size);
-  font-weight: var(--card-title-font-weight);
-  line-height: var(--card-title-line-height);
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3 !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  text-transform: capitalize;
-}
-
 
   .cardkind-horizontal-empty > .thumbnail-wrapper {
     width: 100%;
-    height: 200px;
-    max-width: 100%;
+    flex: 0 0 auto;
     min-width: auto;
-  }
-
-  .cardkind-horizontal-empty > .thumbnail-wrapper picture,
-  .cardkind-horizontal-empty > .thumbnail-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    max-width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
   }
 
   .cardkind-horizontal-empty > .rightContent {
     flex: 1;
     width: 100%;
-    padding: 20px 20px 20px !important;
+    padding: 16px !important;
     box-sizing: border-box;
-    gap: 0px !important;
+    gap: 8px !important;
     overflow: visible;
   }
- 
 
   .figma-cardButton {
     display: none;
   }
 
-  .cardkind-horizontal-blog > .rightContent  {
-        margin-left: 0px;
-    }
+  .cardkind-horizontal-blog > .rightContent {
+    margin-left: 0px;
+  }
 
   .cardPaddingContainer {
-    padding: 20px 0 0;
+    padding: 0;
     position: relative;
-    width: 100%
-    }
+    width: 100%;
+  }
 
-    .cardPaddingContainer.details{
-        align-items: self-start;
-    }
+  .cardPaddingContainer.details {
+    align-items: self-start;
+  }
 
-    .horizontal-container{
-        overflow: visible;
-    }
+  .horizontal-container {
+    overflow: visible;
+  }
 }

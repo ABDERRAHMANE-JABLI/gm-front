@@ -4,15 +4,25 @@
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 12px;
-    width:1000px;
+    width: 100%;
     height:auto;
     max-height:440px;
     overflow: hidden;
-    margin: 0 auto;
 }
 
 .wrapper{
     position: relative;
+    overflow: hidden;
+}
+
+.Triptych .mainView > .wrapper {
+    width: 100%;
+    height: 440px;
+}
+
+.Triptych .secondView > .wrapper {
+    width: 100%;
+    height: 214px;
 }
 
 .Triptych .photoCounter {
@@ -209,15 +219,7 @@
     color: rgb(0, 0, 0);
 }
 
-.triptychmodal .modal-body > .owl-carousel img {
-    width: 100%;
-    height: auto;
-    max-width: 95vw;
-    max-height: 80vh;
-    object-fit: contain;
-    margin: 0 auto;
-    border-radius: 8px;
-}
+/* image sizing handled by .zoomImage img */
 
 .owlDots {
   display: flex;
@@ -335,9 +337,21 @@
   opacity: 0.8;
   transform: scale(1.02);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  width: 90vw;
+  max-width: 900px;
+  height: 60vh;
+  flex-shrink: 0;
 }
 
 .zoomImage.active {
   opacity: 1;
   transform: scale(1);
+}
+
+.zoomImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
 }

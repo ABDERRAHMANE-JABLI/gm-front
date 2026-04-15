@@ -9,9 +9,10 @@ interface HeaderProps {
     title: string;
     subTitle: string;
     children: React.ReactNode;
+    reservationLink?: string | null;
 }
 
-export default function HeaderPage({ title, subTitle, children }: HeaderProps) {
+export default function HeaderPage({ title, subTitle, children, reservationLink }: HeaderProps) {
 
     const handleShare = async () => {
         if (navigator.share) {
@@ -49,9 +50,11 @@ export default function HeaderPage({ title, subTitle, children }: HeaderProps) {
                         <button className={styles.btn}>
                             <span className={styles.btnText} onClick={handleShare}><Share /> Partager</span>
                         </button>
-                        <button className={styles.btn}>
-                            <span className={styles.btnText}><ToBook /> Réserver</span>
-                        </button>
+                        {reservationLink && (
+                            <a href={reservationLink} target="_blank" rel="noopener noreferrer" className={styles.btn}>
+                                <span className={styles.btnText}><ToBook /> Réserver</span>
+                            </a>
+                        )}
                     </div>
                 </div>
             </div>

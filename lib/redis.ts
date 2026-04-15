@@ -63,10 +63,9 @@ function createRedisClient(): Redis {
   console.log('Creating Redis client with URL:', redisUrl.replace(/\/\/.*@/, '//***:***@'));
 
   const config: RedisConfig = {
-    // Parse Redis URL or use connection details
     retryDelayOnFailover: 100,
     enableReadyCheck: false,
-    maxRetriesPerRequest: 3,
+    maxRetriesPerRequest: 0,
     lazyConnect: true,
   };
 
@@ -112,7 +111,15 @@ function createRedisClient(): Redis {
  */
 export function getRedisClient(): Redis {
   if (!redis) {
-    redis = createRedisClient();
+    try {
+      redis = createRedisClient();
+    } catch (e) {
+      console.warn('[Redis] Disabled — REDIS_URL unreachable:', (e as Error).message);
+      // Retourne un proxy silencieux pour ne pas planter l'app
+      return new Proxy({} as Redis, {
+        get: () => () => Promise.resolve(null),
+      });
+    }
   }
   return redis;
 }

@@ -85,7 +85,7 @@ export async function fetchArtisans(
       `${getApiBaseUrl()}/api/artisans?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { revalidate: 3600 },
+        next:    { tags: ['artisans_list'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );
@@ -124,7 +124,7 @@ export async function fetchArtisanFilters(): Promise<ApiArtisanFilters> {
       `${getApiBaseUrl()}/api/artisans/filters`,
       {
         signal:  controller.signal,
-        cache:   'no-store',
+        next:    { tags: ['artisans_list', 'artisans_filters'], revalidate: 3600 },
         headers: getApiHeaders(),
       }
     );

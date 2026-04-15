@@ -46,7 +46,7 @@ export default function Triptych({ images, title }: ImgContainerProps) {
             <div className={`${styles.Triptych} ${styles.pointer}`}>
                 <div className={styles.mainView}>
                     <div className={styles.wrapper} onClick={() => openModal(0)}>
-                        <SmartImage id={images[0].id} alt={title} width={666} height={444} fit="contain" />
+                        <SmartImage id={images[0].id} alt={title} width={666} height={444} fit="cover" />
                         {images[0].copyRight && <div className={styles.Copyright}>{images[0].copyRight}</div>}
                     </div>
                 </div>
@@ -89,13 +89,10 @@ export default function Triptych({ images, title }: ImgContainerProps) {
                                     >
                                         <ArrowLeft width="50" height="50" className={styles.arrow} style={{ color: "#ffe700" }} />
                                     </button>
-                                    <div key={current}className={`${styles.zoomImage} ${animating ? "" : styles.active}`}>
-                                        <SmartImage
-                                            id={images[current].id}
+                                    <div key={current} className={`${styles.zoomImage} ${animating ? "" : styles.active}`}>
+                                        <img
+                                            src={images[current].id}
                                             alt={title}
-                                            width={1000}
-                                            height={666}
-                                            fit="cover"
                                         />
                                     </div>
                                     <button
