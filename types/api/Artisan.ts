@@ -29,6 +29,30 @@ export interface ApiArtisanListResponse {
   pagination: ApiPagination;
 }
 
+// ─── Detail item (from GET /api/artisans/:slug) ─────────────────────────────
+
+export interface ApiArtisanDetail {
+  title:           string;
+  slug:            string;
+  thumbId:         string | null;
+  mapsIframe?:     string | null;
+  latitude?:       string | null;
+  longitude?:      string | null;
+  imagesSecondaire: string[];
+  adresse?:        string | null;
+  codePostale?:    string | null;
+  city?:           { cityName: string } | null;
+  isSponsorised:   boolean;
+  isSelected:      boolean;
+  avisGM?:         string | null;
+  mainActivity:    { libelle: string };
+  tel?:            string | null;
+  website?:        string | null;
+  instagram?:      string | null;
+  services:        string[];
+  otherActivities: string[];
+}
+
 // ─── Filters (from GET /api/artisans/filters) ────────────────────────────────
 
 export interface ApiArtisanFilters {

@@ -26,9 +26,9 @@ export default interface PeopleProps {
      * @description Rôle principal de la personne (affiché en majuscules sous le nom)
      * @example ["CHEF"], ["PÂTISSIER"], ["SOMMELIER", "DIRECTEUR DE SALLE"]
      */
-    role?: string[]|string;
+    roles?: string[];
 
-    /** 
+    /**
      * Nombre de toques
      * @description Nombre de toques Gault&Millau (-1 à 6)
      * @example 4, 5
@@ -60,6 +60,6 @@ export default interface PeopleProps {
      */
     distinction?: string[];
 
-    chefAt?: { name: string }[]
-
+    chefAt?: { name: string }[];
+    workplace?: { type: string; name: string } | null;
 }

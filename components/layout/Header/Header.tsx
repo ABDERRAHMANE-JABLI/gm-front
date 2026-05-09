@@ -28,7 +28,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'La Place',    segment: '',            Icon: HomeIcon,       noBg: true },
   { label: 'Actualités',  segment: 'blogs',       Icon: BlogIcon },
   { label: 'Restaurants', segment: 'restaurants', Icon: RestaurantIcon },
-  { label: 'Riyad',       segment: 'riyads',      Icon: Riyads },
+  { label: 'Riads',       segment: 'riyads',      Icon: Riyads },
   { label: 'Hôtels',      segment: 'hotels',      Icon: HotelIcon },
   { label: 'Artisans',    segment: 'artisans',    Icon: ArtisanIcon },
   { label: 'Recettes',    segment: 'recipes',     Icon: RecipeIcon },
@@ -61,7 +61,7 @@ export default function Header({ language = 'fr' }: HeaderProps) {
   const segments  = pathname.split('/').filter(Boolean);
   const activeSegment = segments[1] ?? '';
 
-  const activeItem   = NAV_ITEMS.find((item) => item.segment === activeSegment);
+  const activeItem   = NAV_ITEMS.find((item) => item.segment === activeSegment || item.segment === activeSegment + 's');
   const sectionLabel = activeItem?.label.toUpperCase() ?? '';
   const isHome       = activeSegment === '';
   const LogoIcon     = isHome ? GMLogo : (activeItem?.Icon ?? GMLogo);
@@ -107,7 +107,7 @@ export default function Header({ language = 'fr' }: HeaderProps) {
         <ul className={styles.navList}>
           {NAV_ITEMS.map(({ label, segment, Icon, noBg }) => {
             const href     = `/${language}${segment ? `/${segment}` : ''}`;
-            const isActive = segment === activeSegment;
+            const isActive = segment === activeSegment || segment === activeSegment + 's';
 
             return (
               <li key={segment} className={styles.navItem}>

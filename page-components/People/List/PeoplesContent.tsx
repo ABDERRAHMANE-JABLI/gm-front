@@ -103,8 +103,7 @@ export default function PeoplesContent({
   const displayed = searchQuery.trim()
     ? talents.filter((p) =>
         p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (Array.isArray(p.role) ? p.role.join(' ') : p.role ?? '')
-          .toLowerCase().includes(searchQuery.toLowerCase())
+        (p.roles ?? []).join(' ').toLowerCase().includes(searchQuery.toLowerCase())
       )
     : talents;
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import styles from '@/styles/listPage.module.css';
 import RestaurantCard from '@/components/cards/restaurantCard';
 import SearchBar from '@/components/SearchBar';
@@ -10,6 +11,8 @@ import { ApiRestaurantFilters } from '@/types/api/Restaurant';
 import type { FetchRestaurantsOptions } from '@/lib/api/restaurants';
 import { loadMoreRestaurants } from '@/lib/actions/restaurants';
 import ToqueFilter from '@/components/cards/common/Toques/ToqueFilter';
+import RestoIcon from "@/public/icons/menu/restaurant.svg";
+import { sanitizeSearch } from '@/lib/utils/sanitize';
 
 type Language = 'fr' | 'en';
 
@@ -45,7 +48,17 @@ export default function RestaurantsContent({
   const [active, setActive]           = useState<ActiveFilters>(EMPTY_FILTERS);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const hasMore = pagination.page < pagination.total_pages;
+  const hasMore      = pagination.page < pagination.total_pages;
+  const showDropdown = searchQuery.length >= 4;
+  const cleanQuery   = sanitizeSearch(searchQuery).toLowerCase();
+  const dropdownResults = showDropdown
+    ? restaurants
+        .filter((r) =>
+          r.title.toLowerCase().includes(cleanQuery) ||
+          r.address?.toLowerCase().includes(cleanQuery)
+        )
+        .slice(0, 10)
+    : [];
 
   async function applyFilters(next: ActiveFilters, page = 1) {
     setLoading(true);
@@ -113,14 +126,6 @@ export default function RestaurantsContent({
     await applyFilters(active, pagination.page + 1);
   }
 
-  const displayed = searchQuery.trim()
-    ? restaurants.filter(
-        (r) =>
-          r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          r.address?.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : restaurants;
-
   const hasActiveFilters = Boolean(
     active.city || active.toques.length || active.cuisines.length || active.styles.length || active.services.length
   );
@@ -141,6 +146,47 @@ export default function RestaurantsContent({
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" color="black"><g fill="none" fillRule="evenodd"><path d="m12.594 23.258-.012.002-.071.035-.02.004-.014-.004-.071-.036q-.016-.004-.024.006l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427q-.004-.016-.016-.018m.264-.113-.014.002-.184.093-.01.01-.003.011.018.43.005.012.008.008.201.092q.019.005.029-.008l.004-.014-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014-.034.614q.001.018.017.024l.015-.002.201-.093.01-.008.003-.011.018-.43-.003-.012-.01-.01z"/><path fill="currentColor" d="M16 15c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2h9.17A3 3 0 0 1 16 15m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2M8 9a3 3 0 0 1 2.762 1.828l.067.172H20a1 1 0 0 1 .117 1.993L20 13h-9.17a3.001 3.001 0 0 1-5.592.172L5.17 13H4a1 1 0 0 1-.117-1.993L4 11h1.17A3 3 0 0 1 8 9m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2m8-8c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 0 1 0-2h9.17A3 3 0 0 1 16 3m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/></g></svg>
           </button>
+
+          {/* ── Search results dropdown ── */}
+          {showDropdown && (
+            <div className={styles.searchDropdown}>
+              <div className={styles.dropdownHeader}>
+                <RestoIcon width={25} height={25}/>
+                <span className={styles.dropdownLabel}>Restaurants</span>
+                <button className={styles.dropdownClose} onClick={() => setSearchQuery('')}>
+                  Fermer ×
+                </button>
+              </div>
+
+              {dropdownResults.length === 0 ? (
+                <p className={styles.dropdownEmpty}>Aucun résultat trouvé</p>
+              ) : (
+                <div className={styles.dropdownList}>
+                  {dropdownResults.map((r) => (
+                    <Link
+                      key={r.slug}
+                      href={`/${lang}/restaurant/${r.slug}`}
+                      className={styles.dropdownItem}
+                      onClick={() => setSearchQuery('')}
+                    >
+                      <div className={styles.dropdownThumb}>
+                        {r.thumbId && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={r.thumbId} alt={r.title} />
+                        )}
+                      </div>
+                      <div className={styles.dropdownInfo}>
+                        <p className={styles.dropdownTitle}>{r.title}</p>
+                        {r.address && (
+                          <span className={styles.dropdownLocation}>{r.address}</span>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -264,7 +310,7 @@ export default function RestaurantsContent({
 
           {loading && restaurants.length === 0 ? (
             <p className={styles.loadingText}>Chargement...</p>
-          ) : displayed.length === 0 ? (
+          ) : restaurants.length === 0 ? (
             <div className={styles.emptyState}>
               <p className={styles.emptyTitle}>Aucun restaurant trouvé</p>
               <p className={styles.emptyText}>Essayez d&apos;autres critères de recherche.</p>
@@ -272,12 +318,12 @@ export default function RestaurantsContent({
           ) : (
             <>
               <div className={styles.cardsGrid}>
-                {displayed.map((restaurant) => (
+                {restaurants.map((restaurant) => (
                   <RestaurantCard key={restaurant.slug} lang={lang} restaurant={restaurant} />
                 ))}
               </div>
 
-              {hasMore && !searchQuery && (
+              {hasMore && (
                 <div className={styles.loadMoreWrapper}>
                   <button
                     className={styles.loadMoreButton}

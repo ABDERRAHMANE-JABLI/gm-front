@@ -1,7 +1,7 @@
 
 import { useClientTranslation } from '@/lib/i18n/client';
-import './toques.css'
-import ToqueIcon from '@/public/icons/toque.svg'
+import ToqueIcon from '@/public/icons/toque.svg';
+import './toques.css';
 
 /**
  *

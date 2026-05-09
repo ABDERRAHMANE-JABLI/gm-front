@@ -8,6 +8,7 @@ import { HotelProps } from "@/types/Hotels";
 import Stars from "../common/Stars";
 import Toques from "../common/Toques";
 import HotelIcon from "@/public/icons/menu/hotel.svg";
+import RiyadIcon from "@/public/icons/menu/winery.svg";
 import CardHeader from "../common/HeaderCard";
 
 type Language = 'fr' | 'en';
@@ -33,7 +34,12 @@ export default function HotelCard({ lang, Hotel, withHeader, basePath = 'hotels'
             
             {/* Header pour la page LA PLACE */}
             {withHeader && (
-                <CardHeader title="Hotel" href={`/${lang}/${basePath}/`} seeMoreLabel={t("common.see_more")} icon={<HotelIcon width={28} height={28} />} />
+                <CardHeader
+                  title={basePath === 'riyads' ? 'Riyad' : 'Hotel'}
+                  href={`/${lang}/${basePath}/`}
+                  seeMoreLabel={t("common.see_more")}
+                  icon={basePath === 'riyads' ? <RiyadIcon width={28} height={28} /> : <HotelIcon width={28} height={28} />}
+                />
             )}
 
             <div className={styles.thumbWrapper}>

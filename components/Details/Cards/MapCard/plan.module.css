@@ -35,6 +35,19 @@
     width: 100%
 }
 
+.mapPlaceholder {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  color: #999;
+  font-style: italic;
+  background: #f5f5f5;
+  flex-shrink: 0;
+}
+
 .MapCard .mapImage {
     height: 300px;
     object-fit: cover;
@@ -50,7 +63,7 @@
     flex-direction: column;
     font: normal normal 500 14px/20px Montserrat;
     height: 100%;
-    padding: 20px;
+    padding: 20px 20px 0;
     text-align: start
 }
 
@@ -77,17 +90,18 @@
 .CardButtonLink {
   position: relative; overflow: hidden;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 100%; 
+  width: 100%;
   height: 40px;
-  border: 1px solid var(--GMI-buttonbordercolor); 
+  border: 1px solid var(--GMI-buttonbordercolor);
   border-radius: var(--GMI-buttonborderradius);
   font-size: 13px;
-  text-decoration: none; 
-  color: var(--GMI-black); 
+  text-decoration: none;
+  color: var(--GMI-black);
   background: transparent;
   text-transform: uppercase;
   text-overflow: ellipsis;
-  margin-top: 10px;
+  margin-top: auto;
+  margin-bottom: 20px;
 }
 .CardButtonLinkText {
     position: relative;
@@ -107,3 +121,9 @@
   z-index: 0; transform: scaleX(0); transform-origin: left center; transition: transform .45s ease;
 }
 .CardButtonLink:hover::before, .CardButtonLink:focus-visible::before { transform: scaleX(1); }
+
+.CardButtonLinkDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}

@@ -1,176 +1,279 @@
-import React from 'react';
-import { Language } from '@/lib/types';
+'use client'
 
-interface PersonDetailPageProps {
+import React, { useState, useRef, useEffect } from 'react'
+import styles from './personDetail.module.css'
+import { SmartImage } from '@/components/SmartImage'
+import ToqueIcon from '@/public/icons/toque.svg'
+import { ApiTalentDetail } from '@/types/api/Talent'
+import { Language } from '@/lib/types'
+import RestaurantCard from '@/components/cards/restaurantCard'
+import PartenairesSection from '@/components/cards/partners'
+import { ApiPartner } from '@/types/api/Partner'
+import RestaurantIcon from '@/public/icons/menu/restaurant.svg'
+import HotelCard      from '@/components/cards/hotelCard'
+import ArtisanCard    from '@/components/cards/artisanCard'
+
+export interface PersonDetailPageProps {
   lang: Language;
-  slug: string;
+  person: ApiTalentDetail;
+  partners?: ApiPartner[];
 }
 
-export default function PersonDetailPage({ lang, slug }: PersonDetailPageProps) {
-  const personName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+export default function PersonDetailPage({ lang, person, partners = [] }: PersonDetailPageProps) {
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
+  const imageUrl = person.thumbId ? `${s3}/${person.thumbId}` : null;
 
-  const content = {
-    fr: {
-      backToPeople: 'Retour aux personnalités',
-      biography: 'Biographie',
-      achievements: 'Réalisations',
-      philosophy: 'Philosophie culinaire',
-      restaurants: 'Restaurants',
-      awards: 'Distinctions',
-      contact: 'Contact',
-      specialty: 'Spécialité',
-      experience: 'Expérience',
-      style: 'Style de cuisine'
-    },
-    en: {
-      backToPeople: 'Back to people',
-      biography: 'Biography',
-      achievements: 'Achievements',
-      philosophy: 'Culinary philosophy',
-      restaurants: 'Restaurants',
-      awards: 'Awards',
-      contact: 'Contact',
-      specialty: 'Specialty',
-      experience: 'Experience',
-      style: 'Cooking style'
-    }
+  const [presExpanded, setPresExpanded] = useState(false);
+  const [presTruncated, setPresTruncated] = useState(false);
+  const presBodyRef = useRef<HTMLDivElement>(null);
+  const bioTrackRef = useRef<HTMLDivElement>(null);
+  const [bioOverflows, setBioOverflows] = useState(false);
+
+  useEffect(() => {
+    const el = bioTrackRef.current;
+    if (!el) return;
+    const check = () => setBioOverflows(el.scrollWidth > el.clientWidth + 2);
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [person.biographie]);
+
+  const scrollBio = (dir: 'prev' | 'next') => {
+    const el = bioTrackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === 'next' ? 194 : -194, behavior: 'smooth' });
   };
 
-  const t = content[lang] || content.fr;
+  useEffect(() => {
+    const el = presBodyRef.current;
+    if (!el) return;
+    const timer = setTimeout(() => {
+      setPresTruncated(el.scrollHeight > el.clientHeight + 2);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [person.resume, person.presentation]);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-6xl mx-auto">
-        <nav className="mb-8">
-          <a 
-            href={`/${lang}/peoples`}
-            className="text-red-600 hover:text-red-700 font-medium"
-          >
-            ← {t.backToPeople}
-          </a>
-        </nav>
+    <div className={styles.page}>
+      <div className={styles.container}>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <header className="mb-8">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                {personName}
-              </h1>
-              <p className="text-xl text-gray-600">
-                {lang === 'fr'
-                  ? 'Chef cuisinier reconnu par Gault&Millau'
-                  : 'Chef recognized by Gault&Millau'
-                }
-              </p>
-            </header>
+        {/* ── Section 1 : photo + identité ── */}
+        <section className={styles.heroSection}>
 
-            <div className="mb-8">
-              <div className="bg-gray-100 rounded-lg h-64 flex items-center justify-center mb-4">
-                <span className="text-gray-500">
-                  {lang === 'fr' ? 'Portrait du chef' : 'Chef portrait'}
-                </span>
-              </div>
+          {/* Col 1 : photo */}
+          <div className={styles.photoCol}>
+            <div className={styles.photoInner}>
+              {imageUrl ? (
+                <SmartImage id={imageUrl} alt={person.fullName} fit="cover" width={400} height={520} />
+              ) : (
+                <div className={styles.photoPlaceholder} />
+              )}
             </div>
+          </div>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                {t.biography}
-              </h2>
-              <div className="prose prose-lg">
-                <p>
-                  {lang === 'fr'
-                    ? `${personName} est un chef d'exception dont le talent et la créativité ont été reconnus par Gault&Millau. Son parcours remarquable l'a mené à développer une cuisine unique, alliant tradition et innovation.`
-                    : `${personName} is an exceptional chef whose talent and creativity have been recognized by Gault&Millau. Their remarkable journey has led them to develop a unique cuisine, combining tradition and innovation.`
-                  }
-                </p>
-                <p>
-                  {lang === 'fr'
-                    ? 'Formé dans les plus prestigieuses maisons, ce chef a su développer son propre style culinaire, marqué par une recherche constante de l\'excellence et du goût authentique.'
-                    : 'Trained in the most prestigious establishments, this chef has developed their own culinary style, marked by a constant search for excellence and authentic taste.'
-                  }
-                </p>
+          {/* Col 2 : identité */}
+          <div className={styles.infoCol}>
+            {person.nbrToques === -1 && (
+              <div className={`${styles.toquesRow} ${styles.toquesRowYellow}`}>
+                <span className={styles.toqueBadge}>Sélectionné</span>
               </div>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                {t.philosophy}
-              </h2>
-              <div className="prose prose-lg">
-                <blockquote className="border-l-4 border-red-600 pl-6 italic">
-                  <p>
-                    {lang === 'fr'
-                      ? '"La cuisine est un art qui demande passion, respect du produit et créativité. Chaque plat raconte une histoire."'
-                      : '"Cooking is an art that requires passion, respect for the product and creativity. Each dish tells a story."'
-                    }
-                  </p>
-                </blockquote>
+            )}
+            {person.nbrToques === 6 && (
+              <div className={styles.toquesRow}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <ToqueIcon key={i} width={22} height={30} fill="#D7A949" />
+                ))}
               </div>
-            </section>
+            )}
+            {person.nbrToques != null && person.nbrToques > 0 && person.nbrToques <= 5 && (
+              <div className={`${styles.toquesRow} ${styles.toquesRowYellow}`}>
+                {Array.from({ length: person.nbrToques }).map((_, i) => (
+                  <ToqueIcon key={i} width={22} height={30} fill="#000000" />
+                ))}
+              </div>
+            )}
+            <h1 className={styles.name}>{person.fullName}</h1>
+            {person.roles.length > 0 && (
+              <p className={styles.roles}>{person.roles.join(' · ')}</p>
+            )}
+          </div>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                {t.achievements}
-              </h2>
-              <div className="space-y-4">
-                {[
-                  lang === 'fr' ? 'Toque Gault&Millau' : 'Gault&Millau Toque',
-                  lang === 'fr' ? 'Prix du Jeune Chef de l\'Année' : 'Young Chef of the Year Award',
-                  lang === 'fr' ? 'Restaurant étoilé Michelin' : 'Michelin starred restaurant'
-                ].map((achievement, index) => (
-                  <div key={index} className="flex items-center">
-                    <span className="text-yellow-500 mr-3">🏆</span>
-                    <span>{achievement}</span>
+        </section>
+
+        {/* ── Section 2 : résumé / présentation ── */}
+        {(person.resume || person.presentation) && (
+          <section className={presExpanded ? styles.presentationSectionFull : styles.presentationSection}>
+            <div className={styles.presentationHeader}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 512 512" aria-hidden="true">
+                <path d="M512 0C460.22 3.56 96.44 38.2 71.01 287.61c-3.09 26.66-4.84 53.44-5.99 80.24l178.87-178.69c6.25-6.25 16.4-6.25 22.65 0s6.25 16.38 0 22.63L7.04 471.03c-9.38 9.37-9.38 24.57 0 33.94s24.59 9.37 33.98 0l57.13-57.07c42.09-.14 84.15-2.53 125.96-7.36c53.48-5.44 97.02-26.47 132.58-56.54H255.74l146.79-48.88c11.25-14.89 21.37-30.71 30.45-47.12h-81.14l106.54-53.21C500.29 132.86 510.19 26.26 512 0"/>
+              </svg>
+              <p className={styles.presentationTitle}>Présentation</p>
+            </div>
+            <div
+              ref={presBodyRef}
+              className={presExpanded ? styles.presBodyExpanded : styles.presBody}
+            >
+              {person.resume && <p className={styles.resume}>{person.resume}</p>}
+              {person.presentation && (
+                <div
+                  className={styles.presentation}
+                  dangerouslySetInnerHTML={{ __html: person.presentation }}
+                />
+              )}
+            </div>
+            {(presTruncated || presExpanded) && (
+              <button className={styles.lirePlusBtn} onClick={() => setPresExpanded(v => !v)}>
+                {presExpanded ? 'LIRE MOINS' : 'LIRE PLUS'}
+              </button>
+            )}
+          </section>
+        )}
+
+        {/* ── Section 3 : biographie ── */}
+        {person.biographie && person.biographie.length > 0 && (
+          <section className={styles.bioSection}>
+            <div className={styles.sectionHeader}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512" aria-hidden="true">
+                <path d="M464 256a208 208 0 1 1-416 0a208 208 0 1 1 416 0M0 256a256 256 0 1 0 512 0a256 256 0 1 0-512 0m232-136v136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24"/>
+              </svg>
+              <h2 className={styles.sectionTitle}>Biographie & Distinctions</h2>
+            </div>
+            <div className={styles.bioCarousel}>
+              <div ref={bioTrackRef} className={styles.bioTrack}>
+                {person.biographie.map((b, i) => (
+                  <div key={i} className={styles.bioCard}>
+                    <span className={styles.bioYear}>{b.year}</span>
+                    <p className={styles.bioText}>{b.libelle}</p>
                   </div>
                 ))}
               </div>
-            </section>
-          </div>
+              {bioOverflows && (
+                <>
+                  <button className={`${styles.bioNav} ${styles.bioNavPrev}`} onClick={() => scrollBio('prev')} aria-label="Précédent">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <button className={`${styles.bioNav} ${styles.bioNavNext}`} onClick={() => scrollBio('next')} aria-label="Suivant">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
+                </>
+              )}
+            </div>
+          </section>
+        )}
 
-          <div className="lg:col-span-1">
-            <div className="bg-gray-50 rounded-lg p-6 mb-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                {lang === 'fr' ? 'Profil' : 'Profile'}
-              </h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.specialty}</h4>
-                  <p className="text-gray-600">
-                    {lang === 'fr' ? 'Cuisine française moderne' : 'Modern French cuisine'}
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.experience}</h4>
-                  <p className="text-gray-600">
-                    {lang === 'fr' ? '15 ans' : '15 years'}
-                  </p>
-                </div>
+        {/* ── Section 4 : restaurants ── */}
+        {person.chefAt.length > 0 && (
+          <section className={styles.restoSection}>
+            <div className={styles.sectionHeader}>
+              <RestaurantIcon width={36} height={36} />
+              <h2 className={styles.sectionTitle}>Ses Restaurants</h2>
+            </div>
+            <div className={styles.restoGrid}>
+              {person.chefAt.map((r) => {
+                const budget = r.budgetMin != null && r.budgetMax != null
+                  ? `${r.budgetMin} – ${r.budgetMax} MAD`
+                  : r.budgetMin != null ? `${r.budgetMin} MAD` : undefined;
+                return (
+                  <RestaurantCard
+                    key={r.slug}
+                    lang={lang}
+                    restaurant={{
+                      title:         r.name,
+                      slug:          r.slug,
+                      thumbId:       r.thumbId ? `${s3}/${r.thumbId}` : undefined,
+                      nbToques:      r.nbrToques,
+                      isSponsorised: r.isSponsorised,
+                      note:          r.noteGM != null ? String(r.noteGM) : undefined,
+                      cuisines:      r.cuisines,
+                      budget,
+                    }}
+                  />
+                );
+              })}
+            </div>
+          </section>
+        )}
 
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.style}</h4>
-                  <p className="text-gray-600">
-                    {lang === 'fr' ? 'Créatif et authentique' : 'Creative and authentic'}
-                  </p>
-                </div>
+        {/* ── Section 5 : workplace ── */}
+        {person.workplace && (() => {
+          const wp = person.workplace!;
+
+          const budget = wp.budgetMin != null && wp.budgetMax != null
+            ? `${wp.budgetMin} – ${wp.budgetMax} MAD`
+            : wp.budgetMin != null ? `${wp.budgetMin} MAD` : undefined;
+
+          return (
+            <section className={styles.restoSection}>
+              <div className={styles.sectionHeader}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 64 64" aria-hidden="true">
+                  <rect width="64" height="64" rx="18" fill="#FF7B08"/>
+                  <g fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M16 26 H48"/><path d="M40 18 L48 26"/>
+                    <path d="M48 38 H16"/><path d="M24 46 L16 38"/>
+                  </g>
+                </svg>
+                <h2 className={styles.sectionTitle}>En relation avec le Talent</h2>
               </div>
-            </div>
+              <div className={styles.restoGrid}>
+                {(wp.type === 'restaurant') && (
+                  <RestaurantCard
+                    lang={lang}
+                    restaurant={{
+                      title:         wp.name,
+                      slug:          wp.slug,
+                      thumbId:       wp.thumbId ? `${s3}/${wp.thumbId}` : undefined,
+                      nbToques:      wp.nbrToques ?? 0,
+                      isSponsorised: wp.isSponsorised ?? false,
+                      note:          wp.noteGM != null ? String(wp.noteGM) : undefined,
+                      cuisines:      [],
+                      budget,
+                    }}
+                    withHeader={true}
+                  />
+                )}
+                {(wp.type === 'hotel' || wp.type === 'riyad') && (
+                  <HotelCard
+                    lang={lang}
+                    basePath={wp.type === 'riyad' ? 'riyads' : 'hotels'}
+                    Hotel={{
+                      title:         wp.name,
+                      slug:          wp.slug,
+                      thumbId:       wp.thumbId ? `${s3}/${wp.thumbId}` : undefined,
+                      isGmSelected:  !(wp.isSponsorised ?? false),
+                      isSponsorised: wp.isSponsorised ?? false,
+                      nbStars:       wp.nbrStars ?? 0,
+                      address:       wp.lieu,
+                      budget:        wp.budget != null ? `${wp.budget} MAD` : undefined,
+                      services:      wp.services ?? [],
+                    }}
+                    withHeader={true}
+                  />
+                )}
+                {wp.type === 'artisan' && (
+                  <ArtisanCard
+                    lang={lang}
+                    Artisan={{
+                      title:           wp.name,
+                      slug:            wp.slug,
+                      thumbId:         wp.thumbId ? `${s3}/${wp.thumbId}` : undefined,
+                      isGmSelected:    !(wp.isSponsorised ?? false),
+                      primaryActivity: wp.activity ?? '',
+                      otherActivities: wp.activities ?? [],
+                      address:         wp.lieu,
+                      services:        wp.services ?? [],
+                    }}
+                    withHeader={true}
+                  />
+                )}
+              </div>
+            </section>
+          );
+        })()}
 
-            <div className="bg-red-50 rounded-lg p-4">
-              <h4 className="font-semibold text-red-900 mb-2">
-                {t.restaurants}
-              </h4>
-              <p className="text-red-700 text-sm">
-                {lang === 'fr'
-                  ? 'Découvrez les restaurants de ce chef talentueux.'
-                  : 'Discover the restaurants of this talented chef.'
-                }
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
+
+      <PartenairesSection partners={partners} />
     </div>
-  );
+  )
 }

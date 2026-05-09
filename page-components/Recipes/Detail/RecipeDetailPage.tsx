@@ -1,200 +1,120 @@
-import React from 'react';
-import { Language } from '@/lib/types';
+import React from 'react'
+import styles from './recipeDetail.module.css'
+import { SmartImage } from '@/components/SmartImage'
+import { ApiRecipeDetail } from '@/types/api/Recipe'
+import { ApiPartner } from '@/types/api/Partner'
+import { Language } from '@/lib/types'
+import PartenairesSection from '@/components/cards/partners'
+import ShareButton from '@/components/ShareButton'
+import RestaurantCard from '@/components/cards/restaurantCard'
+import PeopleCard from '@/components/cards/peopleCard'
 
-interface RecipeDetailPageProps {
+export interface RecipeDetailPageProps {
   lang: Language;
-  slug: string;
+  recipe: ApiRecipeDetail;
+  partners?: ApiPartner[];
 }
 
-export default function RecipeDetailPage({ lang, slug }: RecipeDetailPageProps) {
-  const recipeTitle = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-
-  const content = {
-    fr: {
-      backToRecipes: 'Retour aux recettes',
-      ingredients: 'Ingrédients',
-      instructions: 'Préparation',
-      cookingTime: 'Temps de cuisson',
-      prepTime: 'Temps de préparation',
-      difficulty: 'Difficulté',
-      servings: 'Portions',
-      tips: 'Conseils du chef',
-      nutrition: 'Informations nutritionnelles',
-      print: 'Imprimer la recette',
-      share: 'Partager',
-      minutes: 'minutes',
-      easy: 'Facile',
-      moderate: 'Modéré',
-      difficult: 'Difficile',
-      step: 'Étape'
-    },
-    en: {
-      backToRecipes: 'Back to recipes',
-      ingredients: 'Ingredients',
-      instructions: 'Instructions',
-      cookingTime: 'Cooking time',
-      prepTime: 'Prep time',
-      difficulty: 'Difficulty',
-      servings: 'Servings',
-      tips: 'Chef tips',
-      nutrition: 'Nutrition information',
-      print: 'Print recipe',
-      share: 'Share',
-      minutes: 'minutes',
-      easy: 'Easy',
-      moderate: 'Moderate',
-      difficult: 'Difficult',
-      step: 'Step'
-    }
-  };
-
-  const t = content[lang] || content.fr;
-
-  const sampleIngredients = [
-    lang === 'fr' ? '500g de filet de bœuf' : '500g beef fillet',
-    lang === 'fr' ? '2 échalotes' : '2 shallots',
-    lang === 'fr' ? '200ml de vin rouge' : '200ml red wine',
-    lang === 'fr' ? '50g de beurre' : '50g butter',
-    lang === 'fr' ? 'Sel et poivre' : 'Salt and pepper'
-  ];
-
-  const sampleSteps = [
-    lang === 'fr' 
-      ? 'Sortir la viande du réfrigérateur 30 minutes avant la cuisson.'
-      : 'Remove meat from refrigerator 30 minutes before cooking.',
-    lang === 'fr'
-      ? 'Saler et poivrer la viande sur toutes les faces.'
-      : 'Season the meat with salt and pepper on all sides.',
-    lang === 'fr'
-      ? 'Faire chauffer une poêle à feu vif et saisir la viande.'
-      : 'Heat a pan over high heat and sear the meat.',
-    lang === 'fr'
-      ? 'Réduire le feu et poursuivre la cuisson selon votre goût.'
-      : 'Reduce heat and continue cooking to your taste.'
-  ];
+export default function RecipeDetailPage({ lang, recipe, partners = [] }: RecipeDetailPageProps) {
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
+  const imageUrl = recipe.thumbId ? `${s3}/${recipe.thumbId}` : null
+  const hasRelated = recipe.chef || recipe.restaurant
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-6xl mx-auto">
-        <nav className="mb-8">
-          <a 
-            href={`/${lang}/recipes`}
-            className="text-red-600 hover:text-red-700 font-medium"
-          >
-            ← {t.backToRecipes}
-          </a>
-        </nav>
+    <div className={styles.page}>
+      <div className={styles.container}>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <header className="mb-8">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                {recipeTitle}
-              </h1>
-              <p className="text-xl text-gray-600">
-                {lang === 'fr'
-                  ? 'Une recette délicieuse sélectionnée par nos chefs Gault&Millau'
-                  : 'A delicious recipe selected by our Gault&Millau chefs'
-                }
-              </p>
-            </header>
+        {/* ── Title ── */}
+        <h1 className={styles.title}>{recipe.title}</h1>
 
-            <div className="mb-8">
-              <div className="bg-gray-100 rounded-lg h-64 flex items-center justify-center mb-4">
-                <span className="text-gray-500">
-                  {lang === 'fr' ? 'Photo de la recette' : 'Recipe photo'}
-                </span>
-              </div>
-            </div>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                {t.ingredients}
-              </h2>
-              <ul className="space-y-2">
-                {sampleIngredients.map((ingredient, index) => (
-                  <li key={index} className="flex items-center">
-                    <span className="text-red-600 mr-3">•</span>
-                    <span>{ingredient}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                {t.instructions}
-              </h2>
-              <div className="space-y-6">
-                {sampleSteps.map((step, index) => (
-                  <div key={index} className="flex">
-                    <div className="flex-shrink-0 w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-semibold mr-4">
-                      {index + 1}
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-gray-700">{step}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                {t.tips}
-              </h2>
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                <p className="text-yellow-800">
-                  {lang === 'fr'
-                    ? 'Pour un résultat optimal, utilisez une viande de qualité et laissez-la reposer après cuisson.'
-                    : 'For optimal results, use quality meat and let it rest after cooking.'
-                  }
-                </p>
-              </div>
-            </section>
+        {/* ── Hero image ── */}
+        {imageUrl && (
+          <div className={styles.heroImage}>
+            <SmartImage id={imageUrl} alt={recipe.title} fit="cover" width={1000} height={480} />
           </div>
+        )}
 
-          <div className="lg:col-span-1">
-            <div className="bg-gray-50 rounded-lg p-6 mb-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                {lang === 'fr' ? 'Informations' : 'Information'}
-              </h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.prepTime}</h4>
-                  <p className="text-gray-600">15 {t.minutes}</p>
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.cookingTime}</h4>
-                  <p className="text-gray-600">20 {t.minutes}</p>
-                </div>
-
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.difficulty}</h4>
-                  <p className="text-gray-600">{t.moderate}</p>
-                </div>
-
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.servings}</h4>
-                  <p className="text-gray-600">4</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <button className="w-full bg-red-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-red-700 transition-colors">
-                {t.print}
-              </button>
-              
-              <button className="w-full border border-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
-                {t.share}
-              </button>
-            </div>
-          </div>
+        {/* ── Meta ── */}
+        <div className={styles.meta}>
+          {recipe.typeRecipe && <span className={styles.badge}>{recipe.typeRecipe}</span>}
+          {recipe.difficulty && <span className={styles.badgeDifficulty}>{recipe.difficulty}</span>}
+          <ShareButton title={recipe.title} text={recipe.resume ?? undefined} />
         </div>
+
+        {/* ── Resume ── */}
+        {recipe.resume && <p className={styles.resume}>{recipe.resume}</p>}
+
+        {/* ── Content HTML ── */}
+        {recipe.content && (
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: recipe.content }}
+          />
+        )}
+
+        {/* ── Related entities ── */}
+        {hasRelated && (
+          <div className={styles.relatedSection}>
+            <div className={styles.relatedHeader}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true">
+                <rect width="64" height="64" rx="18" fill="#FF7B08"/>
+                <g fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 26 H48"/>
+                  <path d="M40 18 L48 26"/>
+                  <path d="M48 38 H16"/>
+                  <path d="M24 46 L16 38"/>
+                </g>
+              </svg>
+              <p className={styles.relatedTitle}>En relation avec cette recette</p>
+            </div>
+            <div className={styles.relatedGrid}>
+
+              {recipe.chef && (
+                <PeopleCard
+                  lang={lang}
+                  People={{
+                    title:       recipe.chef.fullName,
+                    slug:        recipe.chef.slug,
+                    thumbId:     recipe.chef.thumbId ? `${s3}/${recipe.chef.thumbId}` : undefined,
+                    nbToques:    recipe.chef.nbrToques ?? undefined,
+                    note:        recipe.chef.noteGM != null ? String(recipe.chef.noteGM) : undefined,
+                    roles:       recipe.chef.roles ?? [],
+                    distinction: recipe.chef.awards ?? [],
+                    chefAt:      [],
+                  }}
+                  withHeader
+                />
+              )}
+
+              {recipe.restaurant && (
+                <RestaurantCard
+                  lang={lang}
+                  restaurant={{
+                    title:         recipe.restaurant.name,
+                    slug:          recipe.restaurant.slug,
+                    thumbId:       recipe.restaurant.thumbId ? `${s3}/${recipe.restaurant.thumbId}` : undefined,
+                    nbToques:      recipe.restaurant.nbrToques,
+                    isSponsorised: recipe.restaurant.isSponsorised,
+                    note:          recipe.restaurant.noteGM != null ? String(recipe.restaurant.noteGM) : undefined,
+                    cuisines:      recipe.restaurant.cuisines,
+                    chief:         recipe.restaurant.chef,
+                    budget:        recipe.restaurant.budgetMin != null && recipe.restaurant.budgetMax != null
+                                     ? `${recipe.restaurant.budgetMin} – ${recipe.restaurant.budgetMax} MAD`
+                                     : recipe.restaurant.budgetMin != null
+                                       ? `${recipe.restaurant.budgetMin} MAD`
+                                       : undefined,
+                  }}
+                  withHeader
+                />
+              )}
+
+            </div>
+          </div>
+        )}
+
       </div>
+
+      <PartenairesSection partners={partners} />
     </div>
-  );
+  )
 }

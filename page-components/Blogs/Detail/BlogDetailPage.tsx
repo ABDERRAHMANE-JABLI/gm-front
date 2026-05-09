@@ -1,118 +1,185 @@
-import React from 'react';
-import { Language } from '@/lib/types';
+import React from 'react'
+import styles from './blogDetail.module.css'
+import { SmartImage } from '@/components/SmartImage'
+import { ApiArticleDetail } from '@/types/api/Article'
+import { ApiPartner } from '@/types/api/Partner'
+import { Language } from '@/lib/types'
+import PartenairesSection from '@/components/cards/partners'
+import ShareButton from '@/components/ShareButton'
+import RestaurantCard from '@/components/cards/restaurantCard'
+import PeopleCard from '@/components/cards/peopleCard'
+import HotelCard from '@/components/cards/hotelCard'
+import ArtisanCard from '@/components/cards/artisanCard'
 
-interface BlogDetailPageProps {
+export interface BlogDetailPageProps {
   lang: Language;
-  slug: string;
+  article: ApiArticleDetail;
+  partners?: ApiPartner[];
 }
 
-export default function BlogDetailPage({ lang, slug }: BlogDetailPageProps) {
-  const blogTitle = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+export default function BlogDetailPage({ lang, article, partners = [] }: BlogDetailPageProps) {
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
+  const imageUrl = article.thumbId ? `${s3}/${article.thumbId}` : null
 
-  const content = {
-    fr: {
-      backToBlogs: 'Retour aux articles',
-      publishedOn: 'Publié le',
-      by: 'Par',
-      readTime: 'Temps de lecture',
-      minutes: 'minutes',
-      tags: 'Tags',
-      relatedArticles: 'Articles associés'
-    },
-    en: {
-      backToBlogs: 'Back to articles',
-      publishedOn: 'Published on',
-      by: 'By',
-      readTime: 'Reading time',
-      minutes: 'minutes',
-      tags: 'Tags',
-      relatedArticles: 'Related articles'
-    }
-  };
+  const displayDate = article.updatedAt ?? article.createdAt
+  const formattedDate = new Date(displayDate).toLocaleDateString(
+    lang === 'fr' ? 'fr-FR' : 'en-GB',
+    { day: 'numeric', month: 'long', year: 'numeric' }
+  )
 
-  const t = content[lang] || content.fr;
+  const hasRelated = article.talent || article.restaurant || article.hotel || article.riyad || article.artisan
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        <nav className="mb-8">
-          <a 
-            href={`/${lang}/blogs`}
-            className="text-red-600 hover:text-red-700 font-medium"
-          >
-            ← {t.backToBlogs}
-          </a>
-        </nav>
+    <div className={styles.page}>
+      <div className={styles.container}>
 
-        <article>
-          <header className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              {blogTitle}
-            </h1>
-            
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
-              <span>{t.publishedOn} {new Date().toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US')}</span>
-              <span>•</span>
-              <span>{t.by} Gault&Millau</span>
-              <span>•</span>
-              <span>{5} {t.minutes} {t.readTime.toLowerCase()}</span>
+        {/* ── Title ── */}
+        <h1 className={styles.title}>{article.title}</h1>
+
+        {/* ── Hero image ── */}
+        {imageUrl && (
+          <div className={styles.heroImage}>
+            <SmartImage id={imageUrl} alt={article.title} fit="cover" width={1000} height={480} />
+          </div>
+        )}
+
+        <div className={styles.meta}>
+          {article.theme && <span className={styles.theme}>{article.theme}</span>}
+          <span className={styles.date}>{formattedDate}</span>
+          <ShareButton title={article.title} text={article.resume} />
+        </div>
+
+        {/* ── Resume ── */}
+        {article.resume && <p className={styles.resume}>{article.resume}</p>}
+
+        {/* ── Content HTML ── */}
+        {article.content && (
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
+        )}
+
+        {/* ── Related entities ── */}
+        {hasRelated && (
+          <div className={styles.relatedSection}>
+            <div className={styles.relatedHeader}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true">
+                <rect width="64" height="64" rx="18" fill="#FF7B08"/>
+                <g fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 26 H48"/>
+                  <path d="M40 18 L48 26"/>
+                  <path d="M48 38 H16"/>
+                  <path d="M24 46 L16 38"/>
+                </g>
+              </svg>
+              <p className={styles.relatedTitle}>En relation avec cet article</p>
             </div>
-          </header>
+            <div className={styles.relatedGrid}>
 
-          <div className="prose prose-lg max-w-none">
-            <p className="text-xl text-gray-600 mb-8">
-              {lang === 'fr'
-                ? 'Découvrez cet article passionnant de notre équipe éditoriale, explorant les tendances et innovations du monde gastronomique.'
-                : 'Discover this fascinating article from our editorial team, exploring trends and innovations in the gastronomic world.'
-              }
-            </p>
+              {article.talent && (
+                <PeopleCard
+                  lang={lang}
+                  People={{
+                    title:       article.talent.fullName,
+                    slug:        article.talent.slug,
+                    thumbId:     article.talent.thumbId ? `${s3}/${article.talent.thumbId}` : undefined,
+                    nbToques:    article.talent.nbrToques ?? undefined,
+                    note:        article.talent.noteGM != null ? String(article.talent.noteGM) : undefined,
+                    roles:       article.talent.roles ?? [],
+                    distinction: article.talent.awards ?? [],
+                    chefAt:      [],
+                  }}
+                  withHeader={true}
+                />
+              )}
 
-            <div className="mb-8">
-              <div className="bg-gray-100 rounded-lg h-64 flex items-center justify-center">
-                <span className="text-gray-500">
-                  {lang === 'fr' ? 'Image de l\'article' : 'Article image'}
-                </span>
-              </div>
-            </div>
+              {article.restaurant && (
+                <RestaurantCard
+                  lang={lang}
+                  restaurant={{
+                    title:         article.restaurant.name,
+                    slug:          article.restaurant.slug,
+                    thumbId:       article.restaurant.thumbId ? `${s3}/${article.restaurant.thumbId}` : undefined,
+                    nbToques:      article.restaurant.nbrToques,
+                    isSponsorised: article.restaurant.isSponsorised,
+                    note:          article.restaurant.noteGM != null ? String(article.restaurant.noteGM) : undefined,
+                    cuisines:      article.restaurant.cuisines,
+                    chief:         article.restaurant.chef,
+                    budget:        article.restaurant.budgetMin != null && article.restaurant.budgetMax != null
+                                     ? `${article.restaurant.budgetMin} – ${article.restaurant.budgetMax} MAD`
+                                     : article.restaurant.budgetMin != null
+                                       ? `${article.restaurant.budgetMin} MAD`
+                                       : undefined,
+                  }}
+                  withHeader={true}
+                />
+              )}
 
-            <div className="space-y-6">
-              <p>
-                {lang === 'fr'
-                  ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                  : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                }
-              </p>
+              {article.hotel && (
+                <HotelCard
+                  lang={lang}
+                  basePath="hotels"
+                  Hotel={{
+                    title:              article.hotel.name,
+                    slug:               article.hotel.slug,
+                    thumbId:            article.hotel.thumbId ? `${s3}/${article.hotel.thumbId}` : undefined,
+                    isGmSelected:       !(article.hotel.isSponsorised ?? false),
+                    isSponsorised:      article.hotel.isSponsorised ?? false,
+                    nbStars:            article.hotel.nbrStars ?? 0,
+                    restaurantNbtoques: article.hotel.nbrToques ?? undefined,
+                    address:            article.hotel.lieu,
+                    budget:             article.hotel.budgetMin != null ? `${article.hotel.budgetMin} MAD` : undefined,
+                    services:           article.hotel.services ?? [],
+                  }}
+                  withHeader={true}
+                />
+              )}
 
-              <h2>
-                {lang === 'fr' ? 'Une tradition culinaire' : 'A culinary tradition'}
-              </h2>
+              {article.riyad && (
+                <HotelCard
+                  lang={lang}
+                  basePath="riyads"
+                  Hotel={{
+                    title:              article.riyad.name,
+                    slug:               article.riyad.slug,
+                    thumbId:            article.riyad.thumbId ? `${s3}/${article.riyad.thumbId}` : undefined,
+                    isGmSelected:       !(article.riyad.isSponsorised ?? false),
+                    isSponsorised:      article.riyad.isSponsorised ?? false,
+                    nbStars:            article.riyad.nbrStars ?? 0,
+                    restaurantNbtoques: article.riyad.nbrToques ?? undefined,
+                    address:            article.riyad.lieu,
+                    budget:             article.riyad.budgetMin != null ? `${article.riyad.budgetMin} MAD` : undefined,
+                    services:           article.riyad.services ?? [],
+                  }}
+                  withHeader={true}
+                />
+              )}
 
-              <p>
-                {lang === 'fr'
-                  ? 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-                  : 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-                }
-              </p>
+              {article.artisan && (
+                <ArtisanCard
+                  lang={lang}
+                  Artisan={{
+                    title:           article.artisan.title,
+                    slug:            article.artisan.slug,
+                    thumbId:         article.artisan.thumbId ? `${s3}/${article.artisan.thumbId}` : undefined,
+                    isGmSelected:    article.artisan.isSelected ?? !(article.artisan.isSponsorised ?? false),
+                    primaryActivity: article.artisan.mainActivity?.libelle ?? '',
+                    otherActivities: article.artisan.otherActivities ?? [],
+                    address:         article.artisan.lieu,
+                    services:        article.artisan.services ?? [],
+                  }}
+                  withHeader={true}
+                />
+              )}
+
             </div>
           </div>
+        )}
 
-          <footer className="mt-12 pt-8 border-t border-gray-200">
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">{t.tags}</h3>
-              <div className="flex flex-wrap gap-2">
-                {['gastronomie', 'chef', 'restaurant'].map(tag => (
-                  <span 
-                    key={tag}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </footer>
-        </article>
       </div>
+
+      <PartenairesSection partners={partners} />
     </div>
-  );
+  )
 }

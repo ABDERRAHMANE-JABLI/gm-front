@@ -1,105 +1,156 @@
-import React from 'react';
-import { Language } from '@/lib/types';
+'use client'
 
-interface ArtisanDetailPageProps {
+import React, { useState, useRef, useEffect } from 'react'
+import styles from '@/page-components/Restaurants/Detail/styles.module.css'
+import Triptych from '@/components/Details/Triptych'
+import HeaderPage from '@/components/Details/HeaderPage'
+import RowDetails from '@/components/Details/RowDetails'
+import MapCard from '@/components/Details/Cards/MapCard'
+import { SmartImage } from '@/components/SmartImage'
+import { ApiArtisanDetail } from '@/types/api/Artisan'
+import { Language } from '@/lib/types'
+import ArtisanIcon from '@/public/icons/menu/artisan.svg'
+import PartenairesSection from '@/components/cards/partners'
+import { ApiPartner } from '@/types/api/Partner'
+
+export interface ArtisanDetailPageProps {
   lang: Language;
-  slug: string;
+  artisan: ApiArtisanDetail;
+  partners?: ApiPartner[];
 }
 
-export default function ArtisanDetailPage({ lang, slug }: ArtisanDetailPageProps) {
-  const artisanName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+export default function ArtisanDetailPage({ artisan, partners = [] }: ArtisanDetailPageProps) {
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
+  const [avisExpanded, setAvisExpanded] = useState(false);
+  const [avisTruncated, setAvisTruncated] = useState(false);
+  const avisTextRef = useRef<HTMLParagraphElement>(null);
 
-  const content = {
-    fr: {
-      title: `Artisan ${artisanName}`,
-      description: 'Découvrez ce talentueux artisan sélectionné par Gault&Millau.',
-      specialty: 'Spécialité',
-      location: 'Localisation',
-      story: 'Son Histoire',
-      products: 'Ses Produits',
-      contact: 'Contact'
-    },
-    en: {
-      title: `Artisan ${artisanName}`,
-      description: 'Discover this talented artisan selected by Gault&Millau.',
-      specialty: 'Specialty',
-      location: 'Location', 
-      story: 'Their Story',
-      products: 'Their Products',
-      contact: 'Contact'
-    }
+  useEffect(() => {
+    const el = avisTextRef.current;
+    if (!el) return;
+    const timer = setTimeout(() => {
+      setAvisTruncated(el.scrollHeight > el.clientHeight + 2);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [artisan.avisGM]);
+
+  const address = [artisan.adresse, artisan.city?.cityName].filter(Boolean).join(', ');
+
+  const activities = [
+    artisan.mainActivity.libelle,
+    ...(artisan.otherActivities ?? []),
+  ].join(' · ');
+
+  const links = {
+    phone:     artisan.tel       ?? undefined,
+    siteWeb:   artisan.website   ?? undefined,
+    instagram: artisan.instagram ?? undefined,
   };
 
-  const t = content[lang] || content.fr;
+  const allImages = [
+    artisan.thumbId ? `${s3}/${artisan.thumbId}` : null,
+    ...artisan.imagesSecondaire.map((img) => `${s3}/${img}`),
+  ].filter(Boolean) as string[];
+
+  const triptychImages = allImages.map((id) => ({ id }));
+
+  const lat = artisan.latitude  ? parseFloat(artisan.latitude)  : undefined;
+  const lng = artisan.longitude ? parseFloat(artisan.longitude) : undefined;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {t.title}
-          </h1>
-          <p className="text-xl text-gray-600">
-            {t.description}
-          </p>
+    <div className={styles.restaurantDetailPage}>
+      <div className={styles.container}>
+
+        {/* Header */}
+        <header>
+          <HeaderPage title={artisan.title} subTitle={address}>
+            <div className={styles.avisHeader} style={{ marginBottom: 0 }}>
+              <span className={styles.avisIcon}><ArtisanIcon width={28} height={28} /></span>
+              <p className={styles.avisTitle}>{activities}</p>
+            </div>
+          </HeaderPage>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                {t.story}
-              </h2>
-              <div className="prose prose-lg">
-                <p>
-                  {lang === 'fr' 
-                    ? `Découvrez l'histoire passionnante de ${artisanName}, artisan d'exception reconnu par Gault&Millau pour son savoir-faire traditionnel et son innovation constante.`
-                    : `Discover the passionate story of ${artisanName}, an exceptional artisan recognized by Gault&Millau for their traditional expertise and constant innovation.`
-                  }
-                </p>
-              </div>
-            </section>
+        {/* Images */}
+        {triptychImages.length === 1 && (
+          <section className={styles.sectionTriptych}>
+            <div className={styles.singleImage}>
+              <SmartImage id={triptychImages[0].id} alt={artisan.title} fit="cover" />
+            </div>
+          </section>
+        )}
+        {triptychImages.length > 1 && (
+          <section className={styles.sectionTriptych}>
+            <Triptych images={triptychImages} title={artisan.title} />
+          </section>
+        )}
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-                {t.products}
-              </h2>
-              <div className="prose prose-lg">
-                <p>
-                  {lang === 'fr'
-                    ? 'Une sélection de produits d\'exception, créés avec passion et expertise.'
-                    : 'A selection of exceptional products, created with passion and expertise.'
-                  }
-                </p>
+        {/* Row Details */}
+        <section className={styles.sectionTriptych}>
+          <RowDetails links={links}>
+            {artisan.mainActivity && (
+              <div className="cardDetailHor">
+                <span className="figmaCaption ellipsis">Activité</span>
+                <span className="figmaCaptionValue ellipsis">{artisan.mainActivity.libelle}</span>
               </div>
-            </section>
-          </div>
+            )}
+            {artisan.otherActivities.length > 0 && (
+              <div className="cardDetailHor">
+                <span className="figmaCaption ellipsis">Autres activités</span>
+                <span className="figmaCaptionValue ellipsis">{artisan.otherActivities.join(' · ')}</span>
+              </div>
+            )}
+            {artisan.services.length > 0 && (
+              <div className="cardDetailHor">
+                <span className="figmaCaption ellipsis">Services</span>
+                <span className="figmaCaptionValue ellipsis">{artisan.services.join(', ')}</span>
+              </div>
+            )}
+          </RowDetails>
+        </section>
 
-          <div className="lg:col-span-1">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                {t.contact}
-              </h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.specialty}</h4>
-                  <p className="text-gray-600">
-                    {lang === 'fr' ? 'Artisanat traditionnel' : 'Traditional craftsmanship'}
-                  </p>
-                </div>
-                
-                <div>
-                  <h4 className="font-medium text-gray-900">{t.location}</h4>
-                  <p className="text-gray-600">
-                    {lang === 'fr' ? 'France' : 'France'}
-                  </p>
-                </div>
+        {/* ── Avis + Plan ── */}
+        <section className={`${styles.cardsRow} ${avisExpanded ? styles.cardsRowExpanded : ''}`}>
+
+          {/* Avis GM */}
+          <div className={avisExpanded ? styles.avisCardFull : styles.avisCardWide}>
+            <div className={styles.avisHeader}>
+              <span className={styles.avisIcon}><ArtisanIcon width={40} height={40} /></span>
+              <div>
+                <p className={styles.avisTitle}>L'avis de Gault&Millau</p>
               </div>
             </div>
+            {artisan.avisGM ? (
+              <>
+                <p ref={avisTextRef} className={`${styles.avisText} ${avisExpanded ? styles.avisTextExpanded : ''}`}>
+                  {artisan.avisGM}
+                </p>
+                {(avisTruncated || avisExpanded) && (
+                  <button className={styles.CardButtonLink} onClick={() => setAvisExpanded((v) => !v)}>
+                    <span className={styles.CardButtonLinkText}>{avisExpanded ? 'LIRE MOINS' : 'LIRE PLUS'}</span>
+                  </button>
+                )}
+              </>
+            ) : (
+              <p className={styles.hoursEmpty}>Avis non renseigné</p>
+            )}
           </div>
-        </div>
+
+          {/* Plan */}
+          <div className={styles.mapWrapper}>
+            <MapCard
+              address={address}
+              latitude={lat}
+              longitude={lng}
+              mapsIframe={artisan.mapsIframe}
+            />
+          </div>
+
+        </section>
+
       </div>
+
+      <PartenairesSection partners={partners} />
     </div>
-  );
+  )
 }

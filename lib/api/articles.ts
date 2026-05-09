@@ -1,5 +1,5 @@
 import 'server-only';
-import { ApiArticle, ApiArticleListResponse, ApiArticleFilters, ApiTheme, ApiPagination } from '@/types/api/Article';
+import { ApiArticle, ApiArticleListResponse, ApiArticleFilters, ApiArticleDetail, ApiTheme, ApiPagination } from '@/types/api/Article';
 import { NewsCardProps, NewsCardButtonProps, NewsCardButtonKind } from '@/types/News';
 import { getApiBaseUrl, getApiHeaders } from './_config';
 
@@ -146,6 +146,28 @@ export async function fetchArticleFilters(): Promise<ApiTheme[]> {
       console.error('[articles/filters] Fetch error:', err);
     }
     return [];
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+export async function fetchArticleDetail(slug: string): Promise<ApiArticleDetail | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(
+      `${getApiBaseUrl()}/api/articles/${slug}`,
+      {
+        signal: controller.signal,
+        next: { tags: [`article_${slug}`], revalidate: 3600 },
+        headers: getApiHeaders(),
+      }
+    );
+    if (!res.ok) return null;
+    return await res.json() as ApiArticleDetail;
+  } catch {
+    return null;
   } finally {
     clearTimeout(timeout);
   }

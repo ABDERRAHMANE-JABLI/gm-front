@@ -1,6 +1,6 @@
 import 'server-only';
 import { getApiBaseUrl, getApiHeaders } from './_config';
-import { ApiArtisan, ApiArtisanListResponse, ApiArtisanFilters } from '@/types/api/Artisan';
+import { ApiArtisan, ApiArtisanListResponse, ApiArtisanFilters, ApiArtisanDetail } from '@/types/api/Artisan';
 import { ApiPagination } from '@/types/api/Article';
 import { ArtisanProps } from '@/types/Artisans';
 
@@ -142,6 +142,26 @@ export async function fetchArtisanFilters(): Promise<ApiArtisanFilters> {
     };
   } catch {
     return EMPTY_FILTERS;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+// ─── fetchArtisanDetail ──────────────────────────────────────────────────────
+
+export async function fetchArtisanDetail(slug: string): Promise<ApiArtisanDetail | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(
+      `${getApiBaseUrl()}/api/artisans/${slug}`,
+      { signal: controller.signal, next: { tags: [`artisan_${slug}`], revalidate: 3600 }, headers: getApiHeaders() }
+    );
+    if (!res.ok) return null;
+    return await res.json() as ApiArtisanDetail;
+  } catch {
+    return null;
   } finally {
     clearTimeout(timeout);
   }

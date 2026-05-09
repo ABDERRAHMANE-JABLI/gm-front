@@ -1,0 +1,360 @@
+.page {
+  background: #fff;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── Hero ── */
+.heroSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: stretch;
+}
+
+.photoCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photoInner {
+  width: 400px;
+  height: 520px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e0e0e0;
+}
+
+.photoInner > * {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.photoPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  height: 520px;
+}
+
+.name {
+  font-family: "Montserrat", sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.roles {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.toquesRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toquesRowYellow {
+  background: var(--yellowGM, #ffe700);
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+.toqueBadge {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+}
+
+.etablissement {
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.awards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.awardBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--yellowGM, #ffe700);
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  color: #1a1a1a;
+}
+
+/* ── Présentation ── */
+.presentationSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  height: 520px;
+  overflow: hidden;
+}
+
+.presentationSectionFull {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 28px;
+  height: auto;
+}
+
+.presBody {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.presBodyExpanded {
+  flex: 1;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lirePlusBtn {
+  margin-top: auto;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.presentationHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.presentationTitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.resume {
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
+  margin: 0;
+  font-style: italic;
+}
+
+.presentation {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.7;
+}
+
+/* ── Biographie ── */
+.bioSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sectionTitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 15px 0;
+  text-transform: uppercase;
+}
+
+.bioCarousel {
+  position: relative;
+}
+
+.bioTrack {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.bioTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.bioCard {
+  flex: 0 0 170px;
+  width: 170px;
+  height: 170px;
+  scroll-snap-align: start;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #fff;
+}
+
+.bioYear {
+  font-family: "Montserrat", sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--yellowGM, #ffe700);
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.bioText {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.bioNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--yellowGM, #ffe700);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.bioNavPrev {
+  left: -18px;
+}
+
+.bioNavNext {
+  right: -18px;
+}
+
+/* ── Restaurants ── */
+.restoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restoList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.restoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .restoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .restoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .heroSection {
+    grid-template-columns: 1fr;
+  }
+
+  .photoCol {
+    aspect-ratio: 4 / 3;
+  }
+
+  .name {
+    font-size: 26px;
+  }
+}

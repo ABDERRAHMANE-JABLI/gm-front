@@ -14,9 +14,10 @@ interface MapCardProps {
 }
 
 export default function MapCard({ address, latitude, longitude, mapsIframe }: MapCardProps) {
-  const googleMapsUrl = latitude && longitude
+  const hasCoords = !!(latitude && longitude);
+  const googleMapsUrl = hasCoords
     ? `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`
-    : '#';
+    : undefined;
 
   const iframeSrc = mapsIframe
     ?? (latitude && longitude ? `https://maps.google.com/maps?q=${latitude},${longitude}&z=15&output=embed` : null);
@@ -28,7 +29,7 @@ export default function MapCard({ address, latitude, longitude, mapsIframe }: Ma
         <span className={styles.headerTitle}>PLAN</span>
       </div>
 
-      {iframeSrc && (
+      {iframeSrc ? (
         <iframe
           src={iframeSrc}
           className={styles.mapImage}
@@ -37,6 +38,8 @@ export default function MapCard({ address, latitude, longitude, mapsIframe }: Ma
           allowFullScreen
           title={`Carte pour ${address}`}
         />
+      ) : (
+        <div className={styles.mapPlaceholder}>Plan non renseigné</div>
       )}
 
       <div className={styles.bodyContent}>
@@ -45,15 +48,21 @@ export default function MapCard({ address, latitude, longitude, mapsIframe }: Ma
           <span className={styles.address}>{address}</span>
         </div>
 
-        <Link
-          href={googleMapsUrl}
-          className={styles.CardButtonLink}
-          title="Je m'y rends"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        {hasCoords ? (
+          <Link
+            href={googleMapsUrl!}
+            className={styles.CardButtonLink}
+            title="Je m'y rends"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> JE M'Y RENDS</span>
-        </Link>
+          </Link>
+        ) : (
+          <button className={`${styles.CardButtonLink} ${styles.CardButtonLinkDisabled}`} disabled>
+            <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> JE M'Y RENDS</span>
+          </button>
+        )}
       </div>
     </div>
   );

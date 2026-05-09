@@ -1,6 +1,6 @@
 import 'server-only';
 import { getApiBaseUrl, getApiHeaders } from './_config';
-import { ApiTalent, ApiTalentListResponse, ApiTalentFilters } from '@/types/api/Talent';
+import { ApiTalent, ApiTalentListResponse, ApiTalentFilters, ApiTalentDetail } from '@/types/api/Talent';
 import { ApiPagination } from '@/types/api/Article';
 import PeopleProps from '@/types/Peoples';
 
@@ -36,11 +36,12 @@ function mapTalentToCard(t: ApiTalent): PeopleProps {
     title:              t.fullName,
     slug:               t.slug,
     thumbId:            t.thumbId ? `${s3}/${t.thumbId}` : undefined,
-    nbToques:           t.nbrToques ?? undefined,
+    nbToques:    t.nbrToques ?? undefined,
     note:        t.noteGM != null ? String(t.noteGM) : undefined,
-    role:        t.role ? [t.role] : undefined,
+    roles:       t.roles ?? [],
     distinction: t.awards ?? [],
     chefAt:      t.chefAt ?? [],
+    workplace:   t.workplace ?? null,
   };
 }
 
@@ -142,6 +143,26 @@ export async function fetchTalentFilters(): Promise<ApiTalentFilters> {
     };
   } catch {
     return EMPTY_FILTERS;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+// ─── fetchTalentDetail ────────────────────────────────────────────────────────
+
+export async function fetchTalentDetail(slug: string): Promise<ApiTalentDetail | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(
+      `${getApiBaseUrl()}/api/talents/${slug}`,
+      { signal: controller.signal, next: { tags: [`people_${slug}`], revalidate: 3600 }, headers: getApiHeaders() }
+    );
+    if (!res.ok) return null;
+    return await res.json() as ApiTalentDetail;
+  } catch {
+    return null;
   } finally {
     clearTimeout(timeout);
   }

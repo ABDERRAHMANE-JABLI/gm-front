@@ -193,39 +193,45 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
           )}
 
           {/* Horaires */}
-          {restaurant.openingHour.length > 0 && (
-            <div className={styles.hoursCard}>
+          <div className={styles.hoursCard}>
               <div className={styles.hoursHeader}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <span className={styles.hoursTitle}>Horaires</span>
               </div>
-              <ul className={styles.hoursList}>
-                {restaurant.openingHour.map((h) => (
-                  <li
-                    key={h.dayOfWeek}
-                    className={`${styles.hoursRow} ${h.dayOfWeek === TODAY_DAY ? styles.hoursRowActive : ''}`}
-                  >
-                    <span className={styles.hoursDay}>{DAY_MAP[h.dayOfWeek]}</span>
-                    <span className={styles.hoursTime}>{formatHours(h)}</span>
-                  </li>
-                ))}
-              </ul>
+              {restaurant.openingHour.length > 0 ? (
+                <ul className={styles.hoursList}>
+                  {restaurant.openingHour.map((h) => (
+                    <li
+                      key={h.dayOfWeek}
+                      className={`${styles.hoursRow} ${h.dayOfWeek === TODAY_DAY ? styles.hoursRowActive : ''}`}
+                    >
+                      <span className={styles.hoursDay}>{DAY_MAP[h.dayOfWeek]}</span>
+                      <span className={styles.hoursTime}>{formatHours(h)}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className={styles.hoursEmpty}>Horaires non renseignés</p>
+              )}
             </div>
-          )}
 
         </section>
 
         {/* ── Peoples + Menu ── */}
-        {(restaurant.chef || restaurant.employes.length > 0 || restaurant.menuItems.length > 0) && (
-          <section className={styles.bottomRow}>
+        <section className={styles.bottomRow}>
 
             {/* Peoples */}
-            {!menuExpanded && (restaurant.chef || restaurant.employes.length > 0) && (
+            {!menuExpanded && (
               <div className={styles.peoplesCard}>
                 <div className={styles.peoplesHeader}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                   LES PEOPLES
                 </div>
+
+                {/* Vide */}
+                {!restaurant.chef && restaurant.employes.length === 0 && (
+                  <p className={styles.hoursEmpty}>Équipe non renseignée</p>
+                )}
 
                 {/* Chef */}
                 {restaurant.chef && (
@@ -261,7 +267,7 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
             )}
 
             {/* Menu */}
-            {restaurant.menuItems.length > 0 && (() => {
+            {(() => {
               const FORMULE_TYPE = 'formule';
               const carteItems   = restaurant.menuItems.filter(m => m.type !== FORMULE_TYPE);
               const formuleItems = restaurant.menuItems.filter(m => m.type === FORMULE_TYPE);
@@ -281,6 +287,11 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
                     <p className={styles.menuHeaderTitle}>MENU</p>
                   </div>
                   <div className={`${styles.menuBody} ${menuExpanded ? styles.menuBodyExpanded : ''}`}>
+
+                    {/* ── Vide ── */}
+                    {restaurant.menuItems.length === 0 && (
+                      <p className={styles.hoursEmpty}>Menu non renseigné</p>
+                    )}
 
                     {/* ── A LA CARTE ── */}
                     {carteItems.length > 0 && (
@@ -320,9 +331,11 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
                     )}
 
                   </div>
-                  <button className={styles.CardButtonLink} onClick={() => setMenuExpanded((v) => !v)}>
-                    <span className={styles.CardButtonLinkText}>{menuExpanded ? 'LIRE MOINS' : 'LIRE LA SUITE...'}</span>
-                  </button>
+                  {restaurant.menuItems.length > 0 && (
+                    <button className={styles.CardButtonLink} onClick={() => setMenuExpanded((v) => !v)}>
+                      <span className={styles.CardButtonLinkText}>{menuExpanded ? 'LIRE MOINS' : 'LIRE LA SUITE...'}</span>
+                    </button>
+                  )}
                 </div>
               );
             })()}
@@ -335,7 +348,6 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
             )}
 
           </section>
-        )}
 
         <PartenairesSection partners={partners} />
 

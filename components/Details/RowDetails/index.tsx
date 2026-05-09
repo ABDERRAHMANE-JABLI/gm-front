@@ -24,7 +24,8 @@ export default function RowDetails({ links, budget, budgetDescription, children 
                     {links && <SocialLinks links={links}/>}
                 </div>
             </div>
-            <div className={styles.colRight}>
+            {budget && (
+              <div className={styles.colRight}>
                 <div className={styles.paddingContainer}>
                     <div className={styles.Budget}>
                         <div className={styles.text}>
@@ -36,7 +37,8 @@ export default function RowDetails({ links, budget, budgetDescription, children 
                         </div>
                     </div>
                 </div>
-            </div>
+              </div>
+            )}
         </div>
     );
 }

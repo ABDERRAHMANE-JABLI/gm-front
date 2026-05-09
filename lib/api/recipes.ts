@@ -1,6 +1,6 @@
 import 'server-only';
 import { getApiBaseUrl, getApiHeaders } from './_config';
-import { ApiRecipe, ApiRecipeListResponse, ApiRecipeFilters } from '@/types/api/Recipe';
+import { ApiRecipe, ApiRecipeListResponse, ApiRecipeFilters, ApiRecipeDetail } from '@/types/api/Recipe';
 import { ApiPagination } from '@/types/api/Article';
 import { RecipeCardProps, RecipeCardButtonKind } from '@/types/Recipe';
 
@@ -81,6 +81,30 @@ const EMPTY_RESULT: FetchRecipesResult = {
   recipes:    [],
   pagination: { page: 1, limit: 9, total: 0, total_pages: 0 },
 };
+
+// ─── fetchRecipeDetail ────────────────────────────────────────────────────────
+
+export async function fetchRecipeDetail(slug: string): Promise<ApiRecipeDetail | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(
+      `${getApiBaseUrl()}/api/recipes/${slug}`,
+      {
+        signal:  controller.signal,
+        next:    { tags: [`recipe_${slug}`], revalidate: 3600 },
+        headers: getApiHeaders(),
+      }
+    );
+    if (!res.ok) return null;
+    return await res.json() as ApiRecipeDetail;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 // ─── fetchRecipes ─────────────────────────────────────────────────────────────
 

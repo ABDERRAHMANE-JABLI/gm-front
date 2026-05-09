@@ -46,22 +46,32 @@ export default function PeopleCard({ lang, People, withHeader }: Props) {
 
                 <div className={styles.cardPaddingContainer}>
                     <h3 className={styles.title}>{People.title}</h3>
-                    <span className={styles.subTitle}>{Array.isArray(People.role) ? People.role[0] : People.role}</span>
+                    {!!People.roles?.length && (
+                        <span className={styles.subTitle}>
+                            {People.roles.slice(0, 2).join(', ')}
+                            {People.roles.length > 2 && '...'}
+                        </span>
+                    )}
                 </div>
-                
+
                 <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
-                   {!!People.distinction?.length && (
+                    {!!People.distinction?.length && (
                         <div className={styles.cardDetail}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.distinction")} :</span>
                             <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>{People.distinction.slice(0, 2).join(", ")}</span>
                         </div>
-                    )} 
-                    {!!People.chefAt?.length && (
+                    )}
+                    {(!!People.chefAt?.length || !!People.workplace) && (
                         <div className={styles.cardDetail}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>Établissements :</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>{People.chefAt.map(item => item.name).join(", ")}</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles["clamp-2"]}`}>
+                                {People.workplace
+                                    ? People.workplace.name
+                                    : People.chefAt!.map(item => item.name).join(", ")
+                                }
+                            </span>
                         </div>
-                    )} 
+                    )}
                 </div>
             </div>
         </article>
