@@ -97,7 +97,7 @@ export async function fetchHotels(
     );
 
     if (!res.ok) {
-      console.error(`[hotels] API responded with ${res.status}`);
+      console.warn(`[hotels] API responded with ${res.status}`);
       return EMPTY_RESULT;
     }
 

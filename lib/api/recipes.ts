@@ -133,7 +133,7 @@ export async function fetchRecipes(
     );
 
     if (!res.ok) {
-      console.error(`[recipes] API responded with ${res.status}`);
+      console.warn(`[recipes] API responded with ${res.status}`);
       return EMPTY_RESULT;
     }
 

@@ -97,7 +97,7 @@ export async function fetchRiyads(
     );
 
     if (!res.ok) {
-      console.error(`[riyads] API responded with ${res.status}`);
+      console.warn(`[riyads] API responded with ${res.status}`);
       return EMPTY_RESULT;
     }
 

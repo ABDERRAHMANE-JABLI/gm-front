@@ -860,3 +860,42 @@
 }
 
 
+.relatedSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+}
+
+.relatedHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.relatedTitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 15px 0;
+  text-transform: uppercase;
+}
+
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .heroImage {
+    height: 280px;
+  }
+
+  .relatedGrid {
+    grid-template-columns: 1fr;
+  }
+}

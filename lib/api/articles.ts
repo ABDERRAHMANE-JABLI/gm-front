@@ -123,7 +123,7 @@ export async function fetchArticleFilters(): Promise<ApiTheme[]> {
     );
 
     if (!res.ok) {
-      console.error(`[articles/filters] API responded with ${res.status}`);
+      console.warn(`[articles/filters] API responded with ${res.status}`);
       return [];
     }
 
@@ -133,7 +133,7 @@ export async function fetchArticleFilters(): Promise<ApiTheme[]> {
       typeof body !== 'object' || body === null ||
       !Array.isArray((body as ApiArticleFilters).themes)
     ) {
-      console.error('[articles/filters] Unexpected response shape');
+      console.warn('[articles/filters] Unexpected response shape');
       return [];
     }
 
@@ -141,9 +141,9 @@ export async function fetchArticleFilters(): Promise<ApiTheme[]> {
 
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
-      console.error('[articles/filters] Request timed out');
+      console.warn('[articles/filters] Request timed out');
     } else {
-      console.error('[articles/filters] Fetch error:', err);
+      console.warn('[articles/filters] Fetch error:', err);
     }
     return [];
   } finally {
@@ -197,14 +197,14 @@ export async function fetchArticles(options: FetchArticlesOptions = {}): Promise
     );
 
     if (!res.ok) {
-      console.error(`[articles] API responded with ${res.status}`);
+      console.warn(`[articles] API responded with ${res.status}`);
       return EMPTY_RESULT;
     }
 
     const body: unknown = await res.json();
 
     if (!isValidApiResponse(body)) {
-      console.error('[articles] Unexpected API response shape');
+      console.warn('[articles] Unexpected API response shape');
       return EMPTY_RESULT;
     }
 
@@ -215,9 +215,9 @@ export async function fetchArticles(options: FetchArticlesOptions = {}): Promise
 
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
-      console.error('[articles] Request timed out');
+      console.warn('[articles] Request timed out');
     } else {
-      console.error('[articles] Fetch error:', err);
+      console.warn('[articles] Fetch error:', err);
     }
     return EMPTY_RESULT;
   } finally {

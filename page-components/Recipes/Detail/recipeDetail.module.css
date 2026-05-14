@@ -151,14 +151,14 @@
 }
 
 .relatedTitle {
-  font-family: var(--card-title-font-family, "Montserrat"), sans-serif;
-  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
   font-weight: 700;
-  color: #888;
+  color: #1a1a1a;
+  margin: 15px 0;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin: 0;
 }
+
 
 .relatedGrid {
   display: grid;

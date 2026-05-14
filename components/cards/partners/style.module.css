@@ -96,16 +96,16 @@
 }
 
 .leftTitle h4{
-  font-size: 40px;
+  font-size: 35px;
     font-weight: 900;
-    font-family: 'Lora', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #000;
     margin-bottom: 10px;
 }
 .leftTitle p{
   font-size: 12px;
     font-weight: 700;
-    font-family: 'Lora', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #000;
     text-transform: capitalize;
     text-align: center;
@@ -210,9 +210,9 @@
 }
 
 .partenaire .right h4 {
-    font-size: 40px;
+    font-size: 35px;
     font-weight: 900;
-    font-family: 'Lora', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #000;
     margin-bottom: 10px;
 }

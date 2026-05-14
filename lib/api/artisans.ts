@@ -91,7 +91,7 @@ export async function fetchArtisans(
     );
 
     if (!res.ok) {
-      console.error(`[artisans] API responded with ${res.status}`);
+      console.warn(`[artisans] API responded with ${res.status}`);
       return EMPTY_RESULT;
     }
 

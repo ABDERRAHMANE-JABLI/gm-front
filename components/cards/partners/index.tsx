@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import style from "./style.module.css";
 import { ApiPartner } from "@/types/api/Partner";
+import GMLogo         from '@/public/icons/GaultMillau.svg';
 
 interface Props {
   partners: ApiPartner[];
@@ -73,8 +74,7 @@ export default function PartenairesSection({ partners = [] }: Props) {
       <div className={style.right}>
         <div className={style.logoGM}>
           <h4>Devenez Partenaires</h4>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/GaultMillau.svg" width={180} height={37} alt="Gault&Millau" />
+          <GMLogo width={150}/>
         </div>
         <Link href="/contact" className={style.Btn}>En Savoir Plus</Link>
       </div>

@@ -165,11 +165,11 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
 
           return (
             <section style={{ marginTop: '30px' }}>
-              <div className={styles.avisHeader} style={{ marginBottom: '16px' }}>
-                <span className={styles.avisIcon}>
-                  <RestaurantIcon width={28} height={28} />
-                </span>
-                <p className={styles.avisTitle}>Découvrez le restaurant de l'hôtel</p>
+              <div className={styles.relatedSection}>
+                <div className={styles.relatedHeader}>
+                  <RestaurantIcon width={36} height={36} />
+                  <p className={styles.relatedTitle}>Découvrez le restaurant de l'Hôtel</p>
+                </div>
               </div>
               <HorizontalRestauCard lang={lang} restaurant={restoProps} />
             </section>

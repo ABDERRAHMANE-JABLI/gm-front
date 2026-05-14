@@ -26,6 +26,15 @@ export default function UtensilsContent({
 
   const hasMore = pagination.page < pagination.total_pages;
 
+  if (initialUtensils.length === 0) {
+    return (
+      <div className={styles.emptyPage}>
+        <p className={styles.emptyPageTitle}>Aucun enregistrement trouvé pour le moment.</p>
+        <p className={styles.emptyPageSub}>Revenez bientôt pour découvrir nos ustensiles.</p>
+      </div>
+    );
+  }
+
   async function loadMore() {
     if (loading || !hasMore) return;
     setLoading(true);

@@ -112,14 +112,14 @@ export async function fetchRestaurants(
     );
 
     if (!res.ok) {
-      console.error(`[restaurants] API responded with ${res.status}`);
+      console.warn(`[restaurants] API responded with ${res.status}`);
       return EMPTY_RESULT;
     }
 
     const body: unknown = await res.json();
 
     if (!isValidListResponse(body)) {
-      console.error('[restaurants] Unexpected API response shape');
+      console.warn('[restaurants] Unexpected API response shape');
       return EMPTY_RESULT;
     }
 
@@ -129,9 +129,9 @@ export async function fetchRestaurants(
     };
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
-      console.error('[restaurants] Request timed out');
+      console.warn('[restaurants] Request timed out');
     } else {
-      console.error('[restaurants] Fetch error:', err);
+      console.warn('[restaurants] Fetch error:', err);
     }
     return EMPTY_RESULT;
   } finally {
@@ -160,14 +160,14 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
     );
 
     if (!res.ok) {
-      console.error(`[restaurants/filters] API responded with ${res.status}`);
+      console.warn(`[restaurants/filters] API responded with ${res.status}`);
       return EMPTY_FILTERS;
     }
 
     const body = await res.json() as Record<string, unknown>;
 
     if (typeof body !== 'object' || body === null) {
-      console.error('[restaurants/filters] Unexpected response shape');
+      console.warn('[restaurants/filters] Unexpected response shape');
       return EMPTY_FILTERS;
     }
 
@@ -181,9 +181,9 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
     } as ApiRestaurantFilters;
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
-      console.error('[restaurants/filters] Request timed out');
+      console.warn('[restaurants/filters] Request timed out');
     } else {
-      console.error('[restaurants/filters] Fetch error:', err);
+      console.warn('[restaurants/filters] Fetch error:', err);
     }
     return EMPTY_FILTERS;
   } finally {
@@ -208,16 +208,16 @@ export async function fetchRestaurantDetail(slug: string): Promise<ApiRestaurant
     );
 
     if (!res.ok) {
-      console.error(`[restaurants/detail] API responded with ${res.status}`);
+      console.warn(`[restaurants/detail] API responded with ${res.status}`);
       return null;
     }
 
     return await res.json() as ApiRestaurantDetail;
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
-      console.error('[restaurants/detail] Request timed out');
+      console.warn('[restaurants/detail] Request timed out');
     } else {
-      console.error('[restaurants/detail] Fetch error:', err);
+      console.warn('[restaurants/detail] Fetch error:', err);
     }
     return null;
   } finally {

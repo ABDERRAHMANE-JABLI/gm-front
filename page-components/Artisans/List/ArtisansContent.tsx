@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import styles from '@/styles/listPage.module.css';
 import ArtisanCard from '@/components/cards/artisanCard';
 import SearchBar from '@/components/SearchBar';
@@ -8,7 +9,9 @@ import { ArtisanProps } from '@/types/Artisans';
 import { ApiPagination } from '@/types/api/Article';
 import { ApiArtisanFilters } from '@/types/api/Artisan';
 import type { FetchArtisansOptions } from '@/lib/api/artisans';
-import { loadMoreArtisans } from '@/lib/actions/artisans';
+import { loadMoreArtisans, searchArtisans, ArtisanSearchResult } from '@/lib/actions/artisans';
+import ArtisanIcon from '@/public/icons/menu/artisan.svg';
+import { sanitizeSearch } from '@/lib/utils/sanitize';
 
 type Language = 'fr' | 'en';
 
@@ -33,13 +36,36 @@ export default function ArtisansContent({
   initialPagination,
   filters,
 }: ArtisansContentProps) {
-  const [artisans, setArtisans]       = useState<ArtisanProps[]>(initialArtisans);
-  const [pagination, setPagination]   = useState<ApiPagination>(initialPagination);
-  const [loading, setLoading]         = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filtersOpen, setFiltersOpen] = useState(false);
-  const [active, setActive]           = useState<ActiveFilters>(EMPTY_FILTERS);
+  const [artisans, setArtisans]           = useState<ArtisanProps[]>(initialArtisans);
+  const [pagination, setPagination]       = useState<ApiPagination>(initialPagination);
+  const [loading, setLoading]             = useState(false);
+  const [searchQuery, setSearchQuery]     = useState('');
+  const [filtersOpen, setFiltersOpen]     = useState(false);
+  const [active, setActive]               = useState<ActiveFilters>(EMPTY_FILTERS);
+  const [searchResults, setSearchResults] = useState<ArtisanSearchResult[] | null>(null);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const debounceRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const requestIdRef = useRef(0);
 
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (searchQuery.length < 4) {
+      setSearchResults(null);
+      setSearchLoading(false);
+      return;
+    }
+    debounceRef.current = setTimeout(async () => {
+      const id = ++requestIdRef.current;
+      setSearchLoading(true);
+      const results = await searchArtisans(sanitizeSearch(searchQuery));
+      if (id !== requestIdRef.current) return;
+      setSearchResults(results);
+      setSearchLoading(false);
+    }, 300);
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
+  }, [searchQuery]);
+
+  const showDropdown = searchQuery.length >= 4;
   const hasMore = pagination.page < pagination.total_pages;
 
   async function applyFilters(next: ActiveFilters, page = 1) {
@@ -90,18 +116,19 @@ export default function ArtisansContent({
     await applyFilters(active, pagination.page + 1);
   }
 
-  const displayed = searchQuery.trim()
-    ? artisans.filter(
-        (a) =>
-          a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          a.address?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          a.primaryActivity.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : artisans;
-
   const hasActiveFilters = Boolean(
     active.city || active.activities.length || active.services.length
   );
+  const hasFilters = filters.cities.length > 0 || filters.activities.length > 0 || filters.services.length > 0;
+
+  if (initialArtisans.length === 0 && !hasFilters) {
+    return (
+      <div className={styles.emptyPage}>
+        <p className={styles.emptyPageTitle}>Aucun enregistrement trouvé pour le moment.</p>
+        <p className={styles.emptyPageSub}>Revenez bientôt pour découvrir nos artisans.</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.listPage}>
@@ -112,13 +139,50 @@ export default function ArtisansContent({
           <div className={styles.searchBarBox}>
             <SearchBar type="artisan" value={searchQuery} onChange={setSearchQuery} />
           </div>
-          <button
-            className={styles.filterToggleBtn}
-            onClick={() => setFiltersOpen((v) => !v)}
-            aria-label="Filtres"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" color="black"><g fill="none" fillRule="evenodd"><path d="m12.594 23.258-.012.002-.071.035-.02.004-.014-.004-.071-.036q-.016-.004-.024.006l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427q-.004-.016-.016-.018m.264-.113-.014.002-.184.093-.01.01-.003.011.018.43.005.012.008.008.201.092q.019.005.029-.008l.004-.014-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014-.034.614q.001.018.017.024l.015-.002.201-.093.01-.008.003-.011.018-.43-.003-.012-.01-.01z"/><path fill="currentColor" d="M16 15c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2h9.17A3 3 0 0 1 16 15m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2M8 9a3 3 0 0 1 2.762 1.828l.067.172H20a1 1 0 0 1 .117 1.993L20 13h-9.17a3.001 3.001 0 0 1-5.592.172L5.17 13H4a1 1 0 0 1-.117-1.993L4 11h1.17A3 3 0 0 1 8 9m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2m8-8c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 0 1 0-2h9.17A3 3 0 0 1 16 3m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/></g></svg>
-          </button>
+          {hasFilters && (
+            <button
+              className={styles.filterToggleBtn}
+              onClick={() => setFiltersOpen((v) => !v)}
+              aria-label="Filtres"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" color="black"><g fill="none" fillRule="evenodd"><path d="m12.594 23.258-.012.002-.071.035-.02.004-.014-.004-.071-.036q-.016-.004-.024.006l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427q-.004-.016-.016-.018m.264-.113-.014.002-.184.093-.01.01-.003.011.018.43.005.012.008.008.201.092q.019.005.029-.008l.004-.014-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014-.034.614q.001.018.017.024l.015-.002.201-.093.01-.008.003-.011.018-.43-.003-.012-.01-.01z"/><path fill="currentColor" d="M16 15c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2h9.17A3 3 0 0 1 16 15m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2M8 9a3 3 0 0 1 2.762 1.828l.067.172H20a1 1 0 0 1 .117 1.993L20 13h-9.17a3.001 3.001 0 0 1-5.592.172L5.17 13H4a1 1 0 0 1-.117-1.993L4 11h1.17A3 3 0 0 1 8 9m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2m8-8c1.306 0 2.418.835 2.83 2H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 0 1 0-2h9.17A3 3 0 0 1 16 3m0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/></g></svg>
+            </button>
+          )}
+
+          {showDropdown && (
+            <div className={styles.searchDropdown}>
+              <div className={styles.dropdownHeader}>
+                <ArtisanIcon width={25} height={25} />
+                <span className={styles.dropdownLabel}>Artisans</span>
+                <button className={styles.dropdownClose} onClick={() => setSearchQuery('')}>Fermer ×</button>
+              </div>
+              {searchLoading ? (
+                <p className={styles.dropdownLoading}>Recherche en cours…</p>
+              ) : !searchResults || searchResults.length === 0 ? (
+                <p className={styles.dropdownEmpty}>Aucun résultat trouvé</p>
+              ) : (
+                <div className={styles.dropdownList}>
+                  {searchResults.map((a) => (
+                    <Link
+                      key={a.slug}
+                      href={`/${lang}/artisans/${a.slug}`}
+                      className={styles.dropdownItem}
+                      onClick={() => setSearchQuery('')}
+                    >
+                      <div className={styles.dropdownThumb}>
+                        {a.thumbId && <img src={a.thumbId} alt={a.name} />}
+                      </div>
+                      <div className={styles.dropdownInfo}>
+                        <p className={styles.dropdownTitle}>{a.name}</p>
+                        {a.activity && <span className={styles.dropdownTag}>{a.activity}</span>}
+                        {a.lieu && <span className={styles.dropdownLocation}>{a.lieu}</span>}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -212,7 +276,7 @@ export default function ArtisansContent({
 
           {loading && artisans.length === 0 ? (
             <p className={styles.loadingText}>Chargement...</p>
-          ) : displayed.length === 0 ? (
+          ) : artisans.length === 0 ? (
             <div className={styles.emptyState}>
               <p className={styles.emptyTitle}>Aucun artisan trouvé</p>
               <p className={styles.emptyText}>Essayez d&apos;autres critères de recherche.</p>
@@ -220,12 +284,12 @@ export default function ArtisansContent({
           ) : (
             <>
               <div className={styles.cardsGrid}>
-                {displayed.map((artisan) => (
+                {artisans.map((artisan) => (
                   <ArtisanCard key={artisan.slug} lang={lang} Artisan={artisan} />
                 ))}
               </div>
 
-              {hasMore && !searchQuery && (
+              {hasMore && (
                 <div className={styles.loadMoreWrapper}>
                   <button
                     className={styles.loadMoreButton}

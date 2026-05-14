@@ -57,7 +57,7 @@ export async function fetchUtensils(
     );
 
     if (!res.ok) {
-      console.error(`[utensils] API responded with ${res.status}`);
+      console.warn(`[utensils] API responded with ${res.status}`);
       return { utensils: [], pagination: EMPTY_PAGINATION };
     }
 
@@ -119,7 +119,7 @@ export async function fetchUtensilItems(
     );
 
     if (!res.ok) {
-      console.error(`[utensils] items API responded with ${res.status}`);
+      console.warn(`[utensils] items API responded with ${res.status}`);
       return { items: [], pagination: EMPTY_PAGINATION };
     }
 

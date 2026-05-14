@@ -56,7 +56,7 @@ export default function RecipeDetailPage({ lang, recipe, partners = [] }: Recipe
         {hasRelated && (
           <div className={styles.relatedSection}>
             <div className={styles.relatedHeader}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 64 64" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 64 64" aria-hidden="true">
                 <rect width="64" height="64" rx="18" fill="#FF7B08"/>
                 <g fill="none" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M16 26 H48"/>

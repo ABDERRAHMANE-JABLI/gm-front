@@ -92,7 +92,7 @@ export async function fetchTalents(
     );
 
     if (!res.ok) {
-      console.error(`[talents] API responded with ${res.status}`);
+      console.warn(`[talents] API responded with ${res.status}`);
       return EMPTY_RESULT;
     }
 
