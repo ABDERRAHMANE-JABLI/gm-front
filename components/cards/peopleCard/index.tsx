@@ -35,7 +35,7 @@ export default function PeopleCard({ lang, People, withHeader }: Props) {
             )}
 
             <div className={styles.thumbWrapper}>
-                <SmartImage id={imageId} alt={People.title} width={666} height={444} fit="cover" lazyload />
+                <SmartImage id={imageId} alt={People.title} width={666} height={444} fit="cover" lazyload typeImage={"chef"}/>
             </div>
 
             {/* Contenu */}

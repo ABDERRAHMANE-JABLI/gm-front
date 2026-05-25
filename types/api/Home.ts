@@ -3,14 +3,21 @@ export type HomeSectionLayoutType =
   | 'articles_split'
   | 'pub_full'
   | 'article_pub'
-  | 'three_articles';
+  | 'three_articles'
+  | 'two_articles_pub';
 
 export interface HomeSectionItem {
-  type:    string;
   id:      number;
   title:   string;
   slug:    string;
+  resume:  string;
   thumbId: string | null;
+  theme:   string | null;
+  talent:     { fullName: string; slug: string } | null;
+  restaurant: { name: string; slug: string; lieu: string } | null;
+  hotel:      { name: string; slug: string; lieu: string } | null;
+  riyad:      { name: string; slug: string; lieu: string } | null;
+  artisan:    { title: string; slug: string; lieu: string } | null;
 }
 
 export interface HomeSection {

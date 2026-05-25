@@ -91,7 +91,7 @@ export async function fetchHotels(
       `${getApiBaseUrl()}/api/hotels?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { tags: ['hotels_list'], revalidate: 3600 },
+        next:    { tags: ['hotels_list'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -130,7 +130,7 @@ export async function fetchHotelFilters(): Promise<ApiHotelFilters> {
       `${getApiBaseUrl()}/api/hotels/filters`,
       {
         signal:  controller.signal,
-        next:    { tags: ['hotels_list', 'hotels_filters'], revalidate: 3600 },
+        next:    { tags: ['hotels_list', 'hotels_filters'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -164,7 +164,7 @@ export async function fetchHotelDetail(slug: string): Promise<ApiHotelDetail | n
   try {
     const res = await fetch(
       `${getApiBaseUrl()}/api/hotels/${slug}`,
-      { signal: controller.signal, next: { tags: [`hotel_${slug}`], revalidate: 3600 }, headers: getApiHeaders() }
+      { signal: controller.signal, next: { tags: [`hotel_${slug}`], revalidate: 86400 }, headers: getApiHeaders() }
     );
     if (!res.ok) return null;
     return await res.json() as ApiHotelDetail;

@@ -52,7 +52,7 @@
         border: 1px solid var(--GMI-cardbordercolor);
         display: flex;
         flex-direction: column;
-        height: 600px;
+        height: 520px;
         max-width: 650px;
         overflow: hidden;
         padding-bottom: 20px;
@@ -128,8 +128,8 @@
         inset: 0;
         z-index: 5;
         display: block;
-        width: 300px !important;
-        height: 520px !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 }
 
@@ -358,8 +358,8 @@
     inset: 0;
     z-index: 5;
     display: block;
-    width: 650px !important;
-    height: 600px !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .figma-placeCardButton,
@@ -398,13 +398,15 @@ sinon : */
 @media (max-width: 950px) {
     .uneDeux-card {
         background-color: var(--GMI-carddefaultbackground);
-        width: 300px;
+        width: 100%;
+        max-width: 100%;
         height: 520px;
         border: 1px solid var(--GMI-cardbordercolor);
         display: flex;
         flex-direction: column;
         overflow: hidden;
         position: relative;
+        box-sizing: border-box;
     }
 
     .uneDeux-card:hover {
@@ -467,8 +469,8 @@ sinon : */
         inset: 0;
         z-index: 5;
         display: block;
-        width: 300px !important;
-        height: 520px !important;
+        width: 100% !important;
+        height: 100% !important;
     }
 
     .uneDeux-card .buttonsContainer {

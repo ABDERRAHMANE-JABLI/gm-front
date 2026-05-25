@@ -23,6 +23,7 @@ export default function LicensedCountries({ countries }: LicensedCountriesProps)
             className={styles.linkWrapper}
           >
             <div className={styles.imageWrapper}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={country.image}
                 alt={country.name}

@@ -13,6 +13,8 @@ import { loadMoreArtisans, searchArtisans, ArtisanSearchResult } from '@/lib/act
 import ArtisanIcon from '@/public/icons/menu/artisan.svg';
 import { sanitizeSearch } from '@/lib/utils/sanitize';
 
+import { useClientTranslation } from '@/lib/i18n/client';
+
 type Language = 'fr' | 'en';
 
 interface ArtisansContentProps {
@@ -36,6 +38,7 @@ export default function ArtisansContent({
   initialPagination,
   filters,
 }: ArtisansContentProps) {
+  const { t } = useClientTranslation(lang);
   const [artisans, setArtisans]           = useState<ArtisanProps[]>(initialArtisans);
   const [pagination, setPagination]       = useState<ApiPagination>(initialPagination);
   const [loading, setLoading]             = useState(false);
@@ -124,8 +127,8 @@ export default function ArtisansContent({
   if (initialArtisans.length === 0 && !hasFilters) {
     return (
       <div className={styles.emptyPage}>
-        <p className={styles.emptyPageTitle}>Aucun enregistrement trouvé pour le moment.</p>
-        <p className={styles.emptyPageSub}>Revenez bientôt pour découvrir nos artisans.</p>
+        <p className={styles.emptyPageTitle}>{t('empty.no_records')}</p>
+        <p className={styles.emptyPageSub}>{t('empty.subtitle_artisans')}</p>
       </div>
     );
   }
@@ -170,6 +173,7 @@ export default function ArtisansContent({
                       onClick={() => setSearchQuery('')}
                     >
                       <div className={styles.dropdownThumb}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         {a.thumbId && <img src={a.thumbId} alt={a.name} />}
                       </div>
                       <div className={styles.dropdownInfo}>

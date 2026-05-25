@@ -106,7 +106,7 @@ export async function fetchRestaurants(
       `${getApiBaseUrl()}/api/restaurants?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { tags: ['restaurants_list'], revalidate: 3600 },
+        next:    { tags: ['restaurants_list'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -154,7 +154,7 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
       `${getApiBaseUrl()}/api/restaurants/filters`,
       {
         signal:  controller.signal,
-        next:    { tags: ['restaurants_list', 'restaurants_filters'], revalidate: 3600 },
+        next:    { tags: ['restaurants_list', 'restaurants_filters'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -202,7 +202,7 @@ export async function fetchRestaurantDetail(slug: string): Promise<ApiRestaurant
       `${getApiBaseUrl()}/api/restaurants/${slug}`,
       {
         signal:  controller.signal,
-        next:    { tags: [`restaurant_${slug}`], revalidate: 3600 },
+        next:    { tags: [`restaurant_${slug}`], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );

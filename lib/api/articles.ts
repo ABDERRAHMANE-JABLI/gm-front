@@ -117,7 +117,7 @@ export async function fetchArticleFilters(): Promise<ApiTheme[]> {
       `${getApiBaseUrl()}/api/articles/filters`,
       {
         signal: controller.signal,
-        next:   { tags: ['articles_list', 'articles_filters'], revalidate: 3600 },
+        next:   { tags: ['articles_list', 'articles_filters'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -160,7 +160,7 @@ export async function fetchArticleDetail(slug: string): Promise<ApiArticleDetail
       `${getApiBaseUrl()}/api/articles/${slug}`,
       {
         signal: controller.signal,
-        next: { tags: [`article_${slug}`], revalidate: 3600 },
+        next: { tags: [`article_${slug}`], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -191,7 +191,7 @@ export async function fetchArticles(options: FetchArticlesOptions = {}): Promise
       `${getApiBaseUrl()}/api/articles?${params.toString()}`,
       {
         signal: controller.signal,
-        next:   { tags: ['articles_list'], revalidate: 3600 },
+        next:   { tags: ['articles_list'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );

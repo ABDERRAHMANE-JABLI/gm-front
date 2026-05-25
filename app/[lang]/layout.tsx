@@ -1,19 +1,35 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import NextTopLoader from 'nextjs-toploader';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gaultmillau.ma';
 
 export const metadata: Metadata = {
-  title: "Gault&Millau",
-  description: "Le guide gastronomique de référence",
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: "Gault&Millau Maroc",
+    template: "%s | Gault&Millau Maroc",
+  },
+  description: "Le guide gastronomique de référence au Maroc. Restaurants, hôtels, chefs et artisans sélectionnés par Gault&Millau.",
+  openGraph: {
+    siteName: "Gault&Millau Maroc",
+    type: "website",
+    locale: "fr_MA",
+    images: [
+      {
+        url: "/icons/GaultMillau.svg",
+        width: 1200,
+        height: 630,
+        alt: "Gault&Millau Maroc",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default async function LangLayout({
@@ -27,7 +43,8 @@ export default async function LangLayout({
 
   return (
     <html lang={lang}>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
+        <NextTopLoader color="#ffeb00" shadow="0 0 10px #ffeb00" height={3} showSpinner={false} />
         {children}
       </body>
     </html>

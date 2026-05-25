@@ -53,7 +53,7 @@ export async function fetchUtensils(
     const params = new URLSearchParams({ page: String(page), limit: String(limit) });
     const res = await fetch(
       `${getApiBaseUrl()}/api/ustensils?${params}`,
-      { signal: controller.signal, next: { revalidate: 3600 }, headers: getApiHeaders() }
+      { signal: controller.signal, next: { revalidate: 86400 }, headers: getApiHeaders() }
     );
 
     if (!res.ok) {
@@ -115,7 +115,7 @@ export async function fetchUtensilItems(
     const params = new URLSearchParams({ page: String(page), limit: String(limit) });
     const res = await fetch(
       `${getApiBaseUrl()}/api/ustensils/${collectionSlug}?${params}`,
-      { signal: controller.signal, next: { revalidate: 3600 }, headers: getApiHeaders() }
+      { signal: controller.signal, next: { revalidate: 86400 }, headers: getApiHeaders() }
     );
 
     if (!res.ok) {

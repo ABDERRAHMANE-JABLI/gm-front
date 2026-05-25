@@ -5,7 +5,7 @@ import { Language } from "@/lib/i18n/types";
 import styles from "@/styles/listPage.module.css";
 import type { Metadata } from "next";
 
-export const dynamic = 'force-dynamic';
+
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -41,3 +41,4 @@ export default async function UtensilsPageRoute({
     </Layout>
   );
 }
+export const revalidate = 86400;

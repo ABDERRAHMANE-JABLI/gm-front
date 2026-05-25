@@ -19,11 +19,11 @@ type Props = {
 
 export default function NewsCard({ lang, news, withHeader}: Props) {
 
-  const firstTheme = news.theme;
+  const firstTheme = news.theme ?? "";
   const buttons = news.buttons ?? [];
   const showMainButton = buttons.length === 0;
   const cardHref = hrefCard(lang, news.slug);
-  const headerSubtitle = news.theme?.[0];
+  const headerSubtitle = news.theme ?? "";
 
   const { t } = useClientTranslation(lang);
 
@@ -40,7 +40,7 @@ export default function NewsCard({ lang, news, withHeader}: Props) {
 
       {/* Media (image) + badge */}
       <div className={styles.thumbWrapper}>
-        <SmartImage id={news.thumbId} alt={news.title} width={666} height={444} fit="cover" lazyload />
+        <SmartImage id={news.thumbId} alt={news.title} width={666} height={444} fit="cover" lazyload typeImage={"resto"}/>
         {firstTheme && <span className={styles.badge}>{firstTheme}</span>}
       </div>
 

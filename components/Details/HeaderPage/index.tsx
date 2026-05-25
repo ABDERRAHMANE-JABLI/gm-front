@@ -22,9 +22,8 @@ export default function HeaderPage({ title, subTitle, children, reservationLink 
                     text: subTitle,
                     url: window.location.href,
                 });
-                console.log("Partage réussi");
-            } catch (error) {
-                console.warn("Partage annulé ou erreur :", error);
+            } catch {
+                // partage annulé ou non supporté
             }
         } else {
             alert("Le partage n’est pas supporté par votre navigateur.");

@@ -12,6 +12,8 @@ import { loadMoreArticles, searchArticles } from '@/lib/actions/articles';
 import NewsIcon from "@/public/icons/menu/blog.svg";
 import { sanitizeSearch } from '@/lib/utils/sanitize';
 
+import { useClientTranslation } from '@/lib/i18n/client';
+
 type Language = 'fr' | 'en';
 
 interface BlogsContentProps {
@@ -22,6 +24,7 @@ interface BlogsContentProps {
 }
 
 export default function BlogsContent({ lang, initialArticles, initialPagination, themes }: BlogsContentProps) {
+  const { t } = useClientTranslation(lang);
   const [articles, setArticles]           = useState<NewsCardProps[]>(initialArticles);
   const [pagination, setPagination]       = useState<ApiPagination>(initialPagination);
   const [loading, setLoading]             = useState(false);
@@ -58,8 +61,8 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
   if (initialArticles.length === 0 && !hasFilters) {
     return (
       <div className={styles.emptyPage}>
-        <p className={styles.emptyPageTitle}>Aucun enregistrement trouvé pour le moment.</p>
-        <p className={styles.emptyPageSub}>Revenez bientôt pour découvrir nos articles.</p>
+        <p className={styles.emptyPageTitle}>{t('empty.no_records')}</p>
+        <p className={styles.emptyPageSub}>{t('empty.subtitle_articles')}</p>
       </div>
     );
   }

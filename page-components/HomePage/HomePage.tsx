@@ -3,17 +3,15 @@ import styles from './styles.module.css';
 import SingleNewsCard from '@/components/cards/newsUneCard';
 import NewsSecondCard from '@/components/cards/newsSecondCard';
 import NewsCard from '@/components/cards/NewsCard';
-import RestaurantCard from '@/components/cards/restaurantCard';
 import HorizontalRecipeCard from '@/components/cards/recipeCard/HorizontalCard';
 import LicensedCountries from '@/components/cards/LicensedContries';
 import PartenairesSection from '@/components/cards/partners';
 import { HomeApiResponse, HomeSection, HomeSectionItem, HomeRecipe } from '@/types/api/Home';
 import { ApiPartner } from '@/types/api/Partner';
-import { NewsCardProps } from '@/types/News';
-import { RestaurantProps } from '@/types/Restaurant';
+import { NewsCardProps, NewsCardButtonProps, NewsCardButtonKind } from '@/types/News';
 import { RecipeCardProps } from '@/types/Recipe';
-import RecipeCard from '@/components/cards/recipeCard';
-import GMLogo         from '@/public/icons/GaultMillau.svg';
+import GMLogo from '@/public/icons/GaultMillau.svg';
+import { useClientTranslation } from '@/lib/i18n/client';
 
 const LICENSED_COUNTRIES = [
   { name: "Austria",              image: "https://assets.gaultmillau.com/assets/f768ea77-849a-428f-aa2d-43bdd9795b0a/austria-795b0a.webp?width=125&height=125&format=webp",              url: "https://www.gaultmillau.at" },
@@ -41,36 +39,41 @@ const LICENSED_COUNTRIES = [
 
 type Language = 'fr' | 'en';
 
-// ── Mappers ─────────────────────────────────────────────────────────────────
+// ── Mappers ──────────────────────────────────────────────────────────────────
+
+function buildButtons(item: HomeSectionItem): NewsCardProps['buttons'] {
+  const list: NewsCardButtonProps[] = [];
+
+  if (item.talent) {
+    list.push({ buttonKind: NewsCardButtonKind.PEOPLE, text_line1: item.talent.fullName, slug: item.talent.slug });
+  }
+  if (item.restaurant && list.length < 2) {
+    list.push({ buttonKind: NewsCardButtonKind.RESTAURANT, text_line1: item.restaurant.name, text_line2: item.restaurant.lieu, slug: item.restaurant.slug });
+  }
+  if (item.hotel && list.length < 2) {
+    list.push({ buttonKind: NewsCardButtonKind.HOTEL, text_line1: item.hotel.name, text_line2: item.hotel.lieu, slug: item.hotel.slug });
+  }
+  if (item.riyad && list.length < 2) {
+    list.push({ buttonKind: NewsCardButtonKind.RIYAD, text_line1: item.riyad.name, text_line2: item.riyad.lieu, slug: item.riyad.slug });
+  }
+  if (item.artisan && list.length < 2) {
+    list.push({ buttonKind: NewsCardButtonKind.ARTISAN, text_line1: item.artisan.title, text_line2: item.artisan.lieu, slug: item.artisan.slug });
+  }
+
+  if (list.length === 0) return [];
+  if (list.length === 1) return [list[0]];
+  return [list[0], list[1]];
+}
 
 function toNewsProps(item: HomeSectionItem): NewsCardProps {
   return {
     id:      item.id.toString(),
     title:   item.title,
-    resume:  '',
+    resume:  item.resume,
     slug:    item.slug,
     thumbId: item.thumbId ?? '',
-    buttons: [],
-  };
-}
-
-function toRestaurantProps(item: HomeSectionItem): RestaurantProps {
-  return {
-    title:    item.title,
-    slug:     item.slug,
-    nbToques: 0,
-    thumbId:  item.thumbId ?? '',
-  };
-}
-
-function toRecipeItemProps(item: HomeSectionItem): RecipeCardProps {
-  return {
-    id:      item.id.toString(),
-    title:   item.title,
-    resume:  '',
-    slug:    item.slug,
-    thumbId: item.thumbId ?? '',
-    buttons: [],
+    theme:   item.theme ?? undefined,
+    buttons: buildButtons(item),
   };
 }
 
@@ -86,41 +89,55 @@ function toRecipeProps(recipe: HomeRecipe): RecipeCardProps {
   };
 }
 
-// ── Item renderer (type + size) ──────────────────────────────────────────────
+// ── Article card by size ─────────────────────────────────────────────────────
 
 type Size = 'full' | 'large' | 'small';
 
-function ItemByType({ lang, item, size }: { lang: Language; item: HomeSectionItem; size: Size }) {
-  switch (item.type) {
-    case 'article':
-      if (size === 'full')  return <SingleNewsCard  lang={lang} news={toNewsProps(item)} />;
-      if (size === 'large') return <NewsSecondCard  lang={lang} news={toNewsProps(item)} />;
-      return                       <NewsCard         lang={lang} news={toNewsProps(item)} withHeader />;
-
-    case 'restaurant':
-      return <RestaurantCard lang={lang} restaurant={toRestaurantProps(item)} withHeader />;
-
-    case 'recipe':
-      return <RecipeCard lang={lang} recipe={toRecipeItemProps(item)} withHeader />;
-
-    default:
-      return null;
-  }
+function ArticleCard({ lang, item, size }: { lang: Language; item: HomeSectionItem; size: Size }) {
+  const news = toNewsProps(item);
+  if (size === 'full')  return <SingleNewsCard lang={lang} news={news} />;
+  if (size === 'large') return <NewsSecondCard lang={lang} news={news} />;
+  return <NewsCard lang={lang} news={news} withHeader />;
 }
 
-// ── Pub image ────────────────────────────────────────────────────────────────
+// ── Pub image (inline, petite taille) ───────────────────────────────────────
 
-function PubImage({ thumbId, link }: { thumbId: string; link: string | null }) {
-  // eslint-disable-next-line @next/next/no-img-element
-  const img = <img src={thumbId} alt="Publicité" className={styles.pubImg} />;
+function PubImage({ thumbId, link }: { thumbId: string | null; link: string | null }) {
+  const inner = thumbId
+    // eslint-disable-next-line @next/next/no-img-element
+    ? <img src={thumbId} alt="Publicité" className={styles.pubImg} />
+    : <div className={styles.pubPlaceholder} />;
+
   if (link) {
     return (
       <a href={link} target="_blank" rel="noopener noreferrer" className={styles.pubLink}>
-        {img}
+        {inner}
       </a>
     );
   }
-  return img;
+  return inner;
+}
+
+// ── Pub banner pleine largeur ─────────────────────────────────────────────────
+
+function PubBanner({ thumbId, link }: { thumbId: string | null; link: string | null }) {
+  const inner = (
+    <div className={styles.pubBanner}>
+      {thumbId && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={thumbId} alt="Publicité" className={styles.pubBannerImg} />
+      )}
+    </div>
+  );
+
+  if (link) {
+    return (
+      <a href={link} target="_blank" rel="noopener noreferrer" className={styles.pubBannerLink}>
+        {inner}
+      </a>
+    );
+  }
+  return inner;
 }
 
 // ── Section layouts ──────────────────────────────────────────────────────────
@@ -135,7 +152,7 @@ function SectionRenderer({ lang, section }: { lang: Language; section: HomeSecti
       if (!main) return null;
       return (
         <div className={styles.gridFull}>
-          <ItemByType lang={lang} item={main} size="full" />
+          <ArticleCard lang={lang} item={main} size="full" />
         </div>
       );
 
@@ -144,18 +161,18 @@ function SectionRenderer({ lang, section }: { lang: Language; section: HomeSecti
       if (!main && !secondary) return null;
       return (
         <div className={styles.gridSplit}>
-          {main      && <div className={styles.col23}><ItemByType lang={lang} item={main}      size="large" /></div>}
-          {secondary && <div className={styles.col13}><ItemByType lang={lang} item={secondary} size="small" /></div>}
+          {main      && <div className={styles.col23}><ArticleCard lang={lang} item={main}      size="large" /></div>}
+          {secondary && <div className={styles.col13}><ArticleCard lang={lang} item={secondary} size="small" /></div>}
         </div>
       );
 
     // Entité 2/3 + Pub 1/3
     case 'article_pub':
-      if (!main && !pubThumbId) return null;
+      if (!main) return null;
       return (
         <div className={styles.gridSplit}>
-          {main       && <div className={styles.col23}><ItemByType lang={lang} item={main} size="large" /></div>}
-          {pubThumbId && <div className={styles.col13}><PubImage thumbId={pubThumbId} link={pubLink} /></div>}
+          <div className={styles.col23}><ArticleCard lang={lang} item={main} size="large" /></div>
+          <div className={styles.col13}><PubImage thumbId={pubThumbId} link={pubLink} /></div>
         </div>
       );
 
@@ -164,18 +181,29 @@ function SectionRenderer({ lang, section }: { lang: Language; section: HomeSecti
       if (!main && !secondary && !tertiary) return null;
       return (
         <div className={styles.gridThree}>
-          {main      && <ItemByType lang={lang} item={main}      size="small" />}
-          {secondary && <ItemByType lang={lang} item={secondary} size="small" />}
-          {tertiary  && <ItemByType lang={lang} item={tertiary}  size="small" />}
+          {main      && <ArticleCard lang={lang} item={main}      size="small" />}
+          {secondary && <ArticleCard lang={lang} item={secondary} size="small" />}
+          {tertiary  && <ArticleCard lang={lang} item={tertiary}  size="small" />}
+        </div>
+      );
+
+    // 2 Entités + Pub (1/3 chacun)
+    case 'two_articles_pub':
+      if (!main && !secondary) return null;
+      return (
+        <div className={styles.gridThree}>
+          {main      && <ArticleCard lang={lang} item={main}      size="small" />}
+          {secondary && <ArticleCard lang={lang} item={secondary} size="small" />}
+          {pubThumbId && <PubImage thumbId={pubThumbId} link={pubLink} />}
         </div>
       );
 
     // Bannière pleine largeur (3/3)
     case 'pub_full':
-      if (!pubThumbId) return null;
+      if (!pubThumbId && !pubLink) return null;
       return (
         <div className={styles.gridFull}>
-          <PubImage thumbId={pubThumbId} link={pubLink} />
+          <PubBanner thumbId={pubThumbId} link={pubLink} />
         </div>
       );
 
@@ -186,7 +214,8 @@ function SectionRenderer({ lang, section }: { lang: Language; section: HomeSecti
 
 // ── Main component ───────────────────────────────────────────────────────────
 
-function HeroDefault() {
+function HeroDefault({ lang }: { lang: Language }) {
+  const { t } = useClientTranslation(lang);
   return (
     <div className={styles.hero}>
       <Image
@@ -198,29 +227,28 @@ function HeroDefault() {
         priority
       />
       <div className={styles.heroOverlay} />
-      <h1 className={styles.heroTitle}><GMLogo width={300} height={150}/></h1>
-      <p className={styles.heroText}>
-        Le guide de référence arrive au Maroc — découvrez les meilleures tables, chefs et artisans de la gastronomie marocaine.
-      </p>
+      <h1 className={styles.heroTitle}><GMLogo width={300} height={150} /></h1>
+      <p className={styles.heroText}>{t('home.hero.description')}</p>
     </div>
   );
 }
 
 export default function HomePage({ lang, data, partners }: { lang: Language; data: HomeApiResponse | null; partners: ApiPartner[] }) {
+  const { t } = useClientTranslation(lang);
   const isEmpty = !data || (data.sections.length === 0 && data.latestRecipes.length === 0);
 
   if (isEmpty) {
     return (
       <main className={styles.homepage}>
-        <HeroDefault />
+        <HeroDefault lang={lang} />
         <div className={styles.licensedSection}>
           <div className={styles.licensedHeader}>
             <GMLogo width={216} height={32} />
-            <p className={styles.licensedTitle}>dans le monde</p>
+            <p className={styles.licensedTitle}>{t('home.licensed.world')}</p>
           </div>
           <LicensedCountries countries={LICENSED_COUNTRIES} />
         </div>
-        <PartenairesSection partners={partners} />
+        <PartenairesSection partners={partners} lang={lang} />
       </main>
     );
   }
@@ -238,11 +266,16 @@ export default function HomePage({ lang, data, partners }: { lang: Language; dat
         ))}
 
         {latestRecipes.length > 0 && (
-          <section className={styles.section}>
-            <div className={styles.recipesList}>
-              {latestRecipes.map((recipe) => (
-                <HorizontalRecipeCard key={recipe.slug} lang={lang} recipe={toRecipeProps(recipe)} />
-              ))}
+          <section className={styles.sectionRecipes}>
+            <div className={styles.recipesInner}>
+              <h2 className={styles.recipesTitle}>
+                {lang === 'en' ? "CHEFS' RECIPES" : 'LES RECETTES DE CHEFS'}
+              </h2>
+              <div className={styles.recipesList}>
+                {latestRecipes.map((recipe) => (
+                  <HorizontalRecipeCard key={recipe.slug} lang={lang} recipe={toRecipeProps(recipe)} />
+                ))}
+              </div>
             </div>
           </section>
         )}
@@ -252,12 +285,12 @@ export default function HomePage({ lang, data, partners }: { lang: Language; dat
       <div className={styles.licensedSection}>
         <div className={styles.licensedHeader}>
           <GMLogo width={216} height={32} />
-          <p className={styles.licensedTitle}>dans le monde</p>
+          <p className={styles.licensedTitle}>{t('home.licensed.world')}</p>
         </div>
         <LicensedCountries countries={LICENSED_COUNTRIES} />
       </div>
 
-      <PartenairesSection partners={partners} />
+      <PartenairesSection partners={partners} lang={lang} />
     </main>
   );
 }

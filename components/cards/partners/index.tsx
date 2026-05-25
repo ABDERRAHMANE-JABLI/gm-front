@@ -5,12 +5,15 @@ import Link from "next/link";
 import style from "./style.module.css";
 import { ApiPartner } from "@/types/api/Partner";
 import GMLogo         from '@/public/icons/GaultMillau.svg';
+import { useClientTranslation, Language } from '@/lib/i18n/client';
 
 interface Props {
   partners: ApiPartner[];
+  lang?: Language;
 }
 
-export default function PartenairesSection({ partners = [] }: Props) {
+export default function PartenairesSection({ partners = [], lang = 'fr' }: Props) {
+  const { t } = useClientTranslation(lang);
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
   const [isPaused, setIsPaused] = useState(false);
 
@@ -30,15 +33,15 @@ export default function PartenairesSection({ partners = [] }: Props) {
         <div className={style.leftHeader}>
           <div className={style.partenaireLabel}>
             <span className={style.ampersand}>&</span>
-            <span>PARTENAIRES</span>
+            <span>{t('partners.label')}</span>
           </div>
-          <Link href="/contact" className={style.topBtn}>VOIR PLUS</Link>
+          <Link href="/contact" className={style.topBtn}>{t('partners.see_more')}</Link>
         </div>
 
         <div className={style.left}>
           <div className={style.leftTitle}>
-            <h4>Partenaires</h4>
-            <p>Retrouvez la liste complète des partenaires qui font confiance à Gault&Millau Maroc</p>
+            <h4>{t('partners.title')}</h4>
+            <p>{t('partners.description')}</p>
           </div>
 
           {/* Marquee */}
@@ -73,10 +76,10 @@ export default function PartenairesSection({ partners = [] }: Props) {
 
       <div className={style.right}>
         <div className={style.logoGM}>
-          <h4>Devenez Partenaires</h4>
+          <h4>{t('partners.become')}</h4>
           <GMLogo width={150}/>
         </div>
-        <Link href="/contact" className={style.Btn}>En Savoir Plus</Link>
+        <Link href="/contact" className={style.Btn}>{t('partners.learn_more')}</Link>
       </div>
     </section>
   );

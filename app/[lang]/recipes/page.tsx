@@ -1,10 +1,12 @@
+import { Suspense } from 'react';
 import Layout from "@/components/layout/Layout/Layout";
 import RecipesContent from "@/page-components/Recipes/List/RecipesContent";
 import { fetchRecipes, fetchRecipeFilters } from "@/lib/api/recipes";
 import { Language } from "@/lib/i18n/types";
+import CardsSkeleton from "@/components/ui/CardsSkeleton";
 import type { Metadata } from "next";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -13,27 +15,30 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RecipesPageRoute({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
-  const { lang } = await params;
-  const language = lang as Language;
-
+async function RecipesData({ lang }: { lang: Language }) {
   const [{ recipes, pagination }, filters] = await Promise.all([
     fetchRecipes({ page: 1, limit: 9 }),
     fetchRecipeFilters(),
   ]);
+  return (
+    <RecipesContent
+      lang={lang}
+      initialRecipes={recipes}
+      initialPagination={pagination}
+      filters={filters}
+    />
+  );
+}
+
+export default async function RecipesPageRoute({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const language = lang as Language;
 
   return (
     <Layout language={language}>
-      <RecipesContent
-        lang={language}
-        initialRecipes={recipes}
-        initialPagination={pagination}
-        filters={filters}
-      />
+      <Suspense fallback={<CardsSkeleton count={9} />}>
+        <RecipesData lang={language} />
+      </Suspense>
     </Layout>
   );
 }

@@ -14,7 +14,7 @@ export const fetchPartners = cache(async (): Promise<ApiPartner[]> => {
       {
         signal: controller.signal,
         headers: getApiHeaders(),
-        next: { tags: ['partners'], revalidate: 3600 },
+        next: { tags: ['partners'], revalidate: 86400 },
       }
     );
     if (!res.ok) return [];

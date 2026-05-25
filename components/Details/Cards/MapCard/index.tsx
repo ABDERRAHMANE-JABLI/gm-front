@@ -56,11 +56,11 @@ export default function MapCard({ address, latitude, longitude, mapsIframe }: Ma
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> JE M'Y RENDS</span>
+            <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> JE M&apos;Y RENDS</span>
           </Link>
         ) : (
           <button className={`${styles.CardButtonLink} ${styles.CardButtonLinkDisabled}`} disabled>
-            <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> JE M'Y RENDS</span>
+            <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> JE M&apos;Y RENDS</span>
           </button>
         )}
       </div>

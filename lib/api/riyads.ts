@@ -91,7 +91,7 @@ export async function fetchRiyads(
       `${getApiBaseUrl()}/api/riyads?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { tags: ['riyads_list'], revalidate: 3600 },
+        next:    { tags: ['riyads_list'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -130,7 +130,7 @@ export async function fetchRiyadFilters(): Promise<ApiRiyadFilters> {
       `${getApiBaseUrl()}/api/riyads/filters`,
       {
         signal:  controller.signal,
-        next:    { tags: ['riyads_list', 'riyads_filters'], revalidate: 3600 },
+        next:    { tags: ['riyads_list', 'riyads_filters'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -164,7 +164,7 @@ export async function fetchRiyadDetail(slug: string): Promise<ApiRiyadDetail | n
   try {
     const res = await fetch(
       `${getApiBaseUrl()}/api/riyads/${slug}`,
-      { signal: controller.signal, next: { tags: [`riyad_${slug}`], revalidate: 3600 }, headers: getApiHeaders() }
+      { signal: controller.signal, next: { tags: [`riyad_${slug}`], revalidate: 86400 }, headers: getApiHeaders() }
     );
     if (!res.ok) return null;
     return await res.json() as ApiRiyadDetail;

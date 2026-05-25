@@ -1,208 +1,128 @@
 'use client'
 
-import React from 'react'
+import { useState } from 'react'
+import Image from 'next/image'
+import { ApiPartner } from '@/types/api/Partner'
+import { Language } from '@/lib/i18n/client'
 import styles from './styles.module.css'
 
-interface Language {
-  fr: string
-  en: string
-}
+const CATEGORIES = [
+  { key: 'P', label: 'Platinum' },
+  { key: 'G', label: 'Gold' },
+  { key: 'S', label: 'Silver' },
+  { key: 'B', label: 'Bronze' },
+] as const
+
+type CatKey = typeof CATEGORIES[number]['key']
 
 interface Props {
-  lang: 'fr' | 'en'
+  lang: Language
+  partners: ApiPartner[]
 }
 
-const content: Record<string, Language> = {
-  title: {
-    fr: 'Nos Partenaires',
-    en: 'Our Partners'
-  },
-  subtitle: {
-    fr: 'Découvrez les établissements d\'exception et artisans passionnés qui partagent notre vision de l\'excellence gastronomique',
-    en: 'Discover the exceptional establishments and passionate artisans who share our vision of gastronomic excellence'
-  },
-  searchPlaceholder: {
-    fr: 'Rechercher un partenaire, une marque, une région...',
-    en: 'Search for a partner, brand, region...'
-  },
-  searchButton: {
-    fr: 'Rechercher',
-    en: 'Search'
-  },
-  categoryLabel: {
-    fr: 'Catégorie',
-    en: 'Category'
-  },
-  categoryAll: {
-    fr: 'Toutes les catégories',
-    en: 'All categories'
-  },
-  regionLabel: {
-    fr: 'Région',
-    en: 'Region'
-  },
-  regionAll: {
-    fr: 'Toutes les régions',
-    en: 'All regions'
-  },
-  typeLabel: {
-    fr: 'Type de partenariat',
-    en: 'Partnership type'
-  },
-  typeAll: {
-    fr: 'Tous les types',
-    en: 'All types'
-  },
-  sectorLabel: {
-    fr: 'Secteur',
-    en: 'Sector'
-  },
-  sectorAll: {
-    fr: 'Tous les secteurs',
-    en: 'All sectors'
-  },
-  statusLabel: {
-    fr: 'Statut',
-    en: 'Status'
-  },
-  statusAll: {
-    fr: 'Tous les statuts',
-    en: 'All statuses'
-  },
-  emptyTitle: {
-    fr: 'Nos Partenaires d\'Excellence',
-    en: 'Our Partners of Excellence'
-  },
-  emptyText: {
-    fr: 'Explorez notre réseau de partenaires prestigieux. Restaurants étoilés, producteurs artisanaux, marques d\'exception qui incarnent l\'art de vivre à la française.',
-    en: 'Explore our network of prestigious partners. Starred restaurants, artisanal producers, exceptional brands that embody the French art of living.'
+const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
+
+const INTRO = {
+  fr: [
+    "Produit de bouche, équipement de cuisine, art de la table, solution de service... Retrouvez la liste complète des partenaires qui font confiance à Gault&Millau.",
+    "Qu'ils souhaitent promouvoir leurs produits et services en région lors du Gault&Millau Tour, ou qu'ils soutiennent de jeunes chefs dans l'ouverture de leur premier établissement grâce à la Dotation Jeunes Talents, leur but est commun : célébrer ensemble la gastronomie Marocaine et récompenser les talents sur tout le territoire.",
+  ],
+  en: [
+    "Food products, kitchen equipment, table arts, service solutions... Find the complete list of partners who trust Gault&Millau.",
+    "Whether they wish to promote their products and services at the regional Gault&Millau Tour, or support young chefs in opening their first establishment through the Jeunes Talents Grant, their goal is shared: to celebrate Moroccan gastronomy together and reward talent across the country.",
+  ],
+}
+
+const PAGE_SIZE = 9
+
+export default function PartnersPage({ lang, partners }: Props) {
+  const available = CATEGORIES.filter((c) =>
+    partners.some((p) => p.categorie === c.key)
+  )
+
+  const [active, setActive] = useState<CatKey>(
+    available.length > 0 ? available[0].key : 'P'
+  )
+  const [visible, setVisible] = useState(PAGE_SIZE)
+
+  const filtered = partners.filter((p) => p.categorie === active)
+  const displayed = filtered.slice(0, visible)
+  const hasMore = visible < filtered.length
+
+  function handleTabChange(key: CatKey) {
+    setActive(key)
+    setVisible(PAGE_SIZE)
   }
-}
 
-export default function PartnersPage({ lang }: Props) {
-  const t = (key: string) => content[key]?.[lang] || content[key]?.fr || ''
+  const title = lang === 'en' ? 'Our Partners' : 'Nos Partenaires'
+  const seeMore = lang === 'en' ? 'See more' : 'Voir plus'
 
   return (
-    <div className={styles.partnersPage}>
+    <div className={styles.page}>
       <div className={styles.container}>
-        {/* Page Header */}
-        <header className={styles.pageHeader}>
-          <h1 className={styles.pageTitle}>{t('title')}</h1>
-          <p className={styles.pageSubtitle}>{t('subtitle')}</p>
-        </header>
 
-        {/* Search Section */}
-        <section className={styles.searchSection}>
-          <div className={styles.searchContainer}>
-            <div className={styles.searchBox}>
-              <input
-                type="text"
-                className={styles.searchInput}
-                placeholder={t('searchPlaceholder')}
-              />
-              <button className={styles.searchButton}>
-                {t('searchButton')}
-              </button>
-            </div>
+        <h1 className={styles.title}>{title}</h1>
+
+        <div className={styles.intro}>
+          {INTRO[lang].map((para, i) => (
+            <p key={i} className={styles.introPara}>{para}</p>
+          ))}
+        </div>
+
+        {/* Tabs */}
+        <div className={styles.tabs}>
+          {available.map((c) => (
+            <button
+              key={c.key}
+              className={`${styles.tab} ${active === c.key ? styles.tabActive : ''}`}
+              onClick={() => handleTabChange(c.key)}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Section title */}
+        <h2 className={styles.sectionTitle}>
+          {CATEGORIES.find((c) => c.key === active)?.label}
+        </h2>
+
+        {/* Grid */}
+        <div className={styles.grid}>
+          {displayed.map((partner) => (
+            <a
+              key={partner.name}
+              href={partner.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.card}
+            >
+              <div className={styles.imgWrapper}>
+                <Image
+                  src={`${s3}/${partner.thumbId}`}
+                  alt={partner.name}
+                  fill
+                  className={styles.img}
+                  sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 220px"
+                />
+              </div>
+              <p className={styles.name}>{partner.name}</p>
+            </a>
+          ))}
+        </div>
+
+        {/* Voir plus */}
+        {hasMore && (
+          <div className={styles.loadMore}>
+            <button
+              className={styles.loadMoreBtn}
+              onClick={() => setVisible((v) => v + PAGE_SIZE)}
+            >
+              {seeMore}
+            </button>
           </div>
-        </section>
+        )}
 
-        {/* Filters Section */}
-        <section className={styles.filtersSection}>
-          <div className={styles.filters}>
-            <div className={styles.filterGroup}>
-              <label className={styles.filterLabel}>{t('categoryLabel')}</label>
-              <select className={styles.filterSelect}>
-                <option value="">{t('categoryAll')}</option>
-                <option value="restaurants">Restaurants</option>
-                <option value="hotels">Hôtels & Maisons d&apos;hôtes</option>
-                <option value="producteurs">Producteurs & Artisans</option>
-                <option value="vignerons">Vignerons & Domaines</option>
-                <option value="epicerie">Épicerie fine</option>
-                <option value="equipement">Équipement culinaire</option>
-                <option value="formation">Écoles & Formation</option>
-                <option value="media">Médias & Édition</option>
-                <option value="evenements">Événements</option>
-                <option value="technology">Technologies</option>
-              </select>
-            </div>
-
-            <div className={styles.filterGroup}>
-              <label className={styles.filterLabel}>{t('regionLabel')}</label>
-              <select className={styles.filterSelect}>
-                <option value="">{t('regionAll')}</option>
-                <option value="auvergne-rhone-alpes">Auvergne-Rhône-Alpes</option>
-                <option value="bourgogne-franche-comte">Bourgogne-Franche-Comté</option>
-                <option value="bretagne">Bretagne</option>
-                <option value="centre-val-de-loire">Centre-Val de Loire</option>
-                <option value="corse">Corse</option>
-                <option value="grand-est">Grand Est</option>
-                <option value="hauts-de-france">Hauts-de-France</option>
-                <option value="ile-de-france">Île-de-France</option>
-                <option value="normandie">Normandie</option>
-                <option value="nouvelle-aquitaine">Nouvelle-Aquitaine</option>
-                <option value="occitanie">Occitanie</option>
-                <option value="pays-de-la-loire">Pays de la Loire</option>
-                <option value="provence-alpes-cote-azur">Provence-Alpes-Côte d&apos;Azur</option>
-                <option value="international">International</option>
-              </select>
-            </div>
-
-            <div className={styles.filterGroup}>
-              <label className={styles.filterLabel}>{t('typeLabel')}</label>
-              <select className={styles.filterSelect}>
-                <option value="">{t('typeAll')}</option>
-                <option value="premium">Partenaire Premium</option>
-                <option value="officiel">Partenaire Officiel</option>
-                <option value="recommande">Établissement Recommandé</option>
-                <option value="labellise">Établissement Labellisé</option>
-                <option value="collaborateur">Collaborateur</option>
-                <option value="fournisseur">Fournisseur Agréé</option>
-              </select>
-            </div>
-
-            <div className={styles.filterGroup}>
-              <label className={styles.filterLabel}>{t('sectorLabel')}</label>
-              <select className={styles.filterSelect}>
-                <option value="">{t('sectorAll')}</option>
-                <option value="gastronomie">Gastronomie</option>
-                <option value="vins-spiritueux">Vins & Spiritueux</option>
-                <option value="hotellerie">Hôtellerie</option>
-                <option value="equipement">Équipement</option>
-                <option value="formation">Formation</option>
-                <option value="tourisme">Tourisme Gastronomique</option>
-                <option value="media">Médias</option>
-                <option value="distribution">Distribution</option>
-              </select>
-            </div>
-
-            <div className={styles.filterGroup}>
-              <label className={styles.filterLabel}>{t('statusLabel')}</label>
-              <select className={styles.filterSelect}>
-                <option value="">{t('statusAll')}</option>
-                <option value="actif">Actif</option>
-                <option value="nouveau">Nouveau Partenaire</option>
-                <option value="exclusif">Partenariat Exclusif</option>
-                <option value="strategique">Partenaire Stratégique</option>
-              </select>
-            </div>
-          </div>
-        </section>
-
-        {/* Results Section */}
-        <section className={styles.resultsSection}>
-          <div className={styles.resultsHeader}>
-            <h2 className={styles.resultsTitle}>Partenaires</h2>
-            <span className={styles.resultsCount}>0 partenaire trouvé</span>
-          </div>
-
-          {/* Empty State */}
-          <div className={styles.emptyState}>
-            <div className={styles.emptyIcon}>🤝</div>
-            <h3 className={styles.emptyTitle}>{t('emptyTitle')}</h3>
-            <p className={styles.emptyText}>{t('emptyText')}</p>
-          </div>
-        </section>
       </div>
     </div>
   )

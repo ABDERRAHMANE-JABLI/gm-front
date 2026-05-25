@@ -1,7 +1,7 @@
 
 import { useClientTranslation } from '@/lib/i18n/client';
-import './stars.css'
-import StarIcon from '@/public/icons/star.svg'
+import './stars.css';
+import StarIcon from '@/public/icons/star.svg';
 
 type Language = "fr" | "en";
 

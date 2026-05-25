@@ -60,8 +60,6 @@ function createRedisClient(): Redis {
     throw new Error('REDIS_URL environment variable is not set');
   }
 
-  console.log('Creating Redis client with URL:', redisUrl.replace(/\/\/.*@/, '//***:***@'));
-
   const config: RedisConfig = {
     retryDelayOnFailover: 100,
     enableReadyCheck: false,
@@ -73,24 +71,8 @@ function createRedisClient(): Redis {
   const client = new Redis(redisUrl, config);
 
   // Handle connection events
-  client.on('connect', () => {
-    console.log('🔄 Redis connecting...');
-  });
-
-  client.on('ready', () => {
-    console.log('✅ Redis connected successfully');
-  });
-
   client.on('error', (error) => {
     console.error('❌ Redis connection error:', error.message);
-  });
-
-  client.on('close', () => {
-    console.log('🔌 Redis connection closed');
-  });
-
-  client.on('reconnecting', (time: number) => {
-    console.log(`🔄 Redis reconnecting in ${time}ms...`);
   });
 
   return client;
@@ -143,7 +125,6 @@ export async function disconnectRedis(): Promise<void> {
   if (redis) {
     await redis.quit();
     redis = null;
-    console.log('🔌 Redis client disconnected');
   }
 }
 

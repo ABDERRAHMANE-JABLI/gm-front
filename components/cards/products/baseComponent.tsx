@@ -45,7 +45,7 @@ export default function BaseComponent({ brand, title, note, typeProduct, thumbId
 
                     <div className={`${styles.cardPaddingContainer} ${styles.imageAndDetails}`}>
                         <div className={styles.imageWrapper}>
-                            <SmartImage id={imageId} alt={title} width={120} height={250} fit="contain" background={[255, 255, 255, 0]} lazyload />
+                            <SmartImage id={imageId} alt={title} width={120} height={250} fit="contain" background={[255, 255, 255, 0]} lazyload typeImage={"artisan"}/>
                         </div>
                         {children}
                     </div>

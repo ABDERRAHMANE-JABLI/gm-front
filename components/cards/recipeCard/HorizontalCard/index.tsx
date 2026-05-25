@@ -26,11 +26,11 @@ export default function HorizontalRecipeCard({ lang, recipe }: Props) {
 
   return (
     <div className={`${styles["cardkind-horizontal-empty"]} ${styles["cardkind-horizontal-blog"]}`}>
-      <Link href={`/${lang}/Recipe/${recipe?.slug}`} aria-label={recipe.title} title={recipe.title}>
+      <Link href={`/${lang}/recipes/${recipe?.slug}`} aria-label={recipe.title} title={recipe.title}>
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
       <div className={styles["thumbnail-wrapper"]}>
-        <SmartImage id={imageId} alt={recipe.title} width={400} height={270} fit="cover" lazyload/>
+        <SmartImage id={imageId} alt={recipe.title} width={400} height={270} fit="cover" lazyload typeImage={"artisan"}/>
       </div>
       <div className={styles.rightContent}>
         <div className={styles.divToques}>

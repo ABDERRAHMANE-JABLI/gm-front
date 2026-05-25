@@ -5,6 +5,7 @@
   top: 0;
   z-index: 1000;
   width: 100%;
+  height: 152px !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
@@ -57,7 +58,7 @@
 }
 
 .homeGMLogo {
-  width: 300px;
+  width: 270px;
   height: auto;
 }
 
@@ -97,12 +98,65 @@
   gap: 12px;
 }
 
+.langSelector {
+  position: relative;
+}
+
 .langCode {
+  display: flex;
+  align-items: center;
   font-family: "Montserrat", Helvetica, sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: #1a1a1a;
   letter-spacing: 0.04em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.langBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+}
+
+.langDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #fff;
+  border: 1.5px solid #ffeb00;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.langOption {
+  display: block;
+  padding: 10px 16px;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.langOption:hover {
+  background: #fffbe6;
+}
+
+.langOptionActive {
+  background: #ffeb00;
+}
+
+.langOptionActive:hover {
+  background: #f5e000;
 }
 
 .flag {
@@ -210,6 +264,123 @@
   font-weight: bold;
 }
 
+/* ─── Mobile menu overlay ────────────────────────────────────────── */
+.mobileMenuBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1099;
+  background: rgba(0, 0, 0, 0.45);
+  animation: backdropIn 0.2s ease;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  max-width: 100vw;
+  height: 100vh;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  overflow-y: auto;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+  animation: slideInLeft 0.25s ease;
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+.mobileMenuHeader {
+  background: #ffeb00;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mobileCloseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+  border-radius: 6px;
+  transition: background 0.15s;
+}
+
+.mobileCloseBtn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.mobileMenuGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 20px 16px 32px;
+}
+
+.mobileMenuItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  text-decoration: none;
+  color: #1a1a1a;
+  border-radius: 12px;
+  transition: background 0.15s;
+}
+
+.mobileMenuItem:hover {
+  background: #f5f5f5;
+}
+
+.mobileMenuItemActive {
+  background: #fff9cc;
+}
+
+.mobileIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+}
+
+.mobileIconWrapperNoBg {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.mobileItemLabel {
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #1a1a1a;
+  text-align: center;
+  line-height: 1.3;
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .topBar {
@@ -218,6 +389,16 @@
 
   .logoBrand {
     font-size: 14px;
+  }
+
+  .logoBrand svg:first-child {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .logoBrand svg:last-child {
+    width: 100px !important;
+    height: auto !important;
   }
 
   .logoSection {
@@ -236,4 +417,14 @@
   .navLabel {
     font-size: 8.5px;
   }
+
+ .homeGMLogo {
+    width: 150px !important;
+  }
+
+  .homeFlag {
+  width: 30px;
+  height: 30px;
+  }
+
 }

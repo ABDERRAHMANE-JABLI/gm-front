@@ -3,7 +3,7 @@ import RegionItinerariesPage from '@/page-components/Itineraries/Region'
 import { Language } from '@/lib/types'
 
 // Force dynamic rendering
-export const dynamic = 'force-dynamic'
+export const revalidate = 86400
 
 interface Props {
   params: Promise<{ lang: Language; regionSlug: string }>

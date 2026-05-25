@@ -93,7 +93,7 @@ export async function fetchRecipeDetail(slug: string): Promise<ApiRecipeDetail |
       `${getApiBaseUrl()}/api/recipes/${slug}`,
       {
         signal:  controller.signal,
-        next:    { tags: [`recipe_${slug}`], revalidate: 3600 },
+        next:    { tags: [`recipe_${slug}`], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -127,7 +127,7 @@ export async function fetchRecipes(
       `${getApiBaseUrl()}/api/recipes?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { tags: ['recipes_list'], revalidate: 3600 },
+        next:    { tags: ['recipes_list'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -166,7 +166,7 @@ export async function fetchRecipeFilters(): Promise<ApiRecipeFilters> {
       `${getApiBaseUrl()}/api/recipes/filters`,
       {
         signal:  controller.signal,
-        next:    { tags: ['recipes_list', 'recipes_filters'], revalidate: 3600 },
+        next:    { tags: ['recipes_list', 'recipes_filters'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );

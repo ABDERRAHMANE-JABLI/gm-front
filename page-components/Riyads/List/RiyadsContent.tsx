@@ -15,6 +15,8 @@ import StarFilter from '@/components/cards/common/Stars/StarFilter';
 import RiyadIcon from '@/public/icons/menu/winery.svg';
 import { sanitizeSearch } from '@/lib/utils/sanitize';
 
+import { useClientTranslation } from '@/lib/i18n/client';
+
 type Language = 'fr' | 'en';
 
 interface RiyadsContentProps {
@@ -42,6 +44,7 @@ export default function RiyadsContent({
   initialPagination,
   filters,
 }: RiyadsContentProps) {
+  const { t } = useClientTranslation(lang);
   const [riyads, setRiyads]         = useState<HotelProps[]>(initialRiyads);
   const [pagination, setPagination] = useState<ApiPagination>(initialPagination);
   const [loading, setLoading]       = useState(false);
@@ -124,8 +127,8 @@ export default function RiyadsContent({
   if (initialRiyads.length === 0 && !hasFilters) {
     return (
       <div className={styles.emptyPage}>
-        <p className={styles.emptyPageTitle}>Aucun enregistrement trouvé pour le moment.</p>
-        <p className={styles.emptyPageSub}>Revenez bientôt pour découvrir nos riads.</p>
+        <p className={styles.emptyPageTitle}>{t('empty.no_records')}</p>
+        <p className={styles.emptyPageSub}>{t('empty.subtitle_riads')}</p>
       </div>
     );
   }
@@ -163,6 +166,7 @@ export default function RiyadsContent({
                   {dropdownResults.map((h) => (
                     <Link key={h.slug} href={`/${lang}/riyads/${h.slug}`} className={styles.dropdownItem} onClick={() => setSearchQuery('')}>
                       <div className={styles.dropdownThumb}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         {h.thumbId && <img src={h.thumbId} alt={h.title} />}
                       </div>
                       <div className={styles.dropdownInfo}>

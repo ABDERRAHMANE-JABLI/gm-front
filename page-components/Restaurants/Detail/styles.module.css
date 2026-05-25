@@ -350,7 +350,7 @@
 
 .singleImage {
   width: 100%;
-  height: 440px;
+  height: 500px;
   position: relative;
   overflow: hidden;
 }
@@ -898,4 +898,38 @@
   .relatedGrid {
     grid-template-columns: 1fr;
   }
+}
+
+.artisanTitle {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.artisanTitlesub {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  color: #202020;
+  margin: 2px 0 0;
+  line-height: 1.2;
+}
+
+.artisanIconbg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background-color: khaki;
+}
+
+.artisanIconbg svg {
+  width: 28px;
+  height: 28px;
 }

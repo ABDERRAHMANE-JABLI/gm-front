@@ -1,4 +1,16 @@
 {
+  "empty": {
+    "no_records": "Aucun enregistrement trouvé pour le moment.",
+    "subtitle_restaurants": "Revenez bientôt pour découvrir nos restaurants.",
+    "subtitle_hotels": "Revenez bientôt pour découvrir nos hôtels.",
+    "subtitle_riads": "Revenez bientôt pour découvrir nos riads.",
+    "subtitle_artisans": "Revenez bientôt pour découvrir nos artisans.",
+    "subtitle_recipes": "Revenez bientôt pour découvrir nos recettes.",
+    "subtitle_articles": "Revenez bientôt pour découvrir nos articles.",
+    "subtitle_people": "Revenez bientôt pour découvrir nos talents.",
+    "subtitle_utensils": "Revenez bientôt pour découvrir nos ustensiles.",
+    "subtitle_collections": "Revenez bientôt pour découvrir nos collections."
+  },
   "common": {
     "home": "Accueil",
     "search": "Rechercher",
@@ -53,7 +65,11 @@
   },
   "home": {
     "hero": {
-      "subtitle": "Le guide gastronomique de référence"
+      "subtitle": "Le guide gastronomique de référence",
+      "description": "Le guide de référence arrive au Maroc — découvrez les meilleures tables, chefs et artisans de la gastronomie marocaine."
+    },
+    "licensed": {
+      "world": "dans le monde"
     },
     "newRestaurants": {
       "title": "Les nouveaux restaurants"
@@ -70,14 +86,33 @@
     "table_remarquable": "Table Remarquable",
     "table_gourmande": "Table Gourmande"
   },
+  "partners": {
+    "label": "PARTENAIRES",
+    "title": "Partenaires",
+    "description": "Retrouvez la liste complète des partenaires qui font confiance à Gault&Millau Maroc",
+    "see_more": "VOIR PLUS",
+    "become": "Devenez Partenaires",
+    "learn_more": "En Savoir Plus"
+  },
   "footer": {
     "address": "37-39 rue Boissière\n75016 Paris\nFrance",
     "phone": "Appeler : 01 41 40 99 80",
     "contact_us": "Contactez-nous",
     "newsletter_signup": "Inscrivez-vous à notre newsletter",
     "all_newsletters": "Toutes les newsletters",
-    "copyright": "GaultMillau © 2025\nTous droits réservés",
-    "partners": "Partenaires"
+    "copyright": "Gault&Millau Maroc © 2025\nTous droits réservés",
+    "partners": "Partenaires",
+    "about": "À propos",
+    "cgu": "Conditions Générales d'Utilisation",
+    "privacy": "Politique de confidentialité",
+    "our_selection": "Notre sélection",
+    "toques": "Toques",
+    "hospitality": "Hospitalité",
+    "guide": "Le Guide",
+    "kit_media": "Le Kit Média",
+    "open_kit_media": "Ouvrir le Kit Média (PDF)",
+    "president": "Mot du Président",
+    "contact_title": "Contact"
   },
   "products": {
     "wine": "Vin",

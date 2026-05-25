@@ -15,6 +15,8 @@ import StarFilter from '@/components/cards/common/Stars/StarFilter';
 import HotelIcon from '@/public/icons/menu/hotel.svg';
 import { sanitizeSearch } from '@/lib/utils/sanitize';
 
+import { useClientTranslation } from '@/lib/i18n/client';
+
 type Language = 'fr' | 'en';
 
 interface HotelsContentProps {
@@ -42,6 +44,7 @@ export default function HotelsContent({
   initialPagination,
   filters,
 }: HotelsContentProps) {
+  const { t } = useClientTranslation(lang);
   const [hotels, setHotels]         = useState<HotelProps[]>(initialHotels);
   const [pagination, setPagination] = useState<ApiPagination>(initialPagination);
   const [loading, setLoading]       = useState(false);
@@ -124,8 +127,8 @@ export default function HotelsContent({
   if (initialHotels.length === 0 && !hasFilters) {
     return (
       <div className={styles.emptyPage}>
-        <p className={styles.emptyPageTitle}>Aucun enregistrement trouvé pour le moment.</p>
-        <p className={styles.emptyPageSub}>Revenez bientôt pour découvrir nos hôtels.</p>
+        <p className={styles.emptyPageTitle}>{t('empty.no_records')}</p>
+        <p className={styles.emptyPageSub}>{t('empty.subtitle_hotels')}</p>
       </div>
     );
   }
@@ -163,6 +166,7 @@ export default function HotelsContent({
                   {dropdownResults.map((h) => (
                     <Link key={h.slug} href={`/${lang}/hotels/${h.slug}`} className={styles.dropdownItem} onClick={() => setSearchQuery('')}>
                       <div className={styles.dropdownThumb}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         {h.thumbId && <img src={h.thumbId} alt={h.title} />}
                       </div>
                       <div className={styles.dropdownInfo}>

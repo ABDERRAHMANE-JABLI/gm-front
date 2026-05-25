@@ -25,7 +25,7 @@ export default function HorizontalRestauCard({ lang, restaurant }: Props) {
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
       <div className={styles["thumbnail-wrapper"]}>
-        <SmartImage id={imageId} alt={restaurant.title} width={400} height={270} fit="cover" lazyload/>
+        <SmartImage id={imageId} alt={restaurant.title} width={400} height={270} fit="cover" lazyload typeImage={"resto"}/>
       </div>
 
       <div className={styles.rightContent}>

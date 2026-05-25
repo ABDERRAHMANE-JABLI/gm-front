@@ -74,10 +74,10 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
         </header>
 
         {/* Images */}
-        {triptychImages.length === 1 && (
+        {triptychImages.length <= 1 && (
           <section className={styles.sectionTriptych}>
             <div className={styles.singleImage}>
-              <SmartImage id={triptychImages[0].id} alt={hotel.name} fit="cover" />
+              <SmartImage id={triptychImages[0]?.id ?? null} alt={hotel.name} fit="cover" />
             </div>
           </section>
         )}
@@ -120,7 +120,7 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
               <div className={styles.avisHeader}>
                 <span className={styles.avisIcon}><HotelIcon width={40} height={40} /></span>
                 <div>
-                  <p className={styles.avisTitle}>L'avis de Gault&Millau</p>
+                  <p className={styles.avisTitle}>L&apos;avis de Gault&amp;Millau</p>
                   <p className={styles.avisYear}>{year}</p>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
               <div className={styles.relatedSection}>
                 <div className={styles.relatedHeader}>
                   <RestaurantIcon width={36} height={36} />
-                  <p className={styles.relatedTitle}>Découvrez le restaurant de l'Hôtel</p>
+                  <p className={styles.relatedTitle}>Découvrez le restaurant de l&apos;Hôtel</p>
                 </div>
               </div>
               <HorizontalRestauCard lang={lang} restaurant={restoProps} />

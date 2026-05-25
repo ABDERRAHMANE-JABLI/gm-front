@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -rf /home/jabli/dev/gaultMillauFront/page-components/Wines /home/jabli/dev/gaultMillauFront/page-components/ChampagnesPage /home/jabli/dev/gaultMillauFront/page-components/Spirits /home/jabli/dev/gaultMillauFront/page-components/Wineries)",
+      "Bash(rm -rf /home/jabli/dev/gaultMillauFront/app/\\\\[lang\\\\]/wines /home/jabli/dev/gaultMillauFront/app/\\\\[lang\\\\]/champagnes /home/jabli/dev/gaultMillauFront/app/\\\\[lang\\\\]/spirits /home/jabli/dev/gaultMillauFront/app/\\\\[lang\\\\]/wineries)",
+      "Bash(npx tsc *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(k,v\\) for k,v in {**d.get\\('dependencies',{}\\), **d.get\\('devDependencies',{}\\)}.items\\(\\)]\")"
+    ]
+  }
+}

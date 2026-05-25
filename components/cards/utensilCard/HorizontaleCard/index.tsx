@@ -27,6 +27,7 @@ export default function UtensilHorizontalCard({ lang, utensil }: Props) {
           width={225}
           fit="contain"
           lazyload
+          typeImage={"chef"}
         />
       </div>
 

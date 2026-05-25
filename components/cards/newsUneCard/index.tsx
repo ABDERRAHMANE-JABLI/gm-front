@@ -18,7 +18,7 @@ type Props = {
 
 export default function SingleNewsCard({ lang, news }: Props) {
     const cardHref = hrefCard(lang, news.slug);
-    const headerSubtitle = news.theme?.[0];
+    const headerSubtitle = news.theme ?? "";
     const { t } = useClientTranslation(lang);
     const buttons = news.buttons ?? [];
     const showMainButton = buttons.length === 0;
@@ -89,10 +89,11 @@ export default function SingleNewsCard({ lang, news }: Props) {
                             height={464}
                             fit="cover"
                             lazyload
+                            typeImage={"resto"}
                         />
                     </div>
                 </div>
-                {news.theme?.[0] && (<span className={styles.themeTag}>{news.theme?.[0]}</span>)}
+                {news.theme && (<span className={styles.themeTag}>{news.theme}</span>)}
             </div>
         </article>
     );

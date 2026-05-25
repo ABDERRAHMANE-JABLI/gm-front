@@ -14,6 +14,8 @@ import ToqueFilter from '@/components/cards/common/Toques/ToqueFilter';
 import PeopleIcon from '@/public/icons/menu/people.svg';
 import { sanitizeSearch } from '@/lib/utils/sanitize';
 
+import { useClientTranslation } from '@/lib/i18n/client';
+
 type Language = 'fr' | 'en';
 
 interface PeoplesContentProps {
@@ -37,6 +39,7 @@ export default function PeoplesContent({
   initialPagination,
   filters,
 }: PeoplesContentProps) {
+  const { t } = useClientTranslation(lang);
   const [talents, setTalents]           = useState<PeopleProps[]>(initialTalents);
   const [pagination, setPagination]     = useState<ApiPagination>(initialPagination);
   const [loading, setLoading]           = useState(false);
@@ -132,8 +135,8 @@ export default function PeoplesContent({
   if (initialTalents.length === 0 && !hasFilters) {
     return (
       <div className={styles.emptyPage}>
-        <p className={styles.emptyPageTitle}>Aucun enregistrement trouvé pour le moment.</p>
-        <p className={styles.emptyPageSub}>Revenez bientôt pour découvrir nos talents.</p>
+        <p className={styles.emptyPageTitle}>{t('empty.no_records')}</p>
+        <p className={styles.emptyPageSub}>{t('empty.subtitle_people')}</p>
       </div>
     );
   }
@@ -178,6 +181,7 @@ export default function PeoplesContent({
                       onClick={() => setSearchQuery('')}
                     >
                       <div className={styles.dropdownThumb}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         {t.thumbId && <img src={t.thumbId} alt={t.fullName} />}
                       </div>
                       <div className={styles.dropdownInfo}>

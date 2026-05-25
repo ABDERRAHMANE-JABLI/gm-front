@@ -37,7 +37,7 @@ export default function UtensilCard({ lang, Utensil, WithHeader }: UtensilCardPr
       )}
 
       <div className={styles.thumbWrapper}>
-        <SmartImage id={Utensil.thumbId ?? ''} alt={Utensil.title} width={225} fit="cover" lazyload />
+        <SmartImage id={Utensil.thumbId ?? ''} alt={Utensil.title} width={225} fit="cover" lazyload typeImage={"chef"}/>
       </div>
 
       <div className={styles.cardPaddingContainer}>

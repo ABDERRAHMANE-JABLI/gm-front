@@ -1,22 +1,28 @@
 
 interface Props {
-    id: string;
+    id: string | null | undefined;
     alt?: string;
     width?: number;
     height?: number;
     fit?: "cover" | "contain" | "fill";
     background?: [number, number, number, number];
     lazyload?: boolean;
+    typeImage?: string;
 }
 
-export const SmartImage = ({ id, width, height, fit, background, lazyload, alt }: Props) => {
+export const SmartImage = ({ id, width, height, fit, background, lazyload, alt, typeImage = 'default' }: Props) => {
     const altText = alt ?? '';
 
     // ── Pas d'image ───────────────────────────────────────────────────────────
     if (!id) {
         return (
             <picture>
-                <img alt={altText} src="/default-image.jpg" className="topImageCard" />
+                <img
+                    alt={altText}
+                    src={`/images/${typeImage}.png`}
+                    className="topImageCard"
+                    style={{ objectFit: fit ?? 'cover', width: '100%', height: '100%' }}
+                />
             </picture>
         );
     }
@@ -24,6 +30,7 @@ export const SmartImage = ({ id, width, height, fit, background, lazyload, alt }
     // ── URL S3 complète → img direct (pas d'optimisation serveur, évite les 403) ─
     if (id.startsWith('http')) {
         return (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
                 src={id}
                 className="topImageCard"

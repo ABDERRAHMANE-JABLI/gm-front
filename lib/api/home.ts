@@ -12,7 +12,7 @@ export async function fetchHomeSections(): Promise<HomeApiResponse | null> {
   try {
     const res = await fetch(`${getApiBaseUrl()}/api/home/sections`, {
       headers: getApiHeaders(),
-      next: { tags: ['home'] },
+      next: { tags: ['home'], revalidate: 86400 },
     });
     if (!res.ok) return null;
     const data: HomeApiResponse = await res.json();

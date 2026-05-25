@@ -32,6 +32,11 @@ export interface OpeningHour {
  * @example
  * parseApiTime("1970-01-01T10:30:00+00:00") // "10:30"
  */
+/**
+ * Périodes d'ouverture d'un établissement (tableau de créneaux par jour).
+ */
+export type OpeningPeriods = OpeningHour[];
+
 export function parseApiTime(iso: string | null): string | null {
   if (!iso) return null;
   const match = iso.match(/T(\d{2}:\d{2})/);

@@ -1,0 +1,261 @@
+/* ── Page wrapper ── */
+.page {
+  background: #fafafa;
+  min-height: 60vh;
+  padding: 48px 16px 80px;
+}
+
+/* ── Titre centré avec soulignement jaune ── */
+.pageTitle {
+  text-align: center;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  font-size: 34px;
+  font-weight: 900;
+  color: #1a1a1a;
+  margin: 0 0 12px;
+}
+
+.titleUnderline {
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #ffeb00;
+  margin: 0 auto 40px;
+  border-radius: 2px;
+}
+
+/* ── Sections ── */
+.mainSection {
+  width: 100%;
+  padding: 40px 0;
+}
+
+.Container1,
+.Container2,
+.Container3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 1000px;
+  height: 100%;
+  margin: 0 auto;
+  gap: 30px;
+}
+
+/* ── Container 1 : texte gauche + image droite ── */
+.Container1 .contentLeft {
+  width: 800px;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  line-height: 1.6;
+  border-left: 3px solid #ffd500;
+  padding-left: 20px;
+}
+
+.Container1 .contentLeft h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+
+.Container1 .contentLeft ul {
+  padding-left: 10px;
+}
+
+.Container1 .contentLeft li {
+  font-family: "Montserrat", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 25px;
+  padding: 10px 0;
+  text-align: justify;
+  list-style-type: disc;
+}
+
+.Container1 .contentRight {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Container1 .contentRight img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Container 2 : image gauche + texte droite ── */
+.Container2 {
+  margin-top: 40px;
+}
+
+.Container2 .contentLeft {
+  width: 400px;
+  height: 350px;
+}
+
+.Container2 .contentLeft img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Container2 .contentRight {
+  width: 600px;
+  line-height: 1.6;
+  border-left: 3px solid #ffd500;
+  padding-left: 20px;
+}
+
+.Container2 .contentRight h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+
+.Container2 .contentRight ul {
+  padding-left: 10px;
+}
+
+.Container2 .contentRight li {
+  font-family: "Montserrat", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 25px;
+  padding: 10px 0;
+  text-align: justify;
+  list-style-type: disc;
+}
+
+/* ── Container 3 : image gauche + texte droite (grand) ── */
+.Container3 {
+  margin-top: 40px;
+}
+
+.Container3 .contentLeft {
+  width: 300px;
+  height: 520px;
+}
+
+.Container3 .contentLeft img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Container3 .contentRight {
+  width: 700px;
+  line-height: 1.6;
+  border-left: 3px solid #ffd500;
+  padding-left: 20px;
+}
+
+.Container3 .contentRight h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: "Montserrat", Helvetica, sans-serif;
+  text-transform: capitalize;
+}
+
+.Container3 .contentRight ul {
+  padding-left: 10px;
+}
+
+.Container3 .contentRight li {
+  font-family: "Montserrat", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 25px;
+  padding: 10px 0;
+  text-align: justify;
+  list-style-type: disc;
+}
+
+/* ── Responsive ── */
+@media (max-width: 950px) {
+  .mainSection {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .Container1 ul,
+  .Container2 ul {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .Container1,
+  .Container2,
+  .Container3 {
+    width: 100%;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .Container1 .contentRight {
+    width: 100%;
+    height: 400px;
+    order: 1;
+  }
+
+  .Container1 .contentLeft {
+    width: 100%;
+    order: 2;
+    border-left: 3px solid #ffd500;
+    margin-left: 10px;
+  }
+
+  .Container1 .contentRight img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .Container2 .contentLeft {
+    width: 100%;
+    height: 400px;
+  }
+
+  .Container2 .contentLeft img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .Container2 .contentRight {
+    width: 100%;
+    order: 2;
+    border-left: 3px solid #ffd500;
+    margin-left: 10px;
+  }
+
+  .Container3 .contentLeft {
+    width: 100%;
+    height: 400px;
+    order: 1;
+  }
+
+  .Container3 .contentLeft img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .Container3 .contentRight {
+    width: 100%;
+    order: 2;
+    border-left: 3px solid #ffd500;
+    margin-left: 10px;
+    padding-right: 10px !important;
+  }
+}

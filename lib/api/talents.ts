@@ -86,7 +86,7 @@ export async function fetchTalents(
       `${getApiBaseUrl()}/api/talents?${params.toString()}`,
       {
         signal:  controller.signal,
-        next:    { tags: ['people_list'], revalidate: 3600 },
+        next:    { tags: ['people_list'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -125,7 +125,7 @@ export async function fetchTalentFilters(): Promise<ApiTalentFilters> {
       `${getApiBaseUrl()}/api/talents/filters`,
       {
         signal:  controller.signal,
-        next:    { tags: ['people_list', 'people_filters'], revalidate: 3600 },
+        next:    { tags: ['people_list', 'people_filters'], revalidate: 86400 },
         headers: getApiHeaders(),
       }
     );
@@ -157,7 +157,7 @@ export async function fetchTalentDetail(slug: string): Promise<ApiTalentDetail |
   try {
     const res = await fetch(
       `${getApiBaseUrl()}/api/talents/${slug}`,
-      { signal: controller.signal, next: { tags: [`people_${slug}`], revalidate: 3600 }, headers: getApiHeaders() }
+      { signal: controller.signal, next: { tags: [`people_${slug}`], revalidate: 86400 }, headers: getApiHeaders() }
     );
     if (!res.ok) return null;
     return await res.json() as ApiTalentDetail;

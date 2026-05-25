@@ -5,7 +5,7 @@ import UtensilCollectionContent from '@/page-components/UtensilsPage/UtensilColl
 import styles from '@/styles/listPage.module.css';
 import { Language } from '@/lib/i18n/types';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 86400;
 
 interface PageProps {
   params: Promise<{ lang: string; slug: string }>;

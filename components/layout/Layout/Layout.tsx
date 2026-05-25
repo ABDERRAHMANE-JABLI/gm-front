@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({
       <main className={mainClasses}>
         {children}
       </main>
-      <Footer />
+      <Footer lang={language} />
     </div>
   );
 };

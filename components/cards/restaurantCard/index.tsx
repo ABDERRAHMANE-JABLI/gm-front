@@ -42,7 +42,7 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
             )}
 
             <div className={styles.thumbWrapper}>
-                <SmartImage id={imageId} alt={restaurant.title} width={666} height={444} fit="cover" lazyload />
+                <SmartImage id={imageId} alt={restaurant.title} width={666} height={444} fit="cover" lazyload typeImage={"resto"} />
                 {isOpen && (
                     <span className={`${styles.statusBadge} ${styles.statusOpen}`} role="status">
                         <CheckIcon className={styles.svgCheck} />

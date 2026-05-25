@@ -317,7 +317,6 @@ export const CacheWarming = {
         if (response.ok) {
           const data = await response.json();
           await CacheFunctions.cachePage(path, data);
-          console.log(`✅ Warmed cache for page: ${path}`);
         }
       } catch (error) {
         console.error(`❌ Failed to warm cache for page: ${path}`, error);
@@ -350,7 +349,6 @@ export const CacheWarming = {
         if (response.ok) {
           const data = await response.json();
           await CacheFunctions.cacheContent(contentType, id, data);
-          console.log(`✅ Warmed cache for ${contentType}: ${id}`);
         }
       } catch (error) {
         console.error(`❌ Failed to warm cache for ${contentType}: ${id}`, error);

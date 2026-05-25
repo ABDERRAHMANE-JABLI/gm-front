@@ -1,4 +1,16 @@
 {
+  "empty": {
+    "no_records": "No records found at the moment.",
+    "subtitle_restaurants": "Come back soon to discover our restaurants.",
+    "subtitle_hotels": "Come back soon to discover our hotels.",
+    "subtitle_riads": "Come back soon to discover our riads.",
+    "subtitle_artisans": "Come back soon to discover our artisans.",
+    "subtitle_recipes": "Come back soon to discover our recipes.",
+    "subtitle_articles": "Come back soon to discover our articles.",
+    "subtitle_people": "Come back soon to discover our talents.",
+    "subtitle_utensils": "Come back soon to discover our utensils.",
+    "subtitle_collections": "Come back soon to discover our collections."
+  },
   "common": {
     "home": "Home",
     "search": "Search",
@@ -53,7 +65,11 @@
   },
   "home": {
     "hero": {
-      "subtitle": "The reference gastronomic guide"
+      "subtitle": "The reference gastronomic guide",
+      "description": "The reference guide is coming to Morocco — discover the best tables, chefs and artisans of Moroccan gastronomy."
+    },
+    "licensed": {
+      "world": "in the world"
     },
     "newRestaurants": {
       "title": "New restaurants"
@@ -70,14 +86,33 @@
     "table_remarquable": "Remarkable Table",
     "table_gourmande": "Gourmet Table"
   },
+  "partners": {
+    "label": "PARTNERS",
+    "title": "Partners",
+    "description": "Find the complete list of partners who trust Gault&Millau Morocco",
+    "see_more": "SEE MORE",
+    "become": "Become a Partner",
+    "learn_more": "Learn More"
+  },
   "footer": {
     "address": "37-39 rue Boissière\n75016 Paris\nFrance",
     "phone": "Call: 01 41 40 99 80",
     "contact_us": "Contact us",
     "newsletter_signup": "Subscribe to our newsletter",
     "all_newsletters": "All newsletters",
-    "copyright": "GaultMillau © 2025\nAll rights reserved",
-    "partners": "Partners"
+    "copyright": "Gault&Millau Morocco © 2025\nAll rights reserved",
+    "partners": "Partners",
+    "about": "About",
+    "cgu": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "our_selection": "Our selection",
+    "toques": "Toques",
+    "hospitality": "Hospitality",
+    "guide": "The Guide",
+    "kit_media": "Media Kit",
+    "open_kit_media": "Open Media Kit (PDF)",
+    "president": "President's Message",
+    "contact_title": "Contact"
   },
   "products": {
     "wine": "Wine",

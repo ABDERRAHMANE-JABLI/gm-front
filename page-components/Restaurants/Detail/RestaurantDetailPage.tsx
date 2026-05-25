@@ -118,10 +118,10 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
         </header>
 
         {/* Images */}
-        {triptychImages.length === 1 && (
+        {triptychImages.length <= 1 && (
           <section className={styles.sectionTriptych}>
             <div className={styles.singleImage}>
-              <SmartImage id={triptychImages[0].id} alt={restaurant.name} fit="cover" />
+              <SmartImage id={triptychImages[0]?.id ?? null} alt={restaurant.name} fit="cover" />
             </div>
           </section>
         )}
@@ -170,7 +170,7 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
               <div className={styles.avisHeader}>
                 <span className={styles.avisIcon}><GmIcon width={40} height={40} /></span>
                 <div>
-                  <p className={styles.avisTitle}>L'avis de Gault&Millau</p>
+                  <p className={styles.avisTitle}>L&apos;avis de Gault&amp;Millau</p>
                   <p className={styles.avisYear}>{year}</p>
                 </div>
               </div>

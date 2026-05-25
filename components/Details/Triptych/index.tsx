@@ -90,6 +90,7 @@ export default function Triptych({ images, title }: ImgContainerProps) {
                                         <ArrowLeft width="50" height="50" className={styles.arrow} style={{ color: "#ffe700" }} />
                                     </button>
                                     <div key={current} className={`${styles.zoomImage} ${animating ? "" : styles.active}`}>
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
                                             src={images[current].id}
                                             alt={title}

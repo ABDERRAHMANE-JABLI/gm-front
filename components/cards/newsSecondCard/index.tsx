@@ -23,7 +23,7 @@ export default function NewsSecondCard({ lang, news}: Props) {
   const showMainButton = buttons.length === 0;
 
   return (
-    <article className={`${styles["uneDeux-card"]} d-none d-lg-flex`}>
+    <article className={styles["uneDeux-card"]}>
       <Link href={cardHref} aria-label={`${news.title} — ${t('common.read_more')}`}>
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
@@ -34,7 +34,7 @@ export default function NewsSecondCard({ lang, news}: Props) {
         <div className={styles["place-card-header-title"]}>
           <span className={`${styles.title} ${styles.ellipsis}`}>{t('navigation.actualites')}</span>
           <span className={`${styles.subTitle} ${styles.ellipsis}`}>
-            {news.theme?.[0]}
+            {news.theme ?? ""}
           </span>
         </div>
 
@@ -51,11 +51,12 @@ export default function NewsSecondCard({ lang, news}: Props) {
           height={400}
           fit="cover"
           lazyload
+          typeImage={"resto"}
         />
         {
-          news.theme?.[0] && (
+          news.theme && (
           <div className={styles.themeTagWrapper}>
-          <span className={styles.ellipsis}>{news.theme?.[0]}</span>
+          <span className={styles.ellipsis}>{news.theme}</span>
         </div>)
         }
       </div>

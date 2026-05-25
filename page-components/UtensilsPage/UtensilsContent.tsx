@@ -7,6 +7,8 @@ import { UtensilProps } from '@/types/Utensils';
 import { ApiPagination } from '@/types/api/Article';
 import { loadMoreUtensils } from '@/lib/actions/utensils';
 
+import { useClientTranslation } from '@/lib/i18n/client';
+
 type Language = 'fr' | 'en';
 
 interface UtensilsContentProps {
@@ -20,6 +22,7 @@ export default function UtensilsContent({
   initialUtensils,
   initialPagination,
 }: UtensilsContentProps) {
+  const { t } = useClientTranslation(lang);
   const [utensils, setUtensils]       = useState<UtensilProps[]>(initialUtensils);
   const [pagination, setPagination]   = useState<ApiPagination>(initialPagination);
   const [loading, setLoading]         = useState(false);
@@ -29,8 +32,8 @@ export default function UtensilsContent({
   if (initialUtensils.length === 0) {
     return (
       <div className={styles.emptyPage}>
-        <p className={styles.emptyPageTitle}>Aucun enregistrement trouvé pour le moment.</p>
-        <p className={styles.emptyPageSub}>Revenez bientôt pour découvrir nos ustensiles.</p>
+        <p className={styles.emptyPageTitle}>{t('empty.no_records')}</p>
+        <p className={styles.emptyPageSub}>{t('empty.subtitle_utensils')}</p>
       </div>
     );
   }
@@ -52,7 +55,7 @@ export default function UtensilsContent({
       {utensils.length === 0 ? (
         <div className={styles.emptyState}>
           <p className={styles.emptyTitle}>Aucune collection trouvée</p>
-          <p className={styles.emptyText}>Revenez bientôt pour découvrir nos collections.</p>
+          <p className={styles.emptyText}>{t('empty.subtitle_collections')}</p>
         </div>
       ) : (
         <>
