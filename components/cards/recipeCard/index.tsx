@@ -37,7 +37,7 @@ export default function RecipeCard({ lang, recipe, withHeader }: Props) {
       )}
 
       <div className={styles.thumbWrapper}>
-        <SmartImage id={recipe.thumbId} alt={recipe.title} width={666} height={444} fit="cover" lazyload/>
+        <SmartImage id={recipe.thumbId} alt={recipe.title} width={666} height={444} fit="cover" lazyload typeImage={"recipes"}/>
         {firstTheme && <span className={styles.badge}>{firstTheme}</span>}
       </div>
 

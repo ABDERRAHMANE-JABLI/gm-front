@@ -6,6 +6,8 @@ import { fetchRestaurantDetail } from '@/lib/api/restaurants'
 import { fetchPartners } from '@/lib/api/partners'
 import { Language } from '@/lib/types'
 
+export const revalidate = 86400
+
 interface Props {
   params: Promise<{ lang: Language; slug: string }>
 }

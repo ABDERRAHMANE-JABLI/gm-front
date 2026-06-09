@@ -43,7 +43,7 @@ export default function HotelCard({ lang, Hotel, withHeader, basePath = 'hotels'
             )}
 
             <div className={styles.thumbWrapper}>
-                <SmartImage id={imageId} alt={Hotel.title} width={666} height={444} fit="cover" lazyload typeImage={"resto"}/>
+                <SmartImage id={imageId} alt={Hotel.title} width={666} height={444} fit="cover" lazyload typeImage={"hotel"}/>
 
                 {/*{isOpen && (
                     <span className={`${styles.statusBadge} ${styles.statusOpen}`} role="status">

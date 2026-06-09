@@ -35,7 +35,7 @@ function mapRiyadToCard(h: ApiRiyad): HotelProps {
   return {
     title:              h.name,
     slug:               h.slug,
-    thumbId:            `${s3}/${h.thumbId}`,
+    thumbId:            h.thumbId ? `${s3}/${h.thumbId}` : undefined,
     isGmSelected:       !h.isSponsorised,
     isSponsorised:      h.isSponsorised,
     nbStars:            h.nbrStars,

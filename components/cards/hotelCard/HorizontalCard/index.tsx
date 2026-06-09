@@ -27,7 +27,7 @@ export default function HorizontalHotelCard({ lang, Hotel }: Props) {
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
       <div className={styles["thumbnail-wrapper"]}>
-        <SmartImage id={imageId} alt={Hotel.title} width={400} height={270} fit="cover" lazyload typeImage={"resto"}/>
+        <SmartImage id={imageId} alt={Hotel.title} width={400} height={270} fit="cover" lazyload typeImage={"hotel"}/>
       </div>
       <div className={styles.rightContent}>
         <div className={styles.divToques}>

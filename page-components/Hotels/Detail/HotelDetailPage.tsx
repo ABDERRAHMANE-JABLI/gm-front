@@ -77,7 +77,7 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
         {triptychImages.length <= 1 && (
           <section className={styles.sectionTriptych}>
             <div className={styles.singleImage}>
-              <SmartImage id={triptychImages[0]?.id ?? null} alt={hotel.name} fit="cover" />
+              <SmartImage id={triptychImages[0]?.id ?? null} alt={hotel.name} fit="cover" typeImage={"hotel"} />
             </div>
           </section>
         )}

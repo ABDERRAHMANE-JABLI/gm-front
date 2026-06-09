@@ -30,7 +30,7 @@ export default function HorizontalRecipeCard({ lang, recipe }: Props) {
         <span className={styles.stretchedLink} aria-hidden="true" />
       </Link>
       <div className={styles["thumbnail-wrapper"]}>
-        <SmartImage id={imageId} alt={recipe.title} width={400} height={270} fit="cover" lazyload typeImage={"artisan"}/>
+        <SmartImage id={imageId} alt={recipe.title} width={400} height={270} fit="cover" lazyload typeImage={"recipes"}/>
       </div>
       <div className={styles.rightContent}>
         <div className={styles.divToques}>

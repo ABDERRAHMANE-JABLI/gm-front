@@ -1,5 +1,6 @@
 .homepage {
   width: 100%;
+  overflow-x: hidden;
 }
 
 /* ── Wrapper global 1000px ───────────────────────────────────────────────── */
@@ -21,14 +22,17 @@
 /* 3/3 pleine largeur */
 .gridFull {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 /* 2/3 + 1/3 */
 .gridSplit {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   gap: 20px;
   align-items: start;
+  width: 100%;
   min-width: 0;
 }
 
@@ -38,9 +42,11 @@
 /* 3 × 1/3 */
 .gridThree {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   align-items: start;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* ── Hero par défaut ─────────────────────────────────────────────────────── */
@@ -127,6 +133,7 @@
 .recipesList {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
   text-align: left;
 }
@@ -209,19 +216,37 @@
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 
-@media (max-width: 900px) {
-  .gridSplit {
-    grid-template-columns: 1fr;
+@media (max-width: 1000px) {
+  .gridThree {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gridThree > *:nth-child(3):last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 950px) {
+  .gridSplit {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    justify-items: center;
+  }
+}
+
+@media (max-width: 700px) {
   .container {
     padding: 0 12px;
   }
 
+  .gridSplit {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
   .gridThree {
     grid-template-columns: 1fr;
+    justify-items: center;
   }
 
   .section {

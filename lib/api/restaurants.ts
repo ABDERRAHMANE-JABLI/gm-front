@@ -43,7 +43,7 @@ function mapRestaurantToCard(r: ApiRestaurant): RestaurantCardProps {
   return {
     title:    r.name,
     slug:     r.slug,
-    thumbId:  `${s3BaseUrl}/${r.thumbId}`,
+    thumbId:  r.thumbId ? `${s3BaseUrl}/${r.thumbId}` : undefined,
     nbToques:      r.nbrToques,
     isSponsorised: r.isSponsorised,
     note:     r.noteGM !== undefined ? `${r.noteGM}` : undefined,

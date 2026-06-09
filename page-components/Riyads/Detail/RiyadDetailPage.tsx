@@ -76,7 +76,7 @@ export default function RiyadDetailPage({ lang, riyad, partners = [] }: RiyadDet
         {triptychImages.length <= 1 && (
           <section className={styles.sectionTriptych}>
             <div className={styles.singleImage}>
-              <SmartImage id={triptychImages[0]?.id ?? null} alt={riyad.name} fit="cover" />
+              <SmartImage id={triptychImages[0]?.id ?? null} alt={riyad.name} fit="cover" typeImage={"hotel"} />
             </div>
           </section>
         )}
