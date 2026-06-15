@@ -1,15 +1,11 @@
 .containerSearch {
   position: sticky;
-  top: 145.6px;
+  top: 152px;
   z-index: 50;
   background: #fff;
   padding-bottom: 6px;
   padding-top: 6px;
-  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.2);
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  border-bottom: 1px solid #E7E5E4;
 }
 
 .searchWrapper {
@@ -231,7 +227,7 @@
 
 @media (max-width: 768px) {
   .containerSearch {
-    top: 135px;
+    top: 152px;
   }
 
   .searchWrapper {
@@ -252,8 +248,22 @@
     display: none;
   }
 
-  /* Sidebar visible quand filtersOpen */
+  /* Sidebar visible quand filtersOpen — overlay fixe */
   .sidebarOpen {
     display: block;
+    position: fixed;
+    top: 210px;
+    left: 0;
+    right: 0;
+    height: calc(100dvh - 210px);
+    z-index: 500;
+    background: #fff;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 16px 16px 60px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
+    border-top: 2px solid #ffeb00;
+    box-sizing: border-box;
   }
 }

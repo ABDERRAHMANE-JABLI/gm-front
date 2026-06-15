@@ -133,7 +133,17 @@ export default function PersonDetailPage({ lang, person, partners = [] }: Person
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512 512" aria-hidden="true">
                 <path d="M464 256a208 208 0 1 1-416 0a208 208 0 1 1 416 0M0 256a256 256 0 1 0 512 0a256 256 0 1 0-512 0m232-136v136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24"/>
               </svg>
-              <h2 className={styles.sectionTitle}>Biographie & Distinctions</h2>
+              <h2 className={styles.sectionTitle}>Biographie &amp; Distinctions</h2>
+              {bioOverflows && (
+                <div className={styles.bioNavRow}>
+                  <button className={styles.bioNavBtn} onClick={() => scrollBio('prev')} aria-label="Précédent">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                  </button>
+                  <button className={styles.bioNavBtn} onClick={() => scrollBio('next')} aria-label="Suivant">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                  </button>
+                </div>
+              )}
             </div>
             <div className={styles.bioCarousel}>
               <div ref={bioTrackRef} className={styles.bioTrack}>
@@ -144,16 +154,6 @@ export default function PersonDetailPage({ lang, person, partners = [] }: Person
                   </div>
                 ))}
               </div>
-              {bioOverflows && (
-                <>
-                  <button className={`${styles.bioNav} ${styles.bioNavPrev}`} onClick={() => scrollBio('prev')} aria-label="Précédent">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-                  </button>
-                  <button className={`${styles.bioNav} ${styles.bioNavNext}`} onClick={() => scrollBio('next')} aria-label="Suivant">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-                  </button>
-                </>
-              )}
             </div>
           </section>
         )}

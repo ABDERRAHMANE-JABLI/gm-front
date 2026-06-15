@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.github
+
+# Env files — les valeurs sont passées en build args / env vars
+.env
+.env.*
+
+# Inutile dans l'image
+*.md
+*.log
+.DS_Store

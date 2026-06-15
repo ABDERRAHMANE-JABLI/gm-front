@@ -40,7 +40,7 @@ function buildNavItems(t: T): NavItem[] {
     { label: t('common.people'),        segment: 'peoples',     Icon: PeopleIcon },
     { label: t('navigation.utensils'), segment: 'utensils',    Icon: UtensilIcon },
     { label: t('footer.partners'),     segment: 'partners',    Icon: PartnerIcon,    noBg: true },
-    { label: 'E-Boutique',             segment: 'boutique',    Icon: StoreIcon,      noBg: true },
+    { label: 'E-Boutique',             segment: 'store',    Icon: StoreIcon,      noBg: true },
   ];
 }
 

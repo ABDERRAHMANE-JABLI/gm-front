@@ -308,6 +308,33 @@
   margin-bottom: 8px;
 }
 
+.sidebarCloseBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+  font-size: 20px;
+  line-height: 1;
+  border-radius: 6px;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.sidebarCloseBtn:hover {
+  background: rgba(0,0,0,0.08);
+}
+
+@media (max-width: 900px) {
+  .sidebarCloseBtn {
+    display: flex;
+  }
+}
+
 .sidebarHeaderTitle {
   display: flex;
   align-items: center;
@@ -543,5 +570,66 @@
   .searchBarWrapper { width: 100%; padding: 0 16px; }
   .filterToggleBtn { display: flex; }
   .sidebarHidden { display: none !important; }
-  .sidebarOpen { display: block !important; }
+
+  .sidebarBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(0, 0, 0, 0.45);
+    animation: backdropIn 0.2s ease;
+  }
+
+  @keyframes backdropIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .sidebarOpen {
+    display: flex !important;
+    flex-direction: column !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: 0 !important;
+    height: 100dvh !important;
+    width: min(320px, 88vw) !important;
+    z-index: 1201;
+    background: #fff;
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: -6px 0 32px rgba(0, 0, 0, 0.18);
+    border-left: 3px solid #ffeb00;
+    animation: slideInRight 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    box-sizing: border-box !important;
+  }
+
+  @keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0); }
+  }
+
+  .sidebarOpen .sidebarHeader {
+    position: sticky !important;
+    top: 0 !important;
+    background: #ffeb00 !important;
+    z-index: 1 !important;
+    padding: 14px 16px !important;
+    border-bottom: none !important;
+    flex-shrink: 0;
+  }
+
+  .sidebarOpen .filterList {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .sidebarOpen .filterItem {
+    width: 100% !important;
+  }
 }

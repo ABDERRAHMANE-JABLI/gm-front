@@ -1,0 +1,158 @@
+/* ── AwardCard — Premium Luxury ─────────────────────────────────────── */
+
+.card {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background: transparent;
+  transition: transform 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* ── Image ───────────────────────────────────────────────────────────── */
+.imageWrapper {
+  width: 220px;
+  height: 220px;
+  position: relative;
+  background: #F5F3F0;
+  overflow: hidden;
+  border: 1px solid #E7E5E4;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card:hover .imageWrapper img {
+  transform: scale(1.06);
+}
+
+/* ── Placeholder ─────────────────────────────────────────────────────── */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #F5F3F0;
+}
+
+.placeholderIcon {
+  opacity: 0.25;
+}
+
+.placeholderLabel {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #78716C;
+}
+
+/* ── Hover overlay ───────────────────────────────────────────────────── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.cartBtn {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--GMI-buttonbordercolor, rgba(181,181,181,1));
+  border-radius: var(--GMI-buttonborderradius, 8px);
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+}
+
+.cartBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--GMI-outlinedyellow, #ffeb00);
+  z-index: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s ease;
+}
+
+.cartBtn:hover::before {
+  transform: scaleX(1);
+}
+
+.cartBtnLabel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cartBtn.added {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
+}
+
+.cartBtn.added::before {
+  display: none;
+}
+
+/* ── Info ────────────────────────────────────────────────────────────── */
+.info {
+  padding: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #dd0a00;
+  letter-spacing: 0.03em;
+}
