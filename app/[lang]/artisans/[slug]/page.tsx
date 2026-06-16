@@ -25,6 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${name} | Gault&Millau`,
     description,
+    alternates: {
+      canonical: url,
+      languages: {
+        fr: `${siteUrl}/fr/artisans/${slug}`,
+        en: `${siteUrl}/en/artisans/${slug}`,
+      },
+    },
     openGraph: {
       title: `${name} | Gault&Millau`,
       description,
@@ -53,8 +60,26 @@ export default async function Page({ params }: Props) {
 
   if (!artisan) notFound()
 
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const image = artisan.thumbId ? `${s3}/${artisan.thumbId}` : undefined
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: artisan.title,
+    description: artisan.avisGM ?? undefined,
+    url: `${siteUrl}/${lang}/artisans/${slug}`,
+    ...(image && { image }),
+    ...(artisan.city?.cityName && { address: { '@type': 'PostalAddress', addressLocality: artisan.city.cityName, streetAddress: artisan.adresse } }),
+    ...(artisan.mainActivity?.libelle && { knowsAbout: artisan.mainActivity.libelle }),
+    ...(artisan.tel && { telephone: artisan.tel }),
+    ...(artisan.website && { sameAs: artisan.website }),
+  }
+
   return (
     <Layout language={lang}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ArtisanDetailPage lang={lang} artisan={artisan} partners={partners} />
     </Layout>
   )

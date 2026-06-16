@@ -25,6 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${title} | Gault&Millau`,
     description,
+    alternates: {
+      canonical: url,
+      languages: {
+        fr: `${siteUrl}/fr/recipes/${slug}`,
+        en: `${siteUrl}/en/recipes/${slug}`,
+      },
+    },
     openGraph: {
       title: `${title} | Gault&Millau`,
       description,
@@ -51,8 +58,25 @@ export default async function Page({ params }: Props) {
 
   if (!recipe) notFound()
 
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const image = recipe.thumbId ? `${s3}/${recipe.thumbId}` : undefined
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Recipe',
+    name: recipe.title,
+    description: recipe.resume ?? undefined,
+    url: `${siteUrl}/${lang}/recipes/${slug}`,
+    ...(image && { image }),
+    ...(recipe.chef?.fullName && { author: { '@type': 'Person', name: recipe.chef.fullName } }),
+    ...(recipe.difficulty && { recipeCategory: recipe.difficulty }),
+    ...(recipe.typeRecipe && { recipeYield: recipe.typeRecipe }),
+  }
+
   return (
     <Layout language={lang}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <RecipeDetailPage lang={lang} recipe={recipe} partners={partners} />
     </Layout>
   )

@@ -25,6 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${name} | Gault&Millau`,
     description,
+    alternates: {
+      canonical: url,
+      languages: {
+        fr: `${siteUrl}/fr/peoples/${slug}`,
+        en: `${siteUrl}/en/peoples/${slug}`,
+      },
+    },
     openGraph: {
       title: `${name} | Gault&Millau`,
       description,
@@ -53,8 +60,24 @@ export default async function Page({ params }: Props) {
 
   if (!person) notFound()
 
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const image = person.thumbId ? `${s3}/${person.thumbId}` : undefined
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: person.fullName,
+    description: person.resume ?? undefined,
+    url: `${siteUrl}/${lang}/peoples/${slug}`,
+    ...(image && { image }),
+    ...(person.roles?.length && { jobTitle: person.roles[0] }),
+    ...(person.chefAt?.[0]?.name && { worksFor: { '@type': 'Organization', name: person.chefAt[0].name } }),
+  }
+
   return (
     <Layout language={lang}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PersonDetailPage lang={lang} person={person} partners={partners} />
     </Layout>
   )

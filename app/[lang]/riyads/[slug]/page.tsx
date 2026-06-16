@@ -25,6 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${name} | Gault&Millau`,
     description,
+    alternates: {
+      canonical: url,
+      languages: {
+        fr: `${siteUrl}/fr/riyads/${slug}`,
+        en: `${siteUrl}/en/riyads/${slug}`,
+      },
+    },
     openGraph: {
       title: `${name} | Gault&Millau`,
       description,
@@ -53,8 +60,28 @@ export default async function Page({ params }: Props) {
 
   if (!riyad) notFound()
 
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const image = riyad.thumbId ? `${s3}/${riyad.thumbId}` : undefined
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LodgingBusiness',
+    name: riyad.name,
+    description: riyad.avisGM ?? undefined,
+    url: `${siteUrl}/${lang}/riyads/${slug}`,
+    ...(image && { image }),
+    ...(riyad.city?.cityName && { address: { '@type': 'PostalAddress', addressLocality: riyad.city.cityName, streetAddress: riyad.adresse } }),
+    ...(riyad.nbrStars && { starRating: { '@type': 'Rating', ratingValue: riyad.nbrStars } }),
+    ...(riyad.noteGM != null && {
+      aggregateRating: { '@type': 'AggregateRating', ratingValue: riyad.noteGM, bestRating: 20, ratingCount: 1 },
+    }),
+    ...(riyad.website && { sameAs: riyad.website }),
+  }
+
   return (
     <Layout language={lang}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <RiyadDetailPage lang={lang} riyad={riyad} partners={partners} />
     </Layout>
   )

@@ -180,3 +180,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .heroImage {
+    height: 230px;
+  }
+}

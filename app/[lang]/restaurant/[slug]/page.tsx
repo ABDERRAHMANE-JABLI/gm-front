@@ -25,6 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${name} | Gault&Millau`,
     description,
+    alternates: {
+      canonical: url,
+      languages: {
+        fr: `${siteUrl}/fr/restaurant/${slug}`,
+        en: `${siteUrl}/en/restaurant/${slug}`,
+      },
+    },
     openGraph: {
       title: `${name} | Gault&Millau`,
       description,
@@ -53,8 +60,36 @@ export default async function Page({ params }: Props) {
 
   if (!restaurant) notFound()
 
+  const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const image = restaurant.thumbId ? `${s3}/${restaurant.thumbId}` : undefined
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Restaurant',
+    name: restaurant.name,
+    description: restaurant.avisGM ?? undefined,
+    url: `${siteUrl}/${lang}/restaurant/${slug}`,
+    ...(image && { image }),
+    ...(restaurant.city?.cityName && { address: { '@type': 'PostalAddress', addressLocality: restaurant.city.cityName, streetAddress: restaurant.adresse } }),
+    ...(restaurant.cuisines?.length && { servesCuisine: restaurant.cuisines }),
+    ...(restaurant.budgetMin != null && restaurant.budgetMax != null && {
+      priceRange: `${restaurant.budgetMin} - ${restaurant.budgetMax} MAD`,
+    }),
+    ...(restaurant.noteGM != null && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: restaurant.noteGM,
+        bestRating: 20,
+        ratingCount: 1,
+      },
+    }),
+    ...(restaurant.website && { sameAs: restaurant.website }),
+  }
+
   return (
     <Layout language={lang}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <RestaurantDetailPage lang={lang} restaurant={restaurant} partners={partners} />
     </Layout>
   )

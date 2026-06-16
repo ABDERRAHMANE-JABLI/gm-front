@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     locale: "fr_MA",
     images: [
       {
-        url: "/icons/GaultMillau.svg",
+        url: "/images/image_seo.png",
         width: 1200,
         height: 630,
         alt: "Gault&Millau Maroc",

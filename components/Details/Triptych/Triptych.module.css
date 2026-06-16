@@ -98,11 +98,11 @@
 @media (max-width: 1030px){
   .Triptych{
     flex-direction: column;
-    gap: 5px; 
+    gap: 5px;
     max-height: unset;
     height: auto;
     width: 100%;
-    max-width: 100%;       
+    max-width: 100%;
     overflow: hidden;
   }
 
@@ -115,7 +115,7 @@
   .Triptych .secondView{
     flex: unset;
     display: flex;
-    flex-direction: row;   
+    flex-direction: row;
     gap: 5px;
     width: 100%;
     max-width: 100%;
@@ -141,6 +141,16 @@
     top:10px;
 }
 
+}
+
+@media (max-width: 480px) {
+  .Triptych .mainView > .wrapper {
+    height: 230px;
+  }
+
+  .Triptych .secondView > .wrapper {
+    height: 150px;
+  }
 }
 
 @media (max-width: 500px){

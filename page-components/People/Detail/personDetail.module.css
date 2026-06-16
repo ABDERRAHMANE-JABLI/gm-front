@@ -383,3 +383,9 @@
     padding: 16px;
   }
 }
+
+@media (max-width: 480px) {
+  .photoInner {
+    height: 230px;
+  }
+}

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import Layout from '@/components/layout/Layout/Layout';
 import { fetchUtensilItems, fetchUtensils } from '@/lib/api/utensils';
 import UtensilCollectionContent from '@/page-components/UtensilsPage/UtensilCollectionContent';
@@ -9,6 +10,27 @@ export const revalidate = 86400;
 
 interface PageProps {
   params: Promise<{ lang: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { lang, slug } = await params
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gaultmillau.ma'
+  const collections = await fetchUtensils({ page: 1, limit: 50 })
+  const collection = collections.utensils.find((c) => c.slug === slug)
+  const title = collection?.title ?? slug.replace(/-/g, ' ')
+  const url = `${siteUrl}/${lang}/utensils/${slug}`
+
+  return {
+    title: `${title} | Gault&Millau Maroc`,
+    description: `Découvrez la collection ${title} sélectionnée par Gault&Millau Maroc.`,
+    alternates: {
+      canonical: url,
+      languages: {
+        fr: `${siteUrl}/fr/utensils/${slug}`,
+        en: `${siteUrl}/en/utensils/${slug}`,
+      },
+    },
+  }
 }
 
 export default async function UtensilCollectionPage({ params }: PageProps) {

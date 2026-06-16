@@ -355,6 +355,12 @@
   overflow: hidden;
 }
 
+@media (max-width: 480px) {
+  .singleImage {
+    height: 230px;
+  }
+}
+
 /* ── 3-column cards row ─────────────────────────────────────── */
 .cardsRow {
   display: grid;

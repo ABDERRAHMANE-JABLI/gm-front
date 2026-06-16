@@ -156,7 +156,6 @@ export default function RestaurantsContent({
             <button
               className={styles.filterToggleBtn}
               onClick={() => {
-                if (!filtersOpen) window.scrollTo({ top: 0, behavior: 'smooth' });
                 setFiltersOpen((v) => !v);
               }}
               aria-label="Filtres"
