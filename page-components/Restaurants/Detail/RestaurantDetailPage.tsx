@@ -121,7 +121,7 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
         {triptychImages.length <= 1 && (
           <section className={styles.sectionTriptych}>
             <div className={styles.singleImage}>
-              <SmartImage id={triptychImages[0]?.id ?? null} alt={restaurant.name} fit="cover" />
+              <SmartImage id={triptychImages[0]?.id ?? null} alt={restaurant.name} fit="fill" typeImage={"resto"}/>
             </div>
           </section>
         )}

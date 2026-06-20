@@ -35,7 +35,7 @@ export default function NewsCard({ lang, news, withHeader}: Props) {
 
       {/* Header pour la page LA PLACE */}
       {withHeader && (
-        <CardHeader title={t('navigation.actualites')} href={`/${lang}/blogs/}`} seeMoreLabel={t("common.see_more")} subtitle={headerSubtitle} icon={<NewsIcon width={28} height={28}/>} />
+        <CardHeader title={t('navigation.actualites')} href={`/${lang}/blogs`} seeMoreLabel={t("common.see_more")} subtitle={headerSubtitle} icon={<NewsIcon width={28} height={28}/>} />
       )}
 
       {/* Media (image) + badge */}

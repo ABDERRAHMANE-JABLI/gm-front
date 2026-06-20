@@ -33,6 +33,7 @@ function mapHotelToCard(h: ApiHotel): HotelProps {
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
 
   return {
+    entityType:         h.typeEstablishment ?? 'hotel',
     title:              h.name,
     slug:               h.slug,
     thumbId:            h.thumbId ? `${s3}/${h.thumbId}` : undefined,
@@ -42,7 +43,7 @@ function mapHotelToCard(h: ApiHotel): HotelProps {
     restaurantNbtoques: h.nbrToques,
     services:           h.services ?? [],
     address:            h.lieu,
-    budget:             h.budgetMin !== undefined ? `${h.budgetMin} MAD` : undefined,
+    budget:             h.budgetMin != null ? `${h.budgetMin} MAD` : undefined,
   };
 }
 
@@ -51,6 +52,7 @@ function mapHotelToCard(h: ApiHotel): HotelProps {
 export interface FetchHotelsOptions {
   page?:     number;
   limit?:    number;
+  type?:     string;
   city?:     string;
   stars?:    number[];
   toques?:   number[];
@@ -77,6 +79,7 @@ export async function fetchHotels(
   const limit = sanitizeLimit(options.limit);
 
   const params = new URLSearchParams({ page: String(page), limit: String(limit) });
+  if (options.type) params.set('type', options.type);
   if (options.city) params.set('city', options.city);
   options.stars?.forEach((s)    => params.append('stars[]',   String(s)));
   options.toques?.forEach((t)   => params.append('toques[]',  String(t)));
@@ -118,7 +121,7 @@ export async function fetchHotels(
 // ─── fetchHotelFilters ───────────────────────────────────────────────────────
 
 const EMPTY_FILTERS: ApiHotelFilters = {
-  cities: [], stars: [], toques: [], styles: [], services: [],
+  types: [], cities: [], stars: [], toques: [], styles: [], services: [],
 };
 
 export async function fetchHotelFilters(): Promise<ApiHotelFilters> {
@@ -142,6 +145,7 @@ export async function fetchHotelFilters(): Promise<ApiHotelFilters> {
 
     const b = body as Partial<ApiHotelFilters>;
     return {
+      types:    Array.isArray(b.types)    ? b.types    : [],
       cities:   Array.isArray(b.cities)   ? b.cities   : [],
       stars:    Array.isArray(b.stars)    ? b.stars    : [],
       toques:   Array.isArray(b.toques)   ? b.toques   : [],

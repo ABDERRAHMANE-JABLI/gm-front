@@ -10,20 +10,22 @@ type StarsProps = {
   description?: string;
   isSponsorised?: boolean;
   lang? : Language;
+  entityType?: 'hotel' | 'riad';
 };
 
-function descriptionFromStars(n: number): string {
-  if (n === 5) return "Hôtel d'exception";
-  if (n === 4) return 'Hôtel de Prestige';
-  if (n === 3) return 'Hôtel remarquable';
-  if (n === 2) return 'Hôtel Confort';
+function descriptionFromStars(n: number, entityType: 'hotel' | 'riad' = 'hotel'): string {
+  const label = entityType === 'riad' ? 'Riad' : 'Hôtel';
+  if (n === 5) return `${label} d'exception`;
+  if (n === 4) return `${label} de Prestige`;
+  if (n === 3) return `${label} remarquable`;
+  if (n === 2) return `${label} Confort`;
   if (n === 1) return '';
   return 'Hors-classement';
 }
 
-export default function Stars({ nbStars, description, isSponsorised, lang}: StarsProps) {
+export default function Stars({ nbStars, description, isSponsorised, lang, entityType = 'hotel'}: StarsProps) {
   const { t } = useClientTranslation(lang);
-  const resolvedDescription = description || descriptionFromStars(nbStars);
+  const resolvedDescription = description || descriptionFromStars(nbStars, entityType);
 
   if (isSponsorised)
     return (

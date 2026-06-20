@@ -30,7 +30,7 @@ export default function RecipeDetailPage({ lang, recipe, partners = [] }: Recipe
         {/* ── Hero image ── */}
         {imageUrl && (
           <div className={styles.heroImage}>
-            <SmartImage id={imageUrl} alt={recipe.title} fit="cover" width={1000} height={480} typeImage={"recipes"} />
+            <SmartImage id={imageUrl} alt={recipe.title} fit="fill" width={1000} height={480} typeImage={"recipes"} />
           </div>
         )}
 

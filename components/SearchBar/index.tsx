@@ -3,7 +3,7 @@
 import styles from './SearchBar.module.css';
 import SearchIcon from '@/public/icons/search.svg';
 
-export type SearchBarType = 'actualite' | 'hotel' | 'riyad' | 'talent' | 'restaurant' | 'artisan' | 'recette';
+export type SearchBarType = 'actualite' | 'hotel' | 'talent' | 'restaurant' | 'artisan' | 'recette';
 
 interface Config {
   label:       string;
@@ -12,8 +12,7 @@ interface Config {
 
 const CONFIG: Record<SearchBarType, Config> = {
   actualite:  { label: 'Actualités',  placeholder: 'Rechercher une actualité, un événement, un sujet...' },
-  hotel:      { label: 'Hôtels',      placeholder: 'Rechercher un hôtel...' },
-  riyad:      { label: 'Riyads',      placeholder: 'Rechercher un riyad...' },
+  hotel:      { label: 'Hôtels & Riads', placeholder: 'Rechercher un hôtel ou riad...' },
   talent:     { label: 'Talents',     placeholder: 'Rechercher un chef, un talent...' },
   restaurant: { label: 'Restaurants', placeholder: 'Rechercher un restaurant...' },
   artisan:    { label: 'Artisans',    placeholder: 'Rechercher un artisan...' },

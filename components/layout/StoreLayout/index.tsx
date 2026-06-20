@@ -7,7 +7,6 @@ import MoroccoFlag  from '@/public/icons/flag-morocco.svg';
 import HomeIcon       from '@/public/icons/menu/home.svg';
 import BlogIcon       from '@/public/icons/menu/blog.svg';
 import RestaurantIcon from '@/public/icons/menu/restaurant.svg';
-import WineryIcon     from '@/public/icons/menu/winery.svg';
 import HotelIcon      from '@/public/icons/menu/hotel.svg';
 import ArtisanIcon    from '@/public/icons/menu/artisan.svg';
 import RecipeIcon     from '@/public/icons/menu/recipe.svg';
@@ -46,8 +45,7 @@ const BURGER_ITEMS = [
   { label: 'La Place',     segment: '',            Icon: HomeIcon,       noBg: true },
   { label: 'Actualités',   segment: 'blogs',       Icon: BlogIcon,       noBg: false },
   { label: 'Restaurants',  segment: 'restaurants', Icon: RestaurantIcon, noBg: false },
-  { label: 'Riads',        segment: 'riyads',      Icon: WineryIcon,     noBg: false },
-  { label: 'Hôtels',       segment: 'hotels',      Icon: HotelIcon,      noBg: false },
+  { label: 'Hôtels & Riads', segment: 'hotels',    Icon: HotelIcon,      noBg: false },
   { label: 'Artisans',     segment: 'artisans',    Icon: ArtisanIcon,    noBg: false },
   { label: 'Recettes',     segment: 'recipes',     Icon: RecipeIcon,     noBg: false },
   { label: 'Personnalités',segment: 'peoples',     Icon: PeopleIcon,     noBg: false },

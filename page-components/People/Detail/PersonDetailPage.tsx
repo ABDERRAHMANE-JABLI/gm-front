@@ -231,7 +231,7 @@ export default function PersonDetailPage({ lang, person, partners = [] }: Person
                 {(wp.type === 'hotel' || wp.type === 'riyad') && (
                   <HotelCard
                     lang={lang}
-                    basePath={wp.type === 'riyad' ? 'riyads' : 'hotels'}
+                    headerTitle={wp.type === 'riyad' ? 'Riad' : 'Hotel'}
                     Hotel={{
                       title:         wp.name,
                       slug:          wp.slug,

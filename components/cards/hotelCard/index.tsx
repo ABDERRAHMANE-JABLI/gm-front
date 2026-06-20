@@ -8,7 +8,6 @@ import { HotelProps } from "@/types/Hotels";
 import Stars from "../common/Stars";
 import Toques from "../common/Toques";
 import HotelIcon from "@/public/icons/menu/hotel.svg";
-import RiyadIcon from "@/public/icons/menu/winery.svg";
 import CardHeader from "../common/HeaderCard";
 
 type Language = 'fr' | 'en';
@@ -17,28 +16,26 @@ type Props = {
     lang: Language;
     Hotel: HotelProps;
     withHeader?: boolean;
-    basePath?: string;
+    headerTitle?: string;
 };
 
-export default function HotelCard({ lang, Hotel, withHeader, basePath = 'hotels' }: Props) {
+export default function HotelCard({ lang, Hotel, withHeader, headerTitle = 'Hotel' }: Props) {
 
     const { t } = useClientTranslation(lang);
     const imageId = Hotel?.thumbId ?? "";
-    // const isOpen = isOpenNow(Hotel.openingPeriods);
 
     return (
         <article className={`${styles.card} ${withHeader ? styles.cardWithHeather : ''}`}>
-            <Link href={`/${lang}/${basePath}/${Hotel?.slug}`} aria-label={Hotel.title} title={Hotel.title}>
+            <Link href={`/${lang}/hotels/${Hotel?.slug}`} aria-label={Hotel.title} title={Hotel.title}>
                 <span className={styles.stretchedLink} aria-hidden="true" />
             </Link>
-            
-            {/* Header pour la page LA PLACE */}
+
             {withHeader && (
                 <CardHeader
-                  title={basePath === 'riyads' ? 'Riyad' : 'Hotel'}
-                  href={`/${lang}/${basePath}/`}
+                  title={headerTitle}
+                  href={`/${lang}/hotels/`}
                   seeMoreLabel={t("common.see_more")}
-                  icon={basePath === 'riyads' ? <RiyadIcon width={28} height={28} /> : <HotelIcon width={28} height={28} />}
+                  icon={<HotelIcon width={28} height={28} />}
                 />
             )}
 
@@ -68,7 +65,7 @@ export default function HotelCard({ lang, Hotel, withHeader, basePath = 'hotels'
             {/* Contenu */}
             <div className={styles.body}>
                 <div className={styles.cardPaddingContainer}>
-                    <Stars nbStars={Hotel.nbStars} isSponsorised={Hotel.isSponsorised} lang={lang}/>
+                    <Stars nbStars={Hotel.nbStars} isSponsorised={Hotel.isSponsorised} lang={lang} entityType={Hotel.entityType}/>
                 </div>
 
                 <div className={styles.cardPaddingContainer}>

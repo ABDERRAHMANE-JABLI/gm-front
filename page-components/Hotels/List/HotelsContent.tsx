@@ -27,6 +27,7 @@ interface HotelsContentProps {
 }
 
 interface ActiveFilters {
+  type:     string;
   city:     string;
   stars:    number[];
   toques:   number[];
@@ -35,7 +36,7 @@ interface ActiveFilters {
 }
 
 const EMPTY_FILTERS: ActiveFilters = {
-  city: '', stars: [], toques: [], styles: [], services: [],
+  type: '', city: '', stars: [], toques: [], styles: [], services: [],
 };
 
 export default function HotelsContent({
@@ -59,6 +60,7 @@ export default function HotelsContent({
     const opts: FetchHotelsOptions = {
       page,
       limit:    9,
+      type:     next.type             || undefined,
       city:     next.city             || undefined,
       stars:    next.stars.length     ? next.stars    : undefined,
       toques:   next.toques.length    ? next.toques   : undefined,
@@ -120,9 +122,9 @@ export default function HotelsContent({
     : [];
 
   const hasActiveFilters = Boolean(
-    active.city || active.stars.length || active.toques.length || active.styles.length || active.services.length
+    active.type || active.city || active.stars.length || active.toques.length || active.styles.length || active.services.length
   );
-  const hasFilters = filters.cities.length > 0 || filters.stars.length > 0 || filters.toques.length > 0 || filters.styles.length > 0 || filters.services.length > 0;
+  const hasFilters = filters.types.length > 0 || filters.cities.length > 0 || filters.stars.length > 0 || filters.toques.length > 0 || filters.styles.length > 0 || filters.services.length > 0;
 
   if (initialHotels.length === 0 && !hasFilters) {
     return (
@@ -156,7 +158,7 @@ export default function HotelsContent({
             <div className={styles.searchDropdown}>
               <div className={styles.dropdownHeader}>
                 <HotelIcon width={25} height={25} />
-                <span className={styles.dropdownLabel}>Hôtels</span>
+                <span className={styles.dropdownLabel}>Hôtels & Riads</span>
                 <button className={styles.dropdownClose} onClick={() => setSearchQuery('')}>Fermer ×</button>
               </div>
               {dropdownResults.length === 0 ? (
@@ -202,10 +204,37 @@ export default function HotelsContent({
             <button className={styles.sidebarCloseBtn} onClick={() => setFiltersOpen(false)} aria-label="Fermer"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><line x1="1" y1="1" x2="17" y2="17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/><line x1="17" y1="1" x2="1" y2="17" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/></svg></button>
           </div>
 
+          {/* Type */}
+          {filters.types.length > 0 && (
+            <>
+              <p className={styles.sidebarTitle}>Type</p>
+              <ul className={styles.filterList}>
+                <li>
+                  <button
+                    className={`${styles.filterItem} ${active.type === '' ? styles.filterItemActive : ''}`}
+                    onClick={() => handleFilterChange('type', '')}
+                  >
+                    Tous
+                  </button>
+                </li>
+                {filters.types.map((type) => (
+                  <li key={type}>
+                    <button
+                      className={`${styles.filterItem} ${active.type === type ? styles.filterItemActive : ''}`}
+                      onClick={() => handleFilterChange('type', type)}
+                    >
+                      {type === 'hotel' ? 'Hôtel' : type === 'riad' ? 'Riad' : type}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+
           {/* Villes */}
           {filters.cities.length > 0 && (
             <>
-              <p className={styles.sidebarTitle}>Ville</p>
+              <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Ville</p>
               <ul className={styles.filterList}>
                 <li>
                   <button

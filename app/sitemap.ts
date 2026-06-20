@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { fetchRestaurants } from '@/lib/api/restaurants'
 import { fetchHotels } from '@/lib/api/hotels'
-import { fetchRiyads } from '@/lib/api/riyads'
 import { fetchArtisans } from '@/lib/api/artisans'
 import { fetchTalents } from '@/lib/api/talents'
 import { fetchRecipes } from '@/lib/api/recipes'
@@ -14,7 +13,6 @@ const staticRoutes = [
   '',
   '/restaurants',
   '/hotels',
-  '/riyads',
   '/artisans',
   '/peoples',
   '/recipes',
@@ -51,19 +49,6 @@ async function allHotelSlugs(): Promise<string[]> {
   return slugs
 }
 
-async function allRiyadSlugs(): Promise<string[]> {
-  const slugs: string[] = []
-  let page = 1
-  try {
-    while (true) {
-      const { riyads, pagination } = await fetchRiyads({ page, limit: 50 })
-      slugs.push(...riyads.map(r => r.slug))
-      if (page >= pagination.total_pages) break
-      page++
-    }
-  } catch {}
-  return slugs
-}
 
 async function allArtisanSlugs(): Promise<string[]> {
   const slugs: string[] = []
@@ -125,7 +110,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [
     restaurantSlugs,
     hotelSlugs,
-    riyadSlugs,
     artisanSlugs,
     talentSlugs,
     recipeSlugs,
@@ -133,7 +117,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ] = await Promise.all([
     allRestaurantSlugs(),
     allHotelSlugs(),
-    allRiyadSlugs(),
     allArtisanSlugs(),
     allTalentSlugs(),
     allRecipeSlugs(),
@@ -158,10 +141,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const slug of hotelSlugs) {
       entries.push({ url: `${baseUrl}/${lang}/hotels/${slug}`, changeFrequency: 'weekly', priority: 0.7 })
     }
-    for (const slug of riyadSlugs) {
-      entries.push({ url: `${baseUrl}/${lang}/riyads/${slug}`, changeFrequency: 'weekly', priority: 0.7 })
-    }
-    for (const slug of artisanSlugs) {
+for (const slug of artisanSlugs) {
       entries.push({ url: `${baseUrl}/${lang}/artisans/${slug}`, changeFrequency: 'weekly', priority: 0.7 })
     }
     for (const slug of talentSlugs) {

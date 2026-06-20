@@ -5,7 +5,7 @@ export const rootByKind: Record<NewsCardButtonKind, string> = {
   [NewsCardButtonKind.HOTEL]: "hotels",
   [NewsCardButtonKind.PEOPLE]: "peoples",
   [NewsCardButtonKind.RESTAURANT]: "restaurant",
-  [NewsCardButtonKind.RIYAD]: "riyads",
+  [NewsCardButtonKind.RIYAD]: "hotels",
   [NewsCardButtonKind.WINERY]: "wineries",
 };
 

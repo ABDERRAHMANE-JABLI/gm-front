@@ -9,7 +9,6 @@ import { Language, useClientTranslation } from '@/lib/i18n/client';
 import HomeIcon       from '@/public/icons/menu/home.svg';
 import BlogIcon       from '@/public/icons/menu/blog.svg';
 import RestaurantIcon from '@/public/icons/menu/restaurant.svg';
-import WineryIcon     from '@/public/icons/menu/winery.svg';
 import HotelIcon      from '@/public/icons/menu/hotel.svg';
 import ArtisanIcon    from '@/public/icons/menu/artisan.svg';
 import RecipeIcon     from '@/public/icons/menu/recipe.svg';
@@ -33,7 +32,6 @@ function buildNavItems(t: T): NavItem[] {
     { label: t('navigation.la_place'),  segment: '',            Icon: HomeIcon,       noBg: true },
     { label: t('navigation.actualites'), segment: 'blogs',      Icon: BlogIcon },
     { label: t('common.restaurants'),   segment: 'restaurants', Icon: RestaurantIcon },
-    { label: 'Riads',                   segment: 'riyads',      Icon: WineryIcon },
     { label: t('common.hotels'),        segment: 'hotels',      Icon: HotelIcon },
     { label: t('common.artisans'),      segment: 'artisans',    Icon: ArtisanIcon },
     { label: t('common.recipes'),       segment: 'recipes',     Icon: RecipeIcon },

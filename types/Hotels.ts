@@ -13,13 +13,18 @@ import { OpeningPeriods } from "./Time";
  * }
  */
 export interface HotelProps {
-    /** 
+    /**
+     * Type d'établissement
+     */
+    entityType?: 'hotel' | 'riad';
+
+    /**
      * Nom de l'hôtel
      * @example "Hôtel Plaza Athénée"
      */
     title: string;
-    
-    /** 
+
+    /**
      * Identifiant unique pour l'URL (slug)
      * @example "hotel-plaza-athenee-paris"
      */

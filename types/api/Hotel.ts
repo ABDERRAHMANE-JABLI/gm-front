@@ -15,6 +15,7 @@ export interface ApiSlugLabel {
 export interface ApiHotel {
   name: string;
   slug: string;
+  typeEstablishment?: 'hotel' | 'riad';
   thumbId: string;
   nbrStars: number;
   noteGM?: number;
@@ -72,6 +73,7 @@ export interface ApiHotelDetail {
 }
 
 export interface ApiHotelFilters {
+  types:    string[];
   cities:   ApiHotelCity[];
   stars:    number[];
   toques:   number[];

@@ -119,7 +119,6 @@ export default function BlogDetailPage({ lang, article, partners = [] }: BlogDet
               {article.hotel && (
                 <HotelCard
                   lang={lang}
-                  basePath="hotels"
                   Hotel={{
                     title:              article.hotel.name,
                     slug:               article.hotel.slug,
@@ -139,7 +138,7 @@ export default function BlogDetailPage({ lang, article, partners = [] }: BlogDet
               {article.riyad && (
                 <HotelCard
                   lang={lang}
-                  basePath="riyads"
+                  headerTitle="Riad"
                   Hotel={{
                     title:              article.riyad.name,
                     slug:               article.riyad.slug,
