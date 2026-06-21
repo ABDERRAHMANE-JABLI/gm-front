@@ -30,7 +30,7 @@ export default function UtensilCard({ lang, Utensil, WithHeader }: UtensilCardPr
       {WithHeader && (
         <CardHeader
           title={t('navigation.utensils')}
-          href={`/${lang}/utensils`}
+          href="#"
           seeMoreLabel={t("common.see_more")}
           icon={<UtensilIcon width={28} height={28} />}
         />

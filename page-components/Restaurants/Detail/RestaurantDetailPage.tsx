@@ -26,8 +26,8 @@ export interface Props {
 }
 
 const DAY_MAP: Record<DayOfWeek, string> = {
-  'Lun': 'LU', 'Mar': 'MA', 'Mer': 'ME',
-  'Jeu': 'JE', 'Ven': 'VE', 'Sam': 'SA', 'Dim': 'DI',
+  'Lun': 'Lundi', 'Mar': 'Mardi', 'Mer': 'Mercredi',
+  'Jeu': 'Jeudi', 'Ven': 'Vendredi', 'Sam': 'Samedi', 'Dim': 'Dimanche',
 };
 
 const TODAY_INDEX = new Date().getDay(); // 0=dim, 1=lun...
@@ -200,15 +200,17 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
               </div>
               {restaurant.openingHour.length > 0 ? (
                 <ul className={styles.hoursList}>
-                  {restaurant.openingHour.map((h) => (
-                    <li
-                      key={h.dayOfWeek}
-                      className={`${styles.hoursRow} ${h.dayOfWeek === TODAY_DAY ? styles.hoursRowActive : ''}`}
-                    >
-                      <span className={styles.hoursDay}>{DAY_MAP[h.dayOfWeek]}</span>
-                      <span className={styles.hoursTime}>{formatHours(h)}</span>
-                    </li>
-                  ))}
+                  {restaurant.openingHour.flatMap((h, i) =>
+                    h.days.map((day) => (
+                      <li
+                        key={`${i}-${day}`}
+                        className={`${styles.hoursRow} ${day === TODAY_DAY ? styles.hoursRowActive : ''}`}
+                      >
+                        <span className={styles.hoursDay}>{DAY_MAP[day]}</span>
+                        <span className={styles.hoursTime}>{formatHours(h)}</span>
+                      </li>
+                    ))
+                  )}
                 </ul>
               ) : (
                 <p className={styles.hoursEmpty}>Horaires non renseignés</p>

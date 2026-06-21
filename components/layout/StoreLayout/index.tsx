@@ -9,9 +9,6 @@ import BlogIcon       from '@/public/icons/menu/blog.svg';
 import RestaurantIcon from '@/public/icons/menu/restaurant.svg';
 import HotelIcon      from '@/public/icons/menu/hotel.svg';
 import ArtisanIcon    from '@/public/icons/menu/artisan.svg';
-import RecipeIcon     from '@/public/icons/menu/recipe.svg';
-import PeopleIcon     from '@/public/icons/menu/people.svg';
-import UtensilIcon    from '@/public/icons/menu/utensil.svg';
 import StoreIcon      from '@/public/icons/store.svg';
 import Footer from '@/components/layout/Footer/Footer';
 import { useCartContext } from '@/lib/context/CartContext';
@@ -39,7 +36,7 @@ function CloseIcon() {
   );
 }
 
-// ── Burger items (même liste que Header) ──────────────────────────────────────
+//  Burger items (même liste que Header) 
 
 const BURGER_ITEMS = [
   { label: 'La Place',     segment: '',            Icon: HomeIcon,       noBg: true },
@@ -47,9 +44,6 @@ const BURGER_ITEMS = [
   { label: 'Restaurants',  segment: 'restaurants', Icon: RestaurantIcon, noBg: false },
   { label: 'Hôtels & Riads', segment: 'hotels',    Icon: HotelIcon,      noBg: false },
   { label: 'Artisans',     segment: 'artisans',    Icon: ArtisanIcon,    noBg: false },
-  { label: 'Recettes',     segment: 'recipes',     Icon: RecipeIcon,     noBg: false },
-  { label: 'Personnalités',segment: 'peoples',     Icon: PeopleIcon,     noBg: false },
-  { label: 'Ustensiles',   segment: 'utensils',    Icon: UtensilIcon,    noBg: false },
   { label: 'Partenaires',  segment: 'partners',    Icon: PartnerIcon,    noBg: true },
   { label: 'E-Boutique',   segment: 'store',       Icon: StoreIcon,      noBg: true },
 ];

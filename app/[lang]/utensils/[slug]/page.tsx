@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${title} | Gault&Millau Maroc`,
     description: `Découvrez la collection ${title} sélectionnée par Gault&Millau Maroc.`,
+    robots: { index: false, follow: false },
     alternates: {
       canonical: url,
       languages: {

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import NextTopLoader from 'nextjs-toploader';
+import NavigationCursor from '@/components/ui/NavigationCursor';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gaultmillau.ma';
 
@@ -45,6 +46,7 @@ export default async function LangLayout({
     <html lang={lang}>
       <body>
         <NextTopLoader color="#ffeb00" shadow="0 0 10px #ffeb00" height={3} showSpinner={false} />
+        <NavigationCursor />
         {children}
       </body>
     </html>

@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${title} | Gault&Millau`,
     description,
+    robots: { index: false, follow: false },
     alternates: {
       canonical: url,
       languages: {

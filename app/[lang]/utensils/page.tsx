@@ -11,6 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Ustensiles - Gault&Millau',
     description: 'Découvrez les collections d\'ustensiles recommandées par Gault&Millau.',
+    robots: { index: false, follow: false },
   };
 }
 

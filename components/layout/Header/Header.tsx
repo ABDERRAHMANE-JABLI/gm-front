@@ -11,9 +11,6 @@ import BlogIcon       from '@/public/icons/menu/blog.svg';
 import RestaurantIcon from '@/public/icons/menu/restaurant.svg';
 import HotelIcon      from '@/public/icons/menu/hotel.svg';
 import ArtisanIcon    from '@/public/icons/menu/artisan.svg';
-import RecipeIcon     from '@/public/icons/menu/recipe.svg';
-import PeopleIcon     from '@/public/icons/menu/people.svg';
-import UtensilIcon    from '@/public/icons/menu/utensil.svg';
 import StoreIcon      from '@/public/icons/store.svg';
 import GMLogo         from '@/public/icons/GaultMillau.svg';
 import MoroccoFlag    from '@/public/icons/flag-morocco.svg';
@@ -34,9 +31,6 @@ function buildNavItems(t: T): NavItem[] {
     { label: t('common.restaurants'),   segment: 'restaurants', Icon: RestaurantIcon },
     { label: t('common.hotels'),        segment: 'hotels',      Icon: HotelIcon },
     { label: t('common.artisans'),      segment: 'artisans',    Icon: ArtisanIcon },
-    { label: t('common.recipes'),       segment: 'recipes',     Icon: RecipeIcon },
-    { label: t('common.people'),        segment: 'peoples',     Icon: PeopleIcon },
-    { label: t('navigation.utensils'), segment: 'utensils',    Icon: UtensilIcon },
     { label: t('footer.partners'),     segment: 'partners',    Icon: PartnerIcon,    noBg: true },
     { label: 'E-Boutique',             segment: 'store',    Icon: StoreIcon,      noBg: true },
   ];

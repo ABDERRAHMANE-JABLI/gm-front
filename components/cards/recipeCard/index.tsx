@@ -33,7 +33,7 @@ export default function RecipeCard({ lang, recipe, withHeader }: Props) {
       </Link>
 
       {withHeader && (
-        <CardHeader title={t("common.recipes")} href={`/${lang}/recipes/`} seeMoreLabel={t("common.see_more")} subtitle={headerSubtitle} icon={<RecipeIcon width={28} height={28} />}/>
+        <CardHeader title={t("common.recipes")} href="#" seeMoreLabel={t("common.see_more")} subtitle={headerSubtitle} icon={<RecipeIcon width={28} height={28} />}/>
       )}
 
       <div className={styles.thumbWrapper}>

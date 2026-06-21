@@ -173,6 +173,7 @@ export default function HotelsContent({
                       </div>
                       <div className={styles.dropdownInfo}>
                         <p className={styles.dropdownTitle}>{h.title}</p>
+                        {h.entityType && <span className={styles.dropdownTag}>{h.entityType === 'riad' ? 'Riad' : 'Hôtel'}</span>}
                         {h.address && <span className={styles.dropdownLocation}>{h.address}</span>}
                       </div>
                     </Link>

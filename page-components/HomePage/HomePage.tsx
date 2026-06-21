@@ -3,13 +3,11 @@ import styles from './styles.module.css';
 import SingleNewsCard from '@/components/cards/newsUneCard';
 import NewsSecondCard from '@/components/cards/newsSecondCard';
 import NewsCard from '@/components/cards/NewsCard';
-import HorizontalRecipeCard from '@/components/cards/recipeCard/HorizontalCard';
 import LicensedCountries from '@/components/cards/LicensedContries';
 import PartenairesSection from '@/components/cards/partners';
-import { HomeApiResponse, HomeSection, HomeSectionItem, HomeRecipe } from '@/types/api/Home';
+import { HomeApiResponse, HomeSection, HomeSectionItem } from '@/types/api/Home';
 import { ApiPartner } from '@/types/api/Partner';
 import { NewsCardProps, NewsCardButtonProps, NewsCardButtonKind } from '@/types/News';
-import { RecipeCardProps } from '@/types/Recipe';
 import GMLogo from '@/public/icons/GaultMillau.svg';
 import { useClientTranslation } from '@/lib/i18n/client';
 
@@ -53,9 +51,6 @@ function buildButtons(item: HomeSectionItem): NewsCardProps['buttons'] {
   if (item.hotel && list.length < 2) {
     list.push({ buttonKind: NewsCardButtonKind.HOTEL, text_line1: item.hotel.name, text_line2: item.hotel.lieu, slug: item.hotel.slug });
   }
-  if (item.riyad && list.length < 2) {
-    list.push({ buttonKind: NewsCardButtonKind.RIYAD, text_line1: item.riyad.name, text_line2: item.riyad.lieu, slug: item.riyad.slug });
-  }
   if (item.artisan && list.length < 2) {
     list.push({ buttonKind: NewsCardButtonKind.ARTISAN, text_line1: item.artisan.title, text_line2: item.artisan.lieu, slug: item.artisan.slug });
   }
@@ -74,18 +69,6 @@ function toNewsProps(item: HomeSectionItem): NewsCardProps {
     thumbId: item.thumbId ?? '',
     theme:   item.theme ?? undefined,
     buttons: buildButtons(item),
-  };
-}
-
-function toRecipeProps(recipe: HomeRecipe): RecipeCardProps {
-  return {
-    id:      recipe.slug,
-    title:   recipe.title,
-    resume:  recipe.resume,
-    slug:    recipe.slug,
-    thumbId: recipe.thumbId ?? '',
-    theme:   recipe.typeRecipe ? [recipe.typeRecipe] : undefined,
-    buttons: [],
   };
 }
 
@@ -235,7 +218,7 @@ function HeroDefault({ lang }: { lang: Language }) {
 
 export default function HomePage({ lang, data, partners }: { lang: Language; data: HomeApiResponse | null; partners: ApiPartner[] }) {
   const { t } = useClientTranslation(lang);
-  const isEmpty = !data || (data.sections.length === 0 && data.latestRecipes.length === 0);
+  const isEmpty = !data || data.sections.length === 0;
 
   if (isEmpty) {
     return (
@@ -253,7 +236,7 @@ export default function HomePage({ lang, data, partners }: { lang: Language; dat
     );
   }
 
-  const { sections, latestRecipes } = data;
+  const { sections } = data;
 
   return (
     <main className={styles.homepage}>
@@ -264,21 +247,6 @@ export default function HomePage({ lang, data, partners }: { lang: Language; dat
             <SectionRenderer lang={lang} section={section} />
           </section>
         ))}
-
-        {latestRecipes.length > 0 && (
-          <section className={styles.sectionRecipes}>
-            <div className={styles.recipesInner}>
-              <h2 className={styles.recipesTitle}>
-                {lang === 'en' ? "CHEFS' RECIPES" : 'LES RECETTES DE CHEFS'}
-              </h2>
-              <div className={styles.recipesList}>
-                {latestRecipes.map((recipe) => (
-                  <HorizontalRecipeCard key={recipe.slug} lang={lang} recipe={toRecipeProps(recipe)} />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
       </div>
 

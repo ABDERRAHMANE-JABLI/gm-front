@@ -4,7 +4,7 @@
 export type DayOfWeek = 'Lun' | 'Mar' | 'Mer' | 'Jeu' | 'Ven' | 'Sam' | 'Dim';
 
 /**
- * Un créneau horaire renvoyé par l'API pour un jour donné.
+ * Un créneau horaire renvoyé par l'API, groupant un ou plusieurs jours.
  *
  * Cas 1 — service déjeuner + dîner séparés :
  *   lunchOpeningTime / lunchClosingTime  pour le midi
@@ -18,12 +18,17 @@ export type DayOfWeek = 'Lun' | 'Mar' | 'Mer' | 'Jeu' | 'Ven' | 'Sam' | 'Dim';
  * Tous les champs sont des ISO strings ("1970-01-01T10:30:00+00:00") ou null.
  */
 export interface OpeningHour {
-  dayOfWeek:          DayOfWeek;
+  days:               DayOfWeek[];
   lunchOpeningTime:   string | null;
   lunchClosingTime:   string | null;
   dinnerOpeningTime:  string | null;
   dinnerClosingTime:  string | null;
 }
+
+/**
+ * Périodes d'ouverture d'un établissement (tableau de créneaux par groupe de jours).
+ */
+export type OpeningPeriods = OpeningHour[];
 
 /**
  * Extrait "HH:MM" depuis une ISO string de l'API.
@@ -32,11 +37,6 @@ export interface OpeningHour {
  * @example
  * parseApiTime("1970-01-01T10:30:00+00:00") // "10:30"
  */
-/**
- * Périodes d'ouverture d'un établissement (tableau de créneaux par jour).
- */
-export type OpeningPeriods = OpeningHour[];
-
 export function parseApiTime(iso: string | null): string | null {
   if (!iso) return null;
   const match = iso.match(/T(\d{2}:\d{2})/);

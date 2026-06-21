@@ -12,6 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Talents - Gault&Millau',
     description: 'Découvrez les chefs et talents sélectionnés par Gault&Millau Maroc',
+    robots: { index: false, follow: false },
   };
 }
 

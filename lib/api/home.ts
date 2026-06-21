@@ -26,10 +26,6 @@ export async function fetchHomeSections(): Promise<HomeApiResponse | null> {
         secondary:  prefixThumb(s3, s.secondary),
         tertiary:   prefixThumb(s3, s.tertiary),
       })),
-      latestRecipes: data.latestRecipes.map((r) => ({
-        ...r,
-        thumbId: r.thumbId ? `${s3}/${r.thumbId}` : null,
-      })),
     };
   } catch {
     return null;
