@@ -12,7 +12,6 @@ const AWARDS: Award[] = [
   {
     id: 'artisan-1',
     title: 'Artisan Sélectionné',
-    ref: 'Pas123422EFI3F',
     price: 3000,
     category: 'plaques',
     subcategory: 'artisan',

@@ -7,6 +7,7 @@ import { Language } from '@/lib/i18n/client'
 import styles from './styles.module.css'
 
 const CATEGORIES = [
+  { key: 'all', label: 'Tous' },
   { key: 'P', label: 'Platinum' },
   { key: 'G', label: 'Gold' },
   { key: 'S', label: 'Silver' },
@@ -37,15 +38,13 @@ const PAGE_SIZE = 9
 
 export default function PartnersPage({ lang, partners }: Props) {
   const available = CATEGORIES.filter((c) =>
-    partners.some((p) => p.categorie === c.key)
+    c.key === 'all' || partners.some((p) => p.categorie === c.key)
   )
 
-  const [active, setActive] = useState<CatKey>(
-    available.length > 0 ? available[0].key : 'P'
-  )
+  const [active, setActive] = useState<CatKey>('all')
   const [visible, setVisible] = useState(PAGE_SIZE)
 
-  const filtered = partners.filter((p) => p.categorie === active)
+  const filtered = active === 'all' ? partners : partners.filter((p) => p.categorie === active)
   const displayed = filtered.slice(0, visible)
   const hasMore = visible < filtered.length
 
@@ -83,9 +82,11 @@ export default function PartnersPage({ lang, partners }: Props) {
         </div>
 
         {/* Section title */}
-        <h2 className={styles.sectionTitle}>
-          {CATEGORIES.find((c) => c.key === active)?.label}
-        </h2>
+        {active !== 'all' && (
+          <h2 className={styles.sectionTitle}>
+            {CATEGORIES.find((c) => c.key === active)?.label}
+          </h2>
+        )}
 
         {/* Grid */}
         <div className={styles.grid}>

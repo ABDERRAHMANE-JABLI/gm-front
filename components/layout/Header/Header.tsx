@@ -255,6 +255,24 @@ export default function Header({ language = 'fr' }: HeaderProps) {
             })}
           </nav>
 
+          {/* Infos footer */}
+          <div className={styles.mobileMenuFooter}>
+            <div className={styles.mobileMenuFooterCol}>
+              <p className={styles.mobileMenuFooterTitle}>{t('footer.contact_title')}</p>
+              <address className={styles.mobileMenuAddress}>
+                81 BD Moulay Hassan I,<br />
+                6<sup>e</sup> étage,<br />
+                Casablanca, Maroc
+              </address>
+              <a href="tel:+212664082188" className={styles.mobileMenuPhone}>+212 6 64 08 21 88</a>
+            </div>
+            <div className={styles.mobileMenuFooterCol}>
+              <Link href={`/${language}/contact`} className={styles.mobileMenuFooterLink} onClick={() => setMenuOpen(false)}>{t('footer.contact_us')}</Link>
+              <Link href={`/${language}/info/mot-du-president`} className={styles.mobileMenuFooterLink} onClick={() => setMenuOpen(false)}>{t('footer.president')}</Link>
+              <Link href={`/${language}/info/kit-media`} className={styles.mobileMenuFooterLink} onClick={() => setMenuOpen(false)}>{t('footer.kit_media')}</Link>
+            </div>
+          </div>
+
         </div>
         </>
       )}

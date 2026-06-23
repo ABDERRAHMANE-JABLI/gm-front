@@ -61,14 +61,6 @@ const Footer: React.FC<FooterProps> = ({ lang = 'fr' }) => {
         </div>
 
         <div className={styles.column}>
-          <h4>{t('footer.kit_media')}</h4>
-          <a
-            href="/media/KIT_MEDIA_GAULTMILLAU_MA.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t('footer.open_kit_media')}
-          </a>
           <p className={styles.copy}>
             {t('footer.copyright').split('\n').map((line, i) => (
               <React.Fragment key={i}>{line}{i === 0 && <br />}</React.Fragment>

@@ -35,7 +35,7 @@ export default function PartenairesSection({ partners = [], lang = 'fr' }: Props
             <span className={style.ampersand}>&</span>
             <span>{t('partners.label')}</span>
           </div>
-          <Link href="/contact" className={style.topBtn}>{t('partners.see_more')}</Link>
+          <Link href="/partners" className={style.topBtn}>{t('partners.see_more')}</Link>
         </div>
 
         <div className={style.left}>
@@ -46,11 +46,7 @@ export default function PartenairesSection({ partners = [], lang = 'fr' }: Props
 
           {/* Marquee */}
           <div className={style.leftSlider}>
-            <div
-              className={style.marquee}
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-            >
+            <div className={style.marquee} onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
               <div
                 className={style.track}
                 style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
@@ -79,7 +75,7 @@ export default function PartenairesSection({ partners = [], lang = 'fr' }: Props
           <h4>{t('partners.become')}</h4>
           <GMLogo width={150}/>
         </div>
-        <Link href="/contact" className={style.Btn}>{t('partners.learn_more')}</Link>
+        <a href="mailto:sberdah@gaultmillau.ma" className={style.Btn}>{t('partners.learn_more')}</a>
       </div>
     </section>
   );

@@ -210,6 +210,23 @@ function StoreHeaderInner({ lang }: { lang: string }) {
               })}
             </nav>
 
+            <div className={styles.mobileMenuFooter}>
+              <div className={styles.mobileMenuFooterCol}>
+                <p className={styles.mobileMenuFooterTitle}>Contact</p>
+                <address className={styles.mobileMenuAddress}>
+                  81 BD Moulay Hassan I,<br />
+                  6<sup>e</sup> étage,<br />
+                  Casablanca, Maroc
+                </address>
+                <a href="tel:+212664082188" className={styles.mobileMenuPhone}>+212 6 64 08 21 88</a>
+              </div>
+              <div className={styles.mobileMenuFooterCol}>
+                <Link href={`/${lang}/contact`} className={styles.mobileMenuFooterLink} onClick={() => setMenuOpen(false)}>Nous contacter</Link>
+                <Link href={`/${lang}/info/mot-du-president`} className={styles.mobileMenuFooterLink} onClick={() => setMenuOpen(false)}>Mot du Président</Link>
+                <Link href={`/${lang}/info/kit-media`} className={styles.mobileMenuFooterLink} onClick={() => setMenuOpen(false)}>Kit Média</Link>
+              </div>
+            </div>
+
           </div>
         </>
       )}

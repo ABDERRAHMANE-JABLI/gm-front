@@ -3,7 +3,8 @@ import { Language } from '@/lib/i18n/client';
 
 interface Props { lang: Language }
 
-const PDF_URL = '/media/KIT_MEDIA_GAULTMILLAU_MA.pdf';
+const S3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
+const PDF_URL = `${S3}/kitmedia/6a398a3f2a1b9.pdf`;
 
 export default function KitMediaPage({ lang }: Props) {
   const labels = {
@@ -31,15 +32,16 @@ export default function KitMediaPage({ lang }: Props) {
 
         <a
           href={PDF_URL}
-          download
+          target="_blank"
+          rel="noopener noreferrer"
           className={styles.downloadBtn}
         >
-          ↓ {l.download}
+           {l.download}
         </a>
 
         <div className={styles.pdfWrapper}>
           <iframe
-            src={PDF_URL}
+            src={`https://docs.google.com/gview?url=${encodeURIComponent(PDF_URL)}&embedded=true`}
             className={styles.pdfFrame}
             title={l.title}
           />

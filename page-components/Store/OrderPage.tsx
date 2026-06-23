@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import styles from './OrderPage.module.css';
 import { useCartContext } from '@/lib/context/CartContext';
+import { submitOrder } from '@/lib/actions/order';
 
 interface FormData {
   nom: string;
@@ -46,19 +47,22 @@ export default function OrderPage({ lang }: Props) {
   const [form, setForm]       = useState<FormData>(INITIAL);
   const [errors, setErrors]   = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [apiError, setApiError] = useState('');
 
   function update(field: keyof FormData, value: string) {
     setForm(prev => ({ ...prev, [field]: value }));
     if (errors[field as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
+    setApiError('');
   }
 
   function validate(): boolean {
     const e: FormErrors = {};
     if (!form.nom.trim())           e.nom           = 'Champ requis';
     if (!form.telephone.trim())     e.telephone     = 'Champ requis';
-    else if (!/^[\d\s\+\-\(\)]{7,}$/.test(form.telephone.trim()))
+    else if (!/^[\d\s+\-()]{7,}$/.test(form.telephone.trim()))
                                     e.telephone     = 'Numéro invalide';
     if (!form.email.trim())         e.email         = 'Champ requis';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
@@ -71,11 +75,31 @@ export default function OrderPage({ lang }: Props) {
     return Object.keys(e).length === 0;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validate()) return;
-    setSubmitted(true);
-    clearCart();
+
+    setSending(true);
+    setApiError('');
+
+    const result = await submitOrder({
+      nom: form.nom.trim(),
+      nomEtablissement: form.etablissement.trim(),
+      adresse: `${form.adresse.trim()}, ${form.codePostal.trim()} ${form.ville.trim()}, ${form.pays.trim()}`,
+      email: form.email.trim(),
+      tel: form.telephone.trim(),
+      ville: form.ville.trim(),
+      produits: items.map(item => ({ id: item.award.id, qte: item.quantity })),
+    });
+
+    setSending(false);
+
+    if (result.ok) {
+      setSubmitted(true);
+      clearCart();
+    } else {
+      setApiError(result.message || 'Une erreur est survenue.');
+    }
   }
 
   if (submitted) {
@@ -116,12 +140,6 @@ export default function OrderPage({ lang }: Props) {
             {/* ── Colonne 1 : Coordonnées ── */}
             <div className={styles.card}>
               <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="2">
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
-                </span>
                 <h2 className={styles.cardTitle}>Vos Coordonnées</h2>
               </div>
 
@@ -133,7 +151,6 @@ export default function OrderPage({ lang }: Props) {
                   id="nom"
                   className={`${styles.input} ${errors.nom ? styles.error : ''}`}
                   type="text"
-                  placeholder="ex : Mohammed Alaoui"
                   value={form.nom}
                   onChange={e => update('nom', e.target.value)}
                   autoComplete="name"
@@ -149,7 +166,6 @@ export default function OrderPage({ lang }: Props) {
                   id="telephone"
                   className={`${styles.input} ${errors.telephone ? styles.error : ''}`}
                   type="tel"
-                  placeholder="ex : +212 6 00 00 00 00"
                   value={form.telephone}
                   onChange={e => update('telephone', e.target.value)}
                   autoComplete="tel"
@@ -159,13 +175,12 @@ export default function OrderPage({ lang }: Props) {
 
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="email">
-                  Adresse e-mail <span className={styles.required}>*</span>
+                  Email <span className={styles.required}>*</span>
                 </label>
                 <input
                   id="email"
                   className={`${styles.input} ${errors.email ? styles.error : ''}`}
                   type="email"
-                  placeholder="ex : contact@etablissement.ma"
                   value={form.email}
                   onChange={e => update('email', e.target.value)}
                   autoComplete="email"
@@ -181,7 +196,6 @@ export default function OrderPage({ lang }: Props) {
                   id="etablissement"
                   className={`${styles.input} ${errors.etablissement ? styles.error : ''}`}
                   type="text"
-                  placeholder="ex : Restaurant Le Jardin"
                   value={form.etablissement}
                   onChange={e => update('etablissement', e.target.value)}
                 />
@@ -192,12 +206,6 @@ export default function OrderPage({ lang }: Props) {
             {/* ── Colonne 2 : Adresse de livraison ── */}
             <div className={styles.card}>
               <div className={styles.cardHeader}>
-                <span className={styles.cardIcon}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                  </svg>
-                </span>
                 <h2 className={styles.cardTitle}>Adresse de livraison</h2>
               </div>
 
@@ -209,7 +217,6 @@ export default function OrderPage({ lang }: Props) {
                   id="adresse"
                   className={`${styles.input} ${errors.adresse ? styles.error : ''}`}
                   type="text"
-                  placeholder="Numéro et nom de rue"
                   value={form.adresse}
                   onChange={e => update('adresse', e.target.value)}
                   autoComplete="street-address"
@@ -226,7 +233,6 @@ export default function OrderPage({ lang }: Props) {
                     id="ville"
                     className={`${styles.input} ${errors.ville ? styles.error : ''}`}
                     type="text"
-                    placeholder="ex : Casablanca"
                     value={form.ville}
                     onChange={e => update('ville', e.target.value)}
                     autoComplete="address-level2"
@@ -242,7 +248,6 @@ export default function OrderPage({ lang }: Props) {
                     id="codePostal"
                     className={`${styles.input} ${errors.codePostal ? styles.error : ''}`}
                     type="text"
-                    placeholder="ex : 20000"
                     value={form.codePostal}
                     onChange={e => update('codePostal', e.target.value)}
                     autoComplete="postal-code"
@@ -274,7 +279,7 @@ export default function OrderPage({ lang }: Props) {
                       {items.map(item => (
                         <div key={item.award.id} className={styles.summaryItem}>
                           <span className={styles.summaryItemName}>{item.award.title}</span>
-                          <span className={styles.summaryItemQty}>×{item.quantity}</span>
+                          <span className={styles.summaryItemQty}>{item.quantity}x</span>
                           <span className={styles.summaryItemPrice}>
                             {(item.award.price * item.quantity).toLocaleString('fr-FR')} MAD
                           </span>
@@ -298,14 +303,15 @@ export default function OrderPage({ lang }: Props) {
           </div>
 
           {/* ── Submit ── */}
+          {apiError && <p className={styles.errorMsg} style={{ textAlign: 'center', marginTop: 16 }}>{apiError}</p>}
           <div className={styles.submitRow}>
             <span className={styles.submitNote}>En commandant, vous acceptez que G&amp;M utilise vos données pour vous contacter.</span>
             <button
               type="submit"
               className={styles.submitBtn}
-              disabled={items.length === 0}
+              disabled={items.length === 0 || sending}
             >
-              <span className={styles.submitBtnLabel}>Confirmer la commande</span>
+              <span className={styles.submitBtnLabel}>{sending ? 'Envoi en cours...' : 'Confirmer la commande'}</span>
             </button>
           </div>
         </form>

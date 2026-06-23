@@ -41,7 +41,7 @@ export default function MotDuPresidentPage({ lang }: Props) {
         <div className={styles.presidentBody}>
 
           <Image
-            src="/icons/president.png"
+            src="/images/president.png"
             alt={p.name}
             width={360}
             height={460}
