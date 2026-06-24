@@ -27,8 +27,7 @@ function sanitizeLimit(limit: unknown): number {
 function isValidListResponse(body: unknown): body is ApiRestaurantListResponse {
   return (
     typeof body === 'object' &&
-    body !== null &&
-    'data' in body &&
+    body !== null && 'data' in body &&
     Array.isArray((body as ApiRestaurantListResponse).data) &&
     'pagination' in body &&
     typeof (body as ApiRestaurantListResponse).pagination === 'object'
@@ -46,10 +45,10 @@ function mapRestaurantToCard(r: ApiRestaurant): RestaurantCardProps {
     thumbId:  r.thumbId ? `${s3BaseUrl}/${r.thumbId}` : undefined,
     nbToques:      r.nbrToques,
     isSponsorised: r.isSponsorised,
-    note:     r.noteGM !== undefined ? `${r.noteGM}` : undefined,
+    note:     r.noteGM !== null ? `${r.noteGM}` : undefined,
     chief:    r.chef?.fullName,
     cuisines: r.cuisines,
-    budget:   r.budgetMin !== undefined && r.budgetMax !== undefined
+    budget:   r.budgetMin !== null && r.budgetMax !== null
       ? `${r.budgetMin} - ${r.budgetMax} MAD`
       : undefined,
     address:      r.lieu,

@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { timingSafeEqual } from 'crypto';
 
 /**
  * API token for authentication
@@ -8,6 +9,16 @@ const API_TOKEN = process.env.API_TOKEN;
 
 if (!API_TOKEN) {
   console.warn('⚠️ API_TOKEN environment variable is not set');
+}
+
+/**
+ * Compare deux secrets en temps constant pour éviter les timing attacks.
+ */
+function safeEqual(a: string, b: string): boolean {
+  const bufA = Buffer.from(a, 'utf8');
+  const bufB = Buffer.from(b, 'utf8');
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
 }
 
 /**
@@ -62,7 +73,7 @@ export function validateApiToken(token: string | null): AuthenticationResult {
     };
   }
 
-  if (token !== API_TOKEN) {
+  if (!safeEqual(token, API_TOKEN)) {
     return {
       success: false,
       error: 'Invalid API token'
@@ -76,18 +87,15 @@ export function validateApiToken(token: string | null): AuthenticationResult {
  * Extracts authentication token from various request sources
  * @param request - Next.js request object
  * @returns Extracted token or null if not found
- * @description Checks for token in Authorization header (Bearer), x-api-token header, and query parameters
+ * @description Checks for token in Authorization header (Bearer) and x-api-token header.
+ * Query-param tokens are intentionally NOT supported (they leak via logs / Referer).
  * @example
  * ```typescript
  * const token = extractTokenFromRequest(request);
- * if (token) {
- *   console.log('Found token:', token);
- * }
- * 
+ *
  * // Token sources (in order of priority):
  * // 1. Authorization: Bearer <token>
  * // 2. x-api-token: <token>
- * // 3. ?token=<token> query parameter
  * ```
  */
 export function extractTokenFromRequest(request: NextRequest): string | null {
@@ -103,13 +111,8 @@ export function extractTokenFromRequest(request: NextRequest): string | null {
     return apiTokenHeader;
   }
 
-  // Try query parameter
-  const url = new URL(request.url);
-  const tokenParam = url.searchParams.get('token');
-  if (tokenParam) {
-    return tokenParam;
-  }
-
+  // Note : le token NE doit PAS être accepté en query param (?token=) —
+  // il fuiterait dans les logs serveur, l'historique navigateur et le Referer.
   return null;
 }
 

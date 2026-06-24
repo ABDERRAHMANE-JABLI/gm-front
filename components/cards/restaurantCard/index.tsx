@@ -95,7 +95,7 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
                     {restaurant.budget && (
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.budget")}</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{restaurant.budget}</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`}>{restaurant.budget ?? ""}</span>
                         </div>
                     )}
                 </div>

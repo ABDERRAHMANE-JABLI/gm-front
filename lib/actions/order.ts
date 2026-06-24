@@ -2,20 +2,23 @@
 
 import { headers } from 'next/headers'
 import { getApiBaseUrl, getApiHeaders } from '@/lib/api/_config'
+import { rateLimit } from '@/lib/rateLimit'
 
 const MAX_ORDERS_PER_DAY = 5
-const rateMap = new Map<string, { count: number; resetAt: number }>()
+const ONE_DAY_MS = 24 * 60 * 60 * 1000 // 24h en millisecondes
 
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now()
-  const entry = rateMap.get(ip)
-  if (!entry || now > entry.resetAt) {
-    rateMap.set(ip, { count: 1, resetAt: now + 86400_000 })
-    return true
+/**
+ * IP cliente : on prend la DERNIÈRE valeur de X-Forwarded-For (ajoutée par notre
+ * reverse proxy de confiance) plutôt que la première, fournie par le client et
+ * donc falsifiable pour contourner le rate-limit.
+ */
+function getClientIp(hdrs: Headers): string {
+  const xff = hdrs.get('x-forwarded-for')
+  if (xff) {
+    const parts = xff.split(',').map((s) => s.trim()).filter(Boolean)
+    if (parts.length) return parts[parts.length - 1]
   }
-  if (entry.count >= MAX_ORDERS_PER_DAY) return false
-  entry.count++
-  return true
+  return hdrs.get('x-real-ip') || 'unknown'
 }
 
 interface OrderProduct {
@@ -53,8 +56,8 @@ function isValidProductId(id: string): boolean {
 
 export async function submitOrder(payload: OrderPayload): Promise<{ ok: boolean; message?: string }> {
   const hdrs = await headers()
-  const ip = hdrs.get('x-forwarded-for')?.split(',')[0]?.trim() || hdrs.get('x-real-ip') || 'unknown'
-  if (!checkRateLimit(ip)) {
+  const ip = getClientIp(hdrs)
+  if (!rateLimit(`order:${ip}`, MAX_ORDERS_PER_DAY, ONE_DAY_MS)) {
     return { ok: false, message: 'Vous avez atteint la limite de commandes pour aujourd\'hui. Veuillez réessayer demain.' }
   }
 

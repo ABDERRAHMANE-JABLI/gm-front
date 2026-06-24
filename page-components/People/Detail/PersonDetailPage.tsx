@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import styles from './personDetail.module.css'
+import { sanitizeHtml } from '@/lib/utils/sanitizeHtml'
 import { SmartImage } from '@/components/SmartImage'
 import ToqueIcon from '@/public/icons/toque.svg'
 import { ApiTalentDetail } from '@/types/api/Talent'
@@ -114,7 +115,7 @@ export default function PersonDetailPage({ lang, person, partners = [] }: Person
               {person.presentation && (
                 <div
                   className={styles.presentation}
-                  dangerouslySetInnerHTML={{ __html: person.presentation }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(person.presentation) }}
                 />
               )}
             </div>

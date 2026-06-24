@@ -5,6 +5,7 @@ import HotelDetailPage from '@/page-components/Hotels/Detail'
 import { fetchHotelDetail } from '@/lib/api/hotels'
 import { fetchPartners } from '@/lib/api/partners'
 import { Language } from '@/lib/types'
+import { jsonLdString } from '@/lib/utils/jsonLd'
 
 export const revalidate = 86400
 
@@ -84,7 +85,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <Layout language={lang}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }} />
       <HotelDetailPage lang={lang} hotel={hotel} partners={partners} />
     </Layout>
   )

@@ -5,6 +5,7 @@ import PersonDetailPage from '@/page-components/People/Detail'
 import { fetchTalentDetail } from '@/lib/api/talents'
 import { fetchPartners } from '@/lib/api/partners'
 import { Language } from '@/lib/types'
+import { jsonLdString } from '@/lib/utils/jsonLd'
 
 export const revalidate = 86400
 
@@ -78,7 +79,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <Layout language={lang}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }} />
       <PersonDetailPage lang={lang} person={person} partners={partners} />
     </Layout>
   )

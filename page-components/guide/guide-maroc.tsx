@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styles from './guide.module.css';
+import { sanitizeHtml } from '@/lib/utils/sanitizeHtml';
 import { Language } from '@/lib/i18n/client';
 
 interface Props { lang: Language }
@@ -110,7 +111,7 @@ export default function GuideMarocPage({ lang }: Props) {
                   <h2>{section.title}</h2>
                   <ul>
                     {section.items.map((item, j) => (
-                      <li key={j} dangerouslySetInnerHTML={{ __html: item }} />
+                      <li key={j} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item) }} />
                     ))}
                   </ul>
                 </div>
@@ -139,7 +140,7 @@ export default function GuideMarocPage({ lang }: Props) {
                   <h2>{section.title}</h2>
                   <ul>
                     {section.items.map((item, j) => (
-                      <li key={j} dangerouslySetInnerHTML={{ __html: item }} />
+                      <li key={j} dangerouslySetInnerHTML={{ __html: sanitizeHtml(item) }} />
                     ))}
                   </ul>
                 </div>

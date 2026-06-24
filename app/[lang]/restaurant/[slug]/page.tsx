@@ -5,6 +5,7 @@ import RestaurantDetailPage from '@/page-components/Restaurants/Detail'
 import { fetchRestaurantDetail } from '@/lib/api/restaurants'
 import { fetchPartners } from '@/lib/api/partners'
 import { Language } from '@/lib/types'
+import { jsonLdString } from '@/lib/utils/jsonLd'
 
 export const revalidate = 86400
 
@@ -89,7 +90,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <Layout language={lang}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }} />
       <RestaurantDetailPage lang={lang} restaurant={restaurant} partners={partners} />
     </Layout>
   )

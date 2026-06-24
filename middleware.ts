@@ -13,12 +13,15 @@ export function middleware(request: NextRequest) {
   // Get hostname and extract country from subdomain
   const hostname = request.headers.get('host') || '';
   let country = 'FR'; // default country
-  
-  // Extract country from subdomain (e.g., fr.example.com → FR)
-  const hostParts = hostname.split('.');
-  const subdomain = hostParts[0];
 
-  if (subdomain && subdomain.length === 2) {
+  // Extract country from subdomain (e.g., fr.example.com → FR).
+  // Le header Host est falsifiable ; on n'accepte qu'une liste blanche de
+  // sous-domaines connus pour éviter qu'une valeur arbitraire influence le
+  // routage de langue.
+  const ALLOWED_SUBDOMAIN_COUNTRIES = ['fr', 'en'];
+  const subdomain = hostname.split('.')[0]?.toLowerCase();
+
+  if (subdomain && ALLOWED_SUBDOMAIN_COUNTRIES.includes(subdomain)) {
     country = subdomain.toUpperCase();
   }
   

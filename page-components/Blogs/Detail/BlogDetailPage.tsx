@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './blogDetail.module.css'
+import { sanitizeHtml } from '@/lib/utils/sanitizeHtml'
 import { SmartImage } from '@/components/SmartImage'
 import { ApiArticleDetail } from '@/types/api/Article'
 import { ApiPartner } from '@/types/api/Partner'
@@ -56,7 +57,7 @@ export default function BlogDetailPage({ lang, article, partners = [] }: BlogDet
         {article.content && (
           <div
             className={styles.content}
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
           />
         )}
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './recipeDetail.module.css'
+import { sanitizeHtml } from '@/lib/utils/sanitizeHtml'
 import { SmartImage } from '@/components/SmartImage'
 import { ApiRecipeDetail } from '@/types/api/Recipe'
 import { ApiPartner } from '@/types/api/Partner'
@@ -48,7 +49,7 @@ export default function RecipeDetailPage({ lang, recipe, partners = [] }: Recipe
         {recipe.content && (
           <div
             className={styles.content}
-            dangerouslySetInnerHTML={{ __html: recipe.content }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(recipe.content) }}
           />
         )}
 

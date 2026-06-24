@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cache } from '@/lib/cache';
 import { authenticateRequest } from '@/lib/auth';
 import { isRedisHealthy } from '@/lib/redis';
+import { rateLimit, getClientIp } from '@/lib/rateLimit';
 
 /**
  * Cache management API - GET endpoint
@@ -19,6 +20,9 @@ import { isRedisHealthy } from '@/lib/redis';
  * @requires Authentication via API token in headers or query parameters
  */
 export async function GET(request: NextRequest) {
+  if (!rateLimit(`cache:${getClientIp(request)}`, 30, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
   // Authenticate the request
   const authResult = authenticateRequest(request);
   if (!authResult.success) {
@@ -86,6 +90,9 @@ export async function GET(request: NextRequest) {
  * @requires Authentication via API token in headers or query parameters
  */
 export async function POST(request: NextRequest) {
+  if (!rateLimit(`cache:${getClientIp(request)}`, 30, 60_000)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
   // Authenticate the request
   const authResult = authenticateRequest(request);
   if (!authResult.success) {
