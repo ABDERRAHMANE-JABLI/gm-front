@@ -17,7 +17,6 @@ services:
       - API_KEY=${API_KEY}
       - API_TOKEN=${API_TOKEN}
       - REVALIDATE_SECRET=${REVALIDATE_SECRET}
-      - CACHE_INVALIDATE_SECRET=${CACHE_INVALIDATE_SECRET}
       - REDIS_URL=${REDIS_URL}
     # Permet au conteneur de joindre un backend/Redis tournant sur la machine hôte
     # via http://host.docker.internal:PORT (sinon "localhost" = le conteneur lui-même)

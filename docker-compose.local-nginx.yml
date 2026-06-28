@@ -22,7 +22,6 @@ services:
       - API_KEY=${API_KEY}
       - API_TOKEN=${API_TOKEN}
       - REVALIDATE_SECRET=${REVALIDATE_SECRET}
-      - CACHE_INVALIDATE_SECRET=${CACHE_INVALIDATE_SECRET}
       - REDIS_URL=${REDIS_URL}
     # Joindre un backend tournant sur la machine hôte via host.docker.internal
     extra_hosts:

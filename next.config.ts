@@ -35,6 +35,13 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   output: 'standalone',
   poweredByHeader: false,
+  experimental: {
+    serverActions: {
+      // Limite de taille du body des Server Actions (défaut 1 Mo) — évite le 413
+      // sur la commande / les formulaires.
+      bodySizeLimit: '20mb',
+    },
+  },
   async headers() {
     return [
       {
