@@ -19,8 +19,12 @@ export default function MapCard({ address, latitude, longitude, mapsIframe }: Ma
     ? `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`
     : undefined;
 
-  const iframeSrc = mapsIframe
-    ?? (latitude && longitude ? `https://maps.google.com/maps?q=${latitude},${longitude}&z=15&output=embed` : null);
+  // ⚠️ On utilise une vérif "truthy + trim" et NON `??` : si l'API renvoie une
+  // chaîne vide "" pour mapsIframe (au lieu de null), `??` la garderait et la
+  // carte resterait vide. Là, "" → on bascule sur le fallback coordonnées.
+  const iframeSrc = (mapsIframe && mapsIframe.trim())
+    ? mapsIframe
+    : (latitude && longitude ? `https://maps.google.com/maps?q=${latitude},${longitude}&z=15&output=embed` : null);
 
   return (
     <div className={styles.MapCard}>

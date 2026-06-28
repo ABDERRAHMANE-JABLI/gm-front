@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import styles from '@/styles/listPage.module.css';
 import RestaurantCard from '@/components/cards/restaurantCard';
@@ -9,7 +9,7 @@ import { RestaurantCardProps } from '@/types/Restaurant';
 import { ApiPagination } from '@/types/api/Article';
 import { ApiRestaurantFilters } from '@/types/api/Restaurant';
 import type { FetchRestaurantsOptions } from '@/lib/api/restaurants';
-import { loadMoreRestaurants } from '@/lib/actions/restaurants';
+import { loadMoreRestaurants, searchRestaurants, RestaurantSearchResult } from '@/lib/actions/restaurants';
 import ToqueFilter from '@/components/cards/common/Toques/ToqueFilter';
 import RestoIcon from "@/public/icons/menu/restaurant.svg";
 import { sanitizeSearch } from '@/lib/utils/sanitize';
@@ -50,18 +50,31 @@ export default function RestaurantsContent({
   const [searchQuery, setSearchQuery] = useState('');
   const [active, setActive]           = useState<ActiveFilters>(EMPTY_FILTERS);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<RestaurantSearchResult[] | null>(null);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const debounceRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const requestIdRef = useRef(0);
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (searchQuery.length < 4) {
+      setSearchResults(null);
+      setSearchLoading(false);
+      return;
+    }
+    debounceRef.current = setTimeout(async () => {
+      const id = ++requestIdRef.current;
+      setSearchLoading(true);
+      const results = await searchRestaurants(sanitizeSearch(searchQuery));
+      if (id !== requestIdRef.current) return;
+      setSearchResults(results);
+      setSearchLoading(false);
+    }, 300);
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
+  }, [searchQuery]);
 
   const hasMore      = pagination.page < pagination.total_pages;
   const showDropdown = searchQuery.length >= 4;
-  const cleanQuery   = sanitizeSearch(searchQuery).toLowerCase();
-  const dropdownResults = showDropdown
-    ? restaurants
-        .filter((r) =>
-          r.title.toLowerCase().includes(cleanQuery) ||
-          r.address?.toLowerCase().includes(cleanQuery)
-        )
-        .slice(0, 10)
-    : [];
 
   async function applyFilters(next: ActiveFilters, page = 1) {
     setLoading(true);
@@ -175,11 +188,13 @@ export default function RestaurantsContent({
                 </button>
               </div>
 
-              {dropdownResults.length === 0 ? (
+              {searchLoading ? (
+                <p className={styles.dropdownLoading}>Recherche en cours…</p>
+              ) : !searchResults || searchResults.length === 0 ? (
                 <p className={styles.dropdownEmpty}>Aucun résultat trouvé</p>
               ) : (
                 <div className={styles.dropdownList}>
-                  {dropdownResults.map((r) => (
+                  {searchResults.map((r) => (
                     <Link
                       key={r.slug}
                       href={`/${lang}/restaurant/${r.slug}`}

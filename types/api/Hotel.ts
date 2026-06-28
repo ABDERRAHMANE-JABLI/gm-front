@@ -43,6 +43,7 @@ export interface ApiHotelDetail {
   city?:            { cityName: string; region?: string };
   latitude?:        string;
   longitude?:       string;
+  mapsIframe?:      string | null;
   thumbId:          string | null;
   imagesSecondaire: string[];
   avisGM?:          string | null;

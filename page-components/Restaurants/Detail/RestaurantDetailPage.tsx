@@ -184,8 +184,8 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
             </div>
           )}
 
-          {/* Plan */}
-          {lat != null && lng != null && (
+          {/* Plan — affiché si on a un mapsIframe OU des coordonnées */}
+          {(restaurant.mapsIframe || (lat != null && lng != null)) && (
             <div className={styles.mapWrapper}>
               <MapCard address={address} latitude={lat} longitude={lng} mapsIframe={restaurant.mapsIframe} />
             </div>

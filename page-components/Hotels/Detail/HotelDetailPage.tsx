@@ -135,10 +135,10 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
             </div>
           )}
 
-          {/* Plan */}
-          {lat != null && lng != null && (
+          {/* Plan — affiché si on a un mapsIframe OU des coordonnées */}
+          {(hotel.mapsIframe || (lat != null && lng != null)) && (
             <div className={styles.mapWrapper}>
-              <MapCard address={address} latitude={lat} longitude={lng} />
+              <MapCard address={address} latitude={lat} longitude={lng} mapsIframe={hotel.mapsIframe} />
             </div>
           )}
 

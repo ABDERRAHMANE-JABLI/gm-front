@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import styles from '@/styles/listPage.module.css';
 import HotelCard from '@/components/cards/hotelCard';
@@ -9,7 +9,7 @@ import { HotelProps } from '@/types/Hotels';
 import { ApiPagination } from '@/types/api/Article';
 import { ApiHotelFilters } from '@/types/api/Hotel';
 import type { FetchHotelsOptions } from '@/lib/api/hotels';
-import { loadMoreHotels } from '@/lib/actions/hotels';
+import { loadMoreHotels, searchHotels, HotelSearchResult } from '@/lib/actions/hotels';
 import ToqueFilter from '@/components/cards/common/Toques/ToqueFilter';
 import StarFilter from '@/components/cards/common/Stars/StarFilter';
 import HotelIcon from '@/public/icons/menu/hotel.svg';
@@ -52,6 +52,10 @@ export default function HotelsContent({
   const [searchQuery, setSearchQuery] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [active, setActive]         = useState<ActiveFilters>(EMPTY_FILTERS);
+  const [searchResults, setSearchResults] = useState<HotelSearchResult[] | null>(null);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const debounceRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const requestIdRef = useRef(0);
 
   const hasMore = pagination.page < pagination.total_pages;
 
@@ -113,16 +117,27 @@ export default function HotelsContent({
   // On n'affiche dans le filtre que les étoiles -1 (hors classement) et 1 à 5
   const visibleStars = filters.stars.filter((s) => s === -1 || (s >= 1 && s <= 5));
 
-  const showDropdown    = searchQuery.length >= 4;
-  const cleanQuery      = sanitizeSearch(searchQuery).toLowerCase();
-  const dropdownResults = showDropdown
-    ? hotels
-        .filter((h) =>
-          h.title.toLowerCase().includes(cleanQuery) ||
-          h.address?.toLowerCase().includes(cleanQuery)
-        )
-        .slice(0, 10)
-    : [];
+  // Le backend hôtels accepte une recherche dès 2 caractères
+  const showDropdown = searchQuery.length >= 2;
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (searchQuery.length < 2) {
+      setSearchResults(null);
+      setSearchLoading(false);
+      return;
+    }
+    debounceRef.current = setTimeout(async () => {
+      const id = ++requestIdRef.current;
+      setSearchLoading(true);
+      // On scope la recherche sur le type sélectionné dans le filtre (hotel/riad), sinon tous
+      const results = await searchHotels(sanitizeSearch(searchQuery), active.type || undefined);
+      if (id !== requestIdRef.current) return;
+      setSearchResults(results);
+      setSearchLoading(false);
+    }, 300);
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
+  }, [searchQuery, active.type]);
 
   const hasActiveFilters = Boolean(
     active.type || active.city || active.stars.length || active.toques.length || active.styles.length || active.services.length
@@ -164,11 +179,13 @@ export default function HotelsContent({
                 <span className={styles.dropdownLabel}>Hôtels & Riads</span>
                 <button className={styles.dropdownClose} onClick={() => setSearchQuery('')}>Fermer ×</button>
               </div>
-              {dropdownResults.length === 0 ? (
+              {searchLoading ? (
+                <p className={styles.dropdownLoading}>Recherche en cours…</p>
+              ) : !searchResults || searchResults.length === 0 ? (
                 <p className={styles.dropdownEmpty}>Aucun résultat trouvé</p>
               ) : (
                 <div className={styles.dropdownList}>
-                  {dropdownResults.map((h) => (
+                  {searchResults.map((h) => (
                     <Link key={h.slug} href={`/${lang}/hotels/${h.slug}`} className={styles.dropdownItem} onClick={() => setSearchQuery('')}>
                       <div className={styles.dropdownThumb}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}

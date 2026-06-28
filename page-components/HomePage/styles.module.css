@@ -9,18 +9,28 @@
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 50px 15px 30px;
   box-sizing: border-box;
+  /* Espace entre les sections géré en un seul endroit (pas de margin collapse) */
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }
 
 .section {
-  padding: 24px 0;
+  margin: 0;
 }
 
 /* Bannière pub pleine largeur : masquée sous 900px (mobile/tablette) */
 @media (max-width: 900px) {
   .pubFullSection {
     display: none;
+  }
+
+  /* Espace réduit entre sections sur mobile */
+  .container {
+    gap: 36px;
+    padding: 20px 16px;
   }
 }
 
