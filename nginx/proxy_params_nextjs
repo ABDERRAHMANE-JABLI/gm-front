@@ -1,0 +1,21 @@
+# Headers proxy communs — à copier dans /etc/nginx/proxy_params_nextjs
+# Indispensables : X-Forwarded-For alimente le rate-limiter (getClientIp),
+# Host alimente la détection de langue du middleware, X-Forwarded-Proto permet
+# à Next de générer les bonnes URLs (https).
+
+proxy_http_version 1.1;
+# $http_host conserve le port (ex. localhost:8090) — indispensable pour que la
+# vérification CSRF des Server Actions de Next (Origin vs X-Forwarded-Host) passe.
+proxy_set_header   Host              $http_host;
+proxy_set_header   X-Real-IP         $remote_addr;
+proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+proxy_set_header   X-Forwarded-Proto $scheme;
+proxy_set_header   X-Forwarded-Host  $http_host;
+
+# Support de la connexion persistante / éventuel websocket
+proxy_set_header   Connection        "";
+
+# Timeouts raisonnables
+proxy_connect_timeout 10s;
+proxy_send_timeout    30s;
+proxy_read_timeout    30s;

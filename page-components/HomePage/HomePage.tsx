@@ -243,7 +243,10 @@ export default function HomePage({ lang, data, partners }: { lang: Language; dat
       <div className={styles.container}>
 
         {sections.map((section) => (
-          <section key={section.id} className={styles.section}>
+          <section
+            key={section.id}
+            className={`${styles.section} ${section.layoutType === 'pub_full' ? styles.pubFullSection : ''}`}
+          >
             <SectionRenderer lang={lang} section={section} />
           </section>
         ))}

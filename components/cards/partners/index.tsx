@@ -35,7 +35,7 @@ export default function PartenairesSection({ partners = [], lang = 'fr' }: Props
             <span className={style.ampersand}>&</span>
             <span>{t('partners.label')}</span>
           </div>
-          <Link href="/partners" className={style.topBtn}>{t('partners.see_more')}</Link>
+          <Link href={`/${lang}/partners`} className={style.topBtn}>{t('partners.see_more')}</Link>
         </div>
 
         <div className={style.left}>

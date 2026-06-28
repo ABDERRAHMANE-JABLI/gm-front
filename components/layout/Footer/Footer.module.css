@@ -65,3 +65,27 @@
   color: #555;
   margin-top: 10px;
 }
+
+.socials {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  color: #1a1a1a;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.socialIcon:hover {
+  background: var(--yellowGM, #ffeb00);
+  border-color: var(--yellowGM, #ffeb00);
+}

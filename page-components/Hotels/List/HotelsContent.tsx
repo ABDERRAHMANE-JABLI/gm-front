@@ -110,6 +110,9 @@ export default function HotelsContent({
     await applyFilters(active, pagination.page + 1);
   }
 
+  // On n'affiche dans le filtre que les étoiles -1 (hors classement) et 1 à 5
+  const visibleStars = filters.stars.filter((s) => s === -1 || (s >= 1 && s <= 5));
+
   const showDropdown    = searchQuery.length >= 4;
   const cleanQuery      = sanitizeSearch(searchQuery).toLowerCase();
   const dropdownResults = showDropdown
@@ -260,11 +263,11 @@ export default function HotelsContent({
           )}
 
           {/* Étoiles */}
-          {filters.stars.length > 0 && (
+          {visibleStars.length > 0 && (
             <>
               <p className={`${styles.sidebarTitle} ${styles.sidebarTitleGap}`}>Étoiles</p>
               <StarFilter
-                stars={filters.stars}
+                stars={visibleStars}
                 selected={active.stars}
                 onToggle={(s) => toggleNumber('stars', s)}
               />

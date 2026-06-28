@@ -57,7 +57,7 @@ export default function PartnersPage({ lang, partners }: Props) {
   const seeMore = lang === 'en' ? 'See more' : 'Voir plus'
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} style={{ backgroundColor: 'white' }}>
       <div className={styles.container}>
 
         <h1 className={styles.title}>{title}</h1>

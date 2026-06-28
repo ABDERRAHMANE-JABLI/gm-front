@@ -1,0 +1,11 @@
+# Override de production — à utiliser avec :
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml --env-file .env.prod up -d --build
+#
+# Le port 3000 est bindé sur 127.0.0.1 : Next n'est PAS joignable directement
+# depuis Internet, seulement par nginx (qui tourne sur le même hôte) et par le
+# backend local. nginx expose 80/443 et proxifie vers 127.0.0.1:3000.
+services:
+  frontend:
+    ports:
+      - "127.0.0.1:3000:3000"
+    restart: always

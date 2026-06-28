@@ -13,7 +13,6 @@ import { SmartImage } from '@/components/SmartImage'
 import { parseApiTime, DayOfWeek } from '@/types/Time'
 import GmIcon from '@/public/icons/menu/restaurant.svg'
 import ToqueIcon from '@/public/icons/toque.svg'
-import PubCard from '@/components/Details/Cards/PubCard'
 import PartenairesSection from '@/components/cards/partners'
 import { ApiPartner } from '@/types/api/Partner'
 
@@ -341,13 +340,6 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
                 </div>
               );
             })()}
-
-            {/* Pub */}
-            {!menuExpanded && (
-              <div className={styles.pubCard}>
-                <PubCard items={[]} />
-              </div>
-            )}
 
           </section>
 

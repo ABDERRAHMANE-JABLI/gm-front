@@ -166,6 +166,7 @@ export default function OrderPage({ lang }: Props) {
                   id="telephone"
                   className={`${styles.input} ${errors.telephone ? styles.error : ''}`}
                   type="tel"
+                  maxLength={15}
                   value={form.telephone}
                   onChange={e => update('telephone', e.target.value)}
                   autoComplete="tel"

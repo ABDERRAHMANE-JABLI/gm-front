@@ -17,6 +17,13 @@
   padding: 24px 0;
 }
 
+/* Bannière pub pleine largeur : masquée sous 900px (mobile/tablette) */
+@media (max-width: 900px) {
+  .pubFullSection {
+    display: none;
+  }
+}
+
 /* ── Grilles ─────────────────────────────────────────────────────────────── */
 
 /* 3/3 pleine largeur */

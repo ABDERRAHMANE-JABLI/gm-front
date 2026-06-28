@@ -13,9 +13,14 @@ services:
     ports:
       - "3000:3000"
     environment:
-      # Secrets injectés au runtime — jamais dans l'image
+      # Secrets injectés au runtime
       - API_KEY=${API_KEY}
+      - API_TOKEN=${API_TOKEN}
       - REVALIDATE_SECRET=${REVALIDATE_SECRET}
       - CACHE_INVALIDATE_SECRET=${CACHE_INVALIDATE_SECRET}
       - REDIS_URL=${REDIS_URL}
+    # Permet au conteneur de joindre un backend/Redis tournant sur la machine hôte
+    # via http://host.docker.internal:PORT (sinon "localhost" = le conteneur lui-même)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped

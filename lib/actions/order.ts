@@ -36,9 +36,12 @@ interface OrderPayload {
   produits: OrderProduct[]
 }
 
-function sanitize(str: unknown): string {
+// Longueurs max alignées sur les contraintes du backend (Symfony Assert)
+const MAX = { nom: 255, etab: 255, adresse: 255, tel: 20, ville: 100 }
+
+function sanitize(str: unknown, maxLen = 255): string {
   if (typeof str !== 'string') return ''
-  return str.replace(/[<>]/g, '').trim().slice(0, 500)
+  return str.replace(/[<>]/g, '').trim().slice(0, maxLen)
 }
 
 function isValidEmail(email: string): boolean {
@@ -46,7 +49,7 @@ function isValidEmail(email: string): boolean {
 }
 
 function isValidPhone(tel: string): boolean {
-  if (!tel) return true
+  // backend : NotBlank + max 20 → tel obligatoire ici
   return /^[\d\s+\-()]{7,20}$/.test(tel)
 }
 
@@ -61,19 +64,20 @@ export async function submitOrder(payload: OrderPayload): Promise<{ ok: boolean;
     return { ok: false, message: 'Vous avez atteint la limite de commandes pour aujourd\'hui. Veuillez réessayer demain.' }
   }
 
-  const nom              = sanitize(payload.nom)
-  const nomEtablissement = sanitize(payload.nomEtablissement)
-  const adresse          = sanitize(payload.adresse)
+  const nom              = sanitize(payload.nom, MAX.nom)
+  const nomEtablissement = sanitize(payload.nomEtablissement, MAX.etab)
+  const adresse          = sanitize(payload.adresse, MAX.adresse)
   const email            = sanitize(payload.email)
-  const tel              = sanitize(payload.tel)
-  const ville            = sanitize(payload.ville)
+  const tel              = sanitize(payload.tel, MAX.tel)
+  const ville            = sanitize(payload.ville, MAX.ville)
 
   if (!nom)              return { ok: false, message: 'Le nom est requis.' }
   if (!nomEtablissement) return { ok: false, message: "Le nom de l'établissement est requis." }
   if (!adresse)          return { ok: false, message: "L'adresse est requise." }
   if (!ville)            return { ok: false, message: 'La ville est requise.' }
   if (!email || !isValidEmail(email)) return { ok: false, message: 'Email invalide.' }
-  if (!isValidPhone(tel)) return { ok: false, message: 'Numéro de téléphone invalide.' }
+  if (!tel)              return { ok: false, message: 'Le téléphone est requis.' }
+  if (!isValidPhone(tel)) return { ok: false, message: 'Numéro de téléphone invalide (max 20 caractères).' }
 
   if (!Array.isArray(payload.produits) || payload.produits.length === 0) {
     return { ok: false, message: 'Le panier est vide.' }
@@ -103,8 +107,10 @@ export async function submitOrder(payload: OrderPayload): Promise<{ ok: boolean;
     })
 
     if (!res.ok) {
-      const text = await res.text().catch(() => '')
-      return { ok: false, message: text || `Erreur ${res.status}` }
+      // le backend renvoie { error, details? } en JSON
+      const body = await res.json().catch(() => null)
+      const message = body?.error || `Erreur ${res.status}`
+      return { ok: false, message }
     }
 
     return { ok: true }
