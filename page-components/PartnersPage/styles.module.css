@@ -137,23 +137,27 @@
   height: 46px;
   background: transparent;
   color: var(--GMI-black, #1a1a1a);
-  border: 1.5px solid var(--GMI-black, #1a1a1a);
+  border: none;
   font-family: "Montserrat", Helvetica;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: font-weight 0.15s, text-decoration-color 0.15s;
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 180px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
 }
 
 .loadMoreBtn:hover {
-  background: #ffeb00;
-  color: #303030;
+  font-weight: 800;
+  text-decoration-color: #ffeb00;
 }
 
 @media (max-width: 480px) {

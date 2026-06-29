@@ -1,3 +1,12 @@
+/* L'image doit remplir le wrapper (sinon hauteur naturelle variable) */
+.thumbnail-wrapper img,
+.thumbnail-wrapper picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
 .figma-placeCardButton {
     align-items: center;
     background-color: var(--GMI-carddefaultbackground);
@@ -72,7 +81,7 @@
 
     .uneDeux-card>.thumbnail-wrapper {
         background-color: var(--GMI-carddefaultbackground);
-        height: 400px;
+        height: 320px;
         position: relative;
         width: 100%
     }
@@ -424,7 +433,6 @@ sinon : */
     .thumbnail-wrapper {
         position: relative;
         width: 100%;
-        padding-top: 66.66%;
         flex-shrink: 0;
     }
 
@@ -435,10 +443,10 @@ sinon : */
 
     .thumbnail-wrapper picture,
     .thumbnail-wrapper img {
-        position: absolute;
-        inset: 0;
+        position: static;
         width: 100%;
-        height: 100%;
+        height: auto !important;   /* bat le height:100% inline de SmartImage */
+        aspect-ratio: 3 / 2;       /* l'image se dimensionne seule, responsive */
         object-fit: cover;
         display: block;
     }
