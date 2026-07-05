@@ -107,6 +107,8 @@ export default function RestaurantsContent({
     const next = { ...active, [key]: value };
     setActive(next);
     setSearchQuery('');
+    // Remonter en haut pour montrer les résultats filtrés (animation fluide)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     applyFilters(next);
   }
 

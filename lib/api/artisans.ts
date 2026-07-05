@@ -74,7 +74,7 @@ export async function fetchArtisans(
 
   const params = new URLSearchParams({ page: String(page), limit: String(limit) });
   if (options.city) params.set('city', options.city);
-  options.activities?.forEach((a) => params.append('activity', a));
+  options.activities?.forEach((a) => params.append('activity[]', a));
   options.services?.forEach((s)   => params.append('service[]', s));
 
   const controller = new AbortController();

@@ -52,6 +52,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
+  // Section Recettes désactivée ("true as boolean" → 404 systématique sans casser le typage plus bas)
+  if (true as boolean) notFound()
+
   const { lang, slug } = await params
   const [recipe, partners] = await Promise.all([
     fetchRecipeDetail(slug),

@@ -11,6 +11,7 @@ import BlogIcon       from '@/public/icons/menu/blog.svg';
 import RestaurantIcon from '@/public/icons/menu/restaurant.svg';
 import HotelIcon      from '@/public/icons/menu/hotel.svg';
 import ArtisanIcon    from '@/public/icons/menu/artisan.svg';
+import PeopleIcon     from '@/public/icons/menu/people.svg';
 import StoreIcon      from '@/public/icons/store.svg';
 import GMLogo         from '@/public/icons/GaultMillau.svg';
 import MoroccoFlag    from '@/public/icons/flag-morocco.svg';
@@ -102,7 +103,17 @@ export default function Header({ language = 'fr' }: HeaderProps) {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  const activeItem   = NAV_ITEMS.find((item) => item.segment === activeSegment || item.segment === activeSegment + 's');
+  // Pages accessibles en direct mais absentes du menu → item synthétique pour l'en-tête
+  const extraItem: NavItem | undefined =
+    activeSegment === 'contact'
+      // /contact : on réutilise l'icône Partenaires
+      ? { label: t('footer.partners'), segment: 'contact', Icon: PartnerIcon, noBg: true }
+      : activeSegment === 'peoples'
+        ? { label: t('common.people'), segment: 'peoples', Icon: PeopleIcon }
+        : undefined;
+
+  const activeItem   = NAV_ITEMS.find((item) => item.segment === activeSegment || item.segment === activeSegment + 's')
+    ?? extraItem;
   const sectionLabel = activeItem?.label.toUpperCase() ?? '';
   const isHome       = activeSegment === '';
   const LogoIcon     = isHome ? GMLogo : (activeItem?.Icon ?? GMLogo);
@@ -137,18 +148,17 @@ export default function Header({ language = 'fr' }: HeaderProps) {
 
           <div className={styles.topActions}>
 
-            {/* ── Language selector ── */}
+            {/* ── Language selector ── onClick={() => setLangOpen((v) => !v)} */}
             <div className={styles.langSelector}>
               <button
                 className={styles.langCode}
-                onClick={() => setLangOpen((v) => !v)}
                 aria-expanded={langOpen}
                 aria-label="Changer de langue"
               >
                 {language.toUpperCase()}
-                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden style={{ marginLeft: 3 }}>
+                {/*<svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden style={{ marginLeft: 3 }}>
                   <path d={langOpen ? 'M1 5L5 1L9 5' : 'M1 1L5 5L9 1'} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                </svg>*/}
               </button>
               {langOpen && (
                 <>
@@ -215,6 +225,9 @@ export default function Header({ language = 'fr' }: HeaderProps) {
         </nav>
 
       </header>
+
+      {/* Réserve la hauteur du header (désormais position: fixed) */}
+      <div className={styles.headerSpacer} aria-hidden="true" />
 
       {/* ── Mobile menu overlay ── */}
       {menuOpen && (

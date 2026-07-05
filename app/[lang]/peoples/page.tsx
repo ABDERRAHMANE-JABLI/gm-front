@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
 import Layout from "@/components/layout/Layout/Layout";
 import PeoplesContent from "@/page-components/People/List/PeoplesContent";
 import { fetchTalents, fetchTalentFilters } from "@/lib/api/talents";
@@ -32,6 +33,9 @@ async function PeoplesData({ lang }: { lang: Language }) {
 }
 
 export default async function PeoplesPageRoute({ params }: { params: Promise<{ lang: string }> }) {
+  // Page liste désactivée : seule la fiche /peoples/[slug] reste accessible
+  notFound();
+
   const { lang } = await params;
   const language = lang as Language;
 

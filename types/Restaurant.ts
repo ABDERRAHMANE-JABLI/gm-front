@@ -84,7 +84,7 @@ export interface RestaurantCardProps {
      * @example "Eric Ripert"
      * @optional
      */
-    chief?: string;
+    chef?: string;
 
     /** 
      * Types de cuisine proposés

@@ -295,14 +295,13 @@
     letter-spacing: var(--card-detail-value-letter-spacing);
     line-height: var(--card-detail-value-line-height);
     padding: 0 var(--GMI-carddetailhorizontalpaddingh);
-    text-transform: capitalize;
+    text-transform: none;
     max-width: 200px;
 }
 
 .figmaCaptionValue.vertical {
     padding: 0
 }
-
 
 .figmaCaptionValue.outlined {
     background-color: var(--GMI-outlinedyellow);
@@ -353,12 +352,10 @@
   .card-title.horizontal {
     font-size: 30px;
     }
-
 }
 
 
 @media (max-width: 780px) {
-
   .button-container {
     display: none !important;
   }
@@ -378,7 +375,6 @@
     width: 100%;
     overflow: visible;
   }
-
 
   .cardPaddingContainer.details {
     align-items: flex-start !important;
@@ -405,7 +401,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 

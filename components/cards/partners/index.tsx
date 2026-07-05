@@ -41,6 +41,7 @@ export default function PartenairesSection({ partners = [], lang = 'fr' }: Props
         <div className={style.left}>
           <div className={style.leftTitle}>
             <h4>{t('partners.title')}</h4>
+            <GMLogo width={100}/>
             <p>{t('partners.description')}</p>
           </div>
 
@@ -49,7 +50,10 @@ export default function PartenairesSection({ partners = [], lang = 'fr' }: Props
             <div className={style.marquee} onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
               <div
                 className={style.track}
-                style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
+                style={{
+                  animationPlayState: isPaused ? 'paused' : 'running',
+                  animationDuration: `${logos.length * 3}s`,
+                }}
               >
                 {/* Double pour boucle infinie */}
                 {[...logos, ...logos].map((item, i) => (
@@ -75,7 +79,7 @@ export default function PartenairesSection({ partners = [], lang = 'fr' }: Props
           <h4>{t('partners.become')}</h4>
           <GMLogo width={150}/>
         </div>
-        <a href="mailto:sberdah@gaultmillau.ma" className={style.Btn}>{t('partners.learn_more')}</a>
+        <Link href={`/${lang}/contact`} className={style.BtnPlus}>{t('partners.learn_more')}</Link>
       </div>
     </section>
   );

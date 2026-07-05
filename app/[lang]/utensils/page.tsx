@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import Layout from "@/components/layout/Layout/Layout";
 import UtensilsContent from "@/page-components/UtensilsPage/UtensilsContent";
 import { fetchUtensils } from "@/lib/api/utensils";
@@ -20,6 +21,9 @@ export default async function UtensilsPageRoute({
 }: {
   params: Promise<{ lang: string }>;
 }) {
+  // Section Ustensiles désactivée
+  notFound();
+
   const { lang } = await params;
   const language = lang as Language;
 

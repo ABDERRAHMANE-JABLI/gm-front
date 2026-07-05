@@ -1,7 +1,7 @@
 /* ── AwardCard — Premium Luxury ─────────────────────────────────────── */
 
 .card {
-  width: 220px;
+  width: 190px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -15,8 +15,8 @@
 
 /* ── Image ───────────────────────────────────────────────────────────── */
 .imageWrapper {
-  width: 220px;
-  height: 220px;
+  width: 190px;
+  height: 190px;
   position: relative;
   background: #F5F3F0;
   overflow: hidden;

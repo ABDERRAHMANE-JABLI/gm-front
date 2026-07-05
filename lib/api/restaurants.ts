@@ -46,7 +46,7 @@ function mapRestaurantToCard(r: ApiRestaurant): RestaurantCardProps {
     nbToques:      r.nbrToques,
     isSponsorised: r.isSponsorised,
     note:     r.noteGM !== null ? `${r.noteGM}` : undefined,
-    chief:    r.chef?.fullName,
+    chef:    r.chef,
     cuisines: r.cuisines,
     budget:   r.budgetMin !== null && r.budgetMax !== null
       ? `${r.budgetMin} - ${r.budgetMax} MAD`

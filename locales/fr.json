@@ -12,6 +12,9 @@
     "subtitle_collections": "Revenez bientôt pour découvrir nos collections."
   },
   "common": {
+    "published_on": "Le",
+    "updated_on": "Modifié le :",
+    "get_directions": "Je m'y rends",
     "home": "Accueil",
     "search": "Rechercher",
     "restaurants": "Restaurants",
@@ -91,8 +94,32 @@
     "title": "Partenaires",
     "description": "Retrouvez la liste complète des partenaires qui font confiance à Gault&Millau Maroc",
     "see_more": "VOIR PLUS",
-    "become": "Devenez Partenaires",
-    "learn_more": "En Savoir Plus"
+    "become": "Devenez Partenaire",
+    "learn_more": "EN SAVOIR PLUS"
+  },
+  "contact": {
+    "title": "Devenez partenaire",
+    "label_establishment": "Nom de l'établissement",
+    "label_domain": "Domaine d'activité",
+    "label_address": "Adresse",
+    "label_city": "Ville",
+    "label_email": "Email",
+    "label_phone": "Téléphone",
+    "placeholder_domain": "Sélectionnez ou tapez un domaine",
+    "placeholder_city": "Sélectionnez ou tapez une ville",
+    "placeholder_phone": "(optionnel)",
+    "required": "Champ requis",
+    "invalid_email": "Email invalide",
+    "submit_note": "En envoyant, vous acceptez que G&M utilise vos données pour vous recontacter.",
+    "submit": "Envoyer ma demande",
+    "submitting": "Envoi en cours...",
+    "error_generic": "Une erreur est survenue.",
+    "success_title": "Demande envoyée !",
+    "success_text": "Merci pour votre intérêt. Notre équipe étudiera votre demande de partenariat et vous recontactera dans les plus brefs délais.",
+    "back_home": "Retour à l'accueil"
+  },
+  "hotel": {
+    "discover_restaurant": "Découvrez le restaurant de l'Hôtel"
   },
   "footer": {
     "address": "37-39 rue Boissière\n75016 Paris\nFrance",

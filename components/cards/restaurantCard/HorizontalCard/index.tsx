@@ -47,10 +47,10 @@ export default function HorizontalRestauCard({ lang, restaurant }: Props) {
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.address}>{restaurant.address}</span>
                         </div>
                     )}
-                    {restaurant.chief && (
+                    {restaurant.chef && (
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.chef")}</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.chief}>{restaurant.chief}</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.chef}>{restaurant.chef}</span>
                         </div>
                     )}
                     {!!restaurant.cuisines?.length && (

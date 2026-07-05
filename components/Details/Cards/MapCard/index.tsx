@@ -5,21 +5,24 @@ import styles from "./plan.module.css";
 import LocationIcon from "@/public/icons/position.svg";
 import ArrowIcon from "@/public/icons/ArrowCircle.svg";
 import Link from "next/link";
+import { useClientTranslation, Language } from "@/lib/i18n/client";
 
 interface MapCardProps {
+  lang?: Language;
   address?: string;
   latitude?: number;
   longitude?: number;
   mapsIframe?: string | null;
 }
 
-export default function MapCard({ address, latitude, longitude, mapsIframe }: MapCardProps) {
+export default function MapCard({ lang = "fr", address, latitude, longitude, mapsIframe }: MapCardProps) {
+  const { t } = useClientTranslation(lang);
   const hasCoords = !!(latitude && longitude);
   const googleMapsUrl = hasCoords
     ? `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`
     : undefined;
 
-  // ⚠️ On utilise une vérif "truthy + trim" et NON `??` : si l'API renvoie une
+  // On utilise une vérif "truthy + trim" et NON `??` : si l'API renvoie une
   // chaîne vide "" pour mapsIframe (au lieu de null), `??` la garderait et la
   // carte resterait vide. Là, "" → on bascule sur le fallback coordonnées.
   const iframeSrc = (mapsIframe && mapsIframe.trim())
@@ -46,26 +49,22 @@ export default function MapCard({ address, latitude, longitude, mapsIframe }: Ma
         <div className={styles.mapPlaceholder}>Plan non renseigné</div>
       )}
 
-      <div className={styles.bodyContent}>
+      <div className={`${styles.bodyContent} ${!hasCoords ? styles.bodyContentCentered : ''}`}>
         <div className={styles.addressWrapper}>
           <span className={styles.addressLabel}>Adresse</span>
           <span className={styles.address}>{address}</span>
         </div>
 
-        {hasCoords ? (
+        {hasCoords && (
           <Link
             href={googleMapsUrl!}
             className={styles.CardButtonLink}
-            title="Je m'y rends"
+            title={t("common.get_directions")}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> JE M&apos;Y RENDS</span>
+            <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> {t("common.get_directions")}</span>
           </Link>
-        ) : (
-          <button className={`${styles.CardButtonLink} ${styles.CardButtonLinkDisabled}`} disabled>
-            <span className={styles.CardButtonLinkText}><ArrowIcon width={20} height={20} /> JE M&apos;Y RENDS</span>
-          </button>
         )}
       </div>
     </div>

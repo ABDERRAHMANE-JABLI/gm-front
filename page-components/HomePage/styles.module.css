@@ -238,9 +238,17 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .gridThree > *:nth-child(3):last-child {
+  /* Uniquement la PUB seule sur sa ligne garde 300px centré */
+  .gridThree > .pubLink:nth-child(3):last-child {
     grid-column: 1 / -1;
     justify-self: center;
+    width: 300px;
+    max-width: 100%;
+  }
+
+  /* Un 3e article seul sur sa ligne s'étend sur toute la largeur */
+  .gridThree > *:nth-child(3):last-child:not(.pubLink) {
+    grid-column: 1 / -1;
   }
 }
 
@@ -248,6 +256,13 @@
   .gridSplit {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     justify-items: center;
+  }
+
+  /* Seule la PUB dans col13 garde 300px ; un article, lui, reste pleine largeur */
+  .col13 > .pubLink {
+    width: 300px;
+    max-width: 100%;
+    margin: 0 auto;
   }
 }
 
@@ -264,6 +279,14 @@
   .gridThree {
     grid-template-columns: 1fr;
     justify-items: center;
+  }
+
+  /* En 1 colonne, les cartes articles remplissent la largeur (la pub garde 300px) */
+  .gridThree > *:not(.pubLink),
+  .col23 > *:not(.pubLink),
+  .col13 > *:not(.pubLink) {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
   .section {

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import Link from 'next/link'
 import styles from './styles.module.css'
 import Triptych from '@/components/Details/Triptych'
 import HeaderPage from '@/components/Details/HeaderPage'
@@ -76,7 +77,9 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
     return () => clearTimeout(timer);
   }, [restaurant.avisGM]);
 
-  const address = [restaurant.adresse, restaurant.city?.cityName].filter(Boolean).join(', ');
+  const address = [restaurant.adresse, restaurant.codePostale, restaurant.city?.cityName]
+    .filter(Boolean)
+    .join(', ');
 
   const budget = restaurant.budgetMin != null && restaurant.budgetMax != null
     ? `${restaurant.budgetMin} – ${restaurant.budgetMax}`
@@ -187,88 +190,88 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
           {/* Plan — affiché si on a un mapsIframe OU des coordonnées */}
           {(restaurant.mapsIframe || (lat != null && lng != null)) && (
             <div className={styles.mapWrapper}>
-              <MapCard address={address} latitude={lat} longitude={lng} mapsIframe={restaurant.mapsIframe} />
+              <MapCard lang={lang} address={address} latitude={lat} longitude={lng} mapsIframe={restaurant.mapsIframe} />
             </div>
           )}
 
-          {/* Horaires */}
-          <div className={styles.hoursCard}>
+          {/* Horaires — masqué si aucun horaire */}
+          {restaurant.openingHour.length > 0 && (
+            <div className={styles.hoursCard}>
               <div className={styles.hoursHeader}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <span className={styles.hoursTitle}>Horaires</span>
               </div>
-              {restaurant.openingHour.length > 0 ? (
-                <ul className={styles.hoursList}>
-                  {restaurant.openingHour.flatMap((h, i) =>
-                    h.days.map((day) => (
-                      <li
-                        key={`${i}-${day}`}
-                        className={`${styles.hoursRow} ${day === TODAY_DAY ? styles.hoursRowActive : ''}`}
-                      >
-                        <span className={styles.hoursDay}>{DAY_MAP[day]}</span>
-                        <span className={styles.hoursTime}>{formatHours(h)}</span>
-                      </li>
-                    ))
-                  )}
-                </ul>
-              ) : (
-                <p className={styles.hoursEmpty}>Horaires non renseignés</p>
-              )}
+              <ul className={styles.hoursList}>
+                {restaurant.openingHour.flatMap((h, i) =>
+                  h.days.map((day) => (
+                    <li
+                      key={`${i}-${day}`}
+                      className={`${styles.hoursRow} ${day === TODAY_DAY ? styles.hoursRowActive : ''}`}
+                    >
+                      <span className={styles.hoursDay}>{DAY_MAP[day]}</span>
+                      <span className={styles.hoursTime}>{formatHours(h)}</span>
+                    </li>
+                  ))
+                )}
+              </ul>
             </div>
+          )}
 
         </section>
 
         {/* ── Peoples + Menu ── */}
         <section className={styles.bottomRow}>
 
-            {/* Peoples */}
-            {!menuExpanded && (
+            {/* Peoples — masqué si ni chef ni employés */}
+            {!menuExpanded && (restaurant.chef || restaurant.employes.length > 0) && (
               <div className={styles.peoplesCard}>
                 <div className={styles.peoplesHeader}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                   LES PEOPLES
                 </div>
 
-                {/* Vide */}
-                {!restaurant.chef && restaurant.employes.length === 0 && (
-                  <p className={styles.hoursEmpty}>Équipe non renseignée</p>
-                )}
-
                 {/* Chef */}
                 {restaurant.chef && (
-                  <div className={styles.personRow}>
+                  <Link
+                    href={`/${lang}/peoples/${restaurant.chef.slug}`}
+                    className={`${styles.personRow} ${styles.personLink} ${styles.personCompact}`}
+                  >
                     <div className={styles.personThumb}>
                       {restaurant.chef.thumbId
                         ? <SmartImage id={`${s3}/${restaurant.chef.thumbId}`} alt={restaurant.chef.fullName} fit="cover" />
-                        : <div className={styles.personThumbDefault}><ToqueIcon width={32} height={32} aria-hidden="true" /></div>
+                        : <div className={styles.personThumbDefault}><ToqueIcon width={26} height={26} aria-hidden="true" /></div>
                       }
                     </div>
                     <div>
                       <p className={styles.personName}>{restaurant.chef.fullName}</p>
                       <p className={styles.personRole}>Chef</p>
                     </div>
-                  </div>
+                  </Link>
                 )}
 
                 {/* Employés */}
                 {restaurant.employes.map((emp) => (
-                  <div key={emp.slug} className={styles.personRow}>
+                  <Link
+                    key={emp.slug}
+                    href={`/${lang}/peoples/${emp.slug}`}
+                    className={`${styles.personRow} ${styles.personLink} ${styles.personCompact}`}
+                  >
                     <div className={styles.personThumb}>
                       {emp.thumbId
                         ? <SmartImage id={`${s3}/${emp.thumbId}`} alt={emp.fullName} fit="cover" />
-                        : <div className={styles.personThumbDefault}><ToqueIcon width={32} height={32} aria-hidden="true" /></div>
+                        : <div className={styles.personThumbDefault}><ToqueIcon width={26} height={26} aria-hidden="true" /></div>
                       }
                     </div>
                     <div>
                       <p className={styles.personName}>{emp.fullName}</p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
 
-            {/* Menu */}
-            {(() => {
+            {/* Menu — masqué si aucun item */}
+            {restaurant.menuItems.length > 0 && (() => {
               const FORMULE_TYPE = 'formule';
               const carteItems   = restaurant.menuItems.filter(m => m.type !== FORMULE_TYPE);
               const formuleItems = restaurant.menuItems.filter(m => m.type === FORMULE_TYPE);
@@ -288,11 +291,6 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
                     <p className={styles.menuHeaderTitle}>MENU</p>
                   </div>
                   <div className={`${styles.menuBody} ${menuExpanded ? styles.menuBodyExpanded : ''}`}>
-
-                    {/* ── Vide ── */}
-                    {restaurant.menuItems.length === 0 && (
-                      <p className={styles.hoursEmpty}>Menu non renseigné</p>
-                    )}
 
                     {/* ── A LA CARTE ── */}
                     {carteItems.length > 0 && (

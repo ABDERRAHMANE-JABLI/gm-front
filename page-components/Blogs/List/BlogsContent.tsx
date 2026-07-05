@@ -72,6 +72,8 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
       ? selectedThemes.filter((t) => t !== slug)
       : [...selectedThemes, slug];
     setSelectedThemes(next);
+    // Remonter en haut de la page avec une animation fluide
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setLoading(true);
     const result = await loadMoreArticles({ themes: next.length ? next : undefined, page: 1, limit: 9 });
     setArticles(result.articles);

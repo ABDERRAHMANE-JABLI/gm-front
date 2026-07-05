@@ -12,6 +12,9 @@
     "subtitle_collections": "Come back soon to discover our collections."
   },
   "common": {
+    "published_on": "On",
+    "updated_on": "Updated on:",
+    "get_directions": "Get directions",
     "home": "Home",
     "search": "Search",
     "restaurants": "Restaurants",
@@ -93,6 +96,30 @@
     "see_more": "SEE MORE",
     "become": "Become a Partner",
     "learn_more": "Learn More"
+  },
+  "contact": {
+    "title": "Become a partner",
+    "label_establishment": "Establishment name",
+    "label_domain": "Field of activity",
+    "label_address": "Address",
+    "label_city": "City",
+    "label_email": "Email",
+    "label_phone": "Phone",
+    "placeholder_domain": "Select or type a field",
+    "placeholder_city": "Select or type a city",
+    "placeholder_phone": "(optional)",
+    "required": "Required field",
+    "invalid_email": "Invalid email",
+    "submit_note": "By submitting, you agree that G&M may use your data to contact you.",
+    "submit": "Send my request",
+    "submitting": "Sending...",
+    "error_generic": "An error occurred.",
+    "success_title": "Request sent!",
+    "success_text": "Thank you for your interest. Our team will review your partnership request and get back to you shortly.",
+    "back_home": "Back to home"
+  },
+  "hotel": {
+    "discover_restaurant": "Discover the hotel's restaurant"
   },
   "footer": {
     "address": "37-39 rue Boissière\n75016 Paris\nFrance",

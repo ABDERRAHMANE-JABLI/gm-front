@@ -1,0 +1,202 @@
+/* Page contact : espace vertical pour laisser respirer l'image de fond */
+.flush {
+  padding-top: 56px !important;
+  padding-bottom: 56px !important;
+}
+
+/* Image de fond pleine largeur, derrière le container du formulaire */
+.bgSection {
+  background-image: url('/images/bg_partner.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Container 1200px en blanc (titre + formulaire + bouton) */
+.whiteBox {
+  max-width: 1200px;
+  background: #fff;
+  padding: 40px 36px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+}
+
+/* Grille 2 colonnes : gauche (logo + coordonnées) | droite (formulaire) */
+.grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+  align-items: stretch;
+}
+
+.colLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.logo {
+  height: auto;
+}
+
+.colRight {
+  min-width: 0;
+}
+
+/* Conteneur des champs : une seule colonne */
+.formCol {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* 2 champs sur la même ligne (écran large) */
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ── Mobile : tout en une colonne ── */
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .row2 {
+    grid-template-columns: 1fr;
+  }
+  /* Le formulaire d'abord, les coordonnées (logo + contact) passent en dessous */
+  .colRight { order: 1; }
+  .colLeft  { order: 2; }
+  /* Titre centré en mobile */
+  .pageHeaderContact {
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  }
+}
+
+/* Champs style "souligné" (inspiré de la capture) — bordure basse uniquement */
+
+.label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.required {
+  color: #dd0a00;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 6px 2px;
+  border: none;
+  border-bottom: 1.5px solid #d6d3d1;
+  border-radius: 0;
+  background: transparent;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px;
+  color: #1a1a1a;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.18s;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: #b0aaa4;
+}
+
+.input:focus {
+  border-bottom-color: #1a1a1a;
+}
+
+.input.error {
+  border-bottom-color: #dd0a00;
+}
+
+.errorMsg {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #dd0a00;
+  letter-spacing: 0.02em;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ── Coordonnées de contact (bas de page) ─────────────────────────── */
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.contactSocials {
+  display: flex;
+  gap: 12px;
+}
+
+.contactSocialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f2f2f0;
+  color: #1a1a1a;
+  transition: background 0.18s;
+}
+
+.contactSocialIcon:hover {
+  background: var(--yellowGM, #ffeb00);
+}
+
+.contactAddress {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px;
+  font-style: normal;
+  color: #57534E;
+  line-height: 1.5;
+}
+
+.contactRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.contactLink:hover {
+  color: #dd0a00;
+}
+
+.contactLink svg {
+  color: #dd0a00;
+  flex-shrink: 0;
+}

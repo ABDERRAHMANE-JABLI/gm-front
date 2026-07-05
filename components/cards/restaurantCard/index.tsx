@@ -55,10 +55,10 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
                         <span>{restaurant.distance}</span>
                     </span>
                 )}
-
+                {/* Header pour la page LA PLACE 
                 <span className={styles.favorite}>
                     <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.071 13.142L13.414 18.8a2 2 0 0 1-2.828 0l-5.657-5.657A5 5 0 1 1 12 6.072a5 5 0 0 1 7.071 7.07"></path></svg>
-                </span>
+                </span>*/}
             </div>
 
             {/* Contenu */}
@@ -80,10 +80,10 @@ export default function RestaurantCard({ lang, restaurant, withHeader }: Props) 
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.address}>{restaurant.address}</span>
                         </div>
                     )}
-                    {restaurant.chief && (
+                    {restaurant.chef && (
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.chef")}</span>
-                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.chief}>{restaurant.chief}</span>
+                            <span className={`${styles.figmaCaptionValue} ${styles.ellipsis}`} title={restaurant.chef}>{restaurant.chef}</span>
                         </div>
                     )}
                     {!!restaurant.cuisines?.length && (

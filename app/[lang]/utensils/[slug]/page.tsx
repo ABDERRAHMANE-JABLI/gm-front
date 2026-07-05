@@ -35,6 +35,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function UtensilCollectionPage({ params }: PageProps) {
+  // Section Ustensiles désactivée ("true as boolean" → 404 sans casser le typage plus bas)
+  if (true as boolean) notFound();
+
   const { lang, slug } = await params;
 
   if (!['fr', 'en'].includes(lang)) notFound();

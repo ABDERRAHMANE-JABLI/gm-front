@@ -208,7 +208,7 @@
   line-height: var(--card-title-line-height);
   display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
   -webkit-line-clamp: 3; line-clamp: 3;
-  text-transform: capitalize;
+  text-transform: none;
 }
 .synopsis {
   color: var(--GMI-black);
@@ -280,7 +280,7 @@
     letter-spacing: var(--card-detail-value-letter-spacing);
     line-height: var(--card-detail-value-line-height);
     padding: 0 var(--GMI-carddetailhorizontalpaddingh);
-    text-transform: capitalize;
+    text-transform: none;
 }
 
 .figmaCaptionValue.vertical {

@@ -53,11 +53,12 @@ export default function PartnersPage({ lang, partners }: Props) {
     setVisible(PAGE_SIZE)
   }
 
-  const title = lang === 'en' ? 'Our Partners' : 'Nos Partenaires'
+  const title = lang === 'en' ? 'Our partners' : 'Nos partenaires'
   const seeMore = lang === 'en' ? 'See more' : 'Voir plus'
 
   return (
-    <div className={styles.page} style={{ backgroundColor: 'white' }}>
+    <div className={styles.page}>
+      <div className={styles.bgLayer} aria-hidden="true" />
       <div className={styles.container}>
 
         <h1 className={styles.title}>{title}</h1>

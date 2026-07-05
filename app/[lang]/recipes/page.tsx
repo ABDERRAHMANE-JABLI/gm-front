@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
 import Layout from "@/components/layout/Layout/Layout";
 import RecipesContent from "@/page-components/Recipes/List/RecipesContent";
 import { fetchRecipes, fetchRecipeFilters } from "@/lib/api/recipes";
@@ -32,6 +33,9 @@ async function RecipesData({ lang }: { lang: Language }) {
 }
 
 export default async function RecipesPageRoute({ params }: { params: Promise<{ lang: string }> }) {
+  // Section Recettes désactivée
+  notFound();
+
   const { lang } = await params;
   const language = lang as Language;
 

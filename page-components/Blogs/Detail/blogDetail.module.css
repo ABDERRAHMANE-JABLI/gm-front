@@ -38,19 +38,19 @@
 }
 
 .date {
+  font-family: "Montserrat", sans-serif;
   font-size: 13px;
   color: #888;
 }
 
 /* ── Title ── */
-.title {
-  font-family: var(--card-title-font-family) !important;
-  font-size: 34px;
-  font-weight: 800;
+.pageTitle {
+  font: normal normal 900 40px / 46px 'Source Serif 4', Georgia, serif;
+  letter-spacing: 0;
+  text-transform: none;
   color: #1a1a1a;
-  line-height: 1.2;
-  text-transform: capitalize;
   margin: 0;
+  line-height: 1.25;
 }
 
 /* ── Hero image ── */
@@ -69,7 +69,7 @@
 
 /* ── Resume ── */
 .resume {
-  font-family: var(--card-title-font-family) !important;
+  font-family: "Montserrat", sans-serif;
   font-size: 17px;
   font-weight: 500;
   color: #444;
@@ -84,6 +84,19 @@
 }
 
 /* ── Content HTML ── */
+/* Cadre commun résumé + contenu : bordures + ombre latérale uniquement */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  border-left: 1px solid #e5e5e5;
+  border-right: 1px solid #e5e5e5;
+  /* Ombre uniquement à gauche et à droite (spread négatif = pas d'ombre haut/bas) */
+  box-shadow: -8px 0 10px -8px rgba(0, 0, 0, 0.12),
+               8px 0 10px -8px rgba(0, 0, 0, 0.12);
+}
+
 .content {
   font-family: "Montserrat", sans-serif;
   font-size: 15px;
@@ -91,6 +104,14 @@
   line-height: 1.8;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+/* Force la police sur tout le contenu, même si la BDD injecte des style="" inline
+   (les styles inline ne sont battus que par une règle CSS en !important) */
+.content,
+.content * {
+  font-family: "Montserrat", sans-serif !important;
+  letter-spacing: normal !important;
 }
 
 .content h2 {
@@ -125,13 +146,20 @@
   margin-bottom: 6px;
 }
 
+/* Iframes du contenu : plein largeur / 350px de haut sous 800px */
+@media (max-width: 800px) {
+  .content iframe {
+    width: 100% !important;
+    height: 350px !important;
+  }
+}
+
 /* ── Related cards ── */
 .relatedSection {
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding-top: 16px;
-  border-top: 1px solid #e0e0e0;
 }
 
 .relatedHeader {
@@ -157,11 +185,13 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
-  .title {
-    font-size: 24px;
+@media (max-width: 600px) {
+  .pageTitle {
+    font: normal normal 900 30px / 36px 'Source Serif 4', Georgia, serif;
   }
+}
 
+@media (max-width: 768px) {
   .heroImage {
     height: 280px;
   }

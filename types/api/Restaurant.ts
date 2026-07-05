@@ -8,11 +8,6 @@ export interface ApiCity {
   slug: string;
 }
 
-export interface ApiChef {
-  fullName: string;
-  slug?: string;
-}
-
 export interface ApiSlugLabel {
   libelle: string;
   slug: string;
@@ -26,7 +21,7 @@ export interface ApiRestaurant {
   codePostale?: string;
   city: ApiCity;
   thumbId: string;
-  chef?: ApiChef;
+  chef?: string;
   lieu?: string;
   nbrToques: number;
   noteGM?: number;

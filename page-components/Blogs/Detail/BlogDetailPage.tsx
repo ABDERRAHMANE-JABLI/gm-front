@@ -5,6 +5,7 @@ import { SmartImage } from '@/components/SmartImage'
 import { ApiArticleDetail } from '@/types/api/Article'
 import { ApiPartner } from '@/types/api/Partner'
 import { Language } from '@/lib/types'
+import { getTranslation } from '@/lib/i18n'
 import PartenairesSection from '@/components/cards/partners'
 import ShareButton from '@/components/ShareButton'
 import RestaurantCard from '@/components/cards/restaurantCard'
@@ -22,11 +23,15 @@ export default function BlogDetailPage({ lang, article, partners = [] }: BlogDet
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
   const imageUrl = article.thumbId ? `${s3}/${article.thumbId}` : null
 
-  const displayDate = article.updatedAt ?? article.createdAt
-  const formattedDate = new Date(displayDate).toLocaleDateString(
-    lang === 'fr' ? 'fr-FR' : 'en-GB',
-    { day: 'numeric', month: 'long', year: 'numeric' }
-  )
+  const formatDate = (value: string) =>
+    new Date(value).toLocaleDateString(
+      lang === 'fr' ? 'fr-FR' : 'en-GB',
+      { day: 'numeric', month: 'long', year: 'numeric' }
+    )
+
+  const formattedCreated = formatDate(article.createdAt)
+  const formattedUpdated = article.updatedAt ? formatDate(article.updatedAt) : null
+  const showUpdated = formattedUpdated !== null && formattedUpdated !== formattedCreated
 
   const hasRelated = article.talent || article.restaurant || article.hotel || article.riyad || article.artisan
 
@@ -35,7 +40,7 @@ export default function BlogDetailPage({ lang, article, partners = [] }: BlogDet
       <div className={styles.container}>
 
         {/* ── Title ── */}
-        <h1 className={styles.title}>{article.title}</h1>
+        <h1 className={styles.pageTitle}>{article.title}</h1>
 
         {/* ── Hero image ── */}
         {imageUrl && (
@@ -46,19 +51,24 @@ export default function BlogDetailPage({ lang, article, partners = [] }: BlogDet
 
         <div className={styles.meta}>
           {article.theme && <span className={styles.theme}>{article.theme}</span>}
-          <span className={styles.date}>{formattedDate}</span>
+          <span className={styles.date}>
+            {getTranslation('common.published_on', lang)} {formattedCreated}
+            {showUpdated && ` | ${getTranslation('common.updated_on', lang)} ${formattedUpdated}`}
+          </span>
           <ShareButton title={article.title} text={article.resume} />
         </div>
 
-        {/* ── Resume ── */}
-        {article.resume && <p className={styles.resume}>{article.resume}</p>}
-
-        {/* ── Content HTML ── */}
-        {article.content && (
-          <div
-            className={styles.content}
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
-          />
+        {/* ── Resume + contenu (même cadre / ombre latérale) ── */}
+        {(article.resume || article.content) && (
+          <div className={styles.body}>
+            {article.resume && <p className={styles.resume}>{article.resume}</p>}
+            {article.content && (
+              <div
+                className={styles.content}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
+              />
+            )}
+          </div>
         )}
 
         {/* ── Related entities ── */}
@@ -106,7 +116,7 @@ export default function BlogDetailPage({ lang, article, partners = [] }: BlogDet
                     isSponsorised: article.restaurant.isSponsorised,
                     note:          article.restaurant.noteGM != null ? String(article.restaurant.noteGM) : undefined,
                     cuisines:      article.restaurant.cuisines,
-                    chief:         article.restaurant.chef,
+                    chef:         article.restaurant.chef,
                     budget:        article.restaurant.budgetMin != null && article.restaurant.budgetMax != null
                                      ? `${article.restaurant.budgetMin} – ${article.restaurant.budgetMax} MAD`
                                      : article.restaurant.budgetMin != null

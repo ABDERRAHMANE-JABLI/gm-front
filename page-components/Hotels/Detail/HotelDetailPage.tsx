@@ -38,7 +38,9 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
     return () => clearTimeout(timer);
   }, [hotel.avisGM]);
 
-  const address = [hotel.adresse, hotel.city?.cityName].filter(Boolean).join(', ');
+  // Code postal + ville fusionnés ("20000 Casablanca"), puis "adresse, 20000 Casablanca"
+  const cityLine = [hotel.codePostale, hotel.city?.cityName].filter(Boolean).join(' ');
+  const address  = [hotel.adresse, cityLine].filter(Boolean).join(', ');
 
   const budget = hotel.budgetMin != null
     ? `${hotel.budgetMin}${hotel.budgetMax != null ? ` – ${hotel.budgetMax}` : ''} MAD`
@@ -138,7 +140,7 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
           {/* Plan — affiché si on a un mapsIframe OU des coordonnées */}
           {(hotel.mapsIframe || (lat != null && lng != null)) && (
             <div className={styles.mapWrapper}>
-              <MapCard address={address} latitude={lat} longitude={lng} mapsIframe={hotel.mapsIframe} />
+              <MapCard lang={lang} address={address} latitude={lat} longitude={lng} mapsIframe={hotel.mapsIframe} />
             </div>
           )}
 
@@ -159,7 +161,7 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
             isSponsorised:   r.isSponsorised,
             note:            r.noteGM != null ? String(r.noteGM) : undefined,
             cuisines:        r.cuisines,
-            chief:           r.chef ?? undefined,
+            chef:           r.chef ?? undefined,
             budget:          restoBudget,
           };
 
@@ -168,7 +170,7 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
               <div className={styles.relatedSection}>
                 <div className={styles.relatedHeader}>
                   <RestaurantIcon width={36} height={36} />
-                  <p className={styles.relatedTitle}>Découvrez le restaurant de l&apos;Hôtel</p>
+                  <p className={styles.relatedTitle}>{t('hotel.discover_restaurant')}</p>
                 </div>
               </div>
               <HorizontalRestauCard lang={lang} restaurant={restoProps} />

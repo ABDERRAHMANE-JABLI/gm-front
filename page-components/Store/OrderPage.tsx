@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import styles from './OrderPage.module.css';
+import c from '@/page-components/Contact/ContactPage.module.css';
+import Combobox from '@/components/ui/Combobox';
 import { useCartContext } from '@/lib/context/CartContext';
 import { submitOrder } from '@/lib/actions/order';
 
@@ -13,8 +15,6 @@ interface FormData {
   etablissement: string;
   adresse: string;
   ville: string;
-  codePostal: string;
-  pays: string;
 }
 
 interface FormErrors {
@@ -24,7 +24,6 @@ interface FormErrors {
   etablissement?: string;
   adresse?: string;
   ville?: string;
-  codePostal?: string;
 }
 
 const INITIAL: FormData = {
@@ -34,9 +33,18 @@ const INITIAL: FormData = {
   etablissement: '',
   adresse: '',
   ville: '',
-  codePostal: '',
-  pays: 'Maroc',
 };
+
+const VILLES = [
+  'Agadir', 'Al Hoceïma', 'Asilah', 'Azemmour', 'Azrou', 'Béni Mellal', 'Benslimane',
+  'Berkane', 'Berrechid', 'Casablanca', 'Chefchaouen', 'Dakhla', 'El Jadida', 'Errachidia',
+  'Essaouira', 'Fès', 'Fnideq', 'Guelmim', 'Ifrane', 'Kénitra', 'Khémisset', 'Khénifra',
+  'Khouribga', 'Laâyoune', 'Larache', 'Marrakech', 'Meknès', 'Mohammedia', 'Nador',
+  'Ouarzazate', 'Oujda', 'Rabat', 'Safi', 'Salé', 'Settat', 'Sidi Ifni', 'Sidi Kacem',
+  'Tanger', 'Tan-Tan', 'Taourirt', 'Taroudant', 'Taza', 'Témara', 'Tétouan', 'Tinghir',
+  'Tiznit', 'Zagora',
+  'Autre',
+];
 
 interface Props {
   lang: string;
@@ -70,7 +78,6 @@ export default function OrderPage({ lang }: Props) {
     if (!form.etablissement.trim()) e.etablissement = 'Champ requis';
     if (!form.adresse.trim())       e.adresse       = 'Champ requis';
     if (!form.ville.trim())         e.ville         = 'Champ requis';
-    if (!form.codePostal.trim())    e.codePostal    = 'Champ requis';
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -85,7 +92,7 @@ export default function OrderPage({ lang }: Props) {
     const result = await submitOrder({
       nom: form.nom.trim(),
       nomEtablissement: form.etablissement.trim(),
-      adresse: `${form.adresse.trim()}, ${form.codePostal.trim()} ${form.ville.trim()}, ${form.pays.trim()}`,
+      adresse: form.adresse.trim(),
       email: form.email.trim(),
       tel: form.telephone.trim(),
       ville: form.ville.trim(),
@@ -104,8 +111,8 @@ export default function OrderPage({ lang }: Props) {
 
   if (submitted) {
     return (
-      <div className={styles.page}>
-        <div className={styles.inner}>
+      <div className={`${styles.page} ${c.flush} ${c.bgSection}`}>
+        <div className={`${styles.inner} ${c.whiteBox}`}>
           <div className={styles.success}>
             <div className={styles.successIcon}>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="2.5">
@@ -126,8 +133,8 @@ export default function OrderPage({ lang }: Props) {
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.inner}>
+    <div className={`${styles.page} ${c.flush} ${c.bgSection}`}>
+      <div className={`${styles.inner} ${c.whiteBox}`}>
 
         <div className={styles.pageHeader}>
           <div className={styles.pageDash} />
@@ -135,176 +142,135 @@ export default function OrderPage({ lang }: Props) {
         </div>
 
         <form onSubmit={handleSubmit} noValidate>
-          <div className={styles.formGrid}>
+          <div className={c.formCol}>
 
-            {/* ── Colonne 1 : Coordonnées ── */}
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <h2 className={styles.cardTitle}>Vos Coordonnées</h2>
-              </div>
+            <div className={styles.field}>
+              <label className={c.label} htmlFor="nom">
+                Nom complet <span className={c.required}>*</span>
+              </label>
+              <input
+                id="nom"
+                className={`${c.input} ${errors.nom ? c.error : ''}`}
+                type="text"
+                value={form.nom}
+                onChange={e => update('nom', e.target.value)}
+                autoComplete="name"
+              />
+              {errors.nom && <span className={c.errorMsg}>{errors.nom}</span>}
+            </div>
 
+            <div className={styles.field}>
+              <label className={c.label} htmlFor="etablissement">
+                Nom de l&apos;établissement <span className={c.required}>*</span>
+              </label>
+              <input
+                id="etablissement"
+                className={`${c.input} ${errors.etablissement ? c.error : ''}`}
+                type="text"
+                value={form.etablissement}
+                onChange={e => update('etablissement', e.target.value)}
+              />
+              {errors.etablissement && <span className={c.errorMsg}>{errors.etablissement}</span>}
+            </div>
+
+            <div className={styles.field}>
+              <label className={c.label} htmlFor="adresse">
+                Adresse <span className={c.required}>*</span>
+              </label>
+              <input
+                id="adresse"
+                className={`${c.input} ${errors.adresse ? c.error : ''}`}
+                type="text"
+                value={form.adresse}
+                onChange={e => update('adresse', e.target.value)}
+                autoComplete="street-address"
+              />
+              {errors.adresse && <span className={c.errorMsg}>{errors.adresse}</span>}
+            </div>
+
+            <div className={styles.field}>
+              <label className={c.label} htmlFor="ville">
+                Ville <span className={c.required}>*</span>
+              </label>
+              <Combobox
+                id="ville"
+                value={form.ville}
+                onChange={(v) => update('ville', v)}
+                options={VILLES}
+                placeholder="Sélectionnez ou tapez une ville"
+                inputClassName={`${c.input} ${errors.ville ? c.error : ''}`}
+              />
+              {errors.ville && <span className={c.errorMsg}>{errors.ville}</span>}
+            </div>
+
+            <div className={c.row2}>
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="nom">
-                  Nom complet <span className={styles.required}>*</span>
-                </label>
-                <input
-                  id="nom"
-                  className={`${styles.input} ${errors.nom ? styles.error : ''}`}
-                  type="text"
-                  value={form.nom}
-                  onChange={e => update('nom', e.target.value)}
-                  autoComplete="name"
-                />
-                {errors.nom && <span className={styles.errorMsg}>{errors.nom}</span>}
-              </div>
-
-              <div className={styles.field}>
-                <label className={styles.label} htmlFor="telephone">
-                  Téléphone <span className={styles.required}>*</span>
+                <label className={c.label} htmlFor="telephone">
+                  Téléphone <span className={c.required}>*</span>
                 </label>
                 <input
                   id="telephone"
-                  className={`${styles.input} ${errors.telephone ? styles.error : ''}`}
+                  className={`${c.input} ${errors.telephone ? c.error : ''}`}
                   type="tel"
                   maxLength={15}
                   value={form.telephone}
                   onChange={e => update('telephone', e.target.value)}
                   autoComplete="tel"
                 />
-                {errors.telephone && <span className={styles.errorMsg}>{errors.telephone}</span>}
+                {errors.telephone && <span className={c.errorMsg}>{errors.telephone}</span>}
               </div>
 
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="email">
-                  Email <span className={styles.required}>*</span>
+                <label className={c.label} htmlFor="email">
+                  Email <span className={c.required}>*</span>
                 </label>
                 <input
                   id="email"
-                  className={`${styles.input} ${errors.email ? styles.error : ''}`}
+                  className={`${c.input} ${errors.email ? c.error : ''}`}
                   type="email"
                   value={form.email}
                   onChange={e => update('email', e.target.value)}
                   autoComplete="email"
                 />
-                {errors.email && <span className={styles.errorMsg}>{errors.email}</span>}
-              </div>
-
-              <div className={styles.field}>
-                <label className={styles.label} htmlFor="etablissement">
-                  Nom de l&apos;établissement <span className={styles.required}>*</span>
-                </label>
-                <input
-                  id="etablissement"
-                  className={`${styles.input} ${errors.etablissement ? styles.error : ''}`}
-                  type="text"
-                  value={form.etablissement}
-                  onChange={e => update('etablissement', e.target.value)}
-                />
-                {errors.etablissement && <span className={styles.errorMsg}>{errors.etablissement}</span>}
-              </div>
-            </div>
-
-            {/* ── Colonne 2 : Adresse de livraison ── */}
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <h2 className={styles.cardTitle}>Adresse de livraison</h2>
-              </div>
-
-              <div className={styles.field}>
-                <label className={styles.label} htmlFor="adresse">
-                  Adresse <span className={styles.required}>*</span>
-                </label>
-                <input
-                  id="adresse"
-                  className={`${styles.input} ${errors.adresse ? styles.error : ''}`}
-                  type="text"
-                  value={form.adresse}
-                  onChange={e => update('adresse', e.target.value)}
-                  autoComplete="street-address"
-                />
-                {errors.adresse && <span className={styles.errorMsg}>{errors.adresse}</span>}
-              </div>
-
-              <div className={styles.row}>
-                <div className={styles.field}>
-                  <label className={styles.label} htmlFor="ville">
-                    Ville <span className={styles.required}>*</span>
-                  </label>
-                  <input
-                    id="ville"
-                    className={`${styles.input} ${errors.ville ? styles.error : ''}`}
-                    type="text"
-                    value={form.ville}
-                    onChange={e => update('ville', e.target.value)}
-                    autoComplete="address-level2"
-                  />
-                  {errors.ville && <span className={styles.errorMsg}>{errors.ville}</span>}
-                </div>
-
-                <div className={styles.field}>
-                  <label className={styles.label} htmlFor="codePostal">
-                    Code postal <span className={styles.required}>*</span>
-                  </label>
-                  <input
-                    id="codePostal"
-                    className={`${styles.input} ${errors.codePostal ? styles.error : ''}`}
-                    type="text"
-                    value={form.codePostal}
-                    onChange={e => update('codePostal', e.target.value)}
-                    autoComplete="postal-code"
-                  />
-                  {errors.codePostal && <span className={styles.errorMsg}>{errors.codePostal}</span>}
-                </div>
-              </div>
-
-              <div className={styles.field}>
-                <label className={styles.label} htmlFor="pays">Pays</label>
-                <input
-                  id="pays"
-                  className={styles.input}
-                  type="text"
-                  value={form.pays}
-                  onChange={e => update('pays', e.target.value)}
-                  autoComplete="country-name"
-                />
-              </div>
-
-              {/* ── Récapitulatif commande ── */}
-              <div className={styles.summary}>
-                <p className={styles.summaryTitle}>Récapitulatif</p>
-                {items.length === 0 ? (
-                  <p className={styles.summaryEmpty}>Panier vide</p>
-                ) : (
-                  <>
-                    <div className={styles.summaryItems}>
-                      {items.map(item => (
-                        <div key={item.award.id} className={styles.summaryItem}>
-                          <span className={styles.summaryItemName}>{item.award.title}</span>
-                          <span className={styles.summaryItemQty}>{item.quantity}x</span>
-                          <span className={styles.summaryItemPrice}>
-                            {(item.award.price * item.quantity).toLocaleString('fr-FR')} MAD
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className={styles.summaryTotal}>
-                      <span className={styles.summaryTotalLabel}>Total</span>
-                      <span>
-                        <span className={styles.summaryTotalAmount}>
-                          {totalPrice.toLocaleString('fr-FR')}
-                        </span>
-                        <span className={styles.summaryTotalCurrency}>MAD</span>
-                      </span>
-                    </div>
-                  </>
-                )}
+                {errors.email && <span className={c.errorMsg}>{errors.email}</span>}
               </div>
             </div>
 
           </div>
 
+          {/* ── Récapitulatif commande ── */}
+          <div className={styles.summary}>
+            <p className={styles.summaryTitle}>Récapitulatif</p>
+            {items.length === 0 ? (
+              <p className={styles.summaryEmpty}>Panier vide</p>
+            ) : (
+              <>
+                <div className={styles.summaryItems}>
+                  {items.map(item => (
+                    <div key={item.award.id} className={styles.summaryItem}>
+                      <span className={styles.summaryItemName}>{item.award.title}</span>
+                      <span className={styles.summaryItemQty}>{item.quantity}x</span>
+                      <span className={styles.summaryItemPrice}>
+                        {(item.award.price * item.quantity).toLocaleString('fr-FR')} MAD
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className={styles.summaryTotal}>
+                  <span className={styles.summaryTotalLabel}>Total</span>
+                  <span>
+                    <span className={styles.summaryTotalAmount}>
+                      {totalPrice.toLocaleString('fr-FR')}
+                    </span>
+                    <span className={styles.summaryTotalCurrency}>MAD</span>
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+
           {/* ── Submit ── */}
-          {apiError && <p className={styles.errorMsg} style={{ textAlign: 'center', marginTop: 16 }}>{apiError}</p>}
+          {apiError && <p className={c.errorMsg} style={{ textAlign: 'center', marginTop: 16 }}>{apiError}</p>}
           <div className={styles.submitRow}>
             <span className={styles.submitNote}>En commandant, vous acceptez que G&amp;M utilise vos données pour vous contacter.</span>
             <button
@@ -312,7 +278,7 @@ export default function OrderPage({ lang }: Props) {
               className={styles.submitBtn}
               disabled={items.length === 0 || sending}
             >
-              <span className={styles.submitBtnLabel}>{sending ? 'Envoi en cours...' : 'Confirmer la commande'}</span>
+              <span className={styles.submitBtnLabel}>{sending ? 'Envoi en cours...' : 'Confirmez la commande'}</span>
             </button>
           </div>
         </form>

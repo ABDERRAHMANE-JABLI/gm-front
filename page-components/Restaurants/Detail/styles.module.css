@@ -372,16 +372,23 @@
 
 /* ── 3-column cards row ─────────────────────────────────────── */
 .cardsRow {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   width: 100%;
+}
+
+/* Chaque carte fait 300px fixe ; les cartes se centrent si l'une manque */
+.cardsRow > * {
+  flex: 0 0 300px;
+  min-width: 0;
 }
 
 /* ── Avis GM card ───────────────────────────────────────────── */
 .avisCard {
   min-width: 0;
-  min-height: 420px;
+  min-height: 500px;
   border: 1px solid var(--GMI-cardbordercolor, #e0e0e0);
   display: flex;
   flex-direction: column;
@@ -499,7 +506,7 @@
 .avisCardWide {
   grid-column: span 2;
   min-width: 0;
-  height: 520px;
+  height: 500px;
   border: 1px solid var(--GMI-cardbordercolor, #e0e0e0);
   display: flex;
   flex-direction: column;
@@ -508,6 +515,8 @@
 
 .avisCardFull {
   grid-column: 1 / -1;
+  flex: 0 0 100%;
+  max-width: 100%;
   min-width: 0;
   height: auto;
   border: 1px solid var(--GMI-cardbordercolor, #e0e0e0);
@@ -517,9 +526,11 @@
 }
 
 /* ── Map wrapper ────────────────────────────────────────────── */
+/* height (définie) et non min-height : le MapCard interne est en height:100%,
+   qui ne se résout que contre une hauteur définie du parent */
 .mapWrapper {
   min-width: 0;
-  min-height: 420px;
+  height: 500px;
   display: flex;
 }
 
@@ -531,7 +542,7 @@
 /* ── Horaires card ──────────────────────────────────────────── */
 .hoursCard {
   min-width: 0;
-  min-height: 420px;
+  min-height: 500px;
   border: 1px solid var(--GMI-cardbordercolor, #e0e0e0);
   display: flex;
   flex-direction: column;
@@ -579,7 +590,8 @@
   padding: 10px 16px;
   border-bottom: 1px solid #f0f0f0;
   font-family: "Montserrat", sans-serif;
-  font-size: 13px;
+  font-size: 12px;
+  margin: 10px 0;
 }
 
 .hoursRowActive {
@@ -619,17 +631,29 @@
 
 /* ── Peoples + Menu row ─────────────────────────────────────── */
 .bottomRow {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   width: 100%;
 }
 
+/* Chaque carte fait 300px fixe ; centrées s'il n'en reste qu'une */
+.bottomRow > * {
+  flex: 0 0 300px;
+  min-width: 0;
+}
+
+/* Menu déplié : pleine largeur (sélecteur plus spécifique que .bottomRow > *) */
+.bottomRow > .menuCardFull {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
 /* ── Peoples card ───────────────────────────────────────────── */
 .peoplesCard {
-  flex: 1 1 0;
   min-width: 0;
-  height: 520px;
+  height: 500px;
   border: 1px solid var(--GMI-cardbordercolor, #e0e0e0);
   display: flex;
   flex-direction: column;
@@ -697,11 +721,39 @@
   margin: 0;
 }
 
+/* Lien vers la fiche people (chef + employés) */
+.personLink {
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.personLink:hover {
+  background: #fafafa;
+}
+
+/* Version compacte (chef + employés) */
+.personCompact {
+  padding: 8px 16px;
+}
+
+.personCompact .personThumb {
+  width: 42px;
+  height: 42px;
+}
+
+.personCompact .personName {
+  font-size: 12.5px;
+}
+
+.personCompact .personRole {
+  font-size: 11px;
+}
+
 /* ── Menu card ──────────────────────────────────────────────── */
 .menuCard {
-  flex: 1 1 0;
   min-width: 0;
-  height: 520px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -710,9 +762,8 @@
 
 /* ── Pub card ───────────────────────────────────────────────── */
 .pubCard {
-  flex: 1 1 0;
   min-width: 0;
-  height: 520px;
+  height: 500px;
   border: 1px solid var(--GMI-cardbordercolor, #e0e0e0);
   display: flex;
   flex-direction: column;
@@ -865,20 +916,48 @@
 }
 
 @media (max-width: 768px) {
-  .cardsRow,
-  .bottomRow {
-    grid-template-columns: 1fr;
-  }
-
   .avisCardWide {
     grid-column: span 1;
   }
 
-  /* En 1 colonne, on laisse les cartes s'adapter au contenu */
+  /* Map : garde toujours 500px, même en mobile (pas d'override → min-height 500 de base) */
+
+  /* Autres cartes : au moins 400px en mobile */
   .avisCard,
-  .mapWrapper,
   .hoursCard {
-    min-height: auto;
+    min-height: 400px;
+  }
+
+  .avisCardWide,
+  .peoplesCard,
+  .menuCard,
+  .pubCard {
+    height: auto;
+    min-height: 400px;
+  }
+}
+
+/* < 1000px : cartes empilées (une par ligne), centrées, largeur de carte conservée */
+@media (max-width: 1000px) {
+  .cardsRow,
+  .bottomRow {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cardsRow > *,
+  .bottomRow > * {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* < 470px : les cartes prennent toute la largeur (plus de plafond 300px) */
+@media (max-width: 470px) {
+  .cardsRow > *,
+  .bottomRow > * {
+    max-width: 100%;
   }
 }
 

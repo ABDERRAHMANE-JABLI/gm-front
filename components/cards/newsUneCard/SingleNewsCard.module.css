@@ -406,7 +406,7 @@
   font-weight: var(--card-title-font-weight);
   letter-spacing: var(--card-title-letter-spacing);
   line-height: var(--card-title-line-height);
-  text-transform: capitalize;
+  text-transform: none;
   overflow: hidden;
   position: relative;
   text-overflow: ellipsis;
@@ -510,7 +510,7 @@
   font-family: var(--button-label-font-family);
   font-size: var(--button-label-font-size);
   font-style: var(--button-label-font-style);
-  text-transform: uppercase;
+  text-transform: none;
   min-width: 0;
   overflow: hidden;
 }

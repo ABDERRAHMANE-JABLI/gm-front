@@ -101,6 +101,9 @@ export async function submitOrder(payload: OrderPayload): Promise<{ ok: boolean;
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        // IP réelle du visiteur transmise au backend (sinon il voit l'IP de Next.js
+        // et tous les visiteurs partageraient le même bucket de rate-limit).
+        'X-Real-IP': ip,
         ...getApiHeaders(),
       },
       body: JSON.stringify({ nom, nomEtablissement, adresse, email, tel, ville, produits }),

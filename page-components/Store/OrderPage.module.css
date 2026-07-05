@@ -13,28 +13,36 @@
 /* ── Page header ──────────────────────────────────────────────────────── */
 .pageHeader {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: flex-start;
+  width: fit-content;
   gap: 14px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .pageDash {
-  width: 28px;
-  height: 2px;
-  background: #dd0a00;
+  order: 2;
+  align-self: center;
+  width: 80%;
+  height: 5px;
+  background: #ffeb00;
+  border-radius: 2px;
   flex-shrink: 0;
-  margin-bottom: 4px;
 }
 
 .pageTitle {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  order: 1;
+  font: normal normal 900 40px / 46px 'Source Serif 4', Georgia, serif;
+  letter-spacing: 0;
+  text-transform: none;
   color: #1a1a1a;
   margin: 0;
-  line-height: 1;
+}
+
+@media (max-width: 600px) {
+  .pageTitle {
+    font: normal normal 900 30px / 36px 'Source Serif 4', Georgia, serif;
+  }
 }
 
 /* ── Form grid ───────────────────────────────────────────────────────── */

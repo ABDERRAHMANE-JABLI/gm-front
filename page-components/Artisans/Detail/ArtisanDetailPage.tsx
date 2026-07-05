@@ -19,7 +19,7 @@ export interface ArtisanDetailPageProps {
   partners?: ApiPartner[];
 }
 
-export default function ArtisanDetailPage({ artisan, partners = [] }: ArtisanDetailPageProps) {
+export default function ArtisanDetailPage({ lang, artisan, partners = [] }: ArtisanDetailPageProps) {
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
   const [avisExpanded, setAvisExpanded] = useState(false);
   const [avisTruncated, setAvisTruncated] = useState(false);
@@ -34,7 +34,9 @@ export default function ArtisanDetailPage({ artisan, partners = [] }: ArtisanDet
     return () => clearTimeout(timer);
   }, [artisan.avisGM]);
 
-  const address = [artisan.adresse, artisan.city?.cityName].filter(Boolean).join(', ');
+  // Code postal + ville fusionnés ("20000 Casablanca"), puis "adresse, 20000 Casablanca"
+  const cityLine = [artisan.codePostale, artisan.city?.cityName].filter(Boolean).join(' ');
+  const address  = [artisan.adresse, cityLine].filter(Boolean).join(', ');
 
 
   const links = {
@@ -138,6 +140,7 @@ export default function ArtisanDetailPage({ artisan, partners = [] }: ArtisanDet
           {/* Plan */}
           <div className={styles.mapWrapper}>
             <MapCard
+              lang={lang}
               address={address}
               latitude={lat}
               longitude={lng}

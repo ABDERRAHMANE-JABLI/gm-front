@@ -1,12 +1,19 @@
 /* ─── Header wrapper ─────────────────────────────────────────────── */
 .header {
   background: #ffeb00;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 1000;
   width: 100%;
   height: 152px !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+/* Réserve la place du header fixe pour ne pas masquer le contenu */
+.headerSpacer {
+  height: 152px;
+  flex-shrink: 0;
 }
 
 /* ─── Top bar ────────────────────────────────────────────────────── */
@@ -171,7 +178,7 @@
   width: 38px;
   height: 38px;
   background: transparent;
-  border: 2px solid #1a1a1a;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
   color: #1a1a1a;
@@ -269,7 +276,7 @@
   position: fixed;
   inset: 0;
   z-index: 1099;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.2);
   animation: backdropIn 0.2s ease;
 }
 
@@ -282,6 +289,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  right: auto;
   width: 400px;
   max-width: 100vw;
   height: 100vh;

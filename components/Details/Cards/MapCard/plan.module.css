@@ -67,6 +67,12 @@
     text-align: start
 }
 
+/* Sans bouton "Je m'y rends" (pas de coords) : on centre l'adresse dans l'espace restant */
+.MapCard>.bodyContentCentered {
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
 .MapCard>.bodyContent>.addressWrapper {
     position: relative;
     width: 100%;

@@ -98,7 +98,7 @@ export default function RecipeDetailPage({ lang, recipe, partners = [] }: Recipe
                     isSponsorised: recipe.restaurant.isSponsorised,
                     note:          recipe.restaurant.noteGM != null ? String(recipe.restaurant.noteGM) : undefined,
                     cuisines:      recipe.restaurant.cuisines,
-                    chief:         recipe.restaurant.chef,
+                    chef:         recipe.restaurant.chef,
                     budget:        recipe.restaurant.budgetMin != null && recipe.restaurant.budgetMax != null
                                      ? `${recipe.restaurant.budgetMin} – ${recipe.restaurant.budgetMax} MAD`
                                      : recipe.restaurant.budgetMin != null

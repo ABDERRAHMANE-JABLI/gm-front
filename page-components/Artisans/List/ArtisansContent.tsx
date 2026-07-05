@@ -97,6 +97,7 @@ export default function ArtisansContent({
     const next = { ...active, city };
     setActive(next);
     setSearchQuery('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     applyFilters(next);
   }
 
@@ -105,6 +106,7 @@ export default function ArtisansContent({
     const next = { ...active, [key]: arr.includes(slug) ? arr.filter((s) => s !== slug) : [...arr, slug] };
     setActive(next);
     setSearchQuery('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     applyFilters(next);
   }
 
