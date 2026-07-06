@@ -47,7 +47,7 @@
 .pageTitle {
   font: normal normal 900 40px / 46px 'Source Serif 4', Georgia, serif;
   letter-spacing: 0;
-  text-transform: none;
+  text-transform: capitalize;
   color: #1a1a1a;
   margin: 0;
   line-height: 1.25;
@@ -146,11 +146,16 @@
   margin-bottom: 6px;
 }
 
+.content iframe {
+    width: 100% !important;
+    height: 400px !important;
+}
+
 /* Iframes du contenu : plein largeur / 350px de haut sous 800px */
 @media (max-width: 800px) {
   .content iframe {
     width: 100% !important;
-    height: 350px !important;
+    height: 300px !important;
   }
 }
 
