@@ -242,7 +242,6 @@
   overflow: hidden;
   z-index: 1;
   text-transform: uppercase;
-
 }
 
 .moreBtn::before {
@@ -406,7 +405,7 @@
   font-weight: var(--card-title-font-weight);
   letter-spacing: var(--card-title-letter-spacing);
   line-height: var(--card-title-line-height);
-  text-transform: none;
+  text-transform: capitalize;
   overflow: hidden;
   position: relative;
   text-overflow: ellipsis;
@@ -510,7 +509,7 @@
   font-family: var(--button-label-font-family);
   font-size: var(--button-label-font-size);
   font-style: var(--button-label-font-style);
-  text-transform: none;
+  text-transform: capitalize;
   min-width: 0;
   overflow: hidden;
 }

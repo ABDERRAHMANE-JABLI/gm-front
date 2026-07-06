@@ -130,7 +130,7 @@
   line-height: var(--card-title-line-height);
   display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
   -webkit-line-clamp: 3; line-clamp: 3;
-  text-transform: none;
+  text-transform: capitalize;
 }
 
 .synopsis {
@@ -275,7 +275,7 @@ sinon : */
   font-family: var(--button-label-font-family);
   font-size: var(--button-label-font-size); 
   font-style: var(--button-label-font-style); 
-  text-transform: none;
+  text-transform: capitalize;
   min-width: 0;
   overflow: hidden;
 }

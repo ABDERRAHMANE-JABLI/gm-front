@@ -13,6 +13,7 @@
 .wrapper{
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .Triptych .mainView > .wrapper {
@@ -70,8 +71,8 @@
     aspect-ratio: 1.5;
 }
 
-.Triptych.pointer .mainView > .wrapper > picture > img,
-.Triptych.pointer .secondView > .wrapper > picture > img {
+.Triptych.pointer .mainView > .wrapper,
+.Triptych.pointer .secondView > .wrapper {
     cursor: pointer;
 }
 

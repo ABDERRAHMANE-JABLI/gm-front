@@ -66,6 +66,111 @@
   overflow: hidden;
 }
 
+/* ── Carrousel "3 articles" ─────────────────────────────────────────────── */
+/* Bande grise pleine largeur (full-bleed hors du container 1000px) */
+.carouselBand {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  background: #f2f2f0;
+  padding: 20px 0;
+}
+
+.carouselInner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* Piste + points empilés et centrés */
+.carouselWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+}
+
+/* Fenêtre qui masque le défilement */
+.carousel {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Piste qui glisse en boucle (droite → gauche) */
+.carouselTrack {
+  display: flex;
+  width: max-content;
+  padding: 6px 0;
+  animation: carouselScroll 24s linear infinite;
+}
+
+/* Pause au survol */
+.carouselTrack:hover {
+  animation-play-state: paused;
+}
+
+/* -50% car les cartes sont doublées → boucle sans couture.
+   Le gap est en margin-right (et non flex gap) pour que -50% tombe pile. */
+@keyframes carouselScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.carouselSlide {
+  flex: 0 0 300px;
+  margin-right: 40px;
+}
+
+/* Points */
+.carouselDots {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.carouselDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #cfcfca;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.carouselDotActive {
+  background: var(--yellowGM, #ffeb00);
+  transform: scale(1.3);
+}
+
+/* Lien "En découvrir plus" centré sous le carrousel */
+.discoverMore {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin: 16px auto 4px;
+  padding-bottom: 2px;
+  color: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Montserrat', Helvetica;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.discoverMore:hover {
+  border-bottom-color: var(--yellowGM, #ffeb00);
+}
+
+.discoverArrow {
+  transition: transform 0.2s ease;
+}
+
+.discoverMore:hover .discoverArrow {
+  transform: translateX(4px);
+}
+
 /* ── Hero par défaut ─────────────────────────────────────────────────────── */
 
 .hero {

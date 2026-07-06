@@ -295,7 +295,7 @@
     letter-spacing: var(--card-detail-value-letter-spacing);
     line-height: var(--card-detail-value-line-height);
     padding: 0 var(--GMI-carddetailhorizontalpaddingh);
-    text-transform: none;
+    text-transform: capitalize;
     max-width: 200px;
 }
 
@@ -401,7 +401,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
-  text-transform: none;
+  text-transform: capitalize;
 }
 
 

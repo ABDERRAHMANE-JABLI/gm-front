@@ -1,8 +1,10 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './styles.module.css';
 import SingleNewsCard from '@/components/cards/newsUneCard';
 import NewsSecondCard from '@/components/cards/newsSecondCard';
 import NewsCard from '@/components/cards/NewsCard';
+import ArticlesCarousel from './ArticlesCarousel';
 import LicensedCountries from '@/components/cards/LicensedContries';
 import PartenairesSection from '@/components/cards/partners';
 import { HomeApiResponse, HomeSection, HomeSectionItem } from '@/types/api/Home';
@@ -126,6 +128,7 @@ function PubBanner({ thumbId, link }: { thumbId: string | null; link: string | n
 // ── Section layouts ──────────────────────────────────────────────────────────
 
 function SectionRenderer({ lang, section }: { lang: Language; section: HomeSection }) {
+  const { t } = useClientTranslation(lang);
   const { layoutType, main, secondary, tertiary, pubThumbId, pubLink } = section;
 
   switch (layoutType) {
@@ -159,16 +162,28 @@ function SectionRenderer({ lang, section }: { lang: Language; section: HomeSecti
         </div>
       );
 
-    // 3 Entités (1/3 chacun)
-    case 'three_articles':
-      if (!main && !secondary && !tertiary) return null;
+    // 3 Entités → carrousel (bande grise, 1200px, 3 cartes + points)
+    case 'three_articles': {
+      const items = [main, secondary, tertiary].filter(Boolean) as HomeSectionItem[];
+      if (items.length === 0) return null;
       return (
-        <div className={styles.gridThree}>
-          {main      && <ArticleCard lang={lang} item={main}      size="small" />}
-          {secondary && <ArticleCard lang={lang} item={secondary} size="small" />}
-          {tertiary  && <ArticleCard lang={lang} item={tertiary}  size="small" />}
+        <div className={styles.carouselBand}>
+          <div className={styles.carouselInner}>
+            <ArticlesCarousel
+              slides={items.map((item, i) => (
+                <ArticleCard key={i} lang={lang} item={item} size="small" />
+              ))}
+            />
+            <Link href={`/${lang}/blogs`} className={styles.discoverMore}>
+              {t('home.discover_more')}
+              <svg className={styles.discoverArrow} width="18" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </Link>
+          </div>
         </div>
       );
+    }
 
     // 2 Entités + Pub (1/3 chacun)
     case 'two_articles_pub':

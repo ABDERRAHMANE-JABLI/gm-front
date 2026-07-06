@@ -30,23 +30,23 @@
     "about": "About",
     "discover": "Discover",
     "read_more": "Read more",
-    "read_less":"Read Less",
+    "read_less": "Read Less",
     "see_more": "See more",
     "search_placeholder": "Search for a restaurant, chef, artisan, recipe, winery, hotel, city…",
-    "address" : "Address",
-    "chef":"Chef",
-    "cooking":"Cooking",
-    "budget":"Budget",
-    "budget_note":"(MAD) indicative price per pers. (exclu drinks)",
-    "budget_hotel":"(MAD) Per night without breakfast",
-    "selected":"Selected",
-    "sponsored":"Sponsored",
-    "gold":"Gault&Millau Academy's Member",
-    "service":"Services",
-    "activity":"Activity",
-    "distinction":"Awards",
-    "services":"Services",
-    "styles":"Styles"
+    "address": "Address",
+    "chef": "Chef",
+    "cooking": "Cooking",
+    "budget": "Budget",
+    "budget_note": "(MAD) indicative price per pers. (exclu drinks)",
+    "budget_hotel": "(MAD) Per night without breakfast",
+    "selected": "Selected",
+    "sponsored": "Sponsored",
+    "gold": "Gault&Millau Academy's Member",
+    "service": "Services",
+    "activity": "Activity",
+    "distinction": "Awards",
+    "services": "Services",
+    "styles": "Styles"
   },
   "navigation": {
     "la_place": "The Place",
@@ -76,7 +76,8 @@
     },
     "newRestaurants": {
       "title": "New restaurants"
-    }
+    },
+    "discover_more": "Discover more"
   },
   "categories": {
     "kitchen": "The kitchen",
@@ -150,8 +151,8 @@
     "armagnac": "Armagnac",
     "calvados": "Calvados",
     "whisky": "Whisky",
-    "winnery":"Wine Estate",
-    "spirits":"Spirits"
+    "winnery": "Wine Estate",
+    "spirits": "Spirits"
   },
   "libelle": {
     "vintage": "Vintage",
@@ -167,6 +168,6 @@
     "alcoholVolume": "Alcohol content",
     "classification": "Classification",
     "type": "Type",
-    "collection":"collection"
+    "collection": "collection"
   }
 }
