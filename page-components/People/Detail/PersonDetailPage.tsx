@@ -65,7 +65,7 @@ export default function PersonDetailPage({ lang, person, partners = [] }: Person
           {/* Col 1 : photo */}
           <div className={styles.photoCol}>
             <div className={styles.photoInner}>
-                <SmartImage id={imageUrl} alt={person.fullName} fit="fill" width={400} height={500} typeImage={"chef"}/>
+                <SmartImage id={imageUrl} alt={person.fullName} fit="fill" width={400} height={520} typeImage={"chef"}/>
             </div>
           </div>
 

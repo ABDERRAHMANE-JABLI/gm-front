@@ -32,6 +32,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    // Token fourni par Google Search Console (défini dans .env)
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+  },
 };
 
 export default async function LangLayout({

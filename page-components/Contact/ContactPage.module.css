@@ -4,6 +4,13 @@
   padding-bottom: 56px !important;
 }
 
+/* Widget reCAPTCHA centré */
+.recaptcha {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 /* Image de fond pleine largeur, derrière le container du formulaire */
 .bgSection {
   background-image: url('/images/bg_partner.webp');

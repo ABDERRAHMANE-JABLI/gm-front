@@ -4,6 +4,11 @@ import { fetchHotels } from '@/lib/api/hotels'
 import { fetchArtisans } from '@/lib/api/artisans'
 import { fetchArticles } from '@/lib/api/articles'
 
+// Régénère le sitemap au max une fois par jour (ISR) : le nouveau contenu apparaît
+// dans les 24h sans redéploiement. /sitemap.xml reste toujours accessible (le cache
+// précédent est servi pendant la régénération en arrière-plan).
+export const revalidate = 86400
+
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gaultmillau.ma'
 const langs = ['fr', 'en']
 
@@ -14,7 +19,26 @@ const staticRoutes = [
   '/artisans',
   '/blogs',
   '/partners',
+  '/store',
+  '/contact',
 ]
+
+// Construit une entrée par langue, chacune avec les alternances hreflang fr/en
+function localizedEntries(
+  path: string,
+  extra: Omit<MetadataRoute.Sitemap[number], 'url' | 'alternates'>,
+): MetadataRoute.Sitemap {
+  return langs.map((lang) => ({
+    url: `${baseUrl}/${lang}${path}`,
+    alternates: {
+      languages: {
+        fr: `${baseUrl}/fr${path}`,
+        en: `${baseUrl}/en${path}`,
+      },
+    },
+    ...extra,
+  }))
+}
 
 async function allRestaurantSlugs(): Promise<string[]> {
   const slugs: string[] = []
@@ -85,31 +109,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     allArticleSlugs(),
   ])
 
-  const entries: MetadataRoute.Sitemap = []
+  const now = new Date()
 
-  for (const lang of langs) {
-    for (const route of staticRoutes) {
-      entries.push({
-        url: `${baseUrl}/${lang}${route}`,
-        lastModified: new Date(),
+  return [
+    ...staticRoutes.flatMap((route) =>
+      localizedEntries(route, {
+        lastModified: now,
         changeFrequency: route === '' ? 'daily' : 'weekly',
         priority: route === '' ? 1 : 0.8,
-      })
-    }
-
-    for (const slug of restaurantSlugs) {
-      entries.push({ url: `${baseUrl}/${lang}/restaurant/${slug}`, changeFrequency: 'weekly', priority: 0.7 })
-    }
-    for (const slug of hotelSlugs) {
-      entries.push({ url: `${baseUrl}/${lang}/hotels/${slug}`, changeFrequency: 'weekly', priority: 0.7 })
-    }
-    for (const slug of artisanSlugs) {
-      entries.push({ url: `${baseUrl}/${lang}/artisans/${slug}`, changeFrequency: 'weekly', priority: 0.7 })
-    }
-    for (const slug of articleSlugs) {
-      entries.push({ url: `${baseUrl}/${lang}/blogs/${slug}`, changeFrequency: 'monthly', priority: 0.6 })
-    }
-  }
-
-  return entries
+      }),
+    ),
+    ...restaurantSlugs.flatMap((slug) =>
+      localizedEntries(`/restaurant/${slug}`, { changeFrequency: 'weekly', priority: 0.7 }),
+    ),
+    ...hotelSlugs.flatMap((slug) =>
+      localizedEntries(`/hotels/${slug}`, { changeFrequency: 'weekly', priority: 0.7 }),
+    ),
+    ...artisanSlugs.flatMap((slug) =>
+      localizedEntries(`/artisans/${slug}`, { changeFrequency: 'weekly', priority: 0.7 }),
+    ),
+    ...articleSlugs.flatMap((slug) =>
+      localizedEntries(`/blogs/${slug}`, { changeFrequency: 'monthly', priority: 0.6 }),
+    ),
+  ]
 }

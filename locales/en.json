@@ -117,7 +117,8 @@
     "error_generic": "An error occurred.",
     "success_title": "Request sent!",
     "success_text": "Thank you for your interest. Our team will review your partnership request and get back to you shortly.",
-    "back_home": "Back to home"
+    "back_home": "Back to home",
+    "captcha_required": "Please confirm you are not a robot."
   },
   "hotel": {
     "discover_restaurant": "Discover the hotel's restaurant"

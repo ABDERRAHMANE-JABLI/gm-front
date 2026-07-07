@@ -117,7 +117,8 @@
     "error_generic": "Une erreur est survenue.",
     "success_title": "Demande envoyée !",
     "success_text": "Merci pour votre intérêt. Notre équipe étudiera votre demande de partenariat et vous recontactera dans les plus brefs délais.",
-    "back_home": "Retour à l'accueil"
+    "back_home": "Retour à l'accueil",
+    "captcha_required": "Veuillez confirmer que vous n'êtes pas un robot."
   },
   "hotel": {
     "discover_restaurant": "Découvrez le restaurant de l'Hôtel"

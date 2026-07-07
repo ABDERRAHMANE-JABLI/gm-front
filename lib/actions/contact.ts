@@ -3,6 +3,7 @@
 import { headers } from 'next/headers'
 import { getApiBaseUrl, getApiHeaders } from '@/lib/api/_config'
 import { rateLimit } from '@/lib/rateLimit'
+import { verifyRecaptcha } from '@/lib/recaptcha'
 
 const MAX_REQUESTS = 5
 const ONE_DAY_MS = 24 * 60 * 60 * 1000
@@ -23,6 +24,7 @@ interface PartnershipPayload {
   ville: string
   email: string
   tel?: string
+  recaptchaToken?: string
 }
 
 // Longueurs max alignées sur le backend (Symfony Assert)
@@ -48,6 +50,11 @@ export async function submitPartnership(payload: PartnershipPayload): Promise<{ 
   const ip = getClientIp(hdrs)
   if (!rateLimit(`partnership:${ip}`, MAX_REQUESTS, ONE_DAY_MS)) {
     return { ok: false, message: 'Vous avez atteint la limite de demandes pour aujourd\'hui. Veuillez réessayer demain.' }
+  }
+
+  // Vérification anti-robot (reCAPTCHA v2)
+  if (!(await verifyRecaptcha(payload.recaptchaToken, ip))) {
+    return { ok: false, message: 'Échec de la vérification anti-robot. Veuillez cocher la case et réessayer.' }
   }
 
   const nomEtablissement = sanitize(payload.nomEtablissement, MAX.etab)

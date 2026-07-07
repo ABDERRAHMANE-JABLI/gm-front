@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
+import ReCAPTCHA from 'react-google-recaptcha';
 import styles from '@/page-components/Store/OrderPage.module.css';
 import c from './ContactPage.module.css';
 import Combobox from '@/components/ui/Combobox';
@@ -86,6 +87,8 @@ const VILLES = [
   'Autre',
 ];
 
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+
 interface Props {
   lang: Language;
 }
@@ -97,6 +100,8 @@ export default function ContactPage({ lang }: Props) {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending]     = useState(false);
   const [apiError, setApiError]   = useState('');
+  const [captcha, setCaptcha]     = useState<string | null>(null);
+  const recaptchaRef              = useRef<ReCAPTCHA>(null);
 
   function update(field: keyof FormData, value: string) {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -123,6 +128,11 @@ export default function ContactPage({ lang }: Props) {
     e.preventDefault();
     if (!validate()) return;
 
+    if (RECAPTCHA_SITE_KEY && !captcha) {
+      setApiError(t('contact.captcha_required'));
+      return;
+    }
+
     setSending(true);
     setApiError('');
 
@@ -133,6 +143,7 @@ export default function ContactPage({ lang }: Props) {
       ville: form.ville.trim(),
       email: form.email.trim(),
       tel: form.tel.trim() || undefined,
+      recaptchaToken: captcha ?? undefined,
     });
 
     setSending(false);
@@ -141,6 +152,9 @@ export default function ContactPage({ lang }: Props) {
       setSubmitted(true);
     } else {
       setApiError(result.message || t('contact.error_generic'));
+      // Reset du captcha : un token n'est valable qu'une fois
+      recaptchaRef.current?.reset();
+      setCaptcha(null);
     }
   }
 
@@ -308,6 +322,18 @@ export default function ContactPage({ lang }: Props) {
                 </div>
 
               </div>
+
+              {RECAPTCHA_SITE_KEY && (
+                <div className={c.recaptcha}>
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    hl={lang}
+                    onChange={(token) => setCaptcha(token)}
+                    onExpired={() => setCaptcha(null)}
+                  />
+                </div>
+              )}
 
               {apiError && <p className={c.errorMsg} style={{ textAlign: 'center', marginTop: 16 }}>{apiError}</p>}
               <div className={styles.submitRow}>

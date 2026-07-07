@@ -3,6 +3,7 @@
 import { headers } from 'next/headers'
 import { getApiBaseUrl, getApiHeaders } from '@/lib/api/_config'
 import { rateLimit } from '@/lib/rateLimit'
+import { verifyRecaptcha } from '@/lib/recaptcha'
 
 const MAX_ORDERS_PER_DAY = 5
 const ONE_DAY_MS = 24 * 60 * 60 * 1000 // 24h en millisecondes
@@ -34,6 +35,7 @@ interface OrderPayload {
   tel: string
   ville: string
   produits: OrderProduct[]
+  recaptchaToken?: string
 }
 
 // Longueurs max alignées sur les contraintes du backend (Symfony Assert)
@@ -62,6 +64,11 @@ export async function submitOrder(payload: OrderPayload): Promise<{ ok: boolean;
   const ip = getClientIp(hdrs)
   if (!rateLimit(`order:${ip}`, MAX_ORDERS_PER_DAY, ONE_DAY_MS)) {
     return { ok: false, message: 'Vous avez atteint la limite de commandes pour aujourd\'hui. Veuillez réessayer demain.' }
+  }
+
+  // Vérification anti-robot (reCAPTCHA v2)
+  if (!(await verifyRecaptcha(payload.recaptchaToken, ip))) {
+    return { ok: false, message: 'Échec de la vérification anti-robot. Veuillez cocher la case et réessayer.' }
   }
 
   const nom              = sanitize(payload.nom, MAX.nom)

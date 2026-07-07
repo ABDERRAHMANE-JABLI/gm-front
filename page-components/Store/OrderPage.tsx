@@ -1,12 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
+import ReCAPTCHA from 'react-google-recaptcha';
 import styles from './OrderPage.module.css';
 import c from '@/page-components/Contact/ContactPage.module.css';
 import Combobox from '@/components/ui/Combobox';
 import { useCartContext } from '@/lib/context/CartContext';
 import { submitOrder } from '@/lib/actions/order';
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 interface FormData {
   nom: string;
@@ -57,6 +60,8 @@ export default function OrderPage({ lang }: Props) {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [apiError, setApiError] = useState('');
+  const [captcha, setCaptcha] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   function update(field: keyof FormData, value: string) {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -86,6 +91,11 @@ export default function OrderPage({ lang }: Props) {
     e.preventDefault();
     if (!validate()) return;
 
+    if (RECAPTCHA_SITE_KEY && !captcha) {
+      setApiError('Veuillez confirmer que vous n\'êtes pas un robot.');
+      return;
+    }
+
     setSending(true);
     setApiError('');
 
@@ -97,6 +107,7 @@ export default function OrderPage({ lang }: Props) {
       tel: form.telephone.trim(),
       ville: form.ville.trim(),
       produits: items.map(item => ({ id: item.award.id, qte: item.quantity })),
+      recaptchaToken: captcha ?? undefined,
     });
 
     setSending(false);
@@ -106,6 +117,9 @@ export default function OrderPage({ lang }: Props) {
       clearCart();
     } else {
       setApiError(result.message || 'Une erreur est survenue.');
+      // Reset du captcha : un token n'est valable qu'une fois
+      recaptchaRef.current?.reset();
+      setCaptcha(null);
     }
   }
 
@@ -270,6 +284,18 @@ export default function OrderPage({ lang }: Props) {
           </div>
 
           {/* ── Submit ── */}
+          {RECAPTCHA_SITE_KEY && (
+            <div className={c.recaptcha}>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                hl={lang}
+                onChange={(token) => setCaptcha(token)}
+                onExpired={() => setCaptcha(null)}
+              />
+            </div>
+          )}
+
           {apiError && <p className={c.errorMsg} style={{ textAlign: 'center', marginTop: 16 }}>{apiError}</p>}
           <div className={styles.submitRow}>
             <span className={styles.submitNote}>En commandant, vous acceptez que G&amp;M utilise vos données pour vous contacter.</span>
