@@ -77,9 +77,9 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
     return () => clearTimeout(timer);
   }, [restaurant.avisGM]);
 
-  const address = [restaurant.adresse, restaurant.codePostale, restaurant.city?.cityName]
-    .filter(Boolean)
-    .join(', ');
+  // Code postal + ville fusionnés ("20160 Casablanca"), puis "adresse, 20160 Casablanca"
+  const cityLine = [restaurant.codePostale, restaurant.city?.cityName].filter(Boolean).join(' ');
+  const address  = [restaurant.adresse, cityLine].filter(Boolean).join(', ');
 
   const budget = restaurant.budgetMin != null && restaurant.budgetMax != null
     ? `${restaurant.budgetMin} – ${restaurant.budgetMax}`
