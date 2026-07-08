@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import NextTopLoader from 'nextjs-toploader';
+import { GoogleTagManager } from '@next/third-parties/google';
 import NavigationCursor from '@/components/ui/NavigationCursor';
 import CookieConsent from '@/components/ui/CookieConsent';
+
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gaultmillau.ma';
 
@@ -48,8 +51,24 @@ export default async function LangLayout({
   const { lang } = await params;
 
   return (
-    <html lang={lang}>
-      <body>
+    // suppressHydrationWarning : des extensions (Tag Assistant, dark mode…) ajoutent
+    // des attributs sur <html>/<body> avant l'hydratation → faux avertissement inoffensif
+    <html lang={lang} suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        {/* GTM : script principal + fallback sans JavaScript */}
+        {GTM_ID && (
+          <>
+            <GoogleTagManager gtmId={GTM_ID} />
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+                height="0"
+                width="0"
+                style={{ display: 'none', visibility: 'hidden' }}
+              />
+            </noscript>
+          </>
+        )}
         <NextTopLoader color="#ffeb00" shadow="0 0 10px #ffeb00" height={3} showSpinner={false} />
         <NavigationCursor />
         <CookieConsent />

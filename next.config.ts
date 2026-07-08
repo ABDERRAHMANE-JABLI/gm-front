@@ -10,12 +10,12 @@ const S3_HOST = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
 // et restreint les sources d'images, de frames et de connexions sortantes.
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://www.recaptcha.net",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data: https://fonts.gstatic.com",
   "connect-src 'self' https:",
-  `frame-src 'self' ${S3_HOST} https://*.google.com https://maps.googleapis.com https://www.youtube.com https://youtube.com https://player.vimeo.com`,
+  `frame-src 'self' ${S3_HOST} https://*.google.com https://maps.googleapis.com https://www.googletagmanager.com https://www.youtube.com https://youtube.com https://player.vimeo.com`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
