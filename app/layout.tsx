@@ -4,11 +4,9 @@ import "./styles/typography/styleguide.css"
 
 
 export const metadata: Metadata = {
-  title: "Gault&Millau",
+  title: "Gault Millau",
   description: "Le guide gastronomique de référence",
-  icons: {
-    icon: "/favicon.png",
-  },
+  // Favicon géré par la convention de fichier app/icon.png (auto-détecté par Next)
 };
 
 export default function RootLayout({

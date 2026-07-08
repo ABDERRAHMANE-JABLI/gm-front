@@ -73,7 +73,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - sitemap.xml / robots.txt (fichiers SEO à la racine, non localisés)
      */
-    '/((?!api|_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|svg|avif|webp|ico|woff|woff2|ttf|eot|mp4|mp3|pdf)$).*)',
+    '/((?!api|_next/static|_next/image|favicon\\.ico|sitemap\\.xml|robots\\.txt|.*\\.(?:png|jpg|jpeg|gif|svg|avif|webp|ico|woff|woff2|ttf|eot|mp4|mp3|pdf|xml|txt)$).*)',
   ],
 };
