@@ -157,6 +157,10 @@
     width: 100% !important;
     height: 300px !important;
   }
+  .content img,  .content picture, .content video {
+    width: 100% !important;
+    height: auto !important;
+  }
 }
 
 /* ── Related cards ── */

@@ -86,7 +86,6 @@
 .thumbnailFrame {
   position: absolute;
   inset: 0;
-  z-index: 100;
 }
 
 /* L'image remplit le cadre fixe (cover) et ne peut PAS agrandir la carte,
