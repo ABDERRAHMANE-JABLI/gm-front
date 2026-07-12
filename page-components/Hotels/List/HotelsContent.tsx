@@ -352,7 +352,7 @@ export default function HotelsContent({
             <p className={styles.loadingText}>Chargement...</p>
           ) : hotels.length === 0 ? (
             <div className={styles.emptyState}>
-              <p className={styles.emptyTitle}>Aucun hôtel trouvé</p>
+              <p className={styles.emptyTitle}>Aucun établissement trouvé</p>
               <p className={styles.emptyText}>Essayez d&apos;autres critères de recherche.</p>
             </div>
           ) : (

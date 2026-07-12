@@ -121,7 +121,7 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
             </button>
           )}
 
-          {/* ── Search results dropdown ── */}
+          {/* Search results dropdown  */}
           {showDropdown && (
             <div className={blogStyles.searchDropdown}>
               <div className={blogStyles.dropdownHeader}>

@@ -1,4 +1,5 @@
 import 'server-only';
+import { isValidSlug } from '@/lib/utils/sanitize';
 import { getApiBaseUrl, getApiHeaders } from './_config';
 import {
   ApiRestaurant,
@@ -193,6 +194,7 @@ export async function fetchRestaurantFilters(): Promise<ApiRestaurantFilters> {
 // ─── fetchRestaurantDetail ──────────────────────────────────────────────────
 
 export async function fetchRestaurantDetail(slug: string): Promise<ApiRestaurantDetail | null> {
+  if (!isValidSlug(slug)) return null;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 

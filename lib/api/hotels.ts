@@ -1,4 +1,5 @@
 import 'server-only';
+import { isValidSlug } from '@/lib/utils/sanitize';
 import { getApiBaseUrl, getApiHeaders } from './_config';
 import { ApiHotel, ApiHotelListResponse, ApiHotelFilters, ApiHotelDetail } from '@/types/api/Hotel';
 import { ApiPagination } from '@/types/api/Article';
@@ -162,6 +163,7 @@ export async function fetchHotelFilters(): Promise<ApiHotelFilters> {
 // ─── fetchHotelDetail ───────────────────────────────────────────────────────
 
 export async function fetchHotelDetail(slug: string): Promise<ApiHotelDetail | null> {
+  if (!isValidSlug(slug)) return null;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 

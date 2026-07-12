@@ -46,6 +46,18 @@ function sanitize(str: unknown, maxLen = 255): string {
   return str.replace(/[<>]/g, '').trim().slice(0, maxLen)
 }
 
+// Champs texte (nom, établissement, adresse, ville) : on n'accepte que lettres
+// (accents compris), chiffres, espaces, apostrophes, virgules, tirets, underscore
+// et point. Tout le reste (< > ; ( ) @ / etc.) est supprimé → neutralise les injections.
+function sanitizeText(str: unknown, maxLen = 255): string {
+  if (typeof str !== 'string') return ''
+  return str
+    .replace(/[^\p{L}\p{N}\s.,'’_-]/gu, '') // whitelist
+    .replace(/\s+/g, ' ')                        // espaces multiples → un seul
+    .trim()
+    .slice(0, maxLen)
+}
+
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
@@ -71,12 +83,12 @@ export async function submitOrder(payload: OrderPayload): Promise<{ ok: boolean;
     return { ok: false, message: 'Échec de la vérification anti-robot. Veuillez cocher la case et réessayer.' }
   }
 
-  const nom              = sanitize(payload.nom, MAX.nom)
-  const nomEtablissement = sanitize(payload.nomEtablissement, MAX.etab)
-  const adresse          = sanitize(payload.adresse, MAX.adresse)
+  const nom              = sanitizeText(payload.nom, MAX.nom)
+  const nomEtablissement = sanitizeText(payload.nomEtablissement, MAX.etab)
+  const adresse          = sanitizeText(payload.adresse, MAX.adresse)
   const email            = sanitize(payload.email)
   const tel              = sanitize(payload.tel, MAX.tel)
-  const ville            = sanitize(payload.ville, MAX.ville)
+  const ville            = sanitizeText(payload.ville, MAX.ville)
 
   if (!nom)              return { ok: false, message: 'Le nom est requis.' }
   if (!nomEtablissement) return { ok: false, message: "Le nom de l'établissement est requis." }

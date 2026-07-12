@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import ReCAPTCHA from 'react-google-recaptcha';
 import styles from '@/page-components/Store/OrderPage.module.css';
@@ -10,7 +10,21 @@ import GMLogo from '@/public/icons/GaultMillau.svg';
 import Instagram from '@/public/icons/socialIcon/instagram.svg';
 import Linkedin from '@/public/icons/socialIcon/linkedin.svg';
 import { submitPartnership } from '@/lib/actions/contact';
+import { sendGTMEvent } from '@next/third-parties/google';
 import { useClientTranslation, Language } from '@/lib/i18n/client';
+
+// Cookie anti-double-soumission : bloque le formulaire 1 jour après un envoi réussi
+const SUBMIT_COOKIE = 'gm_partnership_sent';
+
+function hasSubmitCookie(): boolean {
+  if (typeof document === 'undefined') return false;
+  return document.cookie.split('; ').some((ck) => ck.startsWith(`${SUBMIT_COOKIE}=`));
+}
+
+function setSubmitCookie(days = 1): void {
+  const maxAge = days * 24 * 60 * 60;
+  document.cookie = `${SUBMIT_COOKIE}=1; max-age=${maxAge}; path=/; SameSite=Lax`;
+}
 
 const CONTACT = {
   instagram: 'https://www.instagram.com/gaultmillauma',
@@ -89,6 +103,10 @@ const VILLES = [
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
+// Whitelist alignée sur sanitizeText côté serveur : lettres (accents), chiffres,
+// espaces, apostrophes, virgules, tirets, underscore et point.
+const TEXT_RE = /^[\p{L}\p{N}\s.,'’_-]*$/u;
+
 interface Props {
   lang: Language;
 }
@@ -98,10 +116,16 @@ export default function ContactPage({ lang }: Props) {
   const [form, setForm]           = useState<FormData>(INITIAL);
   const [errors, setErrors]       = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [alreadySent, setAlreadySent] = useState(false);
   const [sending, setSending]     = useState(false);
   const [apiError, setApiError]   = useState('');
   const [captcha, setCaptcha]     = useState<string | null>(null);
   const recaptchaRef              = useRef<ReCAPTCHA>(null);
+
+  // Déjà envoyé aujourd'hui ? (cookie posé au dernier envoi réussi)
+  useEffect(() => {
+    if (hasSubmitCookie()) setAlreadySent(true);
+  }, []);
 
   function update(field: keyof FormData, value: string) {
     setForm(prev => ({ ...prev, [field]: value }));
@@ -113,10 +137,13 @@ export default function ContactPage({ lang }: Props) {
 
   function validate(): boolean {
     const e: FormErrors = {};
-    if (!form.nomEtablissement.trim()) e.nomEtablissement = t('contact.required');
+    if (!form.nomEtablissement.trim())      e.nomEtablissement = t('contact.required');
+    else if (!TEXT_RE.test(form.nomEtablissement)) e.nomEtablissement = t('contact.invalid_chars');
     if (!form.domaine.trim())          e.domaine          = t('contact.required');
     if (!form.adresse.trim())          e.adresse          = t('contact.required');
+    else if (!TEXT_RE.test(form.adresse)) e.adresse       = t('contact.invalid_chars');
     if (!form.ville.trim())            e.ville            = t('contact.required');
+    else if (!TEXT_RE.test(form.ville)) e.ville           = t('contact.invalid_chars');
     if (!form.email.trim())            e.email            = t('contact.required');
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
                                        e.email            = t('contact.invalid_email');
@@ -149,6 +176,16 @@ export default function ContactPage({ lang }: Props) {
     setSending(false);
 
     if (result.ok) {
+      // Conversion GA (SANS données perso : pas d'email/nom/adresse — interdit par Google).
+      // Le domaine/ville sont des catégories non identifiantes.
+      sendGTMEvent({
+        event: 'generate_lead',
+        lead_type: 'partnership',
+        domaine: form.domaine.trim(),
+        ville: form.ville.trim(),
+      });
+      // Cookie 1 jour : empêche une nouvelle soumission jusqu'à demain
+      setSubmitCookie(1);
       setSubmitted(true);
     } else {
       setApiError(result.message || t('contact.error_generic'));
@@ -158,7 +195,10 @@ export default function ContactPage({ lang }: Props) {
     }
   }
 
-  if (submitted) {
+  if (submitted || alreadySent) {
+    // submitted = envoi à l'instant ; alreadySent (sans submitted) = déjà envoyé aujourd'hui (cookie)
+    const title = submitted ? t('contact.success_title') : t('contact.already_sent_title');
+    const text  = submitted ? t('contact.success_text')  : t('contact.already_sent_text');
     return (
       <div className={`${styles.page} ${c.flush}`}>
         <div className={`${styles.inner} ${c.whiteBox}`}>
@@ -168,9 +208,9 @@ export default function ContactPage({ lang }: Props) {
                 <path d="M20 6L9 17l-5-5"/>
               </svg>
             </div>
-            <h2 className={styles.successTitle}>{t('contact.success_title')}</h2>
+            <h2 className={styles.successTitle}>{title}</h2>
             <p className={styles.successText}>
-              {t('contact.success_text')}
+              {text}
             </p>
             <Link href={`/${lang}`} className={styles.backLink}>
               {t('contact.back_home')}

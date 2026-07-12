@@ -1,4 +1,5 @@
 'use server'
+import { sanitizeSearch } from '@/lib/utils/sanitize'
 
 import { fetchTalents, FetchTalentsOptions, FetchTalentsResult } from '@/lib/api/talents'
 import { getApiBaseUrl, getApiHeaders } from '@/lib/api/_config'
@@ -20,7 +21,7 @@ export async function searchTalents(q: string): Promise<TalentSearchResult[]> {
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
   try {
     const res = await fetch(
-      `${getApiBaseUrl()}/api/talents/search?q=${encodeURIComponent(q)}`,
+      `${getApiBaseUrl()}/api/talents/search?q=${encodeURIComponent(sanitizeSearch(q))}`,
       { headers: getApiHeaders(), cache: 'no-store' }
     );
     if (!res.ok) return [];

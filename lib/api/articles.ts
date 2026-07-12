@@ -1,4 +1,5 @@
 import 'server-only';
+import { isValidSlug } from '@/lib/utils/sanitize';
 import { ApiArticle, ApiArticleListResponse, ApiArticleFilters, ApiArticleDetail, ApiTheme, ApiPagination } from '@/types/api/Article';
 import { NewsCardProps, NewsCardButtonProps, NewsCardButtonKind } from '@/types/News';
 import { getApiBaseUrl, getApiHeaders } from './_config';
@@ -152,6 +153,7 @@ export async function fetchArticleFilters(): Promise<ApiTheme[]> {
 }
 
 export async function fetchArticleDetail(slug: string): Promise<ApiArticleDetail | null> {
+  if (!isValidSlug(slug)) return null;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 

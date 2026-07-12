@@ -1,4 +1,5 @@
 'use server'
+import { sanitizeSearch } from '@/lib/utils/sanitize'
 
 import { fetchArtisans, FetchArtisansOptions, FetchArtisansResult } from '@/lib/api/artisans'
 import { getApiBaseUrl, getApiHeaders } from '@/lib/api/_config'
@@ -19,7 +20,7 @@ export async function searchArtisans(q: string): Promise<ArtisanSearchResult[]> 
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
   try {
     const res = await fetch(
-      `${getApiBaseUrl()}/api/artisans/search?q=${encodeURIComponent(q)}`,
+      `${getApiBaseUrl()}/api/artisans/search?q=${encodeURIComponent(sanitizeSearch(q))}`,
       { headers: getApiHeaders(), cache: 'no-store' }
     );
     if (!res.ok) return [];

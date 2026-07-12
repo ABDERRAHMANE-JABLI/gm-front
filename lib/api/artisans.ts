@@ -1,4 +1,5 @@
 import 'server-only';
+import { isValidSlug } from '@/lib/utils/sanitize';
 import { getApiBaseUrl, getApiHeaders } from './_config';
 import { ApiArtisan, ApiArtisanListResponse, ApiArtisanFilters, ApiArtisanDetail } from '@/types/api/Artisan';
 import { ApiPagination } from '@/types/api/Article';
@@ -150,6 +151,7 @@ export async function fetchArtisanFilters(): Promise<ApiArtisanFilters> {
 // ─── fetchArtisanDetail ──────────────────────────────────────────────────────
 
 export async function fetchArtisanDetail(slug: string): Promise<ApiArtisanDetail | null> {
+  if (!isValidSlug(slug)) return null;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 

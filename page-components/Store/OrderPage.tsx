@@ -8,6 +8,7 @@ import c from '@/page-components/Contact/ContactPage.module.css';
 import Combobox from '@/components/ui/Combobox';
 import { useCartContext } from '@/lib/context/CartContext';
 import { submitOrder } from '@/lib/actions/order';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
@@ -49,6 +50,11 @@ const VILLES = [
   'Autre',
 ];
 
+// Whitelist alignée sur sanitizeText côté serveur : lettres (accents), chiffres,
+// espaces, apostrophes, virgules, tirets, underscore et point.
+const TEXT_RE = /^[\p{L}\p{N}\s.,'’_-]*$/u;
+const INVALID_CHARS = 'Seuls les lettres, chiffres, espaces, apostrophes, virgules, tirets et points sont autorisés.';
+
 interface Props {
   lang: string;
 }
@@ -74,6 +80,7 @@ export default function OrderPage({ lang }: Props) {
   function validate(): boolean {
     const e: FormErrors = {};
     if (!form.nom.trim())           e.nom           = 'Champ requis';
+    else if (!TEXT_RE.test(form.nom)) e.nom         = INVALID_CHARS;
     if (!form.telephone.trim())     e.telephone     = 'Champ requis';
     else if (!/^[\d\s+\-()]{7,}$/.test(form.telephone.trim()))
                                     e.telephone     = 'Numéro invalide';
@@ -81,8 +88,11 @@ export default function OrderPage({ lang }: Props) {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
                                     e.email         = 'Email invalide';
     if (!form.etablissement.trim()) e.etablissement = 'Champ requis';
+    else if (!TEXT_RE.test(form.etablissement)) e.etablissement = INVALID_CHARS;
     if (!form.adresse.trim())       e.adresse       = 'Champ requis';
+    else if (!TEXT_RE.test(form.adresse)) e.adresse = INVALID_CHARS;
     if (!form.ville.trim())         e.ville         = 'Champ requis';
+    else if (!TEXT_RE.test(form.ville)) e.ville     = INVALID_CHARS;
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -113,6 +123,15 @@ export default function OrderPage({ lang }: Props) {
     setSending(false);
 
     if (result.ok) {
+      // Conversion GA (SANS données perso : pas d'email/nom/adresse — interdit par Google).
+      // Ville + volume de commande sont des données non identifiantes.
+      sendGTMEvent({
+        event: 'generate_lead',
+        lead_type: 'order',
+        ville: form.ville.trim(),
+        items_count: items.length,
+        total_qty: items.reduce((sum, item) => sum + item.quantity, 0),
+      });
       setSubmitted(true);
       clearCart();
     } else {

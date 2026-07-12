@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { Metadata } from 'next'
 import Layout from '@/components/layout/Layout/Layout'
 import HotelDetailPage from '@/page-components/Hotels/Detail'
@@ -57,7 +57,7 @@ export default async function Page({ params }: Props) {
     fetchPartners(),
   ])
 
-  if (!hotel) notFound()
+  if (!hotel) redirect(`/${lang}`)
 
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''

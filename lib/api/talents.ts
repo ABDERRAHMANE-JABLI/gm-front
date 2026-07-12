@@ -1,4 +1,5 @@
 import 'server-only';
+import { isValidSlug } from '@/lib/utils/sanitize';
 import { getApiBaseUrl, getApiHeaders } from './_config';
 import { ApiTalent, ApiTalentListResponse, ApiTalentFilters, ApiTalentDetail } from '@/types/api/Talent';
 import { ApiPagination } from '@/types/api/Article';
@@ -151,6 +152,7 @@ export async function fetchTalentFilters(): Promise<ApiTalentFilters> {
 // ─── fetchTalentDetail ────────────────────────────────────────────────────────
 
 export async function fetchTalentDetail(slug: string): Promise<ApiTalentDetail | null> {
+  if (!isValidSlug(slug)) return null;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 

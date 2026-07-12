@@ -1,4 +1,5 @@
 'use server'
+import { sanitizeSearch } from '@/lib/utils/sanitize'
 
 import { fetchHotels, FetchHotelsOptions, FetchHotelsResult } from '@/lib/api/hotels'
 import { getApiBaseUrl, getApiHeaders } from '@/lib/api/_config'
@@ -19,7 +20,7 @@ export interface HotelSearchResult {
 export async function searchHotels(q: string, type?: string): Promise<HotelSearchResult[]> {
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? '';
   try {
-    const params = new URLSearchParams({ q });
+    const params = new URLSearchParams({ q: sanitizeSearch(q) });
     if (type) params.set('type', type);
     const res = await fetch(
       `${getApiBaseUrl()}/api/hotels/search?${params.toString()}`,

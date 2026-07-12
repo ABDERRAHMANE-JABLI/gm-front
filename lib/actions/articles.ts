@@ -1,4 +1,5 @@
 'use server'
+import { sanitizeSearch } from '@/lib/utils/sanitize'
 
 import { fetchArticles, FetchArticlesOptions, FetchArticlesResult } from '@/lib/api/articles'
 import { getApiBaseUrl, getApiHeaders } from '@/lib/api/_config'
@@ -13,7 +14,7 @@ export async function searchArticles(q: string): Promise<NewsCardProps[]> {
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
   try {
     const res = await fetch(
-      `${getApiBaseUrl()}/api/articles/search?q=${encodeURIComponent(q)}`,
+      `${getApiBaseUrl()}/api/articles/search?q=${encodeURIComponent(sanitizeSearch(q))}`,
       { headers: getApiHeaders(), cache: 'no-store' }
     )
     if (!res.ok) return []

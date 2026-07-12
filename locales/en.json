@@ -111,6 +111,7 @@
     "placeholder_phone": "(optional)",
     "required": "Required field",
     "invalid_email": "Invalid email",
+    "invalid_chars": "Only letters, numbers, spaces, apostrophes, commas, hyphens and dots are allowed.",
     "submit_note": "By submitting, you agree that G&M may use your data to contact you.",
     "submit": "Send my request",
     "submitting": "Sending...",
@@ -118,7 +119,9 @@
     "success_title": "Request sent!",
     "success_text": "Thank you for your interest. Our team will review your partnership request and get back to you shortly.",
     "back_home": "Back to home",
-    "captcha_required": "Please confirm you are not a robot."
+    "captcha_required": "Please confirm you are not a robot.",
+    "already_sent_title": "Request already sent",
+    "already_sent_text": "You have already submitted a request today. You can send a new one tomorrow."
   },
   "hotel": {
     "discover_restaurant": "Discover the hotel's restaurant"
