@@ -27,6 +27,7 @@
   line-height: var(--news-header-title-line-height);
   color: var(--GMI-black);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  text-transform: capitalize;
 }
 
 .iconWrapper{

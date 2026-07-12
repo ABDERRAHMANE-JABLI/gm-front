@@ -11,7 +11,7 @@
 .headerLeft {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .headerTexts {
@@ -37,6 +37,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-transform: capitalize;
 }
 
 .uneCard {
@@ -608,7 +609,7 @@
     display: block;
   }
 
-  .contentColumn {
+  .uneCard .details > .contentColumn {
     padding: 0px;
   }
 
@@ -637,9 +638,11 @@
   .uneCard {
     transition: border-color .3s ease, box-shadow .3s ease;
     width: 100%;
+    height: 520px;
+    padding-bottom: 20px !important;
   }
 
-  .contentColumn {
+  .uneCard .details > .contentColumn {
     padding: 0px;
     width: 100% !important;
   }

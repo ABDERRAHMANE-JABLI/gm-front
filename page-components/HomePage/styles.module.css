@@ -386,15 +386,29 @@
     justify-items: center;
   }
 
-  /* En 1 colonne, les cartes articles remplissent la largeur (la pub garde 300px) */
-  .gridThree > *:not(.pubLink),
-  .col23 > *:not(.pubLink),
-  .col13 > *:not(.pubLink) {
+  /* Le carrousel (gridThree) remplit la largeur. */
+  .gridThree > *:not(.pubLink) {
     width: 100% !important;
     max-width: 100% !important;
   }
 
+  /* En 1 colonne empilée, les cartes articles sont fixées à 300px centré. */
+  .col23 > *:not(.pubLink),
+  .col13 > *:not(.pubLink) {
+    width: 300px !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+  }
+
   .section {
     padding: 16px 0;
+  }
+}
+
+@media (max-width: 479px) {
+  /* En mobile, les cartes articles remplissent la largeur. */
+  .col23 > *:not(.pubLink),
+  .col13 > *:not(.pubLink) {
+    width: 100% !important;
   }
 }

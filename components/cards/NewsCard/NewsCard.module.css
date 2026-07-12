@@ -112,6 +112,7 @@
   font-weight: var(--news-categories-yellow-font-weight);
   line-height: var(--news-categories-yellow-line-height);
   white-space: nowrap;
+  text-transform: capitalize;
 }
 
 /* Bodyj */

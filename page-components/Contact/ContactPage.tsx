@@ -122,7 +122,6 @@ export default function ContactPage({ lang }: Props) {
   const [captcha, setCaptcha]     = useState<string | null>(null);
   const recaptchaRef              = useRef<ReCAPTCHA>(null);
 
-  // Déjà envoyé aujourd'hui ? (cookie posé au dernier envoi réussi)
   useEffect(() => {
     if (hasSubmitCookie()) setAlreadySent(true);
   }, []);
@@ -176,27 +175,22 @@ export default function ContactPage({ lang }: Props) {
     setSending(false);
 
     if (result.ok) {
-      // Conversion GA (SANS données perso : pas d'email/nom/adresse — interdit par Google).
-      // Le domaine/ville sont des catégories non identifiantes.
       sendGTMEvent({
         event: 'generate_lead',
         lead_type: 'partnership',
         domaine: form.domaine.trim(),
         ville: form.ville.trim(),
       });
-      // Cookie 1 jour : empêche une nouvelle soumission jusqu'à demain
       setSubmitCookie(1);
       setSubmitted(true);
     } else {
       setApiError(result.message || t('contact.error_generic'));
-      // Reset du captcha : un token n'est valable qu'une fois
       recaptchaRef.current?.reset();
       setCaptcha(null);
     }
   }
 
   if (submitted || alreadySent) {
-    // submitted = envoi à l'instant ; alreadySent (sans submitted) = déjà envoyé aujourd'hui (cookie)
     const title = submitted ? t('contact.success_title') : t('contact.already_sent_title');
     const text  = submitted ? t('contact.success_text')  : t('contact.already_sent_text');
     return (
