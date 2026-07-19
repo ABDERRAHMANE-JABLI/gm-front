@@ -1008,6 +1008,7 @@
   color: black;
   margin: 0;
   line-height: 1.2;
+  text-transform: capitalize;
 }
 
 .artisanTitlesub {

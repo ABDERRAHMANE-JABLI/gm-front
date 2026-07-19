@@ -156,7 +156,8 @@
     font-family: Montserrat,Helvetica;
     font-weight: 500;
     overflow: hidden;
-    text-align: right
+    text-align: right;
+    text-transform: capitalize;
 }
 
 .MarkRibbonProduct {
