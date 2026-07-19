@@ -414,6 +414,7 @@
   font-size: 13px;
   font-weight: 400;
   color: #555;
+  text-transform: capitalize;
   transition: color 0.15s, background 0.15s;
 }
 

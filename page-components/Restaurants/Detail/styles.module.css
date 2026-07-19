@@ -1017,6 +1017,7 @@
   color: #202020;
   margin: 2px 0 0;
   line-height: 1.2;
+  text-transform: capitalize;
 }
 
 .artisanIconbg {

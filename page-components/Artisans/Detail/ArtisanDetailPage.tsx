@@ -113,29 +113,25 @@ export default function ArtisanDetailPage({ lang, artisan, partners = [] }: Arti
         {/* ── Avis + Plan ── */}
         <section className={`${styles.cardsRow} ${avisExpanded ? styles.cardsRowExpanded : ''}`}>
 
-          {/* Avis GM */}
-          <div className={avisExpanded ? styles.avisCardFull : styles.avisCardWide}>
-            <div className={styles.avisHeader}>
-              <span className={styles.avisIcon}><ArtisanIcon width={40} height={40} /></span>
-              <div>
-                <p className={styles.avisTitle}>L&apos;avis de Gault&amp;Millau</p>
+          {/* Avis GM — masqué entièrement si non renseigné */}
+          {artisan.avisGM?.trim() && (
+            <div className={avisExpanded ? styles.avisCardFull : styles.avisCardWide}>
+              <div className={styles.avisHeader}>
+                <span className={styles.avisIcon}><ArtisanIcon width={40} height={40} /></span>
+                <div>
+                  <p className={styles.avisTitle}>L&apos;avis de Gault&amp;Millau</p>
+                </div>
               </div>
+              <p ref={avisTextRef} className={`${styles.avisText} ${avisExpanded ? styles.avisTextExpanded : ''}`}>
+                {artisan.avisGM}
+              </p>
+              {(avisTruncated || avisExpanded) && (
+                <button className={styles.CardButtonLink} onClick={() => setAvisExpanded((v) => !v)}>
+                  <span className={styles.CardButtonLinkText}>{avisExpanded ? 'LIRE MOINS' : 'LIRE PLUS'}</span>
+                </button>
+              )}
             </div>
-            {artisan.avisGM ? (
-              <>
-                <p ref={avisTextRef} className={`${styles.avisText} ${avisExpanded ? styles.avisTextExpanded : ''}`}>
-                  {artisan.avisGM}
-                </p>
-                {(avisTruncated || avisExpanded) && (
-                  <button className={styles.CardButtonLink} onClick={() => setAvisExpanded((v) => !v)}>
-                    <span className={styles.CardButtonLinkText}>{avisExpanded ? 'LIRE MOINS' : 'LIRE PLUS'}</span>
-                  </button>
-                )}
-              </>
-            ) : (
-              <p className={styles.hoursEmpty}>Avis non renseigné</p>
-            )}
-          </div>
+          )}
 
           {/* Plan */}
           <div className={styles.mapWrapper}>
