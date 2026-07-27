@@ -49,7 +49,7 @@ export default function ArtisanCard({ lang, Artisan, withHeader }: Props) {
 
                 {/* Details */}
                 <div className={`${styles.cardPaddingContainer} ${styles.details}`}>
-                    {Artisan.address && (
+                    {Artisan.address?.trim() && (
                         <div className={styles.cardDetailHor}>
                             <span className={`${styles.figmaCaption} ${styles.ellipsis}`}>{t("common.address")}</span>
                             <span className={`${styles.figmaCaptionValue} ${styles.ellipsis} ${styles.textUpper}`} title={Artisan.address}>{Artisan.address}</span>
