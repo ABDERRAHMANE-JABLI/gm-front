@@ -91,7 +91,7 @@ export default function HotelDetailPage({ lang, hotel, partners = [] }: HotelDet
 
         {/* Row Details */}
         <section className={styles.sectionTriptych}>
-          <RowDetails links={links} budget={budget} budgetDescription={t('common.budget_hotel')}>
+          <RowDetails links={links} budget={budget} budgetDescription={t('common.budget_hotel')} isSponsorised={hotel.isSponsorised}>
             {hotel.styles.length > 0 && (
               <div className="cardDetailHor">
                 <span className="figmaCaption ellipsis">Style</span>

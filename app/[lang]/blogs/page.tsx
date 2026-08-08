@@ -10,7 +10,7 @@ export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Actualités - Gault&Millau',
+    title: 'Actualités',
     description: 'Découvrez les actualités et articles sur la gastronomie marocaine',
   };
 }

@@ -8,7 +8,10 @@ interface Props { params: Promise<{ lang: Language }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
   return {
-    title: lang === 'en' ? "President's Message | Gault&Millau Morocco" : 'Mot du Président | Gault&Millau Maroc',
+    title: lang === 'en' ? "President's Message" : 'Mot du Président',
+    description: lang === 'en'
+      ? "A word from the President of Gault&Millau Morocco: the guide's vision and ambitions for Moroccan gastronomy."
+      : "Le mot du Président de Gault&Millau Maroc : la vision et les ambitions du guide pour la gastronomie marocaine.",
   };
 }
 

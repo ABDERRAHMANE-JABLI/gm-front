@@ -10,7 +10,7 @@ export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Artisans - Gault&Millau',
+    title: 'Artisans',
     description: 'Découvrez les meilleurs artisans sélectionnés par Gault&Millau Maroc',
   };
 }

@@ -96,7 +96,7 @@ export default function PartnersPage({ lang, partners }: Props) {
               key={partner.name}
               href={partner.website}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer sponsored"
               className={styles.card}
             >
               <div className={styles.imgWrapper}>

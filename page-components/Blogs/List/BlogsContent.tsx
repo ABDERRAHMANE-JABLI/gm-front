@@ -101,6 +101,8 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
   return (
     <div className={styles.listPage}>
 
+      <h1 className="sr-only">{t('seo.h1_blogs')}</h1>
+
       {/* ── Search bar ── */}
       <div className={blogStyles.containerSearch}>
         <div className={blogStyles.searchWrapper}>

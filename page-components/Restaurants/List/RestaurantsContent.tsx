@@ -161,6 +161,8 @@ export default function RestaurantsContent({
   return (
     <div className={styles.listPage}>
 
+      <h1 className="sr-only">{t('seo.h1_restaurants')}</h1>
+
       {/* ── Search bar ── */}
       <div className={styles.searchBarContainer}>
         <div className={styles.searchBarWrapper}>

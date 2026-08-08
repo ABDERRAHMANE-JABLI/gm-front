@@ -35,21 +35,21 @@ export function middleware(request: NextRequest) {
     // Default language mapping based on country
     const defaultLanguage = country === 'FR' ? 'fr' : 'en';
     url.pathname = `/${defaultLanguage}`;
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url, 308);
   }
   
   // If no language in path, add default language based on country
   if (!['fr', 'en'].includes(normalizedFirstSegment)) {
     const defaultLanguage = country === 'FR' ? 'fr' : 'en';
     url.pathname = `/${defaultLanguage}${pathname}`;
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url, 308);
   }
   
   // If language segment is not normalized (e.g., /FR/ instead of /fr/), redirect to lowercase
   if (firstSegment && normalizedFirstSegment !== firstSegment && ['fr', 'en'].includes(normalizedFirstSegment)) {
     const restOfPath = pathSegments.slice(1).join('/');
     url.pathname = `/${normalizedFirstSegment}${restOfPath ? '/' + restOfPath : ''}`;
-    return NextResponse.redirect(url);
+    return NextResponse.redirect(url, 308);
   }
   
   // Add country and language headers for server components

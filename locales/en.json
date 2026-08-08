@@ -56,6 +56,14 @@
     "newsletters": "Newsletters",
     "itineraires": "Gourmet Itineraries"
   },
+  "seo": {
+    "h1_restaurants": "Restaurants recommended by Gault&Millau Morocco",
+    "h1_hotels": "Hotels and riads recommended by Gault&Millau Morocco",
+    "h1_artisans": "Artisans selected by Gault&Millau Morocco",
+    "h1_blogs": "Moroccan gastronomy news",
+    "h1_store": "Gault&Millau Morocco Store",
+    "h1_home": "Gault&Millau Morocco — The gastronomic guide to the best restaurants, hotels and artisans"
+  },
   "homepage": {
     "new_restaurants": "New restaurants",
     "gastronomy_people": "Gastronomy people",

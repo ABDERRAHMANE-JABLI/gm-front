@@ -56,6 +56,14 @@
     "newsletters": "Newsletters",
     "itineraires": "Itinéraires Gourmands"
   },
+  "seo": {
+    "h1_restaurants": "Restaurants recommandés par Gault&Millau Maroc",
+    "h1_hotels": "Hôtels et riads recommandés par Gault&Millau Maroc",
+    "h1_artisans": "Artisans du goût sélectionnés par Gault&Millau Maroc",
+    "h1_blogs": "Actualités de la gastronomie marocaine",
+    "h1_store": "Boutique Gault&Millau Maroc",
+    "h1_home": "Gault&Millau Maroc — Le guide gastronomique des meilleurs restaurants, hôtels et artisans"
+  },
   "homepage": {
     "new_restaurants": "Les nouveaux restaurants",
     "gastronomy_people": "Les people de la gastronomie",

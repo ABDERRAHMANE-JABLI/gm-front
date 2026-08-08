@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gaultmillau.ma';
   const isEn = lang === 'en';
   return {
-    title: isEn ? 'Become a partner | Gault&Millau Maroc' : 'Devenir partenaire | Gault&Millau Maroc',
+    title: isEn ? 'Become a partner' : 'Devenir partenaire',
     description: isEn
       ? 'Contact Gault&Millau Morocco to become a partner.'
       : 'Contactez Gault&Millau Maroc pour devenir partenaire.',

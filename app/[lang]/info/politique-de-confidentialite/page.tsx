@@ -8,7 +8,10 @@ interface Props { params: Promise<{ lang: Language }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
   return {
-    title: lang === 'en' ? 'Privacy Policy | Gault&Millau Morocco' : 'Politique de confidentialité | Gault&Millau Maroc',
+    title: lang === 'en' ? 'Privacy Policy' : 'Politique de confidentialité',
+    description: lang === 'en'
+      ? "Gault&Millau Morocco privacy policy: what personal data we collect, why, and how we protect it."
+      : "Politique de confidentialité de Gault&Millau Maroc : quelles données personnelles nous collectons, pourquoi et comment nous les protégeons.",
   };
 }
 

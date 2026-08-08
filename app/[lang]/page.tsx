@@ -40,7 +40,7 @@ export async function generateMetadata({
   const description = DESCRIPTIONS[lang] ?? DESCRIPTIONS.fr
 
   return {
-    title: "Gault&Millau Maroc | Guide gastronomique",
+    title: { absolute: "Gault&Millau Maroc | Guide gastronomique" },
     description,
     keywords: KEYWORDS[lang] ?? KEYWORDS.fr,
     alternates: {

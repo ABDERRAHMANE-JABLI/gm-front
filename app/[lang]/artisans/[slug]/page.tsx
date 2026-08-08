@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const url = `${siteUrl}/${lang}/artisans/${slug}`
 
   return {
-    title: `${name} | Gault&Millau`,
+    title: `${name}`,
     description,
     alternates: {
       canonical: url,

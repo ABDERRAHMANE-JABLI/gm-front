@@ -88,7 +88,7 @@ export default function ArtisanDetailPage({ lang, artisan, partners = [] }: Arti
 
         {/* Row Details */}
         <section className={styles.sectionTriptych}>
-          <RowDetails links={links}>
+          <RowDetails links={links} isSponsorised={artisan.isSponsorised}>
             {artisan.mainActivity && (
               <div className="cardDetailHor">
                 <span className="figmaCaption ellipsis">Activité</span>

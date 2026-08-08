@@ -138,6 +138,8 @@ export default function ArtisansContent({
   return (
     <div className={styles.listPage}>
 
+      <h1 className="sr-only">{t('seo.h1_artisans')}</h1>
+
       {/* ── Search bar ── */}
       <div className={styles.searchBarContainer}>
         <div className={styles.searchBarWrapper}>

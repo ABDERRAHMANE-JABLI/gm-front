@@ -11,8 +11,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params
   const titles = {
-    fr: 'Nos Partenaires | Gault&Millau',
-    en: 'Our Partners | Gault&Millau',
+    fr: 'Nos Partenaires',
+    en: 'Our Partners',
   }
   const descriptions = {
     fr: 'Découvrez nos partenaires prestigieux qui partagent nos valeurs d\'excellence gastronomique.',

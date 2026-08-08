@@ -4,7 +4,7 @@ import OrderPage from '@/page-components/Store/OrderPage';
 import { CartProvider } from '@/lib/context/CartContext';
 
 export const metadata: Metadata = {
-  title: "Commande | Gault&Millau Maroc",
+  title: "Commande",
   robots: { index: false, follow: false },
 };
 

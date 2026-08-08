@@ -19,7 +19,7 @@ export async function generateMetadata({
   const description = DESCRIPTIONS[lang]
 
   return {
-    title: "Boutique | Plaques Gault&Millau Maroc",
+    title: "Boutique — Plaques de distinction",
     description,
     alternates: {
       canonical: `${siteUrl}/${lang}/store`,
@@ -43,6 +43,9 @@ export default async function StorePageRoute({ params }: { params: Promise<{ lan
   return (
     <CartProvider>
       <StoreLayout lang={lang}>
+        <h1 className="sr-only">
+          {lang === 'en' ? 'Gault&Millau Morocco Store' : 'Boutique Gault&Millau Maroc'}
+        </h1>
         <StorePage />
       </StoreLayout>
     </CartProvider>

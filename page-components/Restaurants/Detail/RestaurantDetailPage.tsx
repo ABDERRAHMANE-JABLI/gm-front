@@ -135,7 +135,7 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
 
         {/* Row Details */}
         <section className={styles.sectionTriptych}>
-          <RowDetails links={links} budget={budget} budgetDescription={t('common.budget_note')}>
+          <RowDetails links={links} budget={budget} budgetDescription={t('common.budget_note')} isSponsorised={restaurant.isSponsorised}>
             {restaurant.chef && (
               <div className="cardDetailHor">
                 <span className="figmaCaption ellipsis">{t('common.chef')}</span>

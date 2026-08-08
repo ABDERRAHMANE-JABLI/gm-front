@@ -19,9 +19,12 @@ interface Props {
     instagram?: string;
   };
   size? : number;
+  /** Établissement sponsorisé → ajoute rel="sponsored" aux liens externes (SEO) */
+  isSponsorised?: boolean;
 }
 
-export default function SocialLinks({ links, size=20 }: Props) {
+export default function SocialLinks({ links, size=20, isSponsorised=false }: Props) {
+  const externalRel = isSponsorised ? "noopener noreferrer sponsored" : "noopener noreferrer";
   return (
     <div className={styles.ContainerLink}>
       {links.phone && (
@@ -30,7 +33,7 @@ export default function SocialLinks({ links, size=20 }: Props) {
         </Link>
       )}
       {links.siteWeb && (
-        <Link href={links.siteWeb} target="_blank" rel="noopener noreferrer" aria-label="Web Site" title="Website" className={styles.icon}>
+        <Link href={links.siteWeb} target="_blank" rel={externalRel} aria-label="Web Site" title="Website" className={styles.icon}>
           <SiteWeb width={size} height={size}/>
         </Link>
       )}
@@ -40,12 +43,12 @@ export default function SocialLinks({ links, size=20 }: Props) {
         </Link>
       )}
       {links.facebook && (
-        <Link href={links.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook Account" className={styles.icon}>
+        <Link href={links.facebook} target="_blank" rel={externalRel} aria-label="Facebook" title="Facebook Account" className={styles.icon}>
           <Facebook style={{"width":`${size + 3}`, "height":`${size + 3}`}}/>
         </Link>
       )}
       {links.instagram && (
-        <Link href={links.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram Account" className={styles.icon}>
+        <Link href={links.instagram} target="_blank" rel={externalRel} aria-label="Instagram" title="Instagram Account" className={styles.icon}>
           <Insta width={size} height={size}/>
         </Link>
       )}

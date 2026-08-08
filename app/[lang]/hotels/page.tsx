@@ -10,7 +10,7 @@ export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Hôtels - Gault&Millau',
+    title: 'Hôtels',
     description: 'Découvrez les plus beaux hôtels sélectionnés par Gault&Millau Maroc',
   };
 }

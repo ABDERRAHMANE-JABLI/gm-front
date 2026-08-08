@@ -61,7 +61,7 @@ export default function PartenairesSection({ partners = [], lang = 'fr' }: Props
                     key={i}
                     href={item.url}
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer sponsored"
                     className={style.logoLink}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}

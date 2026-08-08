@@ -8,7 +8,10 @@ interface Props { params: Promise<{ lang: Language }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
   return {
-    title: lang === 'en' ? 'Terms of Use | Gault&Millau Morocco' : "Conditions Générales d'Utilisation | Gault&Millau Maroc",
+    title: lang === 'en' ? 'Terms of Use' : "Conditions Générales d'Utilisation",
+    description: lang === 'en'
+      ? "Terms of Use of the Gault&Millau Morocco website: rules for accessing and using our online services."
+      : "Conditions Générales d'Utilisation du site Gault&Millau Maroc : règles d'accès et d'usage de nos services en ligne.",
   };
 }
 

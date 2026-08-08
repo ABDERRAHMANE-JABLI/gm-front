@@ -225,7 +225,10 @@ function HeroDefault({ lang }: { lang: Language }) {
         priority
       />
       <div className={styles.heroOverlay} />
-      <h1 className={styles.heroTitle}><GMLogo width={300} height={150} /></h1>
+      <h1 className={styles.heroTitle}>
+        <GMLogo width={300} height={150} />
+        <span className="sr-only">{t('seo.h1_home')}</span>
+      </h1>
       <p className={styles.heroText}>{t('home.hero.description')}</p>
     </div>
   );

@@ -10,9 +10,10 @@ interface Props {
     budget?: string; // Exemple : 150 à 200
     budgetDescription?: string; // Exemple : Budget à titre indicatif par personne (hors boissons) / Prix par Nuit
     links?: Record<string, string | undefined>; // Exemple : facebook, tel, email ...
+    isSponsorised?: boolean; // Établissement sponsorisé → rel="sponsored" sur les liens externes
 }
 
-export default function RowDetails({ links, budget, budgetDescription, children }: Props) {
+export default function RowDetails({ links, budget, budgetDescription, children, isSponsorised }: Props) {
 
     return (
         <div className={styles.RowDetails}>
@@ -21,7 +22,7 @@ export default function RowDetails({ links, budget, budgetDescription, children 
                     {children}
                 </div>
                 <div className={`${styles.paddingContainer} ${styles.links}`}>
-                    {links && <SocialLinks links={links}/>}
+                    {links && <SocialLinks links={links} isSponsorised={isSponsorised}/>}
                 </div>
             </div>
             {budget && (
