@@ -47,7 +47,7 @@
 .pageTitle {
   font: normal normal 900 40px / 46px 'Source Serif 4', Georgia, serif;
   letter-spacing: 0;
-  text-transform: capitalize;
+  text-transform: none;
   color: #1a1a1a;
   margin: 0;
   line-height: 1.25;

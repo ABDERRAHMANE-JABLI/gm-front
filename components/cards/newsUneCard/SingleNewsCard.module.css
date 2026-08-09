@@ -417,7 +417,7 @@
   font-weight: var(--card-title-font-weight);
   letter-spacing: var(--card-title-letter-spacing);
   line-height: var(--card-title-line-height);
-  text-transform: capitalize;
+  text-transform: none;
   overflow: hidden;
   position: relative;
   text-overflow: ellipsis;

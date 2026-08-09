@@ -401,7 +401,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 
