@@ -15,7 +15,7 @@ const csp = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data: https://fonts.gstatic.com",
   "connect-src 'self' https:",
-  `frame-src 'self' ${S3_HOST} https://*.google.com https://maps.googleapis.com https://www.googletagmanager.com https://www.youtube.com https://youtube.com https://player.vimeo.com`,
+  `frame-src 'self' ${S3_HOST} https://*.google.com https://maps.googleapis.com https://www.googletagmanager.com https://www.youtube.com https://youtube.com https://player.vimeo.com https://www.facebook.com https://*.facebook.com`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
