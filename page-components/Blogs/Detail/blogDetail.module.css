@@ -146,17 +146,20 @@
   margin-bottom: 6px;
 }
 
+/* Iframes du contenu : pleine largeur, hauteur calculée depuis les proportions
+   du CMS (aspect-ratio inline posé par sanitizeHtml). 16/9 par défaut si le
+   CMS n'a pas fourni de width/height. */
 .content iframe {
-    width: 100% !important;
-    height: 400px !important;
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto 16px;
+  border: 0;
 }
 
-/* Iframes du contenu : plein largeur / 350px de haut sous 800px */
 @media (max-width: 800px) {
-  .content iframe {
-    width: 100% !important;
-    height: 300px !important;
-  }
   .content img,  .content picture, .content video {
     width: 100% !important;
     height: auto !important;
