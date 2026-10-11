@@ -258,6 +258,7 @@ export default function HomePage({ lang, data, partners }: { lang: Language; dat
 
   return (
     <main className={styles.homepage}>
+      <h1 className="sr-only">{t('seo.h1_home')}</h1>
       <div className={styles.container}>
 
         {sections.map((section) => (

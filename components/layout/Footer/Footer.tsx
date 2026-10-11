@@ -11,9 +11,9 @@ import Mail from '@/public/icons/socialIcon/Mail.svg';
 import { useClientTranslation, Language } from '@/lib/i18n/client';
 
 const SOCIALS = {
-  facebook:  'https://www.facebook.com/gaultmillau',
-  instagram: 'https://www.instagram.com/gaultmillauma?igsh=ZXg1cHkwcjFocWxq',
-  linkedin:  'https://www.linkedin.com/company/gault-millau-maroc',
+  facebook:  'https://www.facebook.com/profile.php?id=61590485734831',
+  instagram: 'https://www.instagram.com/gaultmillau.maroc',
+  linkedin:  'https://www.linkedin.com/company/gault-millau-maroc/',
   email:     'contact@gaultmillau.ma',
 };
 

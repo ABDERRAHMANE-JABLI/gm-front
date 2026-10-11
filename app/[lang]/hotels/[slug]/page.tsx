@@ -13,18 +13,37 @@ interface Props {
   params: Promise<{ lang: Language; slug: string }>
 }
 
+// Titre SEO : « Hôtel Amanjena, Marrakech » (le suffixe vient du layout).
+// Pas de « Hôtel » si le nom contient déjà hôtel/hotel/riad, pas de ville si le
+// nom la contient déjà (ex. « Park Hyatt Marrakech »).
+function buildSeoTitle(lang: Language, name: string, city?: string): string {
+  const n = name.trim()
+  const label = /h[oô]tel|riad/i.test(n) ? n : `${lang === 'en' ? 'Hotel' : 'Hôtel'} ${n}`
+  if (!city || n.toLowerCase().includes(city.toLowerCase())) return label
+  return `${label}, ${city.charAt(0).toUpperCase()}${city.slice(1)}`
+}
+
+// Description SEO : début de l'avis coupé à 155 caractères (affichage Google).
+// En anglais, phrase générée : l'avis n'existe qu'en français.
+function buildSeoDescription(lang: Language, title: string, avis?: string | null): string {
+  if (lang === 'en') return `${title}: review, address, services and booking. Selected by Gault&Millau Morocco.`
+  if (!avis) return `${title} : avis, adresse, services et réservation. Sélectionné par Gault&Millau Maroc.`
+  return avis.length <= 155 ? avis : `${avis.slice(0, avis.lastIndexOf(' ', 155))}…`
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, lang } = await params
   const hotel = await fetchHotelDetail(slug)
   const name = hotel?.name ?? slug.replace(/-/g, ' ')
-  const description = hotel?.avisGM ?? `Découvrez ${name}, hôtel sélectionné par Gault&Millau.`
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
   const image = hotel?.thumbId ? `${s3}/${hotel.thumbId}` : undefined
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
   const url = `${siteUrl}/${lang}/hotels/${slug}`
+  const title = buildSeoTitle(lang, name, hotel?.city?.cityName)
+  const description = buildSeoDescription(lang, title, hotel?.avisGM)
 
   return {
-    title: `${name}`,
+    title,
     description,
     alternates: {
       canonical: url,
@@ -34,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: `${name} | Gault&Millau`,
+      title: `${title} | Gault&Millau Maroc`,
       description,
       url,
       siteName: 'Gault&Millau Maroc',
@@ -43,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${name} | Gault&Millau`,
+      title: `${title} | Gault&Millau Maroc`,
       description,
       ...(image && { images: [image] }),
     },

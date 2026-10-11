@@ -27,8 +27,8 @@ function setSubmitCookie(days = 1): void {
 }
 
 const CONTACT = {
-  instagram: 'https://www.instagram.com/gaultmillauma',
-  linkedin:  'https://www.linkedin.com/company/gault-millau-maroc',
+  instagram: 'https://www.instagram.com/gaultmillau.maroc',
+  linkedin: 'https://www.linkedin.com/company/gault-millau-maroc/',
   phone:     '+212 6 64 08 21 88',
   phoneHref: 'tel:+212664082188',
   email:     'contact@gaultmillau.ma',

@@ -13,18 +13,29 @@ interface Props {
   params: Promise<{ lang: Language; slug: string }>
 }
 
+// Description SEO : début du résumé coupé à 155 caractères (affichage Google).
+function buildSeoDescription(lang: Language, title: string, resume?: string | null): string {
+  if (!resume) return lang === 'en'
+    ? `${title}. News from Gault&Millau Morocco.`
+    : `${title}. Actualité Gault&Millau Maroc.`
+  return resume.length <= 155 ? resume : `${resume.slice(0, resume.lastIndexOf(' ', 155))}…`
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, lang } = await params
   const article = await fetchArticleDetail(slug)
-  const title = article?.title ?? slug.replace(/-/g, ' ')
-  const description = article?.resume ?? `Découvrez cet article sur Gault&Millau.`
+  const title = (article?.title ?? slug.replace(/-/g, ' ')).replace(/\s+/g, ' ').trim()
+  const description = buildSeoDescription(lang, title, article?.resume)
+  // Pas de suffixe « | Gault&Millau Maroc » si le titre cite déjà la marque
+  const hasBrand = /gault/i.test(title)
+  const fullTitle = hasBrand ? title : `${title} | Gault&Millau Maroc`
   const s3 = process.env.NEXT_PUBLIC_S3_BASE_URL ?? ''
   const image = article?.thumbId ? `${s3}/${article.thumbId}` : undefined
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
   const url = `${siteUrl}/${lang}/blogs/${slug}`
 
   return {
-    title: `${title}`,
+    title: hasBrand ? { absolute: title } : title,
     description,
     alternates: {
       canonical: url,
@@ -34,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: `${title} | Gault&Millau`,
+      title: fullTitle,
       description,
       url,
       siteName: 'Gault&Millau Maroc',
@@ -43,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} | Gault&Millau`,
+      title: fullTitle,
       description,
       ...(image && { images: [image] }),
     },

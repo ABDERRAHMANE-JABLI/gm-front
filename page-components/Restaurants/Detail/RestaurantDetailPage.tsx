@@ -101,7 +101,8 @@ export default function RestaurantDetailPage({ lang, restaurant, partners = [] }
   const lat = restaurant.latitude  ? parseFloat(restaurant.latitude)  : undefined;
   const lng = restaurant.longitude ? parseFloat(restaurant.longitude) : undefined;
 
-  const year = new Date(restaurant.createdAt ?? Date.now()).getFullYear();
+  // Année de l'avis Gault&Millau ; repli sur la date de création si l'API ne la fournit pas
+  const year = restaurant.yearAvisGM ?? new Date(restaurant.createdAt ?? Date.now()).getFullYear();
 
   return (
     <div className={styles.restaurantDetailPage}>

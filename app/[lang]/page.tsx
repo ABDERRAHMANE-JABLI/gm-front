@@ -14,9 +14,6 @@ const DESCRIPTIONS: Record<string, string> = {
   en: "Gault Millau Morocco, the reference gourmet guide: restaurants, hotels, riads, chefs and artisans in Morocco, selected, rated and recommended by our experts.",
 }
 
-// Note : Google IGNORE la balise keywords (aucun impact sur le classement).
-// Gardée à titre indicatif. Le vrai SEO vient du titre, du contenu et des
-// données structurées (JSON-LD ci-dessous).
 const KEYWORDS: Record<string, string[]> = {
   fr: [
     "Gault Millau Maroc", "guide gastronomique Maroc", "meilleurs restaurants Maroc",
@@ -78,7 +75,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   const language = lang as Language;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.gaultmillau.ma';
 
-  // Données structurées (JSON-LD) : aide Google à comprendre le site → vrai levier SEO
+  // Données structurées (JSON-LD) : aide Google à comprendre le site
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -89,15 +86,18 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
         url: `${siteUrl}/${lang}`,
         logo: `${siteUrl}/icon.png`,
         sameAs: [
-          'https://www.instagram.com/gaultmillauma',
-          'https://www.linkedin.com/company/gault-millau-maroc',
+          'https://www.instagram.com/gaultmillau.maroc',
+          'https://www.linkedin.com/company/gault-millau-maroc/',
+          'https://www.facebook.com/profile.php?id=61590485734831',
         ],
       },
       {
         '@type': 'WebSite',
         '@id': `${siteUrl}/#website`,
         name: 'Gault&Millau Maroc',
-        url: `${siteUrl}/${lang}`,
+        alternateName: ['Gault&Millau', 'Gault et Millau Maroc'],
+        // Racine du domaine : Google n'accepte pas le nom de site sur un sous-dossier (/fr)
+        url: `${siteUrl}/`,
         inLanguage: lang,
         publisher: { '@id': `${siteUrl}/#organization` },
       },

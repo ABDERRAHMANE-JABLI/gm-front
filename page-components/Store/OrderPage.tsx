@@ -87,8 +87,8 @@ export default function OrderPage({ lang }: Props) {
     if (!form.email.trim())         e.email         = 'Champ requis';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
                                     e.email         = 'Email invalide';
-    if (!form.etablissement.trim()) e.etablissement = 'Champ requis';
-    else if (!TEXT_RE.test(form.etablissement)) e.etablissement = INVALID_CHARS;
+    // Établissement facultatif : vérifié seulement s'il est rempli
+    if (form.etablissement.trim() && !TEXT_RE.test(form.etablissement)) e.etablissement = INVALID_CHARS;
     if (!form.adresse.trim())       e.adresse       = 'Champ requis';
     else if (!TEXT_RE.test(form.adresse)) e.adresse = INVALID_CHARS;
     if (!form.ville.trim())         e.ville         = 'Champ requis';
@@ -194,7 +194,7 @@ export default function OrderPage({ lang }: Props) {
 
             <div className={styles.field}>
               <label className={c.label} htmlFor="etablissement">
-                Nom de l&apos;établissement <span className={c.required}>*</span>
+                Nom de l&apos;établissement
               </label>
               <input
                 id="etablissement"

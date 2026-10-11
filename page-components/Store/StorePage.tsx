@@ -73,6 +73,13 @@ const AWARDS: Award[] = [
     subcategory: 'prestige',
     thumbUrl: `${S3}/plaques/6a30078028dbc.png`,
   },
+  {
+    id: 'guide-2026',
+    title: 'Le Guide Maroc 2026',
+    price: 200,
+    category: 'guide',
+    thumbUrl: `${S3}/guides/le-guide-maroc-2026_c4579a.png`,
+  },
 ];
 
 type NavSubcategory = AwardSubcategory | 'restaurant';
@@ -87,20 +94,32 @@ const SUBCATEGORIES: { key: NavSubcategory; label: string }[] = [
 
 const RESTAURANT_SUBS: AwardSubcategory[] = ['table-gourmande', 'table-chef', 'remarquable', 'prestige'];
 
-export default function StorePage() {
+// Valeur du paramètre ?category= pour chaque section (lu par app/[lang]/store/page.tsx)
+const CATEGORY_URL: Record<AwardCategory, string> = { guide: 'guide', plaques: 'plaque', magazines: 'magazine' };
+
+// Met à jour ?category= dans l'URL sans recharger la page ni ajouter d'entrée d'historique
+function updateCategoryUrl(cat: AwardCategory) {
+  const url = new URL(window.location.href);
+  url.searchParams.set('category', CATEGORY_URL[cat]);
+  window.history.replaceState(null, '', url);
+}
+
+export default function StorePage({ initialCategory = 'plaques' }: { initialCategory?: AwardCategory }) {
   const { addItem } = useCartContext();
-  const [category, setCategory]         = useState<AwardCategory>('plaques');
+  const [category, setCategory]         = useState<AwardCategory>(initialCategory);
   const [subcategory, setSubcategory]   = useState<NavSubcategory | null>(null);
   const [plaquesOpen, setPlaquesOpen]   = useState(false);
 
   function selectCategory(cat: AwardCategory) {
     setCategory(cat);
+    updateCategoryUrl(cat);
     if (cat !== 'plaques') setSubcategory(null);
     setPlaquesOpen(false);
   }
 
   function selectSubcategory(sub: NavSubcategory) {
     setCategory('plaques');
+    updateCategoryUrl('plaques');
     setSubcategory(sub);
     setPlaquesOpen(false);
   }
@@ -147,7 +166,7 @@ export default function StorePage() {
         >
           <button
             className={`${styles.navItem} ${category === 'plaques' ? styles.navItemActive : ''}`}
-            onClick={() => { setCategory('plaques'); setSubcategory(null); setPlaquesOpen(v => !v); }}
+            onClick={() => { setCategory('plaques'); updateCategoryUrl('plaques'); setSubcategory(null); setPlaquesOpen(v => !v); }}
           >
             <span className={styles.navIcon}>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">

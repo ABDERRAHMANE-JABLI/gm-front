@@ -84,14 +84,14 @@ export async function submitOrder(payload: OrderPayload): Promise<{ ok: boolean;
   }
 
   const nom              = sanitizeText(payload.nom, MAX.nom)
-  const nomEtablissement = sanitizeText(payload.nomEtablissement, MAX.etab)
+  // Champ facultatif (ex. particulier qui achète un guide) : l'API reçoit « sans établissement »
+  const nomEtablissement = sanitizeText(payload.nomEtablissement, MAX.etab) || 'sans établissement'
   const adresse          = sanitizeText(payload.adresse, MAX.adresse)
   const email            = sanitize(payload.email)
   const tel              = sanitize(payload.tel, MAX.tel)
   const ville            = sanitizeText(payload.ville, MAX.ville)
 
   if (!nom)              return { ok: false, message: 'Le nom est requis.' }
-  if (!nomEtablissement) return { ok: false, message: "Le nom de l'établissement est requis." }
   if (!adresse)          return { ok: false, message: "L'adresse est requise." }
   if (!ville)            return { ok: false, message: 'La ville est requise.' }
   if (!email || !isValidEmail(email)) return { ok: false, message: 'Email invalide.' }

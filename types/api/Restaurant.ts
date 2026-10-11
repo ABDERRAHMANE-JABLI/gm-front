@@ -65,6 +65,7 @@ export interface ApiRestaurantDetail {
   mapsIframe?:      string | null;
   isSponsorised:    boolean;
   createdAt?:       string | null;
+  yearAvisGM?:      number | null;
   cuisines:         string[];
   styles:           string[];
   services:         string[];
