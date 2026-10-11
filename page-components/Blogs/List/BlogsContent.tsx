@@ -183,7 +183,7 @@ export default function BlogsContent({ lang, initialArticles, initialPagination,
             </div>
 
             <p className={styles.sidebarTitle}>Thématique</p>
-            <ul className={styles.filterList}>
+            <ul className={`${styles.filterList} ${blogStyles.filterListAuto}`}>
               {themes.map(({ libelle, slug }) => (
                 <li key={slug}>
                   <button

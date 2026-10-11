@@ -267,3 +267,10 @@
     box-sizing: border-box;
   }
 }
+
+/* Liste des thématiques : hauteur automatique, propre à la page Actualités.
+   (ul. = spécificité plus forte que .filterList du CSS partagé listPage.module.css) */
+ul.filterListAuto {
+  max-height: none;
+  overflow-y: visible;
+}
